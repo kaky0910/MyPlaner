@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Daily {
 	private String nickname;
-	private String date; // YYYY.MM.DD
+	private String day; // YYYY.MM.DD
 	private String memo;
 	private String emotion;
 	
@@ -21,11 +21,11 @@ public class Daily {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public String getDate() {
-		return date;
+	public String getDay() {
+		return day;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setDay(String day) {
+		this.day = day;
 	}
 	public String getMemo() {
 		return memo;
@@ -50,6 +50,12 @@ public class Daily {
 	}
 	public void setScheduleList(List<Schedule> scheduleList) {
 		this.scheduleList = scheduleList;
+	}
+
+	@Override
+	public String toString() {
+		return "Daily [nickname=" + nickname + ", day=" + day + ", memo=" + memo + ", emotion=" + emotion
+				+ ", challengeList=" + challengeList + ", scheduleList=" + scheduleList + "]";
 	}
 	
 	

@@ -10,6 +10,7 @@ public class Challenge {
 	private String nickname;
 	private String challengeCategory;
 	private int challengeLikes;
+	private boolean challengeSharing;
 	private List<ChallengeLog> challengeLogList;
 	private List<ChallengeComment> challengeCommentList;
 	private List<ChallengeContent> challengeContentList;
@@ -73,6 +74,15 @@ public class Challenge {
 		this.challengeLikes = challengeLikes;
 	}
 
+
+	public boolean isChallengeSharing() {
+		return challengeSharing;
+	}
+
+	public void setChallengeSharing(boolean challengeSharing) {
+		this.challengeSharing = challengeSharing;
+	}
+
 	public List<ChallengeLog> getChallengeLogList() {
 		return challengeLogList;
 	}
@@ -97,9 +107,10 @@ public class Challenge {
 		return "Challenge [challengeNo=" + challengeNo + ", challengeTitle=" + challengeTitle + ", challengeStartDate="
 				+ challengeStartDate + ", challengeEndDate=" + challengeEndDate + ", nickname=" + nickname
 				+ ", challengeCategory=" + challengeCategory + ", challengeLikes=" + challengeLikes
-				+ ", challengeLogList=" + challengeLogList + ", challengeCommentList=" + challengeCommentList
-				+ ", challengeContentList=" + challengeContentList + "]";
+				+ ", challengeSharing=" + challengeSharing + ", challengeLogList=" + challengeLogList
+				+ ", challengeCommentList=" + challengeCommentList + ", challengeContentList=" + challengeContentList
+				+ "]";
 	}
-	
+
 	
 }

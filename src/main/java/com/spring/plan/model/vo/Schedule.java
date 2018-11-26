@@ -1,6 +1,7 @@
 package com.spring.plan.model.vo;
 
 public class Schedule {
+	private int scheduleNo;
 	private String scheduleTitle;
 	private String scheduleStartDate;
 	private String scheduleEndDate;
@@ -12,9 +13,17 @@ public class Schedule {
 	public Schedule() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
-
+	
 	public String getScheduleTitle() {
 		return scheduleTitle;
+	}
+
+	public int getScheduleNo() {
+		return scheduleNo;
+	}
+
+	public void setScheduleNo(int scheduleNo) {
+		this.scheduleNo = scheduleNo;
 	}
 
 	public void setScheduleTitle(String scheduleTitle) {
@@ -71,9 +80,9 @@ public class Schedule {
 
 	@Override
 	public String toString() {
-		return "Schedule [scheduleTitle=" + scheduleTitle + ", scheduleStartDate=" + scheduleStartDate
-				+ ", scheduleEndDate=" + scheduleEndDate + ", scheduleContent=" + scheduleContent + ", scheduleTag="
-				+ scheduleTag + ", scheduleCheck=" + scheduleCheck + ", scheduleColor=" + scheduleColor + "]";
+		return "Schedule [scheduleNo=" + scheduleNo + ", scheduleTitle=" + scheduleTitle + ", scheduleStartDate="
+				+ scheduleStartDate + ", scheduleEndDate=" + scheduleEndDate + ", scheduleContent=" + scheduleContent
+				+ ", scheduleTag=" + scheduleTag + ", scheduleCheck=" + scheduleCheck + ", scheduleColor="
+				+ scheduleColor + "]";
 	}
-	
 }

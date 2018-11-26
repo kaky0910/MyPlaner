@@ -1,0 +1,9 @@
+CREATE TABLE board_comment (
+	board_no NUMBER PRIMARY KEY,
+	board_reply_comment varchar2(500),
+	board_comment varchar2(500),
+	board_comment_nickname varchar2(30) ,
+	board_comment_write_date DATE NOT NULL,
+	CONSTRAINT fk_boardCommentNo FOREIGN KEY (board_no) REFERENCES board(board_no) on delete cascade,
+	CONSTRAINT fk_boardCommentNickname FOREIGN KEY (board_comment_nickname) REFERENCES member(nickname) on delete cascade
+);

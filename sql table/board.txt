@@ -1,0 +1,17 @@
+CREATE SEQUENCE board_seq
+		start with 1
+	        increment by 1
+		nocache;
+
+
+
+CREATE TABLE board (
+	board_no NUMBER PRIMARY KEY,
+	nickname varchar2(30) NOT NULL,
+	board_title varchar2(100) NOT NULL,
+	board_write_date DATE NOT NULL,
+	board_contents varchar2(1000) NOT NULL,
+	board_likes NUMBER DEFAULT 0,
+	board_hits NUMBER DEFAULT 0,
+	CONSTRAINT FK_boardmember FOREIGN KEY (nickname) REFERENCES member(nickname) on delete cascade
+);

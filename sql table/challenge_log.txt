@@ -1,0 +1,7 @@
+CREATE TABLE challenge_log (
+	challenge_no NUMBER,
+	challenge_log_content VARCHAR2(1000) NOT NULL,
+	day_count NUMBER,
+	CONSTRAINT FK_challenge_log FOREIGN KEY (challenge_no) REFERENCES challenge(challenge_no) ON DELETE CASCADE,
+	CONSTRAINT PK_challenge_log PRIMARY KEY (challenge_no,day_count)
+);

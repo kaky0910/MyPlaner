@@ -1,0 +1,8 @@
+CREATE TABLE habit (
+	nickname VARCHAR2(30),
+	habit VARCHAR2(50),
+	habit_start_date DATE NOT NULL,
+	habit_end_date DATE,
+	CONSTRAINT PK_habit PRIMARY KEY (nickname,habit),
+	CONSTRAINT FK_habitNickname FOREIGN KEY (nickname) REFERENCES member(nickname) on delete cascade
+);

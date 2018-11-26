@@ -5,8 +5,9 @@ public class Message {
 	private String senderNickname;
 	private String destinationNickname;
 	private String messageSendDate;
-	private String messageContents;
+	private String messageContent;
 	private String messageTitle;
+	private boolean check;
 	
 	public Message() {}
 	
@@ -39,12 +40,12 @@ public class Message {
 		this.messageSendDate = messageSendDate;
 	}
 
-	public String getMessageContents() {
-		return messageContents;
+	public String getMessageContent() {
+		return messageContent;
 	}
 
-	public void setMessageContents(String messageContents) {
-		this.messageContents = messageContents;
+	public void setMessageContent(String messageContent) {
+		this.messageContent = messageContent;
 	}
 
 	public String getMessageTitle() {
@@ -54,12 +55,20 @@ public class Message {
 	public void setMessageTitle(String messageTitle) {
 		this.messageTitle = messageTitle;
 	}
+	
+	public boolean isCheck() {
+		return check;
+	}
+
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
 
 	@Override
 	public String toString() {
 		return "Message [messageNo=" + messageNo + ", senderNickname=" + senderNickname + ", destinationNickname="
-				+ destinationNickname + ", messageSendDate=" + messageSendDate + ", messageContents=" + messageContents
-				+ ", messageTitle=" + messageTitle + "]";
+				+ destinationNickname + ", messageSendDate=" + messageSendDate + ", messageContent=" + messageContent
+				+ ", messageTitle=" + messageTitle + ", check=" + check + "]";
 	}
 	
 }
