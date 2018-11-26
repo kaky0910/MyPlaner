@@ -1,0 +1,11 @@
+CREATE TABLE member (
+	nickname varchar2(30) NOT NULL PRIMARY KEY,
+	id varchar2(30) NULL UNIQUE,
+	kakao_id varchar2(20) NULL UNIQUE,
+	password varchar2(30) NULL,
+	birth varchar2(10),
+	gender varchar2(2),
+	mail varchar2(40),
+	regist_date DATE,
+	image varchar2(200)
+);
