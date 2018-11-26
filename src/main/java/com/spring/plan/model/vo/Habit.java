@@ -5,8 +5,8 @@ import java.util.Map;
 public class Habit {
 	private String nickname;
 	private String habit;
-	private String startDate;
-	private String endDate;
+	private String habitStartDate;
+	private String habitEndDate;
 	private Map<String, String> habitCheckByMonth; //YYYY.MM 로 Habit 체크여부 넣는 Field
 	
 	public Habit() {}
@@ -25,23 +25,34 @@ public class Habit {
 	public void setHabit(String habit) {
 		this.habit = habit;
 	}
-	public String getStartDate() {
-		return startDate;
+	
+	public String getHabitStartDate() {
+		return habitStartDate;
 	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+
+	public void setHabitStartDate(String habitStartDate) {
+		this.habitStartDate = habitStartDate;
 	}
-	public String getEndDate() {
-		return endDate;
+
+	public String getHabitEndDate() {
+		return habitEndDate;
 	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+
+	public void setHabitEndDate(String habitEndDate) {
+		this.habitEndDate = habitEndDate;
 	}
+
 	public Map<String, String> getHabitCheckByMonth() {
 		return habitCheckByMonth;
 	}
 	public void setHabitCheckByMonth(Map<String, String> habitCheckByMonth) {
 		this.habitCheckByMonth = habitCheckByMonth;
+	}
+
+	@Override
+	public String toString() {
+		return "Habit [nickname=" + nickname + ", habit=" + habit + ", habitStartDate=" + habitStartDate
+				+ ", habitEndDate=" + habitEndDate + ", habitCheckByMonth=" + habitCheckByMonth + "]";
 	}
 	
 	

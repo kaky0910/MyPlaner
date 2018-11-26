@@ -2,7 +2,7 @@ package com.spring.plan.model.vo;
 
 public class ChallengeLog {
 	private int challengeNo;
-	private String content;
+	private String challengeLogContent;
 	private int dayCount;
 	
 	public ChallengeLog() {}
@@ -15,19 +15,25 @@ public class ChallengeLog {
 	public void setChallengeNo(int challengeNo) {
 		this.challengeNo = challengeNo;
 	}
-	public String getContent() {
-		return content;
+	
+	public String getChallengeLogContent() {
+		return challengeLogContent;
 	}
-	public void setContent(String content) {
-		this.content = content;
+
+	public void setChallengeLogContent(String challengeLogContent) {
+		this.challengeLogContent = challengeLogContent;
 	}
+
 	public int getDayCount() {
 		return dayCount;
 	}
 	public void setDayCount(int dayCount) {
 		this.dayCount = dayCount;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "ChallengeLog [challengeNo=" + challengeNo + ", challengeLogContent=" + challengeLogContent
+				+ ", dayCount=" + dayCount + "]";
+	}
 }

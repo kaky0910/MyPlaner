@@ -4,9 +4,9 @@ public class Message {
 	private int messageNo;
 	private String senderNickname;
 	private String destinationNickname;
-	private String sendDate;
-	private String contents;
-	private String title;
+	private String messageSendDate;
+	private String messageContents;
+	private String messageTitle;
 	
 	public Message() {}
 	
@@ -30,24 +30,36 @@ public class Message {
 	public void setDestinationNickname(String destinationNickname) {
 		this.destinationNickname = destinationNickname;
 	}
-	public String getSendDate() {
-		return sendDate;
+
+	public String getMessageSendDate() {
+		return messageSendDate;
 	}
-	public void setSendDate(String sendDate) {
-		this.sendDate = sendDate;
+
+	public void setMessageSendDate(String messageSendDate) {
+		this.messageSendDate = messageSendDate;
 	}
-	public String getContents() {
-		return contents;
+
+	public String getMessageContents() {
+		return messageContents;
 	}
-	public void setContents(String contents) {
-		this.contents = contents;
+
+	public void setMessageContents(String messageContents) {
+		this.messageContents = messageContents;
 	}
-	public String getTitle() {
-		return title;
+
+	public String getMessageTitle() {
+		return messageTitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+
+	public void setMessageTitle(String messageTitle) {
+		this.messageTitle = messageTitle;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Message [messageNo=" + messageNo + ", senderNickname=" + senderNickname + ", destinationNickname="
+				+ destinationNickname + ", messageSendDate=" + messageSendDate + ", messageContents=" + messageContents
+				+ ", messageTitle=" + messageTitle + "]";
+	}
 	
 }

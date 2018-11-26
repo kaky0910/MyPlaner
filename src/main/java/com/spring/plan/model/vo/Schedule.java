@@ -1,60 +1,79 @@
 package com.spring.plan.model.vo;
 
 public class Schedule {
-	private String title;
-	private String startDate;
-	private String endDate;
-	private String content;
-	private String tag;
-	private String check;
-	private String color;
+	private String scheduleTitle;
+	private String scheduleStartDate;
+	private String scheduleEndDate;
+	private String scheduleContent;
+	private String scheduleTag;
+	private String scheduleCheck;
+	private String scheduleColor;
 	
 	public Schedule() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
-	
-	public String getTitle() {
-		return title;
+
+	public String getScheduleTitle() {
+		return scheduleTitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+
+	public void setScheduleTitle(String scheduleTitle) {
+		this.scheduleTitle = scheduleTitle;
 	}
-	public String getStartDate() {
-		return startDate;
+
+	public String getScheduleStartDate() {
+		return scheduleStartDate;
 	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+
+	public void setScheduleStartDate(String scheduleStartDate) {
+		this.scheduleStartDate = scheduleStartDate;
 	}
-	public String getEndDate() {
-		return endDate;
+
+	public String getScheduleEndDate() {
+		return scheduleEndDate;
 	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+
+	public void setScheduleEndDate(String scheduleEndDate) {
+		this.scheduleEndDate = scheduleEndDate;
 	}
-	public String getContent() {
-		return content;
+
+	public String getScheduleContent() {
+		return scheduleContent;
 	}
-	public void setContent(String content) {
-		this.content = content;
+
+	public void setScheduleContent(String scheduleContent) {
+		this.scheduleContent = scheduleContent;
 	}
-	public String getTag() {
-		return tag;
+
+	public String getScheduleTag() {
+		return scheduleTag;
 	}
-	public void setTag(String tag) {
-		this.tag = tag;
+
+	public void setScheduleTag(String scheduleTag) {
+		this.scheduleTag = scheduleTag;
 	}
-	public String getCheck() {
-		return check;
+
+	public String getScheduleCheck() {
+		return scheduleCheck;
 	}
-	public void setCheck(String check) {
-		this.check = check;
+
+	public void setScheduleCheck(String scheduleCheck) {
+		this.scheduleCheck = scheduleCheck;
 	}
-	public String getColor() {
-		return color;
+
+	public String getScheduleColor() {
+		return scheduleColor;
 	}
-	public void setColor(String color) {
-		this.color = color;
+
+	public void setScheduleColor(String scheduleColor) {
+		this.scheduleColor = scheduleColor;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Schedule [scheduleTitle=" + scheduleTitle + ", scheduleStartDate=" + scheduleStartDate
+				+ ", scheduleEndDate=" + scheduleEndDate + ", scheduleContent=" + scheduleContent + ", scheduleTag="
+				+ scheduleTag + ", scheduleCheck=" + scheduleCheck + ", scheduleColor=" + scheduleColor + "]";
+	}
 	
 }

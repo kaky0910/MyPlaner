@@ -4,12 +4,12 @@ import java.util.List;
 
 public class Challenge {
 	private int challengeNo;
-	private String title;
-	private String startDate;
-	private String endDate;
+	private String challengeTitle;
+	private String challengeStartDate;
+	private String challengeEndDate;
 	private String nickname;
-	private String category;
-	private int likes;
+	private String challengeCategory;
+	private int challengeLikes;
 	private List<ChallengeLog> challengeLogList;
 	private List<ChallengeComment> challengeCommentList;
 	private List<ChallengeContent> challengeContentList;
@@ -25,42 +25,54 @@ public class Challenge {
 	public void setChallengeNo(int challengeNo) {
 		this.challengeNo = challengeNo;
 	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
+	
 	public String getNickname() {
 		return nickname;
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public String getCategory() {
-		return category;
+	
+	public String getChallengeTitle() {
+		return challengeTitle;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+
+	public void setChallengeTitle(String challengeTitle) {
+		this.challengeTitle = challengeTitle;
 	}
-	public int getLikes() {
-		return likes;
+
+	public String getChallengeStartDate() {
+		return challengeStartDate;
 	}
-	public void setLikes(int likes) {
-		this.likes = likes;
+
+	public void setChallengeStartDate(String challengeStartDate) {
+		this.challengeStartDate = challengeStartDate;
 	}
+
+	public String getChallengeEndDate() {
+		return challengeEndDate;
+	}
+
+	public void setChallengeEndDate(String challengeEndDate) {
+		this.challengeEndDate = challengeEndDate;
+	}
+
+	public String getChallengeCategory() {
+		return challengeCategory;
+	}
+
+	public void setChallengeCategory(String challengeCategory) {
+		this.challengeCategory = challengeCategory;
+	}
+
+	public int getChallengeLikes() {
+		return challengeLikes;
+	}
+
+	public void setChallengeLikes(int challengeLikes) {
+		this.challengeLikes = challengeLikes;
+	}
+
 	public List<ChallengeLog> getChallengeLogList() {
 		return challengeLogList;
 	}
@@ -78,6 +90,15 @@ public class Challenge {
 	}
 	public void setChallengeContentList(List<ChallengeContent> challengeContentList) {
 		this.challengeContentList = challengeContentList;
+	}
+
+	@Override
+	public String toString() {
+		return "Challenge [challengeNo=" + challengeNo + ", challengeTitle=" + challengeTitle + ", challengeStartDate="
+				+ challengeStartDate + ", challengeEndDate=" + challengeEndDate + ", nickname=" + nickname
+				+ ", challengeCategory=" + challengeCategory + ", challengeLikes=" + challengeLikes
+				+ ", challengeLogList=" + challengeLogList + ", challengeCommentList=" + challengeCommentList
+				+ ", challengeContentList=" + challengeContentList + "]";
 	}
 	
 	

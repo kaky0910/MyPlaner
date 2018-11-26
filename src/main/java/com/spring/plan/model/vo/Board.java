@@ -3,67 +3,88 @@ package com.spring.plan.model.vo;
 import java.util.List;
 
 public class Board {
-	private String title;							
-	private String writeDate;
-	private String content;
-	private int likes;
-	private int hits;
+	private String boardTitle;							
+	private String boardWriteDate;
+	private String boardContent;
+	private int boardLikes;
+	private int boardHits;
 	private int boardNo;
-	private List<String> pictures;
+	private List<String> boardPictures;
 	private List<BoardComment> boardCommentList;
 	
 	public Board(){}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 
-	
-	public String getTitle() {
-		return title;
+	public String getBoardTitle() {
+		return boardTitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
 	}
-	public String getWriteDate() {
-		return writeDate;
+
+	public String getBoardWriteDate() {
+		return boardWriteDate;
 	}
-	public void setWriteDate(String writeDate) {
-		this.writeDate = writeDate;
+
+	public void setBoardWriteDate(String boardWriteDate) {
+		this.boardWriteDate = boardWriteDate;
 	}
-	public String getContent() {
-		return content;
+
+	public String getBoardContent() {
+		return boardContent;
 	}
-	public void setContent(String content) {
-		this.content = content;
+
+	public void setBoardContent(String boardContent) {
+		this.boardContent = boardContent;
 	}
-	public int getLikes() {
-		return likes;
+
+	public int getBoardLikes() {
+		return boardLikes;
 	}
-	public void setLikes(int likes) {
-		this.likes = likes;
+
+	public void setBoardLikes(int boardLikes) {
+		this.boardLikes = boardLikes;
 	}
-	public int getHits() {
-		return hits;
+
+	public int getBoardHits() {
+		return boardHits;
 	}
-	public void setHits(int hits) {
-		this.hits = hits;
+
+	public void setBoardHits(int boardHits) {
+		this.boardHits = boardHits;
 	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}
+
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
-	public List<String> getPictures() {
-		return pictures;
+
+	public List<String> getBoardPictures() {
+		return boardPictures;
 	}
-	public void setPictures(List<String> pictures) {
-		this.pictures = pictures;
+
+	public void setBoardPictures(List<String> boardPictures) {
+		this.boardPictures = boardPictures;
 	}
+
 	public List<BoardComment> getBoardCommentList() {
 		return boardCommentList;
 	}
+
 	public void setBoardCommentList(List<BoardComment> boardCommentList) {
 		this.boardCommentList = boardCommentList;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [boardTitle=" + boardTitle + ", boardWriteDate=" + boardWriteDate + ", boardContent="
+				+ boardContent + ", boardLikes=" + boardLikes + ", boardHits=" + boardHits + ", boardNo=" + boardNo
+				+ ", boardPictures=" + boardPictures + ", boardCommentList=" + boardCommentList + "]";
 	}
 	
 	

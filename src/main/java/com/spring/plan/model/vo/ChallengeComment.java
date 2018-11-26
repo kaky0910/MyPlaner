@@ -3,11 +3,11 @@ package com.spring.plan.model.vo;
 public class ChallengeComment {
 
 	private int challengeCommentNo;
-	private String replyComment;
+	private String challengeReplyComment;
 	private int challengeNo;
-	private String nickname;
-	private String comment;
-	private String writeDate;
+	private String challengeCommentNickname;
+	private String challengeComment;
+	private String challengeCommentWriteDate;
 	
 	public ChallengeComment() {}
 	
@@ -20,36 +20,52 @@ public class ChallengeComment {
 	public void setChallengeCommentNo(int challengeCommentNo) {
 		this.challengeCommentNo = challengeCommentNo;
 	}
-	public String getReplyComment() {
-		return replyComment;
-	}
-	public void setReplyComment(String replyComment) {
-		this.replyComment = replyComment;
-	}
+	
 	public int getChallengeNo() {
 		return challengeNo;
 	}
 	public void setChallengeNo(int challengeNo) {
 		this.challengeNo = challengeNo;
 	}
-	public String getNickname() {
-		return nickname;
+
+	public String getChallengeReplyComment() {
+		return challengeReplyComment;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+
+	public void setChallengeReplyComment(String challengeReplyComment) {
+		this.challengeReplyComment = challengeReplyComment;
 	}
-	public String getComment() {
-		return comment;
+
+	public String getChallengeCommentNickname() {
+		return challengeCommentNickname;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+
+	public void setChallengeCommentNickname(String challengeCommentNickname) {
+		this.challengeCommentNickname = challengeCommentNickname;
 	}
-	public String getWriteDate() {
-		return writeDate;
+
+	public String getChallengeComment() {
+		return challengeComment;
 	}
-	public void setWriteDate(String writeDate) {
-		this.writeDate = writeDate;
+
+	public void setChallengeComment(String challengeComment) {
+		this.challengeComment = challengeComment;
 	}
-	
+
+	public String getChallengeCommentWriteDate() {
+		return challengeCommentWriteDate;
+	}
+
+	public void setChallengeCommentWriteDate(String challengeCommentWriteDate) {
+		this.challengeCommentWriteDate = challengeCommentWriteDate;
+	}
+
+	@Override
+	public String toString() {
+		return "ChallengeComment [challengeCommentNo=" + challengeCommentNo + ", challengeReplyComment="
+				+ challengeReplyComment + ", challengeNo=" + challengeNo + ", challengeCommentNickname="
+				+ challengeCommentNickname + ", challengeComment=" + challengeComment + ", challengeCommentWriteDate="
+				+ challengeCommentWriteDate + "]";
+	}
 	
 }
