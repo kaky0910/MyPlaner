@@ -12,6 +12,14 @@
 		)
 	</insert>
 	
+	<insert id="registKakao" parameterType="Member">
+		INSERT INTO member(
+			nickname, kakao_id, birth, gender, mail, regist_date
+		) VALUES(
+			#{nickname}, #{kakaoId}, #{birth}, #{gender}, #{mail}, sysdate
+		)
+	</insert>
+	
 	<insert id="blockMember" parameterType="BlockMember">
 		INSERT INTO member(
 			nickname, block_nickname
@@ -33,6 +41,10 @@
 			id, kakao_id, password, birth, gender, mail, regist_date
 		FROM member 
 		WHERE id = #{id} AND password = #{password}
+	</select>
+	
+	<select id="checkKakaoId" parameterType="string">
+		SELECT count(-1) FROM member WHERE kakao_id = #{value}
 	</select>
 	
 </mapper>

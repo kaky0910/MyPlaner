@@ -6,8 +6,11 @@ import com.spring.plan.model.vo.Schedule;
 
 public interface ScheduleDao {
 
-	// 조건에 따라 Schedule return 
-	List<Schedule> getScheduleBy() throws Exception;
+	// 당일 Schedule return 
+	List<Schedule> getScheduleByDay(String day) throws Exception;
+	
+	// 당월 Schedule return
+	List<Schedule> getScheduleByMonth(String month) throws Exception;
 	
 	// schedule 추가
 	int addSchedule(Schedule schedule) throws Exception;

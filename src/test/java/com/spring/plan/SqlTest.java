@@ -1,6 +1,7 @@
 package com.spring.plan;
 
 import java.io.Reader;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -8,7 +9,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import com.spring.plan.model.vo.Daily;
 import com.spring.plan.model.vo.Member;
+import com.spring.plan.model.vo.Schedule;
 
 public class SqlTest {
 	@Test
@@ -22,7 +25,19 @@ public class SqlTest {
 		member.setId("아이디");
 		member.setPassword("비번");
 		member.setNickname("nickname~");
-		System.out.println(sqlSession.selectOne("member-mapper.nicknameCheck",member.getNickname()));
-		
+		Daily daily = new Daily();
+		daily.setNickname(member.getNickname());
+		daily.setEmotion("ㅠㅠ");
+		daily.setDay("20181128");
+		Schedule schedule = new Schedule();
+		schedule.setScheduleNo(0);
+		schedule.setNickname("nickname~");
+		schedule.setScheduleStartDate("20181111");
+		schedule.setScheduleEndDate("20181130");
+		schedule.setScheduleContent("내용");
+		schedule.setScheduleTag("운동");
+		schedule.setScheduleTitle("운동");
+		sqlSession.insert("schedule-mapper.addSchedule",schedule);
+		sqlSession.commit();
 	}
 }

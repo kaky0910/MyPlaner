@@ -11,11 +11,6 @@ import com.spring.plan.model.vo.Schedule;
 public class ScheduleDaoImpl implements ScheduleDao {
 
 	@Override
-	public List<Schedule> getScheduleBy() throws Exception {
-		return null;
-	}
-
-	@Override
 	public int addSchedule(Schedule schedule) throws Exception {
 		return 0;
 	}
@@ -28,6 +23,16 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	@Override
 	public int updateSchedule(Schedule schedule) throws Exception {
 		return 0;
+	}
+
+	@Override
+	public List<Schedule> getScheduleByDay(String day) throws Exception {
+		return null;
+	}
+
+	@Override
+	public List<Schedule> getScheduleByMonth(String month) throws Exception {
+		return null;
 	}
 
 }

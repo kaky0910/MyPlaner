@@ -26,6 +26,8 @@
 	
 	<mappers>
 		<mapper resource="sql/member.xml"/>
+		<mapper resource="sql/daily.xml"/>
+		<mapper resource="sql/schedule.xml"/>
 	</mappers>
 </configuration>
 

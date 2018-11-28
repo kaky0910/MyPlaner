@@ -1,11 +1,11 @@
 package com.spring.plan.model.dao;
 
-import org.springframework.stereotype.Repository;
+import com.spring.plan.model.vo.Daily;
 
 public interface DailyDao {
 	
-	int setEmotion(String nickname, String emotion) throws Exception;
-	String getEmotionByYear(String year) throws Exception;
+	int insertEmotion(Daily daily) throws Exception;
+	String selectEmotionByYear(int year) throws Exception;
 	
 	
 	//////////Ελ    °θ~~~~~~~~~~~~~~~~~~~~~

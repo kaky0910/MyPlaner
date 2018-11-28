@@ -15,6 +15,6 @@ CREATE TABLE schedule (
 	schedule_content VARCHAR2(200),
 	schedule_tag VARCHAR2(100),
 	schedule_check VARCHAR2(100),
-	nickname VARCHAR2(30),
-	CONSTRAINT fk_scheduleNickname FOREIGN KEY (nickname) REFERENCES member(nickname) on delete cascade
+	member_no NUMBER,
+	CONSTRAINT fk_schedule FOREIGN KEY (member_no) REFERENCES member(member_no) on delete cascade
 );
