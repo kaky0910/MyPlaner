@@ -37,24 +37,6 @@
 				Kakao.API.request({
 					url : '/v2/user/me',
 					success : function(res) {
-						var flag;
-						var nickname;
-						$.ajax({
-							method : "get",
-							url : "checkKakao.do?id="+res.id,
-							success : function(data){
-								flag = data.flag;
-							}
-						});
-						if(flag){
-							document.location.href = "kakaoLogin.do?kakaoId="
-								+ res.id + "&&mail=" + res.kakao_account.email
-								+ "&&gender=" + res.kakao_account.gender
-								+ "&&birth=" + res.kakao_account.birthday;
-						} else{
-							window.open("", "MsgWindow", "width=200,height=100");
-						}
-						
 						document.location.href = "kakaoLogin.do?kakaoId="
 								+ res.id + "&&mail=" + res.kakao_account.email
 								+ "&&gender=" + res.kakao_account.gender

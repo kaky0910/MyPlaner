@@ -3,7 +3,7 @@ package com.spring.plan.model.vo;
 import java.util.List;
 
 public class Daily {
-	private String nickname;
+	private int memberNo;
 	private String day; // YYYY.MM.DD
 	private String memo;
 	private String emotion;
@@ -14,16 +14,18 @@ public class Daily {
 	public Daily() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
-
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
+	
 	public String getDay() {
 		return day;
 	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	public void setDay(String day) {
 		this.day = day;
 	}
@@ -54,10 +56,8 @@ public class Daily {
 
 	@Override
 	public String toString() {
-		return "Daily [nickname=" + nickname + ", day=" + day + ", memo=" + memo + ", emotion=" + emotion
+		return "Daily [memberNo=" + memberNo + ", day=" + day + ", memo=" + memo + ", emotion=" + emotion
 				+ ", challengeList=" + challengeList + ", scheduleList=" + scheduleList + "]";
 	}
-	
-	
 	
 }

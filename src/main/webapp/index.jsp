@@ -13,11 +13,16 @@
 	geo.getCurrentPosition(function(position){
 		lon = position.coords.longitude;
 		lat = position.coords.latitude;
-		alert('lon11 :: '+lon);
-		alert('lat11 :: '+lat);
+		alert('lon :: '+lon);
+		alert('lat :: '+lat);
+		$.ajax({
+			method : "get",
+			url: 'http://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&&appid=8bc6e9cc3e1a41d04319bd97ea0e0214',
+			success : function(data){
+				alert(data.weather[0].main);
+			}
+		});
 	});
-	alert('lon :: '+lon);
-	alert('lat :: '+lat);
 </script>
 </head>
 <body>

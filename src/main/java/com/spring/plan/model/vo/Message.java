@@ -2,8 +2,8 @@ package com.spring.plan.model.vo;
 
 public class Message {
 	private int messageNo;
-	private String senderNickname;
-	private String destinationNickname;
+	private int senderMemberNo;
+	private int destinationMemberNo;
 	private String messageSendDate;
 	private String messageContent;
 	private String messageTitle;
@@ -19,17 +19,21 @@ public class Message {
 	public void setMessageNo(int messageNo) {
 		this.messageNo = messageNo;
 	}
-	public String getSenderNickname() {
-		return senderNickname;
+	
+	public int getSenderMemberNo() {
+		return senderMemberNo;
 	}
-	public void setSenderNickname(String senderNickname) {
-		this.senderNickname = senderNickname;
+
+	public void setSenderMemberNo(int senderMemberNo) {
+		this.senderMemberNo = senderMemberNo;
 	}
-	public String getDestinationNickname() {
-		return destinationNickname;
+
+	public int getDestinationMemberNo() {
+		return destinationMemberNo;
 	}
-	public void setDestinationNickname(String destinationNickname) {
-		this.destinationNickname = destinationNickname;
+
+	public void setDestinationMemberNo(int destinationMemberNo) {
+		this.destinationMemberNo = destinationMemberNo;
 	}
 
 	public String getMessageSendDate() {
@@ -66,9 +70,10 @@ public class Message {
 
 	@Override
 	public String toString() {
-		return "Message [messageNo=" + messageNo + ", senderNickname=" + senderNickname + ", destinationNickname="
-				+ destinationNickname + ", messageSendDate=" + messageSendDate + ", messageContent=" + messageContent
+		return "Message [messageNo=" + messageNo + ", senderMemberNo=" + senderMemberNo + ", destinationMemberNo="
+				+ destinationMemberNo + ", messageSendDate=" + messageSendDate + ", messageContent=" + messageContent
 				+ ", messageTitle=" + messageTitle + ", check=" + check + "]";
 	}
+
 	
 }

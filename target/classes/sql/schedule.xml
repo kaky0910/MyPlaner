@@ -9,11 +9,32 @@
 			SELECT schedule_seq.nextVal FROM dual
 		</selectKey>
 		INSERT INTO schedule(
-			schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,nickname
+			schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
 		) VALUES(
-			#{scheduleNo},#{scheduleTitle},#{scheduleStartDate},#{scheduleEndDate},#{scheduleContent},#{scheduleTag},#{nickname}
+			#{scheduleNo},#{scheduleTitle},#{scheduleStartDate},#{scheduleEndDate},#{scheduleContent},#{scheduleTag},#{memberNo}
 		)
 	</insert>
+	
+	<delete id="deleteSchedule" parameterType="int">
+		DELETE FROM schedule WHERE schedule_no = #{value}
+	</delete>
+	
+	<update id="updateSchedule" parameterType="Schedule">
+		UPDATE schedule SET 
+			schedule_title = #{scheduleTitle}, 
+			schedule_start_date = #{scheduleStartDate}, 
+			schedule_end_date = #{scheduleEndDate}, 
+			schedule_content = #{scheduleContent}, 
+			schedule_tag = #{scheduleTag}
+		WHERE schedule_no = #{scheduleNo}
+	</update>
+	
+	<select id="getScheduleByDay" parameterType="string">
+		SELECT 
+	</select>
+	
+	
+	
 </mapper>
 
 

@@ -3,7 +3,7 @@ package com.spring.plan.model.vo;
 import java.util.Map;
 
 public class Habit {
-	private String nickname;
+	private int memberNo;
 	private String checkHabit;
 	private String habitStartDate;
 	private String habitEndDate;
@@ -13,16 +13,17 @@ public class Habit {
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-	
 	
 	public String getCheckHabit() {
 		return checkHabit;
+	}
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	public void setCheckHabit(String checkHabit) {
@@ -54,8 +55,12 @@ public class Habit {
 
 	@Override
 	public String toString() {
-		return "Habit [nickname=" + nickname + ", checkHabit=" + checkHabit + ", habitStartDate=" + habitStartDate
-				+ ", habitEndDate=" + habitEndDate + ", habitCheckByMonth=" + habitCheckByMonth + "]";
+		return "Habit [memberNo=" + memberNo + ", checkHabit=" + checkHabit + ", habitStartDate=" + habitStartDate
+				+ ", habitEndDate=" + habitEndDate + ", habitCheckByMonth=" + habitCheckByMonth + ", getCheckHabit()="
+				+ getCheckHabit() + ", getMemberNo()=" + getMemberNo() + ", getHabitStartDate()=" + getHabitStartDate()
+				+ ", getHabitEndDate()=" + getHabitEndDate() + ", getHabitCheckByMonth()=" + getHabitCheckByMonth()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
-	
+
 }

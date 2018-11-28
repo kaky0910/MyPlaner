@@ -22,16 +22,12 @@ public class SqlTest {
 		SqlSession sqlSession = factory.openSession();
 		
 		Member member = new Member();
-		member.setId("아이디");
 		member.setPassword("비번");
-		member.setNickname("nickname~");
 		Daily daily = new Daily();
-		daily.setNickname(member.getNickname());
 		daily.setEmotion("ㅠㅠ");
 		daily.setDay("20181128");
 		Schedule schedule = new Schedule();
 		schedule.setScheduleNo(0);
-		schedule.setNickname("nickname~");
 		schedule.setScheduleStartDate("20181111");
 		schedule.setScheduleEndDate("20181130");
 		schedule.setScheduleContent("내용");

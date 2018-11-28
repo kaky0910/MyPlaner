@@ -7,7 +7,7 @@ public class Challenge {
 	private String challengeTitle;
 	private String challengeStartDate;
 	private String challengeEndDate;
-	private String nickname;
+	private int memberNo;
 	private String challengeCategory;
 	private int challengeLikes;
 	private boolean challengeSharing;
@@ -26,14 +26,14 @@ public class Challenge {
 	public void setChallengeNo(int challengeNo) {
 		this.challengeNo = challengeNo;
 	}
-	
-	public String getNickname() {
-		return nickname;
+	public int getMemberNo() {
+		return memberNo;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
-	
+
 	public String getChallengeTitle() {
 		return challengeTitle;
 	}
@@ -105,12 +105,11 @@ public class Challenge {
 	@Override
 	public String toString() {
 		return "Challenge [challengeNo=" + challengeNo + ", challengeTitle=" + challengeTitle + ", challengeStartDate="
-				+ challengeStartDate + ", challengeEndDate=" + challengeEndDate + ", nickname=" + nickname
+				+ challengeStartDate + ", challengeEndDate=" + challengeEndDate + ", memberNo=" + memberNo
 				+ ", challengeCategory=" + challengeCategory + ", challengeLikes=" + challengeLikes
 				+ ", challengeSharing=" + challengeSharing + ", challengeLogList=" + challengeLogList
 				+ ", challengeCommentList=" + challengeCommentList + ", challengeContentList=" + challengeContentList
 				+ "]";
 	}
 
-	
 }

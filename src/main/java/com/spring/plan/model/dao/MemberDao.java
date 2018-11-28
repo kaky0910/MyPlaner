@@ -17,9 +17,11 @@ public interface MemberDao {
 	// id 중복체크
 	int idCheck(String id) throws Exception;
 	
-	// nickname 중복체크
+/*	// nickname 중복체크
 	int nicknameCheck(String nickname) throws Exception;
-	
+	*/
 	// 쪽지 차단
 	int blockMember(BlockMember blockMember) throws Exception;
+	
+	int checkKakao(Member member) throws Exception;
 }

@@ -16,9 +16,12 @@ public interface MemberService {
 	// id 중복체크
 	int idCheck(String id) throws Exception;
 	
-	// nickname 중복체크
+/*	// nickname 중복체크
 	int nicknameCheck(String nickname) throws Exception;
-	
+*/	
 	// 쪽지 차단
 	int blockMember(String nickname, String blockNickname) throws Exception;
+	
+	boolean checkKakao(Member member) throws Exception;
+
 }

@@ -5,26 +5,32 @@
 <mapper namespace="member-mapper">														
 
 	<insert id="regist" parameterType="Member">
+		<selectKey keyProperty="memberNo" resultType="int" order="BEFORE">
+			SELECT member_seq.nextVal FROM dual
+		</selectKey>
 		INSERT INTO member(
-			nickname, id, password, birth, gender, mail,regist_date
+			member_no, id, password, birth, gender, mail,regist_date
 		) VALUES(
-			#{nickname}, #{id}, #{password}, #{birth}, #{gender}, #{mail}, sysdate
+			#{memberNo}, #{id}, #{password}, #{birth}, #{gender}, #{mail}, sysdate
 		)
 	</insert>
 	
 	<insert id="registKakao" parameterType="Member">
+		<selectKey keyProperty="memberNo" resultType="int" order="BEFORE">
+			SELECT member_seq.nextVal FROM dual
+		</selectKey>
 		INSERT INTO member(
-			nickname, kakao_id, birth, gender, mail, regist_date
+			 member_no, kakao_id, birth, gender, mail, regist_date
 		) VALUES(
-			#{nickname}, #{kakaoId}, #{birth}, #{gender}, #{mail}, sysdate
+			 #{memberNo}, #{kakaoId}, #{birth}, #{gender}, #{mail}, sysdate
 		)
 	</insert>
 	
 	<insert id="blockMember" parameterType="BlockMember">
 		INSERT INTO member(
-			nickname, block_nickname
+			member_no, block_member_no
 		) VALUES(
-			#{nickname}, #{blockNickname}
+			#{memberNo}, #{blockMemberNo}
 		)
 	</insert>
 	
@@ -32,18 +38,14 @@
 		SELECT count(-1) FROM member WHERE id = #{value}
 	</select>
 	
-	<select id="nicknameCheck" parameterType="string" resultType="int">
-		SELECT count(-1) FROM member WHERE nickname = #{value}
-	</select>
-	
 	<select id="login" parameterType="Member" resultType="Member">
 		SELECT 
-			id, kakao_id, password, birth, gender, mail, regist_date
+			id, password, birth, gender, mail, regist_date
 		FROM member 
 		WHERE id = #{id} AND password = #{password}
 	</select>
 	
-	<select id="checkKakaoId" parameterType="string">
+	<select id="checkKakaoId" parameterType="string" resultType="int">
 		SELECT count(-1) FROM member WHERE kakao_id = #{value}
 	</select>
 	

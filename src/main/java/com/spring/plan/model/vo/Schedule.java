@@ -9,7 +9,7 @@ public class Schedule {
 	private String scheduleTag;
 	private String scheduleCheck;
 	private String scheduleColor;
-	private String nickname;
+	private int memberNo;
 	
 	public Schedule() {}
 	
@@ -78,13 +78,13 @@ public class Schedule {
 	public void setScheduleColor(String scheduleColor) {
 		this.scheduleColor = scheduleColor;
 	}
-	
-	public String getNickname() {
-		return nickname;
+
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	@Override
@@ -92,7 +92,8 @@ public class Schedule {
 		return "Schedule [scheduleNo=" + scheduleNo + ", scheduleTitle=" + scheduleTitle + ", scheduleStartDate="
 				+ scheduleStartDate + ", scheduleEndDate=" + scheduleEndDate + ", scheduleContent=" + scheduleContent
 				+ ", scheduleTag=" + scheduleTag + ", scheduleCheck=" + scheduleCheck + ", scheduleColor="
-				+ scheduleColor + ", nickname=" + nickname + "]";
+				+ scheduleColor + ", memberNo=" + memberNo + "]";
 	}
+	
 	
 }
