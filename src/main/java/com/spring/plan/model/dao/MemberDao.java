@@ -1,5 +1,6 @@
 package com.spring.plan.model.dao;
 
+import com.spring.plan.model.vo.BlockMember;
 import com.spring.plan.model.vo.Member;
 
 public interface MemberDao {
@@ -20,5 +21,5 @@ public interface MemberDao {
 	int nicknameCheck(String nickname) throws Exception;
 	
 	// 쪽지 차단
-	int blockMember(String nickname, String blockNickname) throws Exception;
+	int blockMember(BlockMember blockMember) throws Exception;
 }

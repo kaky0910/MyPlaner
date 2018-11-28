@@ -3,6 +3,7 @@ package com.spring.plan.model.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.spring.plan.model.dao.MemberDao;
+import com.spring.plan.model.vo.BlockMember;
 import com.spring.plan.model.vo.Member;
 
 @Repository
@@ -34,7 +35,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int blockMember(String nickname, String blockNickname) throws Exception {
+	public int blockMember(BlockMember blockMember) throws Exception {
 		return 0;
 	}
 

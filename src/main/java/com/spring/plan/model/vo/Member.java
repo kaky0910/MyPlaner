@@ -113,6 +113,15 @@ public class Member {
 	public void setColorList(List<String> colorList) {
 		this.colorList = colorList;
 	}
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", kakaoId=" + kakaoId + ", password=" + password + ", token=" + token
+				+ ", nickname=" + nickname + ", gender=" + gender + ", mail=" + mail + ", registDate=" + registDate
+				+ ", memo=" + memo + ", challengeList=" + challengeList + ", ScheduleList=" + ScheduleList
+				+ ", boardList=" + boardList + ", habitList=" + habitList + ", messageList=" + messageList
+				+ ", colorList=" + colorList + "]";
+	}
 	
 	
 }
