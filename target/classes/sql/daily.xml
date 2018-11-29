@@ -6,17 +6,38 @@
 
 	<insert id="insertEmotion" parameterType="Daily">
 		INSERT INTO daily_info(
-			nickname, day, emotion
+			member_no, day, emotion
 		) VALUES(
-			#{nickname}, #{day}, #{emotion}
+			#{memberNo}, #{day}, #{emotion}
 		)
 	</insert>
+	
+	<update id="updateEmotion" parameterType="Daily">
+		UPDATE daily_info SET
+			emotion = #{emotion}
+		WHERE member_no = #{memberNo}
+	</update>
 	
 	<select id="selectEmotionByYear" parameterType="Integer" resultType="Daily">
 		SELECT emotion,day,to_char(day,'YYYY') AS year
 		FROM daily_info
 		WHERE to_char(day,'YYYY')=#{value}
 		ORDER BY day
+	</select>
+	
+	<insert id="insertMemo" parameterType="Member">
+		INSERT INTO memo(member_no,memo) VALUES(
+			#{memberNo},#{memo})
+	</insert>
+	
+	<update id="updateMemo" parameterType="Member">
+		UPDATE memo SET
+			memo = #{memo}
+		WHERE member_no = #{memberNo}
+	</update>
+	
+	<select id="getMemo" parameterType="int" resultType="string">
+		SELECT memo FROM member WHERE member_no = #{value}
 	</select>
 </mapper>
 

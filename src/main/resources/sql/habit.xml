@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="habit-mapper">														
+
+	<insert id="addHabit" parameterType="Habit">
+		INSERT INTO habit(
+			member_no, habit, habit_start_date
+		) VALUES( 
+			#{memberNo},#{habit},sysdate
+		)
+	</insert>
+	
+	<update id="deleteHabit" parameterType="Habit">
+		UPDATE habit SET
+			habit_end_date = #{habitEndDate}
+		WHERE member_no = #{memberNo} AND habit = #{habit}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

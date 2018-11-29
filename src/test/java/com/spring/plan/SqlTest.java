@@ -26,6 +26,8 @@ public class SqlTest {
 		Daily daily = new Daily();
 		daily.setEmotion("ㅠㅠ");
 		daily.setDay("20181128");
+		daily.setMonth("11");
+		daily.setMemberNo(4);
 		Schedule schedule = new Schedule();
 		schedule.setScheduleNo(0);
 		schedule.setScheduleStartDate("20181111");
@@ -33,7 +35,9 @@ public class SqlTest {
 		schedule.setScheduleContent("내용");
 		schedule.setScheduleTag("운동");
 		schedule.setScheduleTitle("운동");
-		sqlSession.insert("schedule-mapper.addSchedule",schedule);
+		System.out.println("11");
+		System.out.println(sqlSession.selectOne("daily-mapper.selectEmotionByYear","2018"));
 		sqlSession.commit();
+		System.out.println("@2");
 	}
 }

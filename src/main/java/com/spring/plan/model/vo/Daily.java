@@ -2,11 +2,12 @@ package com.spring.plan.model.vo;
 
 import java.util.List;
 
-public class Daily {
+public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 	private int memberNo;
 	private String day; // YYYY.MM.DD
 	private String memo;
 	private String emotion;
+	private String month;
 	
 	private List<Challenge> challengeList;
 	private List<Schedule> scheduleList;
@@ -14,10 +15,6 @@ public class Daily {
 	public Daily() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
-	
-	public String getDay() {
-		return day;
-	}
 	public int getMemberNo() {
 		return memberNo;
 	}
@@ -26,6 +23,18 @@ public class Daily {
 		this.memberNo = memberNo;
 	}
 
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getDay() {
+		return day;
+	}
+	
 	public void setDay(String day) {
 		this.day = day;
 	}

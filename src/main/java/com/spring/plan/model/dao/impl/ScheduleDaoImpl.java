@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.spring.plan.model.dao.ScheduleDao;
+import com.spring.plan.model.vo.Daily;
 import com.spring.plan.model.vo.Schedule;
 
 @Repository
@@ -25,13 +26,22 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return 0;
 	}
 
+	
 	@Override
-	public List<Schedule> getScheduleByDay(String day) throws Exception {
+	public Schedule getScheduleDetail(int scheduleNo) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Schedule> getScheduleByMonth(String month) throws Exception {
+	public List<Schedule> getScheduleByDay(Daily daily) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Schedule> getScheduleByMonth(Daily daily) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
