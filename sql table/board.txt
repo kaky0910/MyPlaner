@@ -1,0 +1,9 @@
+CREATE TABLE board (
+	nickname varchar2(30) NOT NULL PRIMARY KEY,
+	boardNo number NOT NULL,
+	boardTitle varchar2(60) NOT NULL,
+	boardContent varchar2(2000),
+	boardWriteDate date DEFAULT sysdate,
+	boardLikes number,
+	boardHits number default 0	
+);

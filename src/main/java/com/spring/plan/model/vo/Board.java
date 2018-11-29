@@ -2,6 +2,9 @@ package com.spring.plan.model.vo;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+
 public class Board {
 	private String boardTitle;							
 	private String boardWriteDate;
@@ -12,14 +15,51 @@ public class Board {
 	private List<String> boardPictures;
 	private List<BoardComment> boardCommentList;
 	
+	// 테이블 연결
+	private Member member;
+	
+	// 추가되는 컬럼
+	private String orgfilename;
+	private String newfilename;
+
+	// upload 파일의 정보를 담는 필드를 선언
+	private MultipartFile uploadFile;
+			
 	public Board(){}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
-
+	
+	public Board(String boardTitle, String boardWriteDate, String boardContent, int boardLikes, int boardHits,
+			int boardNo, List<String> boardPictures, List<BoardComment> boardCommentList) {
+		super();
+		this.boardTitle = boardTitle;
+		this.boardWriteDate = boardWriteDate;
+		this.boardContent = boardContent;
+		this.boardLikes = boardLikes;
+		this.boardHits = boardHits;
+		this.boardNo = boardNo;
+		this.boardPictures = boardPictures;
+		this.boardCommentList = boardCommentList;
+	}
+	//member
+	public Board(String boardTitle, String boardWriteDate, String boardContent, int boardLikes, int boardHits,
+			int boardNo, List<String> boardPictures, List<BoardComment> boardCommentList, Member member) {
+		super();
+		this.boardTitle = boardTitle;
+		this.boardWriteDate = boardWriteDate;
+		this.boardContent = boardContent;
+		this.boardLikes = boardLikes;
+		this.boardHits = boardHits;
+		this.boardNo = boardNo;
+		this.boardPictures = boardPictures;
+		this.boardCommentList = boardCommentList;
+		this.member = member;
+	}
+	
 	public String getBoardTitle() {
 		return boardTitle;
 	}
-
+	
 	public void setBoardTitle(String boardTitle) {
 		this.boardTitle = boardTitle;
 	}
@@ -78,6 +118,39 @@ public class Board {
 
 	public void setBoardCommentList(List<BoardComment> boardCommentList) {
 		this.boardCommentList = boardCommentList;
+	}
+	
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public String getOrgfilename() {
+		return orgfilename;
+	}
+
+	public void setOrgfilename(String orgfilename) {
+		this.orgfilename = orgfilename;
+	}
+
+	public String getNewfilename() {
+		return newfilename;
+	}
+
+	public void setNewfilename(String newfilename) {
+		this.newfilename = newfilename;
+	}
+
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 
 	@Override
