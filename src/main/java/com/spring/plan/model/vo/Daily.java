@@ -11,6 +11,7 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 	
 	private List<Challenge> challengeList;
 	private List<Schedule> scheduleList;
+	private List<Habit> habitList;
 	
 	public Daily() {}
 	
@@ -63,10 +64,20 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 		this.scheduleList = scheduleList;
 	}
 
+	public List<Habit> getHabitList() {
+		return habitList;
+	}
+
+	public void setHabitList(List<Habit> habitList) {
+		this.habitList = habitList;
+	}
+
 	@Override
 	public String toString() {
-		return "Daily [memberNo=" + memberNo + ", day=" + day + ", memo=" + memo + ", emotion=" + emotion
-				+ ", challengeList=" + challengeList + ", scheduleList=" + scheduleList + "]";
+		return "Daily [memberNo=" + memberNo + ", day=" + day + ", memo=" + memo + ", emotion=" + emotion + ", month="
+				+ month + ", challengeList=" + challengeList + ", scheduleList=" + scheduleList + ", habitList="
+				+ habitList + "]";
 	}
+
 	
 }

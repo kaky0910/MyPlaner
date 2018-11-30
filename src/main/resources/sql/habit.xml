@@ -12,11 +12,21 @@
 		)
 	</insert>
 	
+	<insert id="addHabitCheck" parameterType="Habit">
+		INSERT INTO check_habit(
+			member_no, habit, month
+		) VALUES (
+			#{memberNo}, #{habit}, #{statrMonth}
+		)
+	</insert>
+	
 	<update id="deleteHabit" parameterType="Habit">
 		UPDATE habit SET
 			habit_end_date = #{habitEndDate}
 		WHERE member_no = #{memberNo} AND habit = #{habit}
 	</update>
+	
+	<update id="updateHabit"></update>
 </mapper>
 
 

@@ -17,7 +17,7 @@ public interface ChallengeDao {
 	// challenge 정보 return 		(challenge detail 페이지에서)
 	Challenge getChallengeByNo(int challengeNo) throws Exception;
 	
-	Challenge getChallengeByNickname(String nickname) throws Exception;
+	Challenge getChallengeByTitle(String title) throws Exception;
 	
 	Challenge getChallengeByCategory(String category) throws Exception;
 	

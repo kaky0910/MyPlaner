@@ -23,11 +23,6 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
-	public Challenge getChallengeByNickname(String nickname) throws Exception {
-		return null;
-	}
-
-	@Override
 	public Challenge getChallengeByCategory(String category) throws Exception {
 		return null;
 	}
@@ -80,6 +75,11 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	@Override
 	public int deleteChallengeComment(ChallengeComment challengeComment) throws Exception {
 		return 0;
+	}
+
+	@Override
+	public Challenge getChallengeByTitle(String title) throws Exception {
+		return null;
 	}
 
 }

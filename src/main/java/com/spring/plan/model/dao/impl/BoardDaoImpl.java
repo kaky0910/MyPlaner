@@ -25,12 +25,7 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Board> getBoardByTitle(String title) throws Exception {
 		return null;
 	}
-
-	@Override
-	public List<Board> getBoardByNickname(String nickname) throws Exception {
-		return null;
-	}
-
+	
 	@Override
 	public int writeBoard(Board board) throws Exception {
 		return 0;
@@ -54,6 +49,11 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int deleteBoardComment(int boardNo, BoardComment boardComment) throws Exception {
 		return 0;
+	}
+
+	@Override
+	public List<Board> getBoardByMemberNo(int memberNo) throws Exception {
+		return null;
 	}
 
 }

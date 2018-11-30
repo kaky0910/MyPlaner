@@ -1,6 +1,12 @@
+CREATE SEQUENCE board_comment_seq
+		start with 1
+	        increment by 1
+		nocache;
+
 CREATE TABLE board_comment (
-	board_no NUMBER PRIMARY KEY,
-	board_reply_comment varchar2(500),
+	board_no NUMBER,
+	board_comment_no NUMBER PRIMARY KEY,
+	board_reply_comment NUMBER DEFAULT 0,
 	board_comment varchar2(500),
 	board_comment_member_no NUMBER,
 	board_comment_write_date DATE NOT NULL,

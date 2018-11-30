@@ -33,6 +33,9 @@ public class Habit {
 	public String getHabitStartDate() {
 		return habitStartDate;
 	}
+	public String getStartMonth() {
+		return habitStartDate.substring(4,6);
+	}
 
 	public void setHabitStartDate(String habitStartDate) {
 		this.habitStartDate = habitStartDate;

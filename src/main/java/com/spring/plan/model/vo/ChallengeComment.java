@@ -3,7 +3,7 @@ package com.spring.plan.model.vo;
 public class ChallengeComment {
 
 	private int challengeCommentNo;
-	private String challengeReplyComment;
+	private int challengeReplyComment;
 	private int challengeNo;
 	private int challengeCommentMemberNo;
 	private String challengeComment;
@@ -28,11 +28,11 @@ public class ChallengeComment {
 		this.challengeNo = challengeNo;
 	}
 
-	public String getChallengeReplyComment() {
+	public int getChallengeReplyComment() {
 		return challengeReplyComment;
 	}
 
-	public void setChallengeReplyComment(String challengeReplyComment) {
+	public void setChallengeReplyComment(int challengeReplyComment) {
 		this.challengeReplyComment = challengeReplyComment;
 	}
 	

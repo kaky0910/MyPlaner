@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import com.spring.plan.model.vo.Board;
+import com.spring.plan.model.vo.BoardComment;
 import com.spring.plan.model.vo.Daily;
 import com.spring.plan.model.vo.Member;
 import com.spring.plan.model.vo.Schedule;
@@ -36,8 +38,21 @@ public class SqlTest {
 		schedule.setScheduleTag("款悼");
 		schedule.setScheduleTitle("款悼");
 		System.out.println("11");
-		System.out.println(sqlSession.selectOne("daily-mapper.selectEmotionByYear","2018"));
-		sqlSession.commit();
 		System.out.println("@2");
+		Board board = new Board();
+		board.setBoardTitle("臂力格臂力格");
+		board.setBoardContent("gfjnkjdsngkjdfan");
+		board.setMemberNo(4);
+		BoardComment bc = new BoardComment();
+		bc.setBoardComment("zzzzzzzz222222");
+		bc.setBoardCommentMemberNo(4);
+		bc.setBoardNo(2);
+		bc.setBoardReplyComment(0);
+//		Board b = sqlSession.selectOne("board-mapper.getBoardByNo",2);
+/*		System.out.println(b);
+		List<BoardComment> list = b.getBoardCommentList();
+		BoardComment c = list.get(0);*/
+//		System.out.println(":::::::::"+sqlSession.delete("board-mapper.deleteBoardComment",c));
+		
 	}
 }
