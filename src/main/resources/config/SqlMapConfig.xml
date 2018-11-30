@@ -28,6 +28,8 @@
 		<mapper resource="sql/member.xml"/>
 		<mapper resource="sql/daily.xml"/>
 		<mapper resource="sql/schedule.xml"/>
+		<mapper resource="sql/message.xml"/>
+		<mapper resource="sql/challenge.xml"/>
 	</mappers>
 </configuration>
 

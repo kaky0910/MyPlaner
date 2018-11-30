@@ -18,8 +18,25 @@ public class Challenge {
 	public Challenge() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
+	public Challenge(int challengeNo, String challengeTitle, String challengeStartDate, String challengeEndDate,
+			int memberNo, String challengeCategory, boolean challengeSharing) {
+		super();
+		this.challengeNo = challengeNo;
+		this.challengeTitle = challengeTitle;
+		this.challengeStartDate = challengeStartDate;
+		this.challengeEndDate = challengeEndDate;
+		this.memberNo = memberNo;
+		this.challengeCategory = challengeCategory;
+		this.challengeSharing = challengeSharing;
+	}//희정... addChallenge... 코멘트랑 일지, like 빠짐..
 
 	
+	public Challenge(int memberNo, String challengeCategory) {
+		super();
+		this.memberNo = memberNo;
+		this.challengeCategory = challengeCategory;
+	}//희정... searchChallenge 
+
 	public int getChallengeNo() {
 		return challengeNo;
 	}

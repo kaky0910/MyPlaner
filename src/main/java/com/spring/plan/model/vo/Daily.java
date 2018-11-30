@@ -15,6 +15,13 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 	public Daily() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
+	public Daily(int memberNo, String month, String day) {
+		super();
+		this.memberNo = memberNo;
+		this.day = day;
+		this.month = month;
+	}// 희정..getChallengeByMonth,Day
+	
 	public int getMemberNo() {
 		return memberNo;
 	}

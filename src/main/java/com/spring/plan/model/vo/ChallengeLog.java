@@ -8,6 +8,12 @@ public class ChallengeLog {
 	public ChallengeLog() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
+	public ChallengeLog(int challengeNo, String challengeLogContent, int dayCount) {
+		super();
+		this.challengeNo = challengeNo;
+		this.challengeLogContent = challengeLogContent;
+		this.dayCount = dayCount;
+	}//희정..updateChallengeLog
 
 	public int getChallengeNo() {
 		return challengeNo;

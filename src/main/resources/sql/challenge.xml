@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="challenge-mapper">
+	<resultMap type="ChallengeLog" id="challengeLogMap">
+		<result property="challengeLogContent" column="challenge_log_content"/>
+		<result property="dayCount" column="day_count"/>
+	</resultMap>
+	
+	<resultMap type="ChallengeComment" id="challengeCommentMap">
+		<result property="challengeCommentNo" column="challenge_comment_no"/>
+		<result property="challengeReplyComment" column="challenge_reply_comment"/>
+		<result property="challengeCommentMemberNo" column="challenge_comment_member_No"/>
+		<result property="challengeComment" column="challenge_comment"/>
+		<result property="challengeCommentWriteDate" column="challenge_comment_write_date"/>
+	</resultMap>  
+	  
+	<resultMap type="ChallengeContent" id="challengeContentMap">
+		<result property="challengeContent" column="challenge_Content"/>
+		<result property="challengeContentCheck" column="challenge_Content_Check"/>
+	</resultMap>
+	
+	<resultMap type="Challenge" id="challengListMap">
+		<result property="challengeNo" column="challenge_No" />
+		<result property="challengeTitle" column="challenge_Title" />
+		<result property="challengeStartDate" column="challenge_Start_Date" />
+		<result property="challengeEndDate" column="challenge_End_Date" />
+		<result property="memberNo" column="member_No" />
+		<result property="challengeCategory" column="challenge_Category" />
+		<result property="challengeLikes" column="challenge_Likes" />
+		<result property="challengeSharing" column="challenge_Sharing" />
+		<collection property="challengeLogList" resultMap="challengeLogMap"/>
+		<collection property="challengeCommentList" resultMap="challengeCommentMap"/>
+		<collection property="challengeContentList" resultMap="challengeContentMap"/>
+	</resultMap>
+	
+	<resultMap type="Challenge" id="challengeSelectMap">
+		<result property="challengeNo" column="challenge_No" />
+		<result property="challengeTitle" column="challenge_Title" />
+		<result property="challengeStartDate" column="challenge_Start_Date" />
+		<result property="challengeEndDate" column="challenge_End_Date" />
+		<result property="memberNo" column="member_No" />
+		<result property="challengeCategory" column="challenge_Category" />
+		<result property="challengeLikes" column="challenge_Likes" />
+		<result property="challengeSharing" column="challenge_Sharing" />
+	</resultMap>
+	
+	<insert id="addChallenge" parameterType="Challenge">
+		<selectKey keyProperty="challengeNo" resultType="int" order="BEFORE">
+			select
+			challenge_seq.nextval from dual
+		</selectKey>
+		insert into Challenge(challenge_No, challenge_Title, challenge_Start_Date, challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing)
+		values(#{challengeNo}, #{challengeTitle}, #{challengeStartDate}, #{challengeEndDate}, #{memberNo}, #{challengeCategory}, #{challengeLikes}, #{challengeSharing} )
+	</insert>
+	
+	 <insert id="addChallengeContent" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index"  open="INSERT ALL " separator=" " close="SELECT * FROM DUAL" > 
+        into Challenge_Content(challenge_no, challenge_content)
+		values(
+			#{item.challengeNo}, #{item.challengeContent})
+        </foreach>
+    </insert>
+
+	<delete id="deleteChallengeContent" parameterType="String">
+		delete from Challenge_Content where challenge_Content=#{value}
+	</delete>
+	
+	<delete id="deleteChallenge" parameterType="int">
+		delete from Challenge where challenge_no=#{value}
+	</delete>
+	
+	<insert id="writeChallengeComment" parameterType="ChallengeComment">
+		<selectKey keyProperty="challengeCommentNo" resultType="int" order="BEFORE">
+			select
+			challenge_comment_seq.nextval from dual
+		</selectKey>
+		insert into Challenge_comment(challenge_comment_no,challenge_reply_comment,challenge_no,challenge_comment_member_no,challenge_comment,challenge_comment_write_date)
+		values(#{challengeCommentNo}, #{challengeReplyComment}, #{challengeNo}, #{challengeCommentMemberNo}, #{challengeComment}, sysdate)
+	</insert>
+	
+	<delete id="deleteChallengeComment" parameterType="ChallengeComment">
+		delete from challenge_comment where challenge_comment_no=#{challengeCommentNo} OR challenge_reply_comment=#{challengeReplyComment}
+	</delete>	
+	
+	<update id="checkChallenge" parameterType="ChallengeContent">
+		update challenge_content set challenge_Content_Check=1 where challenge_No=#{challengeNo} AND challenge_content = #{challengeContent}
+	</update>
+	
+	<select id="getAllChallengeList" resultMap="challengeSelectMap">
+		select challenge_No, challenge_Title, challenge_Start_Date, challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing
+		from challenge
+	</select>
+	
+	<insert id="updateChallengeLog" parameterType="ChallengeLog">
+		insert into Challenge_Log(challenge_no, challenge_log_content,day_count)
+		values(#{challengeNo}, #{challengeLogContent}, #{dayCount})
+	</insert>
+
+	<select id="getChallengeByNo" parameterType="int" resultMap="challengListMap">
+		select *
+		from challenge
+		JOIN challenge_log ON challenge.CHALLENGE_NO = challenge_log.CHALLENGE_NO
+		JOIN challenge_content ON CHALLENGE.CHALLENGE_NO = challenge_content.CHALLENGE_NO
+		JOIN challenge_comment ON challenge.CHALLENGE_NO = challenge_comment.CHALLENGE_NO
+		where CHALLENGE.challenge_no=#{value}
+	</select>
+	
+	<select id="getChallengeByMonth" parameterType="Daily" resultMap="challengeSelectMap">
+        select * from challenge
+		where (extract(Month from challenge_start_date)=#{month} OR extract(Month from challenge_end_date)=#{month}) AND member_no=#{memberNo}
+    </select>
+    
+    <select id="getChallengeByDay" parameterType="Daily" resultMap="challengeSelectMap">
+        select * from challenge
+		where (#{day} BETWEEN challenge_start_date AND challenge_end_date) AND member_no=#{memberNo}
+    </select>
+</mapper>

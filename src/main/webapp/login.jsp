@@ -15,6 +15,30 @@
 		});
 	});
 </script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('input[type=button]').click(function() {/* 
+			$('div img:eq(0)').css('display', 'none');
+			$('div img:eq(1)').css('display', 'block'); */
+			$('div img').attr('src','${pageContext.request.contextPath}/img/unlock.gif');
+			$('h2').css({
+			      "display": "block",
+			      "text-align": "center"
+			    });
+			$('h3').css('text-decoration', 'line-through');
+		});
+	});//ready
+</script>
+<style>
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	/* width: 50%; */
+}
+</style>
 </head>
 <body>
 	<h1 align="center">Login</h1><br><br>
@@ -54,5 +78,20 @@
 		//]]>
 	</script>
 
+
+<h1 style="margin-top: 150px;" align="center">MyPlan</h1>
+	<div>
+		<img class="center" style="left: 29.5%;" alt="lock"
+			src="${pageContext.request.contextPath}/img/lock.jpg" height="180">
+		
+	</div>
+	<div>
+		<h2 style="display:none;">Login을 눌러주세요~</h2>
+		<br><input type="button" value="button" style="margin-left:48%">
+	</div>
+	<div>
+		<h3 align="center">TEST</h3>
+	</div>
+	
 </body>
 </html>

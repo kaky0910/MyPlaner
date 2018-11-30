@@ -12,10 +12,22 @@ public class Message {
 	public Message() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
-
+	public Message(int messageNo, int senderMemberNo, int destinationMemberNo, String messageSendDate,
+			String messageContent, String messageTitle) {
+		super();
+		this.messageNo = messageNo;
+		this.senderMemberNo = senderMemberNo;
+		this.destinationMemberNo = destinationMemberNo;
+		this.messageSendDate = messageSendDate;
+		this.messageContent = messageContent;
+		this.messageTitle = messageTitle;
+	}//희정 sendMessage
+	
+	
 	public int getMessageNo() {
 		return messageNo;
 	}
+
 	public void setMessageNo(int messageNo) {
 		this.messageNo = messageNo;
 	}

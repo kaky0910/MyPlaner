@@ -14,18 +14,14 @@ public interface ChallengeService {
 	// challenge 정보 return (challenge detail 페이지에서)
 	Challenge getChallengeByNo(int challengeNo) throws Exception;
 
-	Challenge getChallengeByNickname(String nickname) throws Exception;
-
-	Challenge getChallengeByCategory(String category) throws Exception;
-
 	// 해당 아이디, 월의 challenge return (index page. paging)
-	Challenge getChallengeByMonth(String month, String nickname) throws Exception;
+	List<Challenge> getChallengeByMonth(String month,  int memberNo) throws Exception;
 
 	// 해당 아이디, 날짜의 challenge return (index page. )
-	Challenge getChallengeByDay(String day, String nickname) throws Exception;
+	List<Challenge> getChallengeByDay(String day,  int memberNo) throws Exception;
 
 	// challenge 체크, 체크 푸는 method
-	int checkChallenge(int challengeNo) throws Exception;
+	int checkChallenge(int challengeNo, String challengeContent) throws Exception;
 
 	// challenge를 추가 (index page)
 	int addChallenge(Challenge challenge) throws Exception;
@@ -34,7 +30,7 @@ public interface ChallengeService {
 	int deleteChallenge(int challengeNo) throws Exception;
 
 	// challenge에 항목 추가
-	int addChallengeContent(String challengeContent) throws Exception;
+	int addChallengeContent(int challengeNo, List<String> challengeContent) throws Exception;
 
 	// challenge에 항목 삭제
 	int deleteChallengeContent(String challengeContent) throws Exception;
