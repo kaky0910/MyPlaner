@@ -2,18 +2,23 @@
 
 #section2{
 	color:#fff;
-	font-family: 'East Sea Dokdo', cursive;
-	font-size:28px;
+    font-family: 'Yeon Sung', cursive;
+	font-size:20px;
 }
 
-/*HEADER*/
-h2{	font-size:40px;	margin-bottom:50px;}
-a{color:#fff;}
-a:hover{color:#78e7d1;}
+/* #section4{
+	color:#fff;
+    font-family: 'Yeon Sung', cursive;
+	font-size:20px;
+} */
 
+/*HEADER*/
+h2{	margin-bottom:23px; margin-top:40px;}
+a{color:#fff;}
+/* a:hover{color:#78e7d1;} */
 
 /*WRAPPER*/
-#wrapper{ margin: 15px auto 0;	width:500px; }
+#wrapper{ margin: 15px auto 0;	width:100%; }
 #wrapper > div{	margin-top:10px;	margin-bottom:10px;	}
 
 
