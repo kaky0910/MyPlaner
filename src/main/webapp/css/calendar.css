@@ -132,16 +132,23 @@ main {
 
 .calendar__week {
 	grid-auto-rows: 100px;
-	text-align: right;
+	text-align: left;
+	
 }
-
+.calendar__week hr{
+		margin-top: 1.0em;
+		height:1px;
+		width:100%;
+	}
 .calendar__header {
 	grid-auto-rows: 50px;
 	align-items: center;
 	text-align: center;
 }
 
-.calendar__day {
+.calendar__day span{
+	margin-left: 10px;
+	font-size: 1.1em;
 }
 
 /* COSMETIC STYLING */
@@ -214,7 +221,6 @@ main {
 
 .calendar {
 	background-color: white;
-	border: 1px solid #e1e1e1;
 }
 
 .calendar__header>div {
@@ -224,13 +230,9 @@ main {
 }
 
 .calendar__day {
-	border-right: 1px solid #e1e1e1;
-	border-top: 1px solid #e1e1e1;
+	border: 1px solid #e1e1e1;
 }
 
-.calendar__day:last-child {
-	border-right: 0;
-}
 
 .toggle {
 	display: grid;

@@ -2,6 +2,9 @@ package com.spring.plan.model.dao.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.spring.plan.model.dao.BoardDao;
@@ -11,6 +14,9 @@ import com.spring.plan.model.vo.BoardComment;
 @Repository
 public class BoardDaoImpl implements BoardDao {
 
+	@Resource
+	SqlSession sqlSession;
+	
 	@Override
 	public Board getBoardByNo(int boardNo) throws Exception {
 		return null;

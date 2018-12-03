@@ -14,7 +14,7 @@ public interface DailyDao {
 	int updateEmotion(Daily daily) throws Exception;
 	
 	//한해 감정 정보 리턴
-	List<String> selectEmotionByYear(int year) throws Exception;
+	List<Daily> selectEmotionByYear(int year) throws Exception;
 	
 	// memo 받기
 	String getMemo(int memberNo) throws Exception;

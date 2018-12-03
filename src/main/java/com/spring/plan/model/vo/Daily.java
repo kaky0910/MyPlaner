@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 	private int memberNo;
-	private String day; // YYYY.MM.DD
+	private String day; // YYYYMMDD
 	private String memo;
 	private String emotion;
 	private String month;
@@ -38,6 +38,7 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 	
 	public void setDay(String day) {
 		this.day = day;
+		this.month = day.substring(0, 6);
 	}
 	public String getMemo() {
 		return memo;

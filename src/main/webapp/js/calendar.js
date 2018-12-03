@@ -1,4 +1,4 @@
-
+var colorArr = ['red','yellow','green','blue','pink','orange'];
 function calendarInit(y,m){
 	
 	var curDay = moment().month(m).date();
@@ -53,7 +53,7 @@ function calendarInit(y,m){
 			arrCursor+=1;
 			dayOfWeekCount=0;
 		}
-		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" id="day'+dayCount+'">'+dayCount+'</div>');
+		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" id="day'+dayCount+'"><span>'+dayCount+'</span></div>');
 		dayOfWeekCount++;
 	}
 	if(dayOfWeekCount<7){
@@ -63,17 +63,7 @@ function calendarInit(y,m){
 		}
 	}
 	
-	$.ajax({
-		type : "get",
-		url : "getScheduleByMonth.do",
-		data : {
-			"year":curYear,
-			"month":curMonth
-		},
-		success : function(data){
-			alert("success");
-		}
-	});
+	
 	
 }
 
@@ -122,5 +112,83 @@ function markSchedule(schedule,m){
 		
 	}else{
 		
+	}
+}
+
+function setChallenge1(arr){
+	const length = arr.length;
+	for(j=0;j<length;j++){
+		var flag1 = false;
+		var flag2 = false;
+		for(x=arr[length-j-1][0];x<=arr[length-j-1][1];x++){
+			if($('#day'+x).hasClass('c1')) {
+				flag1=true;
+			}
+		}
+		var color = colorArr.shift();
+		for(i=arr[length-j-1][0] ; i<=arr[length-j-1][1] ; i++){
+			if(!flag1){
+				$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c1');
+				flag2 = true;
+			}
+		}
+		colorArr.push(color);
+
+		if(flag2) arr.splice(length-j-1,1);
+		flag = false;
+	}
+	return arr;
+}
+
+function setChallenge2(arr){
+	const length = arr.length;
+	for(j=0;j<length;j++){
+		if(arr.length==0) return;
+		var flag1 = false;
+		var flag2 = false;
+		for(x=arr[length-j-1][0];x<=arr[length-j-1][1];x++){
+			if($('#day'+x).hasClass('c2')) {
+				flag1=true;
+			}
+		}
+		
+		var color = colorArr.shift();
+		for(i=arr[length-j-1][0] ; i<=arr[length-j-1][1] ; i++){
+			if(!flag1){
+				if($('#day'+i).hasClass('c1')){
+					$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
+				}
+				else{
+					$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
+				}
+				flag2 = true;
+			}
+		}
+		colorArr.push(color);
+		if(flag2) arr.splice(length-j-1,1);
+		flag2 = false;
+	}
+	return arr;
+}
+
+function setChallenge3(arr){
+	const length = arr.length;
+	for(j=0;j<length;j++){
+		if(arr.length==0) return;
+		var flag2 = false;
+		
+		var color = colorArr.shift();
+		for(i=arr[length-j-1][0] ; i<=arr[length-j-1][1] ; i++){
+			if($('#day'+i).hasClass('c2')){
+				$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c3');
+			} else if($('#day'+i).hasClass('c1')){
+				$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c3');
+			} else{
+				$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:white solid 1px;background-color:white; "><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c3');
+			}
+		}
+		colorArr.push(color);
+		if(flag2) arr.splice(length-j-1,1);
+		flag2 = false;
 	}
 }

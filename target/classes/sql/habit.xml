@@ -2,7 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="habit-mapper">														
+<mapper namespace="habit-mapper">
+	<resultMap type="Habit" id="HabitResultMap">
+		<result property="memberNo" column="member_no"/>
+		<result property="habit" column="habit"/>
+		<result property="habitStartDate" column="habit_start_date"/>
+		<result property="habitEndDate" column="habit_end_date"/>
+		<collection property="checkHabitList" resultMap="CheckHabitResultMap"/>
+	</resultMap>														
+	<resultMap type="CheckHabit" id="CheckHabitResultMap">
+		<result property="memberNo" column="member_no"/>
+		<result property="habit" column="habit"/>
+		<result property="month" column="month"/>
+		<result property="checkHabit" column="check_habit"/>
+	</resultMap>
 
 	<insert id="addHabit" parameterType="Habit">
 		INSERT INTO habit(
@@ -16,17 +29,30 @@
 		INSERT INTO check_habit(
 			member_no, habit, month
 		) VALUES (
-			#{memberNo}, #{habit}, #{statrMonth}
+			#{memberNo}, #{habit}, #{startMonth}
 		)
 	</insert>
 	
+	<select id="getHabit" resultMap="HabitResultMap">
+		
+	</select>
+	
 	<update id="deleteHabit" parameterType="Habit">
 		UPDATE habit SET
-			habit_end_date = #{habitEndDate}
+			habit_end_date = sysdate
 		WHERE member_no = #{memberNo} AND habit = #{habit}
 	</update>
 	
-	<update id="updateHabit"></update>
+	<update id="checkHabit" parameterType="CheckHabit">
+		UPDATE check_habit SET 
+			check_habit = #{checkHabit}
+		WHERE member_no = #{habit.memberNo} AND habit = #{habit.habit} AND month = #{month}
+	</update>
+	
+	<select id="getCheckHabit" resultType="string" parameterType="CheckHabit">
+		SELECT check_habit FROM check_habit WHERE 
+		member_no = #{habit.memberNo} AND habit = #{habit.habit} AND month = #{month}
+	</select>
 </mapper>
 
 

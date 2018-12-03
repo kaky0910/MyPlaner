@@ -15,7 +15,7 @@
    href="${pageContext.request.contextPath}/css/calendar.css">
 
 <script src="${pageContext.request.contextPath}/js/moment.js"></script>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
    var geo = navigator.geolocation;
    var lon;
    var lat;
@@ -32,16 +32,6 @@
          }
       });
    });
-</script> -->
-
-<script type="text/javascript">
-   var cal = moment();
-   //alert(moment().format());
-   
-   //년도/월 셋팅
-   cal.set(year, month, 1);
-   
-   
 </script>
 </head>
 <body>

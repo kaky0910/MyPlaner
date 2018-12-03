@@ -21,28 +21,28 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void logout(Member mvo) throws Exception {
-
-	}
-
-	@Override
 	public int regist(Member mvo) throws Exception {
-		return 0;
+		return sqlSession.insert("member-mapper.regist",mvo);
 	}
 
 	@Override
 	public int idCheck(String id) throws Exception {
-		return 0;
+		return sqlSession.selectOne("member-mapper.idCheck",id);
 	}
 
 	@Override
 	public int blockMember(BlockMember blockMember) throws Exception {
-		return 0;
+		return sqlSession.insert("member-mapper.blockMember",blockMember);
 	}
 
 	@Override
 	public int checkKakao(Member mvo) throws Exception {
 		return sqlSession.selectOne("member-mapper.checkKakao",mvo);
+	}
+
+	@Override
+	public int registKakao(Member mvo) throws Exception {
+		return sqlSession.insert("member-mapper.registKakao",mvo);
 	}
 
 }

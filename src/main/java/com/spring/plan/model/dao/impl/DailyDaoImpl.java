@@ -24,32 +24,27 @@ public class DailyDaoImpl implements DailyDao {
 
 	@Override
 	public int updateEmotion(Daily daily) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("daily-mapper.updateEmotion",daily);
 	}
 
 	@Override
-	public List<String> selectEmotionByYear(int year) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Daily> selectEmotionByYear(int year) throws Exception {
+		return sqlSession.selectList("daily-mapper.selectEmotionByYear",year);
 	}
 
 	@Override
 	public String getMemo(int memberNo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("daily-mapper.getMemo",memberNo);
 	}
 
 	@Override
 	public int updateMemo(Member member) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("daily-mapper.updateMemo",member);
 	}
 
 	@Override
 	public int insertMemo(Member member) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("daily-mapper.insertMemo",member);
 	}
 
 }
