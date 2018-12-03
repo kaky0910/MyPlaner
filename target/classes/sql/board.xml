@@ -1,233 +1,106 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="BoardMapper">
+<mapper namespace="board-mapper">
 
- <insert id="write" parameterType="board">
-      <selectKey keyProperty="no" resultType="int" order="BEFORE">
+   <resultMap type="BoardComment" id="boardCommentResultMap">
+      <result property="boardReplyComment" column="board_reply_comment"/>
+      <result property="boardComment" column="board_comment"/>
+      <result property="boardCommentNo" column="board_comment_no"/>
+      <result property="boardCommentWriteDate" column="board_comment_write_date"/>
+      <result property="boardCommentMemberNo" column="board_comment_member_no"/>
+      <result property="boardNo" column="board_no"/>
+   </resultMap>
+   <resultMap type="Board" id="boardResultMap">
+      <result property="boardTitle" column="board_title" />
+      <result property="boardWriteDate" column="board_write_date" />
+      <result property="boardContent" column="board_contents" />
+      <result property="boardLikes" column="board_likes" />
+      <result property="boardHits" column="board_hits" />
+      <result property="boardNo" column="board_no"/>
+      <result property="memberNo" column="member_no"/>
+      <collection property="boardCommentList" resultMap="boardCommentResultMap"/>
+   </resultMap>
+
+   <insert id="writeBoard" parameterType="Board">
+      <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
          SELECT board_seq.nextVal FROM dual
       </selectKey>
-      INSERT INTO board (boardTitle, boardWriteDate, boardContent, boardLikes, boardHits, boardNo, id, orgfilename, newfilename)
-      VALUES(#{boardNo},#{boardTitle},#{boardContent},#{boardLikes},#{boardHits},sysdate,#{member.id},#{orgfilename} ,#{newfilename})
+      INSERT INTO board (
+         board_no, board_title, board_write_date, board_contents, member_no
+      ) VALUES(
+         #{boardNo}, #{boardTitle}, sysdate, #{boardContent}, #{memberNo}
+      )
    </insert>
-	<select id="list" resultType="board">
-		SELECT * FROM BOARD
-		ORDER BY seq 
-	</select>
-
-	<select id="select" parameterType="int" resultType="board">
-		SELECT * FROM
-		BOARD
-		WHERE seq=#{seq}
-		ORDER BY seq
-	</select>
-	
-	<insert id="insert" parameterType="board">
-		INSERT INTO BOARD
-		(boardtitle, boardWriteDate, boardContent, boardLikes, boardHits, boardNo)
-		VALUES
-		(#{boardtitle}, #{boardNo}, #{boardContent}, #{boardLikes}, #{boardHits}, SYSDATE, 0);
-		<selectKey keyProperty="seq" resultType="Integer">
-			SELECT NVL(MAX(seq), 0) FROM BOARD
-		</selectKey>
-	</insert>
-	
-	<update id="update" parameterType="Board">
-		UPDATE BOARD SET
-		boardTitle = #{boardTitle}
-		, boardContent = #{boardContent}
-		, boardWriteDate = #{boardWriteDate}
-		WHERE password = #{password}
-	</update>
-	
-	
-	<update id="updateCount" parameterType="int">
-		update BOARD set 
-   	    count=count+1 where no=#{value}
-   </update>
-	
-	<delete id="delete" parameterType="Board">
-		DELETE FROM BOARD
-		WHERE seq = #{seq}
-		AND password = #{password}
-	</delete>
-	
-	<delete id="deleteAll">
-		DELETE FROM BOARD
-	</delete>
-	
-  
    
-   <select id="selectByNoForDate" resultType="string" parameterType="int">
-      SELECT boardWriteDate FROM BOARD
-      WHERE no=#{value}
+   <select id="getAllBoard" resultMap="boardResultMap">
+      SELECT board_no, board_title, board_write_date, board_content, board_likes, board_hits, member_no
+      FROM BOARD
+      ORDER BY board_no
+   </select>
+
+   <select id="getBoardByNo" parameterType="int" resultMap="boardResultMap">
+      SELECT board.board_no, board_title, board_write_date, board_contents, board_likes, board_hits, 
+      member_no, board_reply_comment, board_comment, board_comment_no, board_comment_write_date, board_comment_member_no
+      FROM board,board_comment
+      WHERE board.board_no = #{boardNo} AND board.board_no = board_comment.board_no
    </select>
    
-    <resultMap type="board" id="boardListRM">
-       <result property="boardTitle" column="boardTitle"/>
-       <result property="boardWriteDate" column="boardWriteDate"/>
-       <result property="boardContent" column="boardContent"/>
-       <result property="boardLikes" column="boardLikes"/>
-       <result property="boardHits" column="boardHits"/>
-       <result property="boardNo" column="boardNo"/>
-       <result property="boardPictures" column="boardPictures"/>
-       <result property="member.name" column="name"/>
-    </resultMap> <!--  이게뭐야 시발  -->
-    
+   <update id="updateBoard" parameterType="Board">
+      UPDATE BOARD SET
+      boardTitle = #{boardTitle}
+      , boardContent = #{boardContent}
+      , boardWriteDate = #{boardWriteDate}
+      WHERE board_no = #{boardNo}
+   </update>
    
-   <resultMap type="board" id="boradRM" extends="boardListRM">
-      
-      <!-- fileupload 추가 -->
-      <result property="orgfilename" column="orgfilename"/>
-      <result property="newfilename" column="newfilename"/>
-   </resultMap>
+   <!-- 조회수 -->
+   <update id="updateCount" parameterType="int">
+      update BOARD set 
+          count=count+1 where board_no=#{value}
+    </update>
    
-   
-   <delete id="deleteBoard">
-      DELETE FROM board WHERE no=#{value}
+   <delete id="deleteBoard" parameterType="Board">
+      DELETE FROM BOARD
+      WHERE board_no = #{BoardNo}
    </delete>
    
+   <select id="getBoardByMemberNo" resultMap="boardResultMap"   parameterType="int">
+      SELECT board_no, board_title, board_write_date,   board_content, board_likes, board_hits, member_no
+      FROM BOARD
+      WHERE member_no = #{value}
+      ORDER BY board_no
+   </select>
    
-   <update id="updateBoard" parameterType="board">
-   	  update board set 
-   	  boardTitle=#{boardTitle}, boardContent=#{boardContent}, orgfilename=#{orgfilename}, newfilename=#{newfilename}
-   	  where boardNo=#{boardNo}
-   </update>
-   
-      
+   <select id="getBoardByTitle" resultMap="boardResultMap" parameterType="string">
+      SELECT board_no, board_title, board_write_date,   board_content, board_likes, board_hits, member_no
+      FROM BOARD
+      WHERE board_title LIKE '%'||#{value}||'%'
+   </select>
+
    <!-- 전체 게시물의 목록수 리턴 -->
    <select id="totalCount" resultType="int">
-		select count(-1) from BOARD
+      select count(-1) from BOARD
    </select>
-     <!-- 작성 -->
- 	<insert id="write">
-  		insert into BOARD(boardNo, boardTitle, boardContent)
-      	values (BOARD_seq.nextval, #{boardTitle}, #{boardContent})
- 	</insert>
- 
 
- 	<!-- 수정 --> 
- 	<update id="update">
- 		 update BOARD
-  		 set
-    		boardTitle = #{boardTitle},
-    		boardContent = #{boardContent}
-   			where boardNo = #{boardNo}  
-	 </update>
- 
-      <!-- insert -->
-   <insert id="insert" parameterType="Board">
-        insert into board(
-            Nickname,
-            boardTitle,
-            boardContent,
-            password
-        )values(
-            board_seq.nextval,
-            #{boardTitle},
-            #{boardContent},
-            #{password}
-        )
-    </insert>
-      <!--  update -->
-    <update id="update" parameterType="Board">
-        update board
-        set
-            boardTitle = #{boardTitle},
-            boardContent = #{boardContent},
-            password = #{password}
-        where
-            id = #{id}
-    </update>
-    
-    <select id="selectContentCnt" resultType="int" parameterType="Board">
-        select
-            count(id)
-        from
-            board
-    </select>
-    
-    <select id="selectContent" resultType="" parameterType=""> <!--  타입지정을 시발  -->
-        select
-            id,
-            boardTitle,
-            boardContent,
-            boardWriteDate
-        from
-        (select
-            rownum rn,
-            id,
-            boardTitle,
-            boardContent,
-            to_char(boardWriteDate, 'YYYY-MM-DD HH24:mi:ss') boardWriteDate
-        from
-            board
-        order by id) total
-        where
-            rn &gt; #{start} and rn &lt;= #{end}
-    </select>
-    
-    <select id="selectContentView" resultType="" parameterType="">
-        select
-            id,
-            boardTitle,
-            boardContent,
-            to_char(boardWriteDate, 'YYYY-MM-DD HH24:mi:ss') boardWriteDate
-        from
-            board
-        where
-            id = #{id}
-    </select>
-    
-    <insert id="insertBoardComment" parameterType="">
-        <selectKey keyProperty="Comment_id" resultType="int" order="BEFORE">
-          select reply_seq.nextval FROM DUAL
-        </selectKey>
-        insert into board_comment(
-            commentNickname,
-            boardComment,
-            boardReplyComment,
-            boardCommentWriteDate,
-        )values(
-            #{commentNickname},
-            #{boardComment},
-            #{boardReplyComment},
-            #{boardCommentWriteDate},
-        )
-    </insert>
-    
-  <!--   <select id="selectBoardCommentList" resultType="" parameterType="">
-        select
-            commentNickname,
-            boardComment,
-            boardReplyComment,
-            boardCommentWriteDate,
-        from
-            board_comment
-        where
-            nickname???_id = #{id}???? 
-        order by commentNickname asc
-    </select> -->
-    
-    <delete id="deleteBoardComment" parameterType="Board">
-        delete
-        from
-            board_comment
-        where
-            commentNickname = #{commentNickname}
-    </delete>
-    
-    
-    
-    <delete id="deleteBoard" parameterType=""> <!-- 아 씨댕   -->
-        delete
-        from
-            board
-        where
-            id = #{id}
-            and password = #{password}
-    </delete>
-    
-   
-   
+   <insert id="insertBoardComment" parameterType="BoardComment">
+      <selectKey keyProperty="boardCommentNo" resultType="int" order="BEFORE">
+         SELECT board_comment_seq.nextVal FROM dual
+      </selectKey>
+      insert into board_comment(
+         board_comment_no, board_no, board_comment_member_no, board_comment, board_reply_comment, board_comment_write_date
+      ) VALUES(
+         #{boardCommentNo},#{boardNo}, #{boardCommentMemberNo}, #{boardComment}, #{boardReplyComment}, sysdate
+      )
+   </insert>
+
+   <!-- <select id="selectBoardCommentList" resultType="" parameterType=""> 
+      select commentNickname, boardComment, boardReplyComment, boardCommentWriteDate, 
+      from board_comment where nickname???_id = #{id}???? order by commentNickname 
+      asc </select> -->
+
+   <delete id="deleteBoardComment" parameterType="BoardComment">
+      DELETE FROM board_comment
+      WHERE board_comment_no = #{boardCommentNo}
+   </delete>
 </mapper>   

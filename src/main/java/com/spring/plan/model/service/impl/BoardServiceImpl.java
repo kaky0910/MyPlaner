@@ -39,6 +39,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int writeBoard(Board board) throws Exception {
+		
 		return boardDao.writeBoard(board);
 		//????????????
 		

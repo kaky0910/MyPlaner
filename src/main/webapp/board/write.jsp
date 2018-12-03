@@ -1,41 +1,65 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 </head>
+    
 <body>
-	<form:form commandName="boardVO" method="POST">
-		<table border="1">
-			<tr>
-				<th><form:label path="title">제목</form:label></th>
-				<td><form:input path="title" />
-					<form:errors path="title" /></td>
-			</tr>
-			<tr>
-				<th><form:label path="content">내용</form:label></th>
-				<td><form:input path="content" />
-					<form:errors path="content" /></td>
-			</tr>
-			<tr>
-				<th><form:label path="writer">작성자</form:label></th>
-				<td><form:input path="writer" />
-					<form:errors path="writer" /></td>
-			</tr>
-			<tr>
-				<th><form:label path="password">비밀번호</form:label></th>
-				<td><form:input path="password" />
-					<form:errors path="password" /></td>
-			</tr>
-		</table>
-		<div>
-			<input type="submit" value="등록"> <a
-				href="<c:url value="/board/list" />">목록</a>
-		</div>
-	</form:form>
+<div>
+    <form id="writeForm" name="writeForm" method="post">
+        <div>
+            <h2>글쓰기</h2>
+            <div>
+                <table>
+                    <tr>
+                        <th>제목</th>
+                        <td><input style="width: 500px" type="text" id="title" name="title" /></td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td><textarea style="width: 500px" rows="10" cols="10" id="content" name="content"></textarea></td>
+                    </tr>
+                   
+                     <tr>
+						<td><input type="file" name="uploadFile"></td>
+						<td colspan="2"><img src="../img/confirm.gif"  onclick="content_submit()"></td>  
+		    		</tr>
+		    
+		   		
+                </table>
+                <div>
+                    <a href='#' onClick='fn_addtoBoard()'>글 작성</a>
+                    <a href='#' onClick='fn_cancel()'>목록</a>
+                </div>
+            </div>
+        </div>
+    </form>
+<script>
+//글쓰기
+function fn_addtoBoard(){
+    
+    var form = document.getElementById("board");
+    
+    form.action = "<c:url value='/board/write.do'/>";
+    form.submit();
+    
+}
+ 
+//목록
+function fn_cancel(){
+    
+    var form = document.getElementById("board");
+    
+    form.action = "<c:url value='/board/boardList.do'/>";
+    form.submit();
+    
+}
+</script>
+</div>
 </body>
 </html>

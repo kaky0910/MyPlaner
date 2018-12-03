@@ -25,5 +25,22 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/com.springsource.org.aopalliance-1.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/com.springsource.org.apache.commons.logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/com.springsource.org.apache.log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/jstl.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-aop-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-aspects-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-beans-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-context-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-core-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-expression-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-jdbc-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-tx-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-web-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/spring-webmvc-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/jst/SpringPro2/doc/springframework_lib/standard.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

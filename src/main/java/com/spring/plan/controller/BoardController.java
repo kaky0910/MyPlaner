@@ -78,7 +78,7 @@ public class BoardController {
 	@RequestMapping("deleteboard.do")
 	public ModelAndView delete(HttpSession session, int boardNo) throws Exception {
 		// FileUpload 부분을 추가함
-		Board board = boardService.deleteBoard();
+		board board = boardService.deleteBoard(boardNo);
 		
 		String root = session.getServletContext().getRealPath("/");
 		String path = root + "\\upload\\";
@@ -87,7 +87,7 @@ public class BoardController {
         
         if(file.exists()){
             if(file.delete()){
-                //System.out.println("개시발");
+                //System.out.println("이게 뭐임");
             }else{
                 //System.out.println(" 아나이씨");
             }
@@ -147,6 +147,9 @@ public class BoardController {
 		
 		boardService.updateBoard(pvo);
 		
-		return new ModelAndView("board/show_content", "board", pvo);
+		return new ModelAndView("board/boardwrite ", "board", pvo);
 	}
+	
+	
+	
 }
