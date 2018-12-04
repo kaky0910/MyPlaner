@@ -3,11 +3,12 @@ package com.spring.plan.model.vo;
 import java.util.List;
 
 public class Member {
-	private int memberNo;
+	private Integer memberNo;
 	private String password;
 	private String id;
 	private String kakaoId;
 	private String gender;
+	private String birth;
 	private String mail;
 	private String registDate;
 	private String memo;
@@ -26,11 +27,19 @@ public class Member {
 	public String getPassword() {
 		return password;
 	}
-	public int getMemberNo() {
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
+	public Integer getMemberNo() {
 		return memberNo;
 	}
 
-	public void setMemberNo(int memberNo) {
+	public void setMemberNo(Integer memberNo) {
 		this.memberNo = memberNo;
 	}
 
@@ -114,11 +123,14 @@ public class Member {
 	public void setColorList(List<String> colorList) {
 		this.colorList = colorList;
 	}
+
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", password=" + password + ", id=" + id + ", kakaoId=" + kakaoId
-				+ ", gender=" + gender + ", mail=" + mail + ", registDate=" + registDate + ", memo=" + memo
-				+ ", challengeList=" + challengeList + ", ScheduleList=" + ScheduleList + ", boardList=" + boardList
-				+ ", habitList=" + habitList + ", messageList=" + messageList + ", colorList=" + colorList + "]";
+				+ ", gender=" + gender + ", birth=" + birth + ", mail=" + mail + ", registDate=" + registDate
+				+ ", memo=" + memo + ", challengeList=" + challengeList + ", ScheduleList=" + ScheduleList
+				+ ", boardList=" + boardList + ", habitList=" + habitList + ", messageList=" + messageList
+				+ ", colorList=" + colorList + "]";
 	}
+	
 }

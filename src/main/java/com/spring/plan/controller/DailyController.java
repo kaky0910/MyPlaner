@@ -6,15 +6,34 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.Properties;
+
+import javax.annotation.Resource;
 
 import org.apache.ibatis.io.Resources;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.plan.model.dao.DailyDao;
+import com.spring.plan.model.service.ChallengeService;
+import com.spring.plan.model.service.HabitService;
+import com.spring.plan.model.service.ScheduleService;
+import com.spring.plan.model.vo.Daily;
+import com.spring.plan.model.vo.Member;
+
 @Controller
 public class DailyController {
+	
+	@Resource
+	private DailyDao dailyDao;
+	@Resource
+	private HabitService habitService;
+	@Resource
+	private ScheduleService scheduleService;
+	@Resource
+	private ChallengeService challengeService;
 	
 	@RequestMapping("/searchResult.do")				// 네이버 검색결과
 	public ModelAndView searchResult(String word) throws Exception{
@@ -63,6 +82,26 @@ public class DailyController {
         }
 		
 		return new ModelAndView("JsonView","result",result);
+	}
+	
+	@RequestMapping("loadingDaily.do")
+	public ModelAndView loadingDaily(int memberNo) throws Exception{
+		Daily daily = new Daily();
+		
+		daily.setDay(Daily.getDayByDate());
+		daily.setMemberNo(memberNo);
+		
+		String emotion = dailyDao.getTodayEmotion(daily);
+		if(emotion!=null) daily.setEmotion(emotion);
+		daily.setMemo(dailyDao.getMemo(memberNo));
+		
+		daily.setScheduleList(scheduleService.getScheduleByMonth(daily));
+		daily.setHabitList(habitService.getHabitList(memberNo));
+		daily.setChallengeList(challengeService.getChallengeByMonth(daily.getMonth(), memberNo));		
+		
+		System.out.println(daily);
+		System.out.println("::::"+daily.getScheduleFormattedArray());
+		return new ModelAndView("index","daily",daily);
 	}
 
 }

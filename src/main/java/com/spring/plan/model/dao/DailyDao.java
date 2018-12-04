@@ -25,5 +25,8 @@ public interface DailyDao {
 	// insert memo 회원가입할때 추가
 	int insertMemo(Member member) throws Exception;
 	
+	// 오늘 emotion return
+	String getTodayEmotion(Daily daily) throws Exception;
+	
 	//////////통    계~~~~~~~~~~~~~~~~~~~~~
 }

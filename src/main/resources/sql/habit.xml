@@ -3,6 +3,10 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="habit-mapper">
+	<resultMap type="CheckHabit" id="CheckHabitResultMap">
+		<result property="month" column="month"/>
+		<result property="checkHabit" column="check_habit"/>
+	</resultMap>
 	<resultMap type="Habit" id="HabitResultMap">
 		<result property="memberNo" column="member_no"/>
 		<result property="habit" column="habit"/>
@@ -10,12 +14,6 @@
 		<result property="habitEndDate" column="habit_end_date"/>
 		<collection property="checkHabitList" resultMap="CheckHabitResultMap"/>
 	</resultMap>														
-	<resultMap type="CheckHabit" id="CheckHabitResultMap">
-		<result property="memberNo" column="member_no"/>
-		<result property="habit" column="habit"/>
-		<result property="month" column="month"/>
-		<result property="checkHabit" column="check_habit"/>
-	</resultMap>
 
 	<insert id="addHabit" parameterType="Habit">
 		INSERT INTO habit(
@@ -33,8 +31,11 @@
 		)
 	</insert>
 	
-	<select id="getHabit" resultMap="HabitResultMap">
-		
+	<select id="getHabit" resultMap="HabitResultMap" parameterType="int">
+		SELECT * FROM habit
+		JOIN check_habit ON habit.member_no = check_habit.member_no
+		WHERE habit.member_no = #{value}
+			
 	</select>
 	
 	<update id="deleteHabit" parameterType="Habit">
@@ -54,38 +55,3 @@
 		member_no = #{habit.memberNo} AND habit = #{habit.habit} AND month = #{month}
 	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -3,8 +3,8 @@ package com.spring.plan.model.vo;
 public class Schedule {
 	private int scheduleNo;
 	private String scheduleTitle;
-	private String scheduleStartDate;
-	private String scheduleEndDate;
+	private String scheduleStartDate;			//YYYYMMDD
+	private String scheduleEndDate;				//YYYYMMDD
 	private String scheduleContent;
 	private String scheduleTag;
 	private String scheduleCheck;
@@ -86,6 +86,8 @@ public class Schedule {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+	
+	
 
 	@Override
 	public String toString() {

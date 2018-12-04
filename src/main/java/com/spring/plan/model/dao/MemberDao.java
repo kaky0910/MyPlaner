@@ -8,6 +8,9 @@ public interface MemberDao {
 	// log in
 	Member login(Member mvo) throws Exception;
 	
+	// kakao login
+	Member kakaoLogin(Member mvo) throws Exception;
+	
 	// 회원 가입
 	int regist(Member mvo) throws Exception;
 	

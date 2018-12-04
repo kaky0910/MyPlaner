@@ -117,6 +117,9 @@ function markSchedule(schedule,m){
 
 function setChallenge1(arr){
 	const length = arr.length;
+	if(length==0 || arr ==null){
+		return null;
+	}
 	for(j=0;j<length;j++){
 		var flag1 = false;
 		var flag2 = false;

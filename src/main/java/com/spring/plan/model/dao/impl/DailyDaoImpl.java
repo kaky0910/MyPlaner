@@ -47,4 +47,9 @@ public class DailyDaoImpl implements DailyDao {
 		return sqlSession.insert("daily-mapper.insertMemo",member);
 	}
 
+	@Override
+	public String getTodayEmotion(Daily daily) throws Exception {
+		return sqlSession.selectOne("daily-mapper.getTodayEmotion",daily);
+	}
+
 }

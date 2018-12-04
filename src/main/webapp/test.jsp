@@ -8,26 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
-
-<!-- <script type="text/javascript">
-   var geo = navigator.geolocation;
-   var lon;
-   var lat;
-   geo.getCurrentPosition(function(position){
-      lon = position.coords.longitude;
-      lat = position.coords.latitude;
-      alert('lon :: '+lon);
-      alert('lat :: '+lat);
-      $.ajax({
-         method : "get",
-         url: 'http://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&&appid=8bc6e9cc3e1a41d04319bd97ea0e0214',
-         success : function(data){
-            alert(data.weather[0].main);
-         }
-      });
-   });
-</script> -->
+<title>Planer</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar.css">
 <style type="text/css">
 	
@@ -91,7 +72,7 @@ var yearCount = moment().year();
 
 	<div id="section1">
 		<div id="weather"></div>
-		<div class="calendar" id="calendar" style="width:60%; display: inline-block;">
+		<div class="calendar" id="calendar" style="width:50%; display: inline-block;">
 		<a href="javascript:prev()">이전</a>
 			<p id="title_monthdate" style="display: inline-block;"></p><a href="javascript:next()">이후</a>
 			<div class="calendar__header">
@@ -109,7 +90,7 @@ var yearCount = moment().year();
 			<div class="calendar__week"></div>
 			<div class="calendar__week"></div>
 		</div>
-		<div style="width:30%; border: 1px black double; display: inline-block; margin-top:140px" id="search">
+		<div style="width:20%; border: 1px black double; display: inline-block; margin-top:140px; margin-left: 60px;" id="search">
 			<h2>Date</h2>
 			<h4>tag</h4>
 			<div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height:100px; overflow: hidden;"></div>

@@ -1,18 +1,18 @@
 package com.spring.plan.model.vo;
 
 public class BlockMember {
-	private String memberNo;
-	private String blockMemberNo;
-	public String getMemberNo() {
+	private int memberNo;
+	private int blockMemberNo;
+	public int getMemberNo() {
 		return memberNo;
 	}
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
+	public void setMemberNo(int memberNo2) {
+		this.memberNo = memberNo2;
 	}
-	public String getBlockMemberNo() {
+	public int getBlockMemberNo() {
 		return blockMemberNo;
 	}
-	public void setBlockMemberNo(String blockMemberNo) {
+	public void setBlockMemberNo(int blockMemberNo) {
 		this.blockMemberNo = blockMemberNo;
 	}
 	@Override

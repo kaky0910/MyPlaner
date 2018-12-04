@@ -1,6 +1,7 @@
 package com.spring.plan.model.dao.impl;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -28,20 +29,18 @@ public class HabitDaoImpl implements HabitDao{
 	}
 
 	@Override
-	public int checkHabit(Habit habit, String day) throws Exception {			//service로 옮길까
-		CheckHabit checkHabit = new CheckHabit();
-		checkHabit.setHabit(habit);
-		checkHabit.setMonth(day.substring(0, 6));
-		String getCheck = sqlSession.selectOne("habit-mapper.getCheckHabit",checkHabit);
-		char[] arr = getCheck.toCharArray();
-		arr[Integer.parseInt(day.substring(6,8))-1]=1;
-		checkHabit.setCheckHabit(new String(arr));
+	public int checkHabit(CheckHabit checkHabit) throws Exception {			//service로 옮길까
 		return sqlSession.update("habit-mapper.checkHabit",checkHabit);
 	}
 
 	@Override
-	public String getHabitCheckByMonth(Habit habit, String month) throws Exception {
-		return null;
+	public String getCheckHabitByMonth(CheckHabit checkHabit) throws Exception {
+		return sqlSession.selectOne("habit-mapper.getCheckHabit",checkHabit);
+	}
+
+	@Override
+	public List<Habit> getHabitList(int memberNo) throws Exception {
+		return sqlSession.selectList("habit-mapper.getHabit",memberNo);
 	}
 
 }

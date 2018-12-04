@@ -37,12 +37,17 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int checkKakao(Member mvo) throws Exception {
-		return sqlSession.selectOne("member-mapper.checkKakao",mvo);
+		return sqlSession.selectOne("member-mapper.checkKakaoId",mvo.getKakaoId());
 	}
 
 	@Override
 	public int registKakao(Member mvo) throws Exception {
 		return sqlSession.insert("member-mapper.registKakao",mvo);
+	}
+
+	@Override
+	public Member kakaoLogin(Member mvo) throws Exception {
+		return sqlSession.selectOne("member-mapper.kakaoLogin",mvo);
 	}
 
 }

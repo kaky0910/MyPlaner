@@ -1,6 +1,7 @@
 package com.spring.plan;
 
 import java.io.Reader;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -25,7 +26,7 @@ public class SqlTest {
 		SqlSessionFactory factory=new SqlSessionFactoryBuilder().build(reader);
 		SqlSession sqlSession = factory.openSession();
 		
-		/*Member member = new Member();
+		Member member = new Member();
 		member.setPassword("비번");
 		Daily daily = new Daily();
 		daily.setEmotion("ㅠㅠ");
@@ -34,11 +35,17 @@ public class SqlTest {
 		daily.setMemberNo(4);
 		Schedule schedule = new Schedule();
 		schedule.setScheduleNo(0);
-		schedule.setScheduleStartDate("20181111");
-		schedule.setScheduleEndDate("20181130");
-		schedule.setScheduleContent("내용");
+		schedule.setScheduleStartDate("20181206");
+		schedule.setScheduleEndDate("20181214");
+		schedule.setScheduleContent("내용3");
 		schedule.setScheduleTag("운동");
-		schedule.setScheduleTitle("운동");
+		schedule.setScheduleTitle("운동3");
+		schedule.setMemberNo(4);
+		/*
+		System.out.println(sqlSession.insert("schedule-mapper.addSchedule",schedule));
+		sqlSession.commit();*/
+		
+		
 		System.out.println("11");
 		System.out.println("@2");
 		Board board = new Board();
@@ -49,7 +56,7 @@ public class SqlTest {
 		bc.setBoardComment("zzzzzzzz222222");
 		bc.setBoardCommentMemberNo(4);
 		bc.setBoardNo(2);
-		bc.setBoardReplyComment(0);*/
+		bc.setBoardReplyComment(0);
 //		Board b = sqlSession.selectOne("board-mapper.getBoardByNo",2);
 /*		System.out.println(b);
 		List<BoardComment> list = b.getBoardCommentList();
@@ -66,12 +73,12 @@ public class SqlTest {
 		*/
 		/*sqlSession.insert("habit-mapper.addHabitCheck",habit);
 		sqlSession.commit();*/
-		CheckHabit ch = new CheckHabit();
+/*		CheckHabit ch = new CheckHabit();
 		ch.setHabit(habit);
 		ch.setMonth("201812");
 		
 		String checkHabit = sqlSession.selectOne("habit-mapper.getCheckHabit",ch);
-		System.out.println(checkHabit);
+	//	System.out.println(checkHabit);
 		
 		char[] arr = checkHabit.toCharArray();
 		arr[1]='1';
@@ -79,8 +86,8 @@ public class SqlTest {
 			System.out.print(arr[i]);
 		}
 		ch.setCheckHabit(new String(arr));
-		System.out.println(sqlSession.update("habit-mapper.checkHabit",ch));
-		sqlSession.commit();
-		
+//		System.out.println(sqlSession.update("habit-mapper.checkHabit",ch));
+//		sqlSession.commit();
+		*/
 	}
 }

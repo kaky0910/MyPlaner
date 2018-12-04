@@ -1,0 +1,43 @@
+*{	margin:0;	padding:0; }
+
+#section2{
+	color:#fff;
+    font-family: 'Yeon Sung', cursive;
+	font-size:20px;
+}
+
+/* #section4{
+	color:#fff;
+    font-family: 'Yeon Sung', cursive;
+	font-size:20px;
+} */
+
+/*HEADER*/
+h2{	margin-bottom:23px; margin-top:40px;}
+a{color:#fff;}
+/* a:hover{color:#78e7d1;} */
+
+/*WRAPPER*/
+#wrapper{ margin: 15px auto 0;	width:100%; }
+#wrapper > div{	margin-top:10px;	margin-bottom:10px;	}
+
+
+/*CHECKBOX*/
+input{ display:none; }
+
+label div{
+	width:23px;
+	height:23px;
+	display:inline-block;
+	border:2px solid #fff;
+	text-align:center;
+	line-height:20px;
+	margin-right:6px;	
+	border-radius:3px;
+	cursor:pointer;	
+}
+
+label i{ font-size:16px;	opacity:0; }
+label:hover div{ background:#c0c0c0; }
+input:checked+label i{ opacity:1; }
+input:checked+label div{ background:#c0c0c0; }

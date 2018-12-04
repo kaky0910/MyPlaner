@@ -18,6 +18,11 @@
 		WHERE member_no = #{memberNo}
 	</update>
 	
+	<select id="getTodayEmotion" parameterType="Daily" resultType="string">
+		SELECT emotion FROM daily_info
+		WHERE day = #{day} AND member_no = #{memberNo}
+	</select>
+	
 	<select id="selectEmotionByYear" parameterType="Integer" resultType="Daily">
 		SELECT emotion,day,to_char(day,'YYYY') AS year
 		FROM daily_info
@@ -37,41 +42,7 @@
 	</update>
 	
 	<select id="getMemo" parameterType="int" resultType="string">
-		SELECT memo FROM member WHERE member_no = #{value}
+		SELECT memo FROM memo WHERE member_no = #{value}
 	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

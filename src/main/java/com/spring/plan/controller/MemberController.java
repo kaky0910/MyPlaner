@@ -1,6 +1,7 @@
 package com.spring.plan.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +17,26 @@ public class MemberController {
 	MemberService memberService;
 	
 	@RequestMapping("kakaoLogin.do")
-	public ModelAndView kakaoLogin(Member member) throws Exception{
+	public ModelAndView kakaoLogin(Member member,HttpSession session) throws Exception{
+		Member mvo;
 		if(memberService.checkKakao(member)) {
-			//로그인만
+			mvo = memberService.kakaoLogin(member);
+			session.setAttribute("member", mvo);
 		} else {
-			//등록
+			if(member.getGender().equals("undefined")) member.setGender(null);
+			if(member.getBirth().equals("undefined")) member.setBirth(null);
+			if(member.getMail().equals("undefined")) member.setMail(null);
+			memberService.registKakao(member);
+			mvo = memberService.kakaoLogin(member);
+			session.setAttribute("member", mvo);
 		}
-		return new ModelAndView("index");
+		return new ModelAndView("redirect:loadingDaily.do?memberNo="+mvo.getMemberNo());
+	}
+	
+	@RequestMapping("login.do")
+	public ModelAndView login(Member member,HttpSession session) throws Exception{
+		Member mvo = memberService.login(member);
+		session.setAttribute("member", mvo);
+		return new ModelAndView("redirect:loadingDaily.do?memberNo="+mvo.getMemberNo());
 	}
 }
