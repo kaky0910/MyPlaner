@@ -1,55 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
-<mapper namespace="habit-mapper">														
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="habit-mapper">
+   <resultMap type="CheckHabit" id="CheckHabitResultMap">
+      <result property="month" column="month"/>
+      <result property="checkHabit" column="check_habit"/>
+   </resultMap>
+   <resultMap type="Habit" id="HabitResultMap">
+      <result property="memberNo" column="member_no"/>
+      <result property="habit" column="habit"/>
+      <result property="habitStartDate" column="habit_start_date"/>
+      <result property="habitEndDate" column="habit_end_date"/>
+      <collection property="checkHabitList" resultMap="CheckHabitResultMap"/>
+   </resultMap>                                          
 
-	<insert id="addHabit" parameterType="Habit">
-		INSERT INTO habit(
-			member_no, habit, habit_start_date
-		) VALUES( 
-			#{memberNo},#{habit},sysdate
-		)
-	</insert>
-	
-	<update id="deleteHabit" parameterType="Habit">
-		UPDATE habit SET
-			habit_end_date = #{habitEndDate}
-		WHERE member_no = #{memberNo} AND habit = #{habit}
-	</update>
+   <insert id="addHabit" parameterType="Habit">
+      INSERT INTO habit(
+         member_no, habit, habit_start_date
+      ) VALUES( 
+         #{memberNo},#{habit},sysdate
+      )
+   </insert>
+   
+   <insert id="addHabitCheck" parameterType="Habit">
+      INSERT INTO check_habit(
+         member_no, habit, month
+      ) VALUES (
+         #{memberNo}, #{habit}, #{startMonth}
+      )
+   </insert>
+   
+   <select id="getHabit" resultMap="HabitResultMap" parameterType="int">
+      SELECT * FROM habit
+      JOIN check_habit ON habit.member_no = check_habit.member_no
+      WHERE habit.member_no = #{value}
+         
+   </select>
+   
+   <update id="deleteHabit" parameterType="Habit">
+      UPDATE habit SET
+         habit_end_date = sysdate
+      WHERE member_no = #{memberNo} AND habit = #{habit}
+   </update>
+   
+   <update id="checkHabit" parameterType="CheckHabit">
+      UPDATE check_habit SET 
+         check_habit = #{checkHabit}
+      WHERE member_no = #{habit.memberNo} AND habit = #{habit.habit} AND month = #{month}
+   </update>
+   
+   <select id="getCheckHabit" resultType="string" parameterType="CheckHabit">
+      SELECT check_habit FROM check_habit WHERE 
+      member_no = #{habit.memberNo} AND habit = #{habit.habit} AND month = #{month}
+   </select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

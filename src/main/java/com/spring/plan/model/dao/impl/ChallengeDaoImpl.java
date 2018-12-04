@@ -33,7 +33,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	@Override
 	public List<Challenge> getChallengeByMonth(String month, int memberNo) throws Exception {
 		Daily challengeByMonth = new Daily(memberNo, month, "");
-		return sqlSession.selectList("challenge-mapper.getChallengeByDay",challengeByMonth);
+		return sqlSession.selectList("challenge-mapper.getChallengeByMonth",challengeByMonth);
 	}
 
 	@Override

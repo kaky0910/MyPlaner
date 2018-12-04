@@ -47,7 +47,7 @@
 	<select id="getScheduleByMonth" parameterType="Daily" resultMap="scheduleResultMap">
 		SELECT schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
 		FROM schedule
-		WHERE (to_char(schedule_start_date,'mm')=#{month} OR to_char(schedule_end_date,'mm')=#{month}) AND member_no = #{memberNo}
+		WHERE (to_char(schedule_start_date,'yyyymm')=#{month} OR to_char(schedule_end_date,'yyyymm')=#{month}) AND member_no = #{memberNo}
 	</select>
 	
 	<select id="getScheduleDetail" parameterType="int" resultMap="scheduleResultMap">

@@ -83,6 +83,7 @@ public class SqlTest {
 		SqlSession sqlSession = factory.openSession();
 
 		System.out.println("메세지를 삭제합니다.");
+		
 		sqlSession.delete("message-mapper.deleteMessage", 16);
 		sqlSession.commit();
 		System.out.println("메세지 삭제가 완료되었습니다");	
@@ -138,14 +139,14 @@ public class SqlTest {
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
 	
-/*	@Test
+	/*@Test
 	public void addChallenge() throws Exception {
 		Reader reader = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
 		SqlSession sqlSession = factory.openSession();
 		
-		Challenge challenge = new Challenge(0,"C - TEST C-1", "2018-11-29", "2018-12-12",1, "TEST C", true);
+		Challenge challenge = new Challenge(0,"하루에 물 여덟 잔 마시기", "2018-12-01", "2018-12-07",4, "건강", true);
 		sqlSession.insert("challenge-mapper.addChallenge", challenge);
 		sqlSession.commit();
 		System.out.println(challenge.getChallengeTitle() + " << 도전 등록 성공!!");

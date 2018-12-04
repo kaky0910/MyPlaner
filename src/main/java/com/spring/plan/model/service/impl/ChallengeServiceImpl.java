@@ -17,9 +17,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Resource
 	ChallengeDao challengeDao;
-	
+
 	@Override
 	public List<Challenge> getAllChallengeList() throws Exception {
+		System.out.println(challengeDao.getAllChallengeList());
 		return challengeDao.getAllChallengeList();
 	}
 
@@ -40,65 +41,74 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Override
 	public int checkChallenge(int challengeNo, String challengeContent) throws Exception {
-		if(challengeDao.checkChallenge(challengeNo, challengeContent)==0)
+		if (challengeDao.checkChallenge(challengeNo, challengeContent) == 0) {
 			System.out.println("★ checkChallenge 실패");
-		return challengeDao.checkChallenge(challengeNo, challengeContent);
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
 	public int addChallenge(Challenge challenge) throws Exception {
-		if(challengeDao.addChallenge(challenge)==0)
+		if (challengeDao.addChallenge(challenge) == 0) {
 			System.out.println("★ addChallenge  실패");
-		
-		return challengeDao.addChallenge(challenge);
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
 	public int deleteChallenge(int challengeNo) throws Exception {
-		if(challengeDao.deleteChallenge(challengeNo)==0)
+		if (challengeDao.deleteChallenge(challengeNo) == 0) {
 			System.out.println("★ deleteChallenge  실패");
-		
-		return challengeDao.deleteChallenge(challengeNo);
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
 	public int addChallengeContent(int challengeNo, List<String> challengeContent) throws Exception {
-		if(challengeDao.addChallengeContent(challengeNo, challengeContent)==0)
+		if (challengeDao.addChallengeContent(challengeNo, challengeContent) == 0) {
 			System.out.println("★ addChallengeContent  실패");
-		
-		return challengeDao.addChallengeContent(challengeNo, challengeContent);
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
 	public int deleteChallengeContent(String challengeContent) throws Exception {
-		if(challengeDao.deleteChallengeContent(challengeContent)==0)
+		if (challengeDao.deleteChallengeContent(challengeContent) == 0) {
 			System.out.println("★ deleteChallengeContent  실패");
-		
-		return challengeDao.deleteChallengeContent(challengeContent);
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
 	public int updateChallengeLog(ChallengeLog challengeLog) throws Exception {
-		if(challengeDao.updateChallengeLog(challengeLog)==0)
+		if (challengeDao.updateChallengeLog(challengeLog) == 0) {
 			System.out.println("★ updateChallengeLog  실패");
-		
-		return challengeDao.updateChallengeLog(challengeLog);
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
 	public int writeChallengeComment(ChallengeComment challengeComment) throws Exception {
-		if(challengeDao.writeChallengeComment(challengeComment)==0)
+		if (challengeDao.writeChallengeComment(challengeComment) == 0) {
 			System.out.println("★ writeChallengeComment  실패");
-		
-		return challengeDao.writeChallengeComment(challengeComment);
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
 	public int deleteChallengeComment(ChallengeComment challengeComment) throws Exception {
-		if(challengeDao.deleteChallengeComment(challengeComment)==0)
+		if (challengeDao.deleteChallengeComment(challengeComment) == 0) {
 			System.out.println("★ deleteChallengeComment  실패");
-		
-		return challengeDao.deleteChallengeComment(challengeComment);
+			return 0;
+		}
+		return 1;
 	}
 
 }

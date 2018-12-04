@@ -30,6 +30,8 @@
 		<mapper resource="sql/schedule.xml"/>
 		<mapper resource="sql/message.xml"/>
 		<mapper resource="sql/challenge.xml"/>
+		<mapper resource="sql/board.xml"/>
+		<mapper resource="sql/habit.xml"/>
 	</mappers>
 </configuration>
 

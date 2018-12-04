@@ -1,5 +1,6 @@
 package com.spring.plan.model.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Challenge {
@@ -15,12 +16,16 @@ public class Challenge {
 	private List<ChallengeComment> challengeCommentList;
 	private List<ChallengeContent> challengeContentList;
 	
-	public Challenge() {}
+	public Challenge() {
+		challengeLogList = new ArrayList<ChallengeLog>();
+		challengeCommentList = new ArrayList<ChallengeComment>();
+		challengeContentList = new ArrayList<ChallengeContent>();
+	}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 	public Challenge(int challengeNo, String challengeTitle, String challengeStartDate, String challengeEndDate,
 			int memberNo, String challengeCategory, boolean challengeSharing) {
-		super();
+		this();
 		this.challengeNo = challengeNo;
 		this.challengeTitle = challengeTitle;
 		this.challengeStartDate = challengeStartDate;
@@ -28,11 +33,12 @@ public class Challenge {
 		this.memberNo = memberNo;
 		this.challengeCategory = challengeCategory;
 		this.challengeSharing = challengeSharing;
+
 	}//희정... addChallenge... 코멘트랑 일지, like 빠짐..
 
 	
 	public Challenge(int memberNo, String challengeCategory) {
-		super();
+		this();
 		this.memberNo = memberNo;
 		this.challengeCategory = challengeCategory;
 	}//희정... searchChallenge 

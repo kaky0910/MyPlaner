@@ -3,15 +3,15 @@
 			$("#addItemBtn").click(
 					function() {
 						// item 의 최대번호 구하기
-						var lastItemNo = $("#example tr:last").attr("class")
+						var lastItemNo = $("#contentTable tr:last").attr("class")
 								.replace("item", "");
 
-						var newitem = $("#example tr:eq(1)").clone();
+						var newitem = $("#contentTable tr:eq(1)").clone();
 						newitem.removeClass();
 						newitem.find("td:eq(0)").attr("rowspan", "1");
 						newitem.addClass("item" + (parseInt(lastItemNo) + 1));
 
-						$("#example").append(newitem);
+						$("#contentTable").append(newitem);
 					});//click
 
 			// 항목추가 버튼 클릭시
@@ -22,7 +22,7 @@
 				// tr 복사해서 마지막에 추가
 				var newrow = clickedRow.clone();
 				newrow.find("td:eq(0)").remove();
-				newrow.insertAfter($("#example ." + cls + ":last"));
+				newrow.insertAfter($("#contentTable ." + cls + ":last"));
 
 				// rowspan 조정
 				resizeRowspan(cls);
