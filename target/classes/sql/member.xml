@@ -2,40 +2,68 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="member-mapper">														<!-- sample -->
+<mapper namespace="member-mapper">					
+	<resultMap type="Member" id="memberResultMap">
+		<result property="memberNo" column="member_no"/>
+		<result property="kakaoId" column="kakao_id"/>
+		<result property="password" column="password"/>
+		<result property="id" column="id"/>
+		<result property="gender" column="gender"/>
+		<result property="birth" column="birth"/>
+		<result property="mail" column="mail"/>
+		<result property="registDate" column="regist_date"/>
+	</resultMap>									
+
+	<insert id="regist" parameterType="Member">
+		<selectKey keyProperty="memberNo" resultType="int" order="BEFORE">
+			SELECT member_seq.nextVal FROM dual
+		</selectKey>
+		INSERT INTO member(
+			member_no, id, password, birth, gender, mail,regist_date
+		) VALUES(
+			#{memberNo}, #{id}, #{password}, #{birth}, #{gender}, #{mail}, sysdate
+		)
+	</insert>
+	
+	<insert id="registKakao" parameterType="Member">
+		<selectKey keyProperty="memberNo" resultType="int" order="BEFORE">
+			SELECT member_seq.nextVal FROM dual
+		</selectKey>
+		INSERT INTO member(
+			 member_no, kakao_id, birth, gender, mail, regist_date
+		) VALUES(
+			 #{memberNo}, #{kakaoId}, #{birth}, #{gender}, #{mail}, sysdate
+		)
+	</insert>
+	
+	<insert id="blockMember" parameterType="BlockMember">
+		INSERT INTO member(
+			member_no, block_member_no
+		) VALUES(
+			#{memberNo}, #{blockMemberNo}
+		)
+	</insert>
+	
+	<select id="idCheck" parameterType="string" resultType="int">
+		SELECT count(-1) FROM member WHERE id = #{value}
+	</select>
+	
+	<select id="login" parameterType="Member" resultMap="memberResultMap" >
+		SELECT 
+			member_no, id, password, birth, gender, mail, regist_date
+		FROM member 
+		WHERE id = #{id} AND password = #{password}
+	</select>
+	
+	<select id="kakaoLogin" parameterType="Member" resultMap="memberResultMap">
+		SELECT 
+			member_no, kakao_id, birth, gender, mail, regist_date
+		FROM member 
+		WHERE kakao_id = #{kakaoId}
+	</select>
+	
+	<select id="checkKakaoId" parameterType="string" resultType="int">
+		SELECT count(-1) FROM member WHERE kakao_id = #{value}
+	</select>
+	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

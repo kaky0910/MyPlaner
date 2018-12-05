@@ -9,10 +9,10 @@ public class Board {
 	private String boardTitle;							
 	private String boardWriteDate;
 	private String boardContent;
-	private String memberNo;
 	private int boardLikes;
 	private int boardHits;
 	private int boardNo;
+	private int memberNo;
 	private List<String> boardPictures;
 	private List<BoardComment> boardCommentList;
 	
@@ -67,6 +67,14 @@ public class Board {
 
 	public String getBoardWriteDate() {
 		return boardWriteDate;
+	}
+	
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	public void setBoardWriteDate(String boardWriteDate) {
@@ -154,22 +162,12 @@ public class Board {
 		this.uploadFile = uploadFile;
 	}
 	
-	
-
-	public String getMemberNo() {
-		return memberNo;
-	}
-
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
-	}
-
 	@Override
 	public String toString() {
 		return "Board [boardTitle=" + boardTitle + ", boardWriteDate=" + boardWriteDate + ", boardContent="
 				+ boardContent + ", boardLikes=" + boardLikes + ", boardHits=" + boardHits + ", boardNo=" + boardNo
-				+ ", boardPictures=" + boardPictures + ", boardCommentList=" + boardCommentList + "]";
+				+ ", memberNo=" + memberNo + ", boardPictures=" + boardPictures + ", boardCommentList="
+				+ boardCommentList + "]";
 	}
-	
 	
 }

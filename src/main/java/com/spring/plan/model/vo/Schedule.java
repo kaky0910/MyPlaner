@@ -1,20 +1,30 @@
 package com.spring.plan.model.vo;
 
 public class Schedule {
+	private int scheduleNo;
 	private String scheduleTitle;
-	private String scheduleStartDate;
-	private String scheduleEndDate;
+	private String scheduleStartDate;			//YYYYMMDD
+	private String scheduleEndDate;				//YYYYMMDD
 	private String scheduleContent;
 	private String scheduleTag;
 	private String scheduleCheck;
 	private String scheduleColor;
+	private int memberNo;
 	
 	public Schedule() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
-
+	
 	public String getScheduleTitle() {
 		return scheduleTitle;
+	}
+
+	public int getScheduleNo() {
+		return scheduleNo;
+	}
+
+	public void setScheduleNo(int scheduleNo) {
+		this.scheduleNo = scheduleNo;
 	}
 
 	public void setScheduleTitle(String scheduleTitle) {
@@ -69,11 +79,23 @@ public class Schedule {
 		this.scheduleColor = scheduleColor;
 	}
 
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	
+	
+
 	@Override
 	public String toString() {
-		return "Schedule [scheduleTitle=" + scheduleTitle + ", scheduleStartDate=" + scheduleStartDate
-				+ ", scheduleEndDate=" + scheduleEndDate + ", scheduleContent=" + scheduleContent + ", scheduleTag="
-				+ scheduleTag + ", scheduleCheck=" + scheduleCheck + ", scheduleColor=" + scheduleColor + "]";
+		return "Schedule [scheduleNo=" + scheduleNo + ", scheduleTitle=" + scheduleTitle + ", scheduleStartDate="
+				+ scheduleStartDate + ", scheduleEndDate=" + scheduleEndDate + ", scheduleContent=" + scheduleContent
+				+ ", scheduleTag=" + scheduleTag + ", scheduleCheck=" + scheduleCheck + ", scheduleColor="
+				+ scheduleColor + ", memberNo=" + memberNo + "]";
 	}
+	
 	
 }

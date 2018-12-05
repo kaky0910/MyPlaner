@@ -1,0 +1,7 @@
+CREATE TABLE challenge_content (
+	challenge_no NUMBER,
+	challenge_content VARCHAR2(50),
+	challenge_content_check VARCHAR2(100),
+	CONSTRAINT FK_challenge_content FOREIGN KEY (challenge_no) REFERENCES challenge(challenge_no) ON DELETE CASCADE,
+	CONSTRAINT PK_challenge_content PRIMARY KEY (challenge_no,challenge_content)
+);

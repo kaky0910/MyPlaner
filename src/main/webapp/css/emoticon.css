@@ -1,0 +1,11 @@
+#emotion_tbl img {
+	width: 45px;
+	height: 45px;
+	padding: 2px;
+	border: 2px white double;
+}
+
+.clicked{
+	 opacity: 0.5;
+}
+

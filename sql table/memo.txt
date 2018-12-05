@@ -1,0 +1,5 @@
+CREATE TABLE memo (
+	member_no NUMBER UNIQUE,
+	memo VARCHAR2(1000),
+	CONSTRAINT FK_memo FOREIGN KEY (member_no) REFERENCES member(member_no) ON DELETE CASCADE
+);

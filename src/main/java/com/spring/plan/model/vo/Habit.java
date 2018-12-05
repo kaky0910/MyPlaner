@@ -1,33 +1,34 @@
 package com.spring.plan.model.vo;
 
-import java.util.Map;
+import java.util.List;
 
 public class Habit {
-	private String nickname;
+	private int memberNo;
 	private String habit;
 	private String habitStartDate;
 	private String habitEndDate;
-	private Map<String, String> habitCheckByMonth; //YYYY.MM 로 Habit 체크여부 넣는 Field
+	private List<CheckHabit> checkHabitList; //YYYY.MM 로 Habit 체크여부 넣는 Field
 	
 	public Habit() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-	public String getHabit() {
-		return habit;
-	}
-	public void setHabit(String habit) {
-		this.habit = habit;
-	}
 	
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
+
 	public String getHabitStartDate() {
 		return habitStartDate;
+	}
+	public String getStartMonth() {
+		return habitStartDate.substring(0,6);
 	}
 
 	public void setHabitStartDate(String habitStartDate) {
@@ -42,19 +43,29 @@ public class Habit {
 		this.habitEndDate = habitEndDate;
 	}
 
-	public Map<String, String> getHabitCheckByMonth() {
-		return habitCheckByMonth;
+	public List<CheckHabit> getCheckHabitList() {
+		return checkHabitList;
 	}
-	public void setHabitCheckByMonth(Map<String, String> habitCheckByMonth) {
-		this.habitCheckByMonth = habitCheckByMonth;
+
+	public void setCheckHabitList(List<CheckHabit> checkHabitList) {
+		this.checkHabitList = checkHabitList;
+	}
+	
+
+	public String getHabit() {
+		return habit;
+	}
+
+	public void setHabit(String habit) {
+		this.habit = habit;
 	}
 
 	@Override
 	public String toString() {
-		return "Habit [nickname=" + nickname + ", habit=" + habit + ", habitStartDate=" + habitStartDate
-				+ ", habitEndDate=" + habitEndDate + ", habitCheckByMonth=" + habitCheckByMonth + "]";
+		return "Habit [memberNo=" + memberNo + ", habit=" + habit + ", habitStartDate=" + habitStartDate
+				+ ", habitEndDate=" + habitEndDate + ", checkHabitList=" + checkHabitList + "]";
 	}
+
 	
-	
-	
+
 }

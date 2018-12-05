@@ -1,0 +1,8 @@
+CREATE TABLE check_habit (
+	member_no NUMBER,
+	habit VARCHAR2(50),
+	month VARCHAR2(6) NOT NULL,
+	check_habit VARCHAR2(35),
+	CONSTRAINT FK_check_habit FOREIGN KEY (member_no,habit) REFERENCES habit(member_no,habit) ON DELETE CASCADE,
+	CONSTRAINT PK_check_habit PRIMARY KEY (member_no,habit,month)
+);

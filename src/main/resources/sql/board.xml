@@ -3,104 +3,104 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board-mapper">
 
-    <resultMap type="BoardComment" id="boardCommentResultMap">
-      <result property="boardReplyComment" column="board_reply_comment"/>
-      <result property="boardComment" column="board_comment"/>
-      <result property="boardCommentNo" column="board_comment_no"/>
-      <result property="boardCommentWriteDate" column="board_comment_write_date"/>
-      <result property="boardCommentMemberNo" column="board_comment_member_no"/>
-      <result property="boardNo" column="board_no"/>
-   </resultMap> 
-   <resultMap type="Board" id="boardResultMap">
-      <result property="boardTitle" column="board_title" />
-      <result property="boardWriteDate" column="board_write_date" />
-      <result property="boardContent" column="board_contents" />
-      <result property="boardLikes" column="board_likes" />
-      <result property="boardHits" column="board_hits" />
-      <result property="boardNo" column="board_no"/>
-      <result property="memberNo" column="member_no"/>
-      <collection property="boardCommentList" resultMap="boardCommentResultMap"/>
-   </resultMap>
+	<resultMap type="BoardComment" id="boardCommentResultMap">
+		<result property="boardReplyComment" column="board_reply_comment"/>
+		<result property="boardComment" column="board_comment"/>
+		<result property="boardCommentNo" column="board_comment_no"/>
+		<result property="boardCommentWriteDate" column="board_comment_write_date"/>
+		<result property="boardCommentMemberNo" column="board_comment_member_no"/>
+		<result property="boardNo" column="board_no"/>
+	</resultMap>
+	<resultMap type="Board" id="boardResultMap">
+		<result property="boardTitle" column="board_title" />
+		<result property="boardWriteDate" column="board_write_date" />
+		<result property="boardContent" column="board_contents" />
+		<result property="boardLikes" column="board_likes" />
+		<result property="boardHits" column="board_hits" />
+		<result property="boardNo" column="board_no"/>
+		<result property="memberNo" column="member_no"/>
+		<collection property="boardCommentList" resultMap="boardCommentResultMap"/>
+	</resultMap>
 
-   <insert id="writeBoard" parameterType="Board">
-      <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
-         SELECT board_seq.nextVal FROM dual
-      </selectKey>
-      INSERT INTO board (
-         board_no, board_title, board_write_date, board_contents, member_no
-      ) VALUES(
-         #{boardNo}, #{boardTitle}, sysdate, #{boardContent}, #{memberNo}
-      )
-   </insert>
-   
-   <select id="getAllBoard" resultMap="boardResultMap">
-      SELECT board_no, board_title, board_write_date, board_content, board_likes, board_hits, member_no
-      FROM BOARD
-      ORDER BY board_no
-   </select>
+	<insert id="writeBoard" parameterType="Board">
+		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+			SELECT board_seq.nextVal FROM dual
+		</selectKey>
+		INSERT INTO board (
+			board_no, board_title, board_write_date, board_contents, member_no
+		) VALUES(
+			#{boardNo}, #{boardTitle}, sysdate, #{boardContent}, #{memberNo}
+		)
+	</insert>
+	
+	<select id="getAllBoard" resultMap="boardResultMap">
+		SELECT board_no, board_title, board_write_date, board_content, board_likes, board_hits, member_no
+		FROM BOARD
+		ORDER BY board_no
+	</select>
 
-   <select id="getBoardByNo" parameterType="int" resultMap="boardResultMap">
-      SELECT board.board_no, board_title, board_write_date, board_contents, board_likes, board_hits, 
-      member_no, board_reply_comment, board_comment, board_comment_no, board_comment_write_date, board_comment_member_no
-      FROM board,board_comment
-      WHERE board.board_no = #{boardNo} AND board.board_no = board_comment.board_no
-   </select>
-   
-   <update id="updateBoard" parameterType="Board">
-      UPDATE BOARD SET
-      boardTitle = #{boardTitle}
-      , boardContent = #{boardContent}
-      , boardWriteDate = #{boardWriteDate}
-      WHERE board_no = #{boardNo}
-   </update>
-   
-   <!-- 조회수 -->
-   <update id="updateCount" parameterType="int">
-      update BOARD set 
-          count=count+1 where board_no=#{value}
+	<select id="getBoardByNo" parameterType="int" resultMap="boardResultMap">
+		SELECT board.board_no, board_title, board_write_date, board_contents, board_likes, board_hits, 
+		member_no, board_reply_comment, board_comment, board_comment_no, board_comment_write_date, board_comment_member_no
+		FROM board,board_comment
+		WHERE board.board_no = #{boardNo} AND board.board_no = board_comment.board_no
+	</select>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD SET
+		boardTitle = #{boardTitle}
+		, boardContent = #{boardContent}
+		, boardWriteDate = #{boardWriteDate}
+		WHERE board_no = #{boardNo}
+	</update>
+	
+	<!-- 조회수 -->
+	<update id="updateCount" parameterType="int">
+		update BOARD set 
+   	    count=count+1 where board_no=#{value}
     </update>
-   
-   <delete id="deleteBoard" parameterType="Board">
-      DELETE FROM BOARD
-      WHERE board_no = #{BoardNo}
-   </delete>
-   
-   <select id="getBoardByMemberNo" resultMap="boardResultMap"   parameterType="int">
-      SELECT board_no, board_title, board_write_date, board_content, board_likes, board_hits, member_no
-      FROM BOARD
-      WHERE member_no = #{value}
-      ORDER BY board_no
-   </select>
-   
-   <select id="getBoardByTitle" resultMap="boardResultMap" parameterType="string">
-      SELECT board_no, board_title, board_write_date, board_content, board_likes, board_hits, member_no
-      FROM BOARD
-      WHERE board_title LIKE '%'||#{value}||'%'
-   </select>
+	
+	<delete id="deleteBoard" parameterType="Board">
+		DELETE FROM BOARD
+		WHERE board_no = #{BoardNo}
+	</delete>
+	
+	<select id="getBoardByMemberNo" resultMap="boardResultMap"	parameterType="int">
+		SELECT board_no, board_title, board_write_date,	board_content, board_likes, board_hits, member_no
+		FROM BOARD
+		WHERE member_no = #{value}
+		ORDER BY board_no
+	</select>
+	
+	<select id="getBoardByTitle" resultMap="boardResultMap" parameterType="string">
+		SELECT board_no, board_title, board_write_date,	board_content, board_likes, board_hits, member_no
+		FROM BOARD
+		WHERE board_title LIKE '%'||#{value}||'%'
+	</select>
 
-   <!-- 전체 게시물의 목록수 리턴 -->
-   <select id="totalCount" resultType="int">
-      select count(-1) from BOARD
-   </select>
+	<!-- 전체 게시물의 목록수 리턴 -->
+	<select id="totalCount" resultType="int">
+		select count(-1) from BOARD
+	</select>
 
-   <insert id="insertBoardComment" parameterType="BoardComment">
-      <selectKey keyProperty="boardCommentNo" resultType="int" order="BEFORE">
-         SELECT board_comment_seq.nextVal FROM dual
-      </selectKey>
-      insert into board_comment(
-         board_comment_no, board_no, board_comment_member_no, board_comment, board_reply_comment, board_comment_write_date
-      ) VALUES(
-         #{boardCommentNo},#{boardNo}, #{boardCommentMemberNo}, #{boardComment}, #{boardReplyComment}, sysdate
-      )
-   </insert>
+	<insert id="insertBoardComment" parameterType="BoardComment">
+		<selectKey keyProperty="boardCommentNo" resultType="int" order="BEFORE">
+			SELECT board_comment_seq.nextVal FROM dual
+		</selectKey>
+		insert into board_comment(
+			board_comment_no, board_no, board_comment_member_no, board_comment, board_reply_comment, board_comment_write_date
+		) VALUES(
+			#{boardCommentNo},#{boardNo}, #{boardCommentMemberNo}, #{boardComment}, #{boardReplyComment}, sysdate
+		)
+	</insert>
 
-   <!-- <select id="selectBoardCommentList" resultType="" parameterType=""> 
-      select commentNickname, boardComment, boardReplyComment, boardCommentWriteDate, 
-      from board_comment where nickname???_id = #{id}???? order by commentNickname 
-      asc </select> -->
+	<!-- <select id="selectBoardCommentList" resultType="" parameterType=""> 
+		select commentNickname, boardComment, boardReplyComment, boardCommentWriteDate, 
+		from board_comment where nickname???_id = #{id}???? order by commentNickname 
+		asc </select> -->
 
-   <delete id="deleteBoardComment" parameterType="BoardComment">
-      DELETE FROM board_comment
-      WHERE board_comment_no = #{boardCommentNo}
-   </delete>
+	<delete id="deleteBoardComment" parameterType="BoardComment">
+		DELETE FROM board_comment
+		WHERE board_comment_no = #{boardCommentNo}
+	</delete>
 </mapper>   

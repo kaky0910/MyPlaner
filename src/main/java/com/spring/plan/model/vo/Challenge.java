@@ -1,38 +1,44 @@
 package com.spring.plan.model.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Challenge {
-	private int challengeNo;
+	private Integer challengeNo;
 	private String challengeTitle;
 	private String challengeStartDate;
 	private String challengeEndDate;
-	private String nickname;
+	private Integer memberNo;
 	private String challengeCategory;
 	private int challengeLikes;
+	private boolean challengeSharing;
 	private List<ChallengeLog> challengeLogList;
 	private List<ChallengeComment> challengeCommentList;
 	private List<ChallengeContent> challengeContentList;
 	
-	public Challenge() {}
+	public Challenge() {
+		challengeLogList = new ArrayList<ChallengeLog>();
+		challengeCommentList = new ArrayList<ChallengeComment>();
+		challengeContentList = new ArrayList<ChallengeContent>();
+	}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 
 	
-	public int getChallengeNo() {
+	public Integer getChallengeNo() {
 		return challengeNo;
 	}
-	public void setChallengeNo(int challengeNo) {
+	public void setChallengeNo(Integer challengeNo) {
 		this.challengeNo = challengeNo;
 	}
-	
-	public String getNickname() {
-		return nickname;
+	public Integer getMemberNo() {
+		return memberNo;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+
+	public void setMemberNo(Integer memberNo) {
+		this.memberNo = memberNo;
 	}
-	
+
 	public String getChallengeTitle() {
 		return challengeTitle;
 	}
@@ -73,6 +79,15 @@ public class Challenge {
 		this.challengeLikes = challengeLikes;
 	}
 
+
+	public boolean isChallengeSharing() {
+		return challengeSharing;
+	}
+
+	public void setChallengeSharing(boolean challengeSharing) {
+		this.challengeSharing = challengeSharing;
+	}
+
 	public List<ChallengeLog> getChallengeLogList() {
 		return challengeLogList;
 	}
@@ -95,11 +110,11 @@ public class Challenge {
 	@Override
 	public String toString() {
 		return "Challenge [challengeNo=" + challengeNo + ", challengeTitle=" + challengeTitle + ", challengeStartDate="
-				+ challengeStartDate + ", challengeEndDate=" + challengeEndDate + ", nickname=" + nickname
+				+ challengeStartDate + ", challengeEndDate=" + challengeEndDate + ", memberNo=" + memberNo
 				+ ", challengeCategory=" + challengeCategory + ", challengeLikes=" + challengeLikes
-				+ ", challengeLogList=" + challengeLogList + ", challengeCommentList=" + challengeCommentList
-				+ ", challengeContentList=" + challengeContentList + "]";
+				+ ", challengeSharing=" + challengeSharing + ", challengeLogList=" + challengeLogList
+				+ ", challengeCommentList=" + challengeCommentList + ", challengeContentList=" + challengeContentList
+				+ "]";
 	}
-	
-	
+
 }

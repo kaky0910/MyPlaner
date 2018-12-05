@@ -1,0 +1,6 @@
+CREATE TABLE board_image (
+	board_no NUMBER, 
+	board_image VARCHAR2(200),
+	CONSTRAINT PK_board_image PRIMARY KEY(board_no,board_image),
+	CONSTRAINT FK_board_image_no FOREIGN KEY (board_no) REFERENCES board(board_no) ON DELETE CASCADE
+);
