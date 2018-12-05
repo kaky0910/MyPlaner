@@ -302,7 +302,20 @@
       </div>
       <!-- END section2 -->
 
-
+	<div id="section3" style="margin-top: 100px">
+		<div style="display: inline-block; width:400px;border: 1px solid white; height:800px">
+			<table style="border: 1px solid white; width:300px; margin-left: auto;margin-right: auto; margin-top: 30px; text-align: center;">
+				<tr>
+					<td></td><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+				</tr>
+				<tr>
+					<td>물 2리터</td><td style="background: white; cursor: pointer;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
+				</tr>
+			</table>
+		
+		</div>
+	
+	</div>
 
 
       <div id="section4"

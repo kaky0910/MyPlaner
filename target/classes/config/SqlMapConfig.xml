@@ -4,7 +4,7 @@
 	
 <configuration>
 <!-- 	<properties resource="config/jdbc.properties"/>
- -->	<settings>
+ --><settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	

@@ -15,11 +15,16 @@ import com.spring.plan.model.vo.Habit;
 public class HabitServiceImpl implements HabitService {
 	
 	@Resource
-	HabitDao habitDao;
+	private HabitDao habitDao;
 
 	@Override
 	public int addHabit(Habit habit) throws Exception {
-		return habitDao.addHabit(habit);
+		int result = habitDao.addHabit(habit);
+		CheckHabit checkHabit = new CheckHabit();
+		checkHabit.setHabit(habit);
+		checkHabit.setMonth(habit.getStartMonth());
+		result += habitDao.addCheckHabit(checkHabit)*10;
+		return result;
 	}
 
 	@Override

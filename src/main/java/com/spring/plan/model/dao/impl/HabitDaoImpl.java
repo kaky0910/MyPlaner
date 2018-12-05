@@ -22,6 +22,11 @@ public class HabitDaoImpl implements HabitDao{
 	public int addHabit(Habit habit) throws Exception {
 		return sqlSession.insert("habit-mapper.addHabit",habit);
 	}
+	
+	@Override
+	public int addCheckHabit(CheckHabit checkHabit) throws Exception {
+		return sqlSession.insert("habit-mapper.addHabit",checkHabit);
+	}
 
 	@Override
 	public int deleteHabit(Habit habit) throws Exception {

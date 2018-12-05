@@ -23,11 +23,11 @@
 		)
 	</insert>
 	
-	<insert id="addHabitCheck" parameterType="Habit">
+	<insert id="addHabitCheck" parameterType="CheckHabit">
 		INSERT INTO check_habit(
 			member_no, habit, month
 		) VALUES (
-			#{memberNo}, #{habit}, #{startMonth}
+			#{habit.memberNo}, #{habit.habit}, #{startMonth}
 		)
 	</insert>
 	
