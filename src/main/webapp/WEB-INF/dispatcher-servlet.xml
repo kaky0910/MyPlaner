@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<!-- 1. DataSource Bean -->
+	<context:property-placeholder location="classpath:config/jdbc.properties"/>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${JDBC.Driver}"/>
+		<property name="url" value="${JDBC.ConnectionURL}"/>
+		<property name="username" value="${JDBC.Username}"/>
+		<property name="password" value="${JDBC.Password}"/>
+	</bean>
+	
+	<!-- 2. MyBatis Framework Bean -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			value="classpath:config/SqlMapConfig.xml"></property>
+	</bean>
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<!-- fileupload -->
+	<!-- MultipartFile빈을 등록 :: BeanNameViewResolver가 필수 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="maxUploadSize" value="-1" />
+	</bean>
+	
+	<!-- 언제 사용되는지는 조금 있다가....FileUpload 할때와는 연관없다. -->
+	<bean id="beanNameResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0" />
+	</bean>
+	
+	<!-- DownLoadView 클래스를 등록 :: 이 빈을 사용하려면 BeanNameViewResolver -->
+	<!-- <bean name="downloadView" class="com.spring.board.fileupload.util.DownloadView"></bean> -->
+	
+	<context:component-scan base-package="com.spring.plan"/>
+</beans>

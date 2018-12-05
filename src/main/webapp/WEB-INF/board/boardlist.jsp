@@ -18,22 +18,22 @@
 		<th width="10%">조회수</th>
 	</tr>
 	<!-- @@@@@이 부분 반드시 수정 @@@@-->
-	<c:forEach var="board" items="${requestScope.lvo.list}">
+	<c:forEach var="board" items="${requestScope.lvo}">
 		<tr>
-			<td>${board.board_no}</td>
-			<td><a href="showContent.do?no=${board.board_no}">${board.board_title}</a></td>
-			<td>${board.member.name}</td>
-			<td>${board.board_write_date}</td>
-			<td>${board.board_hits}</td>		
+			<td>${board.boardNo}</td>
+			<td><a href="showContent.do?no=${board.boardNo}">${board.boardTitle}</a></td>
+			<td>${board.member.id}</td>
+			<td>${board.boardWriteDate}</td>
+			<td>${board.boardHits}</td>		
 		</tr>
 	</c:forEach>
 </table><p>
 
-<a href="boardwrite.do">작성</a>
+<a href="board/boardwrite.jsp">작성</a>
 
 
- <!-- 비로그인 사용자는 아래 버튼을 보여주지 않는다. -->
-<c:if test="${sessionScope.mvo!=null}">
+ <%-- <!-- 비로그인 사용자는 아래 버튼을 보여주지 않는다. -->
+<c:if test="${sessionScope.member!=null}">
 <a href="board/write.jsp"><img src="./img/write_btn.jpg" border="0"></a>
 
 </c:if>
@@ -80,7 +80,7 @@
 	 endPageOfPageGroup+1}">
 	 <img src="./img/right_arrow_btn.gif">
 	 </a>
-	 </c:if>	  
+	 </c:if>	 --%>  
 </body>
 </html>
 

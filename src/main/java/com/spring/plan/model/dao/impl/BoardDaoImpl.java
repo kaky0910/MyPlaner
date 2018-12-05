@@ -19,47 +19,47 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public Board getBoardByNo(int boardNo) throws Exception {
-		return sqlsession.selectOne("BoardMapper.getBoardByNO", boardNo);
+		return sqlsession.selectOne("board-mapper.getBoardByNO", boardNo);
 	}
 
 	@Override
 	public List<Board> getAllBoard() throws Exception {
-		return sqlsession.selectList("BoardMapper.getAllBoard");
+		return sqlsession.selectList("board-mapper.getAllBoard");
 	}
 
 	@Override
 	public List<Board> getBoardByTitle(String title) throws Exception {
-		return sqlsession.selectList("BoardMapper.getBoardByTitle", title);
+		return sqlsession.selectList("board-mapper.getBoardByTitle", title);
 	}
 
 	@Override
 	public List<Board> getBoardByNickname(String nickname) throws Exception {
-		return sqlsession.selectList("BoardMapper.getBoardByNickname",nickname);
+		return sqlsession.selectList("board-mapper.getBoardByNickname",nickname);
 	}
 
 	@Override
 	public int writeBoard(Board board) throws Exception {
-		return sqlsession.insert("BoardMapper.write",board);
+		return sqlsession.insert("board-mapper.writeBoard",board);
 	}
 
 	@Override
 	public int updateBoard(Board board) throws Exception {
-		return sqlsession.update("BoardMapper.updateBoard", board);
+		return sqlsession.update("board-mapper.updateBoard", board);
 	}
 
 	@Override
 	public int deleteBoard(int boardNo) throws Exception {
-		return sqlsession.delete("BoardMapper.deleteBoard", boardNo);
+		return sqlsession.delete("board-mapper.deleteBoard", boardNo);
 	}
 
 	@Override
 	public int addBoardComment(int boardNo, BoardComment boardComment) throws Exception {
-		return sqlsession.insert("BoardMapper.addBoardComment", boardComment);
+		return sqlsession.insert("board-mapper.addBoardComment", boardComment);
 	}
 
 	@Override
 	public int deleteBoardComment(int boardNo, BoardComment boardComment) throws Exception {
-		return sqlsession.delete("BoardMapper.deleteBoardComment", boardComment);
+		return sqlsession.delete("board-mapper.deleteBoardComment", boardComment);
 	}
 
 }

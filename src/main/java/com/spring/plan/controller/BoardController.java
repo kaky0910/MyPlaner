@@ -29,127 +29,93 @@ public class BoardController {
 	private BoardDao boardDao;
 	
 	@RequestMapping("boardwrite.do")
-	public ModelAndView write(HttpSession session , Board board) throws Exception {
-		boolean flag = true;
-		session.setAttribute("flag", flag);
-		Member member = (Member)session.getAttribute("member");
-		if(member == null)
-			return new ModelAndView("redirect:/index.jsp");
-		
-		
-		board.setMember(member);
-		
-		// FileUpload 부분 추가
-		MultipartFile mFile = board.getUploadFile();
-		System.out.println(mFile.getSize() + "====" + mFile.isEmpty());// false
-		if (mFile.isEmpty() == false) {
-			String fileName = mFile.getOriginalFilename();
-			board.setOrgfilename(fileName);
-
-			String newFileName = System.currentTimeMillis() + fileName;
-			board.setNewfilename(newFileName); // board에 모든 값의 주입이 끝났다.
-
-			// upload 폴더에 transferTo 시킨다..
-			String root = session.getServletContext().getRealPath("/");
-			String path = root + "\\upload\\";
-			System.out.println(root);
-			File copyFile = new File(path + newFileName);
-			mFile.transferTo(copyFile);// upload폴더로 이동됨....
-
-		}
-		
-		boardService.writeBoard(board); // 이때 모든 정보가 db에 들어간다.
-		return new ModelAndView("board/show_content", "board", board);
-	}
+	public ModelAndView write(HttpSession session, Board board) throws Exception{
+		System.out.println("옴?");
 	
-	@RequestMapping("getboard.do")
-	public ModelAndView writeBoard(Board board, int boardNo) throws Exception{
-		Board b = boardService.getBoardByNo(boardNo);
-		return new ModelAndView();
-	}
+		Member member=(Member)session.getAttribute("member");
+		System.out.println("왓냐");
+		/*if(member==null) { 
+			return new ModelAndView("redirect:/index.jsp");
+			
+		}	*/
+		/*board.setMember(member);*/	
+		/*// FileUpload 부분을 추가함...
+				MultipartFile mFile = board.getUploadFile();
+				System.out.println("MultipartFile : " + mFile);
+				System.out.println(mFile.getSize() + "=====" + mFile.isEmpty());// false
+
+				if (mFile.isEmpty() != true) {// 업로드된 파일이 있다면
+					String fileName = mFile.getOriginalFilename();
+					board.setOrgfilename(fileName);
+
+					String newFileName = System.currentTimeMillis() + fileName;
+					board.setNewfilename(newFileName); // bvo에 모든 값의 주입이 끝났다.
+				}
+				// upload 폴더에 transferTo 시킨다.
+				String root = session.getServletContext().getRealPath("/");
+				String path = root + "\\upload\\";
+				System.out.println("path : " + path);
+
+				File copyFile = new File(path + mFile.getOriginalFilename());
+				mFile.transferTo(copyFile);
+				// 원래 업로드한 파일이 해당 path로 이동
+*/				boardService.writeBoard(board);
+
+				return new ModelAndView("board/show_content", "board", board);
+
+			}
 	
 	@RequestMapping("boardlist.do")
-	public ModelAndView list(String pageNo) throws Exception {
-		List<Board> lbo = boardService.getAllBoard();
-		return new ModelAndView("board/list", "lbo", lbo);
-	}
-		
-	
-	@RequestMapping("deleteboard.do")
-	public ModelAndView delete(HttpSession session, int boardNo) throws Exception {
-		// FileUpload 부분을 추가함
-		board board = boardService.deleteBoard(boardNo);
-		
-		String root = session.getServletContext().getRealPath("/");
-		String path = root + "\\upload\\";
-		
-		File file = new File(path + board.getNewfilename());
-        
-        if(file.exists()){
-            if(file.delete()){
-                //System.out.println("이게 뭐임");
-            }else{
-                //System.out.println(" 아나이씨");
-            }
-        }else{
-            //System.out.println("존나뭔데");
-        }
-		
-		boardDao.deleteBoard(boardNo);
-				
-		return new ModelAndView("redirect:/boardlist.do");
+	public ModelAndView AllBoard()throws Exception {
+		List<Board> lvo = boardService.getAllBoard();
+		return new ModelAndView("board/boardlist","lvo",lvo);
 	}
 	
-	@RequestMapping("updateboard.do")
-	public ModelAndView update(int no) throws Exception {
-		Board board = boardService.getBoardByNo(no);
-		
-		return new ModelAndView("board/update", "board", board);
-	}
+	@RequestMapping("boardinfo.do")
+	public ModelAndView boardinfo(HttpSession session,int no)throws Exception {
 	
-	@RequestMapping("updateResult.do")
-	public ModelAndView updateResult(HttpSession session, Board pvo) throws Exception {
-		System.out.println("oh holy shit");
-		Member member = (Member)session.getAttribute("memeber");
+		Member member = (Member)session.getAttribute("member");
 		
-		if(member == null) {
+		if(member==null) { 
 			return new ModelAndView("redirect:/index.jsp");
 		}
 		
-		String root = session.getServletContext().getRealPath("/");
-		String path = root + "\\upload\\";
-		
-		File file = new File(path + pvo.getNewfilename());
-		System.out.println(pvo.getNewfilename() + " 77777777940707");
-        
-        if(file.exists()){
-            if(file.delete()){
-               
-            }else{
-                
-            }
-        }else{
-           
-        }
-        
-        MultipartFile mFile = pvo.getUploadFile();
-		if (mFile.isEmpty() == false) {
-			String fileName = mFile.getOriginalFilename();
-			pvo.setOrgfilename(fileName);
-
-			String newFileName = System.currentTimeMillis() + fileName;
-			pvo.setNewfilename(newFileName);
-
-			System.out.println(root);
-			File copyFile = new File(path + newFileName);
-			mFile.transferTo(copyFile);
-		}
-		
-		boardService.updateBoard(pvo);
-		
-		return new ModelAndView("board/boardwrite ", "board", pvo);
+		Board board = boardService.getBoardByNo(no);
+		return new ModelAndView("board/boardinfo", "board",board);
 	}
 	
+	@RequestMapping("delete.do")
+	public ModelAndView delete(int boardNo)throws Exception {
+		boardDao.deleteBoard(boardNo); 
+		
+		/*List<BoardVO> list = boardService.getBoardList("1");
+		return new ModelAndView("board/list","list",list);*/
+		return new ModelAndView("redirect:/list.do");
+	}
 	
+	@RequestMapping("updateView.do")
+	public ModelAndView update(Board board, int boardNo) throws Exception {
+		Board board1 = boardService.getBoardByNo(boardNo);
+		return new ModelAndView("board/boardupdate.jsp", "board", board1);
+	}
+	
+	@RequestMapping("updateBoard.do")
+	public ModelAndView updateResult(HttpSession session, Board board, String no) throws Exception {
+		Member memeber = (Member)session.getAttribute("member");
+		if(memeber == null) {
+			return new ModelAndView("redirect:/index.jsp");
+		}
+		
+		boardService.updateBoard(board);
+		return new ModelAndView("board/boardinfo", "board", board);
+	}
+	
+
 	
 }
+
+
+
+
+
+

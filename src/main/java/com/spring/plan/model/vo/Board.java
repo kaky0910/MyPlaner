@@ -9,6 +9,7 @@ public class Board {
 	private String boardTitle;							
 	private String boardWriteDate;
 	private String boardContent;
+	private String memberNo;
 	private int boardLikes;
 	private int boardHits;
 	private int boardNo;
@@ -151,6 +152,16 @@ public class Board {
 
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
+	}
+	
+	
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	@Override

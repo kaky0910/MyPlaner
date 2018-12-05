@@ -9,11 +9,47 @@ public class BoardComment {
 	public BoardComment() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
+	
+	public BoardComment(String commentNickname, String boardComment, String boardReplyComment,
+			String boardCommentWriteDate) {
+		super();
+		this.commentNickname = commentNickname;
+		this.boardComment = boardComment;
+		this.boardReplyComment = boardReplyComment;
+		this.boardCommentWriteDate = boardCommentWriteDate;
+	}
+	
+
+	public BoardComment(String commentNickname, String boardComment, String boardReplyComment,
+			String boardCommentWriteDate, Board board) {
+		super();
+		this.commentNickname = commentNickname;
+		this.boardComment = boardComment;
+		this.boardReplyComment = boardReplyComment;
+		this.boardCommentWriteDate = boardCommentWriteDate;
+		this.board = board;
+	}
+	
+	public BoardComment(String commentNickname, String boardComment, String boardReplyComment,
+			String boardCommentWriteDate, Board board, Member member) {
+		super();
+		this.commentNickname = commentNickname;
+		this.boardComment = boardComment;
+		this.boardReplyComment = boardReplyComment;
+		this.boardCommentWriteDate = boardCommentWriteDate;
+		this.board = board;
+		this.member = member;
+	}
+	private Board board;
+	
+	private Member member;
+
 
 	public String getCommentNickname() {
 		return commentNickname;
 	}
 
+	
 	public void setCommentNickname(String commentNickname) {
 		this.commentNickname = commentNickname;
 	}

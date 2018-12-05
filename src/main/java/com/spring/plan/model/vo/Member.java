@@ -12,6 +12,7 @@ public class Member {
 	private String mail;
 	private String registDate;
 	private String memo;
+	private String memberNo;
 	private List<Challenge> challengeList;
 	private List<Schedule> ScheduleList;
 	private List<Board> boardList;
@@ -112,6 +113,14 @@ public class Member {
 	}
 	public void setColorList(List<String> colorList) {
 		this.colorList = colorList;
+	}
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 	
 	

@@ -3,14 +3,14 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board-mapper">
 
-   <resultMap type="BoardComment" id="boardCommentResultMap">
+    <resultMap type="BoardComment" id="boardCommentResultMap">
       <result property="boardReplyComment" column="board_reply_comment"/>
       <result property="boardComment" column="board_comment"/>
       <result property="boardCommentNo" column="board_comment_no"/>
       <result property="boardCommentWriteDate" column="board_comment_write_date"/>
       <result property="boardCommentMemberNo" column="board_comment_member_no"/>
       <result property="boardNo" column="board_no"/>
-   </resultMap>
+   </resultMap> 
    <resultMap type="Board" id="boardResultMap">
       <result property="boardTitle" column="board_title" />
       <result property="boardWriteDate" column="board_write_date" />
@@ -66,14 +66,14 @@
    </delete>
    
    <select id="getBoardByMemberNo" resultMap="boardResultMap"   parameterType="int">
-      SELECT board_no, board_title, board_write_date,   board_content, board_likes, board_hits, member_no
+      SELECT board_no, board_title, board_write_date, board_content, board_likes, board_hits, member_no
       FROM BOARD
       WHERE member_no = #{value}
       ORDER BY board_no
    </select>
    
    <select id="getBoardByTitle" resultMap="boardResultMap" parameterType="string">
-      SELECT board_no, board_title, board_write_date,   board_content, board_likes, board_hits, member_no
+      SELECT board_no, board_title, board_write_date, board_content, board_likes, board_hits, member_no
       FROM BOARD
       WHERE board_title LIKE '%'||#{value}||'%'
    </select>
