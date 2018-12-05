@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CREATE SEQUENCE board_seq
 		start with 1
 	        increment by 1
@@ -14,4 +15,15 @@ CREATE TABLE board (
 	board_likes NUMBER DEFAULT 0,
 	board_hits NUMBER DEFAULT 0,
 	CONSTRAINT FK_boardmember FOREIGN KEY (member_no) REFERENCES member(member_no) on delete cascade
+=======
+CREATE TABLE board (
+	nickname varchar2(30) NOT NULL PRIMARY KEY,
+	board_no number NOT NULL,
+	board_title varchar2(60) NOT NULL,
+	board_content varchar2(2000),
+	board_write_date date DEFAULT sysdate,
+	board_likes number,
+	member_no number,
+	board_hits number default 0	
+>>>>>>> 12ff991452bfb520d6d92f1587c35fee5163745c
 );
