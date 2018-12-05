@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -20,6 +21,7 @@ import com.spring.plan.model.service.ChallengeService;
 import com.spring.plan.model.service.HabitService;
 import com.spring.plan.model.service.ScheduleService;
 import com.spring.plan.model.vo.Daily;
+import com.spring.plan.model.vo.Member;
 
 @Controller
 public class DailyController {
@@ -82,7 +84,7 @@ public class DailyController {
       return new ModelAndView("JsonView","result",result);
    }
    
-   @RequestMapping("/loadingDaily.do")
+   @RequestMapping("loadingDaily.do")
    public ModelAndView loadingDaily(int memberNo) throws Exception{
       Daily daily = new Daily();
       
@@ -94,13 +96,12 @@ public class DailyController {
       daily.setMemo(dailyDao.getMemo(memberNo));
       
       daily.setScheduleList(scheduleService.getScheduleByMonth(daily));
+      System.out.println(daily.getScheduleList());
       daily.setHabitList(habitService.getHabitList(memberNo));
-      System.out.println("daily month ::::::: "+daily.getMonth());
       daily.setChallengeList(challengeService.getChallengeByMonth(daily.getMonth(), memberNo));      
-      System.out.println("daily ::::::: "+daily);
-      System.out.println("challList :::::::; "+daily.getChallengeList());
       
-      
+      System.out.println(daily);
+      System.out.println("::::"+daily.getScheduleFormattedArray());
       return new ModelAndView("index","daily",daily);
    }
 

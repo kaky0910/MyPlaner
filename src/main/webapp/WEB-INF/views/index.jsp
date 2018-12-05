@@ -14,18 +14,16 @@
 <title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <link rel="stylesheet" href="${path}/css/challengeCard.css">
 <link rel="stylesheet" href="${path}/css/calendar.css">
 <link rel="stylesheet" href="${path}/css/emoticon.css">
 <link rel="stylesheet" href="${path}/css/checkbox.css">
+<link rel="stylesheet" href="${path}/css/switch.css">
 <link rel="stylesheet" href="${path}/css/memo.css">
 <link rel="stylesheet" href="${path}/css/carousel.css">
 <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo"
 	rel="stylesheet">
-<link
-	href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
-
 
 <link href="https://fonts.googleapis.com/css?family=Yeon+Sung"
 	rel="stylesheet">
@@ -72,7 +70,9 @@
 				success : function(result) {
 
 					$("#newchallengeDiv").html(result);
-
+					/* $('#challengeWriteOK').click(function(){
+					   location.href="addChallenge.do"
+					}); */
 				}//susccess
 			});//ajax
 		});//click
@@ -82,13 +82,21 @@
 		//$('#glider-add div').last().prev().css('color','red');
 		$('.card:eq(-2)').css('color', 'red');
 
-		//6. calendar 로직
-		var arr = [ [ 4, 8 ], [ 25, 29 ], [ 20, 25 ], [ 8, 11 ], [ 3, 5 ],
-				[ 1, 3 ] ]; //challenge (시작일, 마지막일) format으로 arr로 입력
+		
+		
+		//6. challenge (시작일, 마지막일) format으로 arr로 입력
+		var tempArr = ${daily.scheduleFormattedArray};
+		var arr = ${daily.scheduleFormattedArray};
 
+		
 		new Promise(function(resolve, reject) {
 			calendarInit(yearCount, monthCount);
+			if (arr == null || arr[0] == null || arr.length == 0) {
+				reject("No Schedule");
+			}
 			resolve(arr);
+		}, function(m) {
+			alert(m);
 		}).then(setChallenge1(arr)).then(setChallenge2(arr)).then(
 				setChallenge3(arr));
 		//alert(moment().format());
@@ -108,9 +116,10 @@
 					$('#weatherTest h2').append(data.weather[0].main);
 				}
 			});
-		});//6
+		});
+		//6
 
-		//7. calendar 옆에 검색 기능
+		//7. calendar next searchResultTab..
 		$.ajax({
 			method : 'get',
 			url : 'searchResult.do',
@@ -131,7 +140,45 @@
 		});//ajax
 		//7
 
+		//8
+		 
+		
+
 	});//ready
+	function addChallenge() {
+        var flag = $('input:checked').length;
+
+        $.ajax({
+                 url : 'addChallenge.do',
+                 method : 'post',
+                 dataType : 'json',
+                 data : {
+                    "challengeTitle" : $(
+                          'input[name=challengeTitle]')
+                          .val(),
+                    "challengeCategory" : $(
+                          'select option:selected').val(),
+                    "challengeStartDate" : $(
+                          'input[name=challengeStartDate]')
+                          .val(),
+                    "challengeEndDate" : $(
+                          'input[name=challengeEndDate]')
+                          .val(),
+                    "challengeSharing" : flag,
+                    "memberNo" : $(
+                    'input[type=hidden]')
+                    .val()
+                 },
+                 success : function(result) {
+                    $('.challengeSection:last').after("<div class='challengeSection'>"+$('.challengeSection:last').html()+"</div>"); 
+                	$('.challengeSection:last #challengeTitle').html(result.json.challenge.challengeTitle);
+                	$('.challengeSection:last #startDate').html(result.json.challenge.challengeStartDate);
+                	$('.challengeSection:last #endDate').html(result.json.challenge.challengeEndDate);
+                	$('.challengeSection:last #challengeCategory').html(result.json.challenge.challengeCategory);
+                	$('.challengeSection:last #challengeSharing').html(result.json.challenge.challengeSharing) 
+                 }
+              });//ajax
+     }//addChallenge
 </script>
 
 </head>
@@ -189,10 +236,6 @@
 			<div id="search" style="float: left; width: 20%"></div>
 		</div>
 		<!-- END section1 -->
-
-
-
-
 
 
 		<hr>
@@ -303,10 +346,8 @@
 			</table>
 		</div>
 		<!-- END section2 -->
-
-
-
-
+		
+		
 		<div id="section4"
 			style="height: 450px; /* background-color: blue; */ margin-top: 20px;">
 
@@ -321,14 +362,13 @@
 					</p>
 				</div>
 
-
 				<div data-name="Add/Remove Items" class="glider-contain multiple">
 					<div class="gradient-border-bottom">
 						<div class="gradient-border">
 							<div class="glider" id="glider-add"
 								style="width: 1160px; height: auto;">
 								<c:forEach var="challengeList" items="${daily.challengeList}">
-									<div>
+									<div class="challengeSection">
 										<div class="card">
 											<!-- Face 1 -->
 											<div class="card-face face-1">
@@ -340,7 +380,7 @@
 														width="110" height="110" draggable="false" />
 												</div>
 												<!-- Name -->
-												<h2 class="card-face__name">
+												<h2 id="challengeTitle" class="card-face__name">
 													<b>${challengeList.challengeTitle}</b>
 												</h2>
 												<!-- Title -->
@@ -350,8 +390,8 @@
 														<b> STARTDATE : </b> <span id="startDate">${challengeList.challengeStartDate}</span>
 														<br> <b> ENDDATE : </b> <span id="endDate">${challengeList.challengeEndDate}</span>
 													</h4>
-													<b>Category : </b> ${challengeList.challengeCategory}<br>
-													<b>Sharing : </b> ${challengeList.challengeSharing}
+													<b>Category : </b><label id="challengeCategory"> ${challengeList.challengeCategory}</label><br>
+													<b>Sharing : </b><label id="challengeSharing"> ${challengeList.challengeSharing}</label>
 													<hr>
 													<ul style="text-align: left">
 														<c:forEach var="challengeLogList"
@@ -367,79 +407,6 @@
 										</div>
 									</div>
 								</c:forEach>
-
-								<!-- <div>
-									<div class="card">
-										Face 1
-										<div class="card-face face-1">
-											Avatar
-											<div class="card-face__avatar">
-												User avatar
-												<img
-													src="https://image.flaticon.com/icons/svg/188/188241.svg"
-													width="110" height="110" draggable="false" />
-											</div>
-											Name
-											<h2 class="card-face__name">
-												<b>물 여덟잔 마시기</b>
-											</h2>
-											Title
-											<span class="card-face__title"><b>핫브레이커</b></span>
-											<div class="challenge-content">
-												<h4>
-													<b> STARTDATE : </b> <span id="startDate"></span> <br>
-													<b> ENDDATE : </b> <span id="endDate"></span>
-												</h4>
-												<b>Category : </b> 독서<br> <b>Sharing : </b> ON
-												<hr>
-												<ul style="text-align: left">
-													<li><b>Day 1</b> 첫 날
-													<li><b>Day 2</b> 두번째 날
-												</ul>
-												<hr>
-												<em>124명</em>이 응원합니당.
-											</div>
-										</div>
-									</div>
-								</div> -->
-
-
-								<!-- <div>
-									<div class="card">
-										Face 1
-										<div class="card-face face-1">
-											Avatar
-											<div class="card-face__avatar">
-												User avatar
-												<img
-													src="https://image.flaticon.com/icons/svg/188/188243.svg"
-													width="110" height="110" draggable="false" />
-											</div>
-											Name
-											<h2 class="card-face__name">
-												<b>머리 마사지 30분 하기</b>
-											</h2>
-											Title
-											<span class="card-face__title"><b>연성</b></span>
-											<div class="challenge-content">
-												<h4>
-													<b> STARTDATE : </b> <span style="display: inline"
-														id="startDate"></span> <br> <b> ENDDATE : </b> <span
-														style="display: inline" id="endDate"></span>
-												</h4>
-												<b>Category : </b> 자기관리<br> <b>Sharing : </b> ON
-												<hr>
-												<ul style="text-align: left">
-													<li><b>Day 1</b> 첫 날 : 관자놀이 쪽을 주물주물
-													<li><b>Day 2</b> 두번째 날 : M자 방지 휴..
-												</ul>
-												<hr>
-												<em>85명</em>이 응원합니당.
-											</div>
-										</div>
-									</div>
-								</div> -->
-
 								<div id="newchallengeDiv" style="width: 290px; height: 500px">
 									<div class="card">
 										<img src="${path}/img/writeChallenge.png"
@@ -548,4 +515,3 @@
 	
 </script>
 </html>
-

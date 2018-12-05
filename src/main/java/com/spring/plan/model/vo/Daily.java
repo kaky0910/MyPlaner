@@ -1,6 +1,7 @@
 package com.spring.plan.model.vo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Daily {            // 한 회원의 index page 정보들을 가지고 있음.
    }
    
    public Daily(int memberNo, String month, String day) {
-	  this();
+	   this();
       this.memberNo = memberNo;
       this.month = month;
       this.day = day;
@@ -86,23 +87,19 @@ public class Daily {            // 한 회원의 index page 정보들을 가지고 있음.
       this.habitList = habitList;
    }
    
-   public int[][] getScheduleFormattedArray() {
+   public List<List<Integer>> getScheduleFormattedArray() {
       List<Schedule> list = getScheduleList();
-      if(list==null ||list.size()==0) return null; 
-      int[][] arr = new int[list.size()][2];
-      int count = 0;
+      List<List<Integer>> result = new ArrayList<List<Integer>>();
       for(Schedule s : list) {
-         arr[count][0] = Integer.parseInt(s.getScheduleStartDate().substring(6));
-         arr[count][1] = Integer.parseInt(s.getScheduleEndDate().substring(6));
-         if(!s.getScheduleStartDate().substring(4, 6).equals(month.substring(4)))
-            arr[count][0]=1;
-         if(!s.getScheduleEndDate().substring(4, 6).equals(month.substring(4))) 
-            arr[count][1]=getLastDate(month.substring(4));
-          
-         count++;
+         List<Integer> temp = new ArrayList<Integer>();
+         temp.add(Integer.parseInt(s.getScheduleStartDate().substring(6)));
+         temp.add(Integer.parseInt(s.getScheduleEndDate().substring(6)));
+         System.out.println(s.getScheduleStartDate()+ ":::::::::::::::::" +s.getScheduleEndDate());
+         System.out.println("추가~~~~~~~~~~~("+temp.get(0)+","+temp.get(1)+")");
+         result.add(temp);
       }
       
-      return arr;
+      return result;
    }
    
    public List<Schedule> getTodaySchedule() {
