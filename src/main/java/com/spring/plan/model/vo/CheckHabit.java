@@ -1,15 +1,10 @@
 package com.spring.plan.model.vo;
 
 public class CheckHabit {
-	private Habit habit;
+	private int memberNo;
+	private String habit;
 	private String month;
 	private String checkHabit;
-	public Habit getHabit() {
-		return habit;
-	}
-	public void setHabit(Habit habit) {
-		this.habit = habit;
-	}
 	public String getMonth() {
 		return month;
 	}
@@ -22,9 +17,24 @@ public class CheckHabit {
 	public void setCheckHabit(String checkHabit) {
 		this.checkHabit = checkHabit;
 	}
+	
+	
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	public String getHabit() {
+		return habit;
+	}
+	public void setHabit(String habit) {
+		this.habit = habit;
+	}
 	@Override
 	public String toString() {
-		return "CheckHabit [habit=" + habit + ", month=" + month + ", checkHabit=" + checkHabit + "]";
+		return "CheckHabit [memberNo=" + memberNo + ", habit=" + habit + ", month=" + month + ", checkHabit="
+				+ checkHabit + "]";
 	}
 	
 	

@@ -39,7 +39,7 @@ public class HabitDaoImpl implements HabitDao{
 	}
 
 	@Override
-	public String getCheckHabitByMonth(CheckHabit checkHabit) throws Exception {
+	public CheckHabit getCheckHabitByMonth(CheckHabit checkHabit) throws Exception {
 		return sqlSession.selectOne("habit-mapper.getCheckHabit",checkHabit);
 	}
 

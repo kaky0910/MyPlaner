@@ -16,7 +16,7 @@ public interface HabitService {
 	int checkHabit(Habit habit, String day) throws Exception;
 
 	// 해당 월의 habit 체크한 기록 return
-	String getCheckHabitByMonth(CheckHabit checkHabit) throws Exception; // getHabitCheckByWeek는 이 method로
+	CheckHabit getCheckHabitByMonth(CheckHabit checkHabit) throws Exception; // getHabitCheckByWeek는 이 method로
 	
 	// 멤버의 habit 가져옴
 	List<Habit> getHabitList(int memberNo) throws Exception;

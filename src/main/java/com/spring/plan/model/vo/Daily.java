@@ -152,6 +152,55 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 		
 		return year+month+day;
 	}
+	
+	public List<CheckHabit> getCheckHabitByMonth(){
+		List<CheckHabit> result = new ArrayList<CheckHabit>();
+		Date date = new Date();
+		String year = (date.getYear()+1900)+"";
+		String month = year+(date.getMonth()+1);
+		if(habitList!=null && habitList.size()!=0) {
+			for(Habit h : habitList) {
+				if(h.getHabitEndDate()==null) {
+					for(CheckHabit ch : h.getCheckHabitList()) {
+						if(ch.getMonth().equals(month)) result.add(ch);
+					}
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	public List<WeeklyCheckHabit> getWeeklyCheckHabit(){
+		List<WeeklyCheckHabit> result = new ArrayList<WeeklyCheckHabit>();
+		Date d = new Date();
+		int day = d.getDay();
+		int date = d.getDate();
+		int num = date-day+5;
+		for(CheckHabit ch : getCheckHabitByMonth()) {
+			if(isExist(result, ch)) continue;
+			char[] temp = new char[7];
+			char[] arr = ch.getCheckHabit().toCharArray();
+			WeeklyCheckHabit wch = new WeeklyCheckHabit();
+			for(int i=0; i<7;i++) {
+				temp[i] = arr[num+i];
+			}
+			wch.setHabitCheck(Arrays.toString(temp));
+			wch.setHabit(ch.getHabit());
+			
+			result.add(wch);
+		}
+		return result;
+	}
+	
+	public boolean isExist(List<WeeklyCheckHabit> list,CheckHabit ch) {
+		boolean flag = false;
+		for(WeeklyCheckHabit w : list) {
+			if(w.getHabit().equals(ch.getHabit()))
+				flag = true;
+		}
+		return flag;
+	}
 
 	
 }

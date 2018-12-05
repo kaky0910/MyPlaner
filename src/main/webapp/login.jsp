@@ -8,13 +8,6 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
-<script type="text/javascript">
-	$(function(){
-		$('img').click(function(){
-			document.location.href= "https://kauth.kakao.com/oauth/authorize?client_id=08b70259b4cb9d20d263e23ccd2047bc&redirect_uri=http://localhost:8888/plan/kakaoLogin.do&response_type=code";
-		});
-	});
-</script>
 </head>
 <body>
 	<h1 align="center">Login</h1><br><br>

@@ -195,3 +195,13 @@ function setChallenge3(arr){
 		flag2 = false;
 	}
 }
+
+function getDateByTrackerId(id){
+	var curDay = moment().day();
+	var curDate = moment().date();
+	var targetDate = curDate + (id.charAt(1)-curDay);
+	var month = moment().month()+1;
+	if(month<10) month = "0"+month;
+	if(targetDate<10) targetDate = "0"+targetDate;
+	return moment().year()+""+month+""+targetDate;
+}

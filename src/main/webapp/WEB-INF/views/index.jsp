@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -28,7 +29,11 @@
 <script src="${path}/js/calendar.js"></script>
 <script src="${path}/js/moment.js"></script>
 <script src="${path}/js/glider.js"></script>
-
+<style type="text/css">
+	.checked{
+		background-image: url("./img/check.png");
+	}
+</style>
 <script type="text/javascript">
    var monthCount = moment().month();
    var yearCount = moment().year();
@@ -129,6 +134,24 @@
                   });
          }
       })
+      
+      $('.tracker').click(function(){
+//    	  alert($(this).parent().attr('id'));						$(this).parent().attr('id') -- habit
+//    	  alert(getDateByTrackerId($(this).attr('id')));           ex)20181202
+			var id = $(this).attr('id');
+			$.ajax({
+				url : "checkHabit.do",
+				data : {
+					"habit" : $(this).parent().attr('id'),
+					"day" : getDateByTrackerId($(this).attr('id')),
+					"memberNo" : ${member.memberNo}
+				},
+				success : function(data){
+					$('#'+id).css('background-color','red');
+					alert("Zz");
+				}
+			})
+      });
    });//ready
 </script>
 
@@ -311,8 +334,22 @@
 				<tr>
 					<td>물 2리터</td><td style="background: white; cursor: pointer;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
 				</tr>
+				<c:forEach items="${daily.weeklyCheckHabit}" var="item" varStatus="h">
+					<tr id="${item.habit}">
+						<td>${item.habit}${s.index }</td>
+						<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
+							<c:if test="${fn:contains(i, '0')}">
+								<td id="${h.index}${d.index}" style="background: white; cursor: pointer;" class="tracker"></td>
+							</c:if>
+						</c:forEach>
+						
+					</tr>
+				</c:forEach>
 			</table>
 		
+		</div>
+		<div style="display: inline-block; width:800px;border: 1px solid white; height:800px; margin-left: 200px">
+			
 		</div>
 	
 	</div>
