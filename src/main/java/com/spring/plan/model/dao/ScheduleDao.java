@@ -2,12 +2,19 @@ package com.spring.plan.model.dao;
 
 import java.util.List;
 
+import com.spring.plan.model.vo.Daily;
 import com.spring.plan.model.vo.Schedule;
 
 public interface ScheduleDao {
 
-	// 조건에 따라 Schedule return 
-	List<Schedule> getScheduleBy() throws Exception;
+	// 당일 Schedule return index 1-2
+	List<Schedule> getScheduleByDay(Daily daily) throws Exception;
+	
+	// 당월 Schedule return index 1-1
+	List<Schedule> getScheduleByMonth(Daily daily) throws Exception;
+	
+	// index 1-1 에 detail 정보
+	Schedule getScheduleDetail(int scheduleNo) throws Exception;
 	
 	// schedule 추가
 	int addSchedule(Schedule schedule) throws Exception;

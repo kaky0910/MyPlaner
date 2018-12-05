@@ -1,0 +1,7 @@
+CREATE TABLE member_block (
+	member_no NUMBER,
+	block_member_no NUMBER,
+	CONSTRAINT FK_block1 FOREIGN KEY (member_no) REFERENCES member(member_no) ON DELETE CASCADE,
+	CONSTRAINT FK_block2 FOREIGN KEY (block_member_no) REFERENCES member(member_no) ON DELETE CASCADE,
+	CONSTRAINT PK_block PRIMARY KEY (member_no,block_member_no)
+);

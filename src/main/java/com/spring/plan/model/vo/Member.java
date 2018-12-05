@@ -3,16 +3,15 @@ package com.spring.plan.model.vo;
 import java.util.List;
 
 public class Member {
+	private Integer memberNo;
+	private String password;
 	private String id;
 	private String kakaoId;
-	private String password;
-	private String token;
-	private String nickname;
 	private String gender;
+	private String birth;
 	private String mail;
 	private String registDate;
 	private String memo;
-	private String memberNo;
 	private List<Challenge> challengeList;
 	private List<Schedule> ScheduleList;
 	private List<Board> boardList;
@@ -24,36 +23,46 @@ public class Member {
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getKakaoId() {
-		return kakaoId;
-	}
-	public void setKakaoId(String kakaoId) {
-		this.kakaoId = kakaoId;
-	}
+	
 	public String getPassword() {
 		return password;
 	}
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
+	public Integer getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(Integer memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getToken() {
-		return token;
+	
+	public String getId() {
+		return id;
 	}
-	public void setToken(String token) {
-		this.token = token;
+
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getNickname() {
-		return nickname;
+
+	public String getKakaoId() {
+		return kakaoId;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+
+	public void setKakaoId(String kakaoId) {
+		this.kakaoId = kakaoId;
 	}
+
 	public String getGender() {
 		return gender;
 	}
@@ -115,13 +124,13 @@ public class Member {
 		this.colorList = colorList;
 	}
 
-	public String getMemberNo() {
-		return memberNo;
+	@Override
+	public String toString() {
+		return "Member [memberNo=" + memberNo + ", password=" + password + ", id=" + id + ", kakaoId=" + kakaoId
+				+ ", gender=" + gender + ", birth=" + birth + ", mail=" + mail + ", registDate=" + registDate
+				+ ", memo=" + memo + ", challengeList=" + challengeList + ", ScheduleList=" + ScheduleList
+				+ ", boardList=" + boardList + ", habitList=" + habitList + ", messageList=" + messageList
+				+ ", colorList=" + colorList + "]";
 	}
-
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
-	}
-	
 	
 }

@@ -9,6 +9,11 @@ public class ChallengeContent {
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 
+	public ChallengeContent(int challengeNo, String challengeContent) {
+		this.challengeNo = challengeNo;
+		this.challengeContent = challengeContent;
+	}
+
 	public int getChallengeNo() {
 		return challengeNo;
 	}

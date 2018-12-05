@@ -1,0 +1,7 @@
+CREATE TABLE daily_info (
+	member_no NUMBER,
+	day DATE,
+	emotion VARCHAR2(30) NULL,
+	CONSTRAINT PK_DAILY PRIMARY KEY (member_no,day),
+	CONSTRAINT FK_DAILY FOREIGN KEY (member_no) REFERENCES member(member_no) ON DELETE CASCADE
+);

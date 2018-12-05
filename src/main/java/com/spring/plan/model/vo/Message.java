@@ -2,11 +2,12 @@ package com.spring.plan.model.vo;
 
 public class Message {
 	private int messageNo;
-	private String senderNickname;
-	private String destinationNickname;
+	private int senderMemberNo;
+	private int destinationMemberNo;
 	private String messageSendDate;
-	private String messageContents;
+	private String messageContent;
 	private String messageTitle;
+	private boolean check;
 	
 	public Message() {}
 	
@@ -18,17 +19,21 @@ public class Message {
 	public void setMessageNo(int messageNo) {
 		this.messageNo = messageNo;
 	}
-	public String getSenderNickname() {
-		return senderNickname;
+	
+	public int getSenderMemberNo() {
+		return senderMemberNo;
 	}
-	public void setSenderNickname(String senderNickname) {
-		this.senderNickname = senderNickname;
+
+	public void setSenderMemberNo(int senderMemberNo) {
+		this.senderMemberNo = senderMemberNo;
 	}
-	public String getDestinationNickname() {
-		return destinationNickname;
+
+	public int getDestinationMemberNo() {
+		return destinationMemberNo;
 	}
-	public void setDestinationNickname(String destinationNickname) {
-		this.destinationNickname = destinationNickname;
+
+	public void setDestinationMemberNo(int destinationMemberNo) {
+		this.destinationMemberNo = destinationMemberNo;
 	}
 
 	public String getMessageSendDate() {
@@ -39,12 +44,12 @@ public class Message {
 		this.messageSendDate = messageSendDate;
 	}
 
-	public String getMessageContents() {
-		return messageContents;
+	public String getMessageContent() {
+		return messageContent;
 	}
 
-	public void setMessageContents(String messageContents) {
-		this.messageContents = messageContents;
+	public void setMessageContent(String messageContent) {
+		this.messageContent = messageContent;
 	}
 
 	public String getMessageTitle() {
@@ -54,12 +59,21 @@ public class Message {
 	public void setMessageTitle(String messageTitle) {
 		this.messageTitle = messageTitle;
 	}
+	
+	public boolean isCheck() {
+		return check;
+	}
+
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
 
 	@Override
 	public String toString() {
-		return "Message [messageNo=" + messageNo + ", senderNickname=" + senderNickname + ", destinationNickname="
-				+ destinationNickname + ", messageSendDate=" + messageSendDate + ", messageContents=" + messageContents
-				+ ", messageTitle=" + messageTitle + "]";
+		return "Message [messageNo=" + messageNo + ", senderMemberNo=" + senderMemberNo + ", destinationMemberNo="
+				+ destinationMemberNo + ", messageSendDate=" + messageSendDate + ", messageContent=" + messageContent
+				+ ", messageTitle=" + messageTitle + ", check=" + check + "]";
 	}
+
 	
 }

@@ -33,11 +33,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Board> getBoardByNickname(String nickname) throws Exception {
-		return boardDao.getBoardByNickname(nickname);
-	}
-
-	@Override
 	public int writeBoard(Board board) throws Exception {
 		System.out.println("inset Àü:"+board.getBoardNo());
 		boardDao.writeBoard(board);
@@ -45,9 +40,6 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 		
-		
-	
-
 	@Override
 	public int updateBoard(Board board) throws Exception {
 		return boardDao.updateBoard(board) ;
@@ -67,5 +59,6 @@ public class BoardServiceImpl implements BoardService {
 	public int deleteBoardComment(int boardNo, BoardComment boardComment) throws Exception {
 		return boardDao.deleteBoardComment(boardNo, boardComment);
 	}
+
 
 }

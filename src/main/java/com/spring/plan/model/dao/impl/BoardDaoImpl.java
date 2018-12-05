@@ -31,12 +31,7 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Board> getBoardByTitle(String title) throws Exception {
 		return sqlsession.selectList("board-mapper.getBoardByTitle", title);
 	}
-
-	@Override
-	public List<Board> getBoardByNickname(String nickname) throws Exception {
-		return sqlsession.selectList("board-mapper.getBoardByNickname",nickname);
-	}
-
+	
 	@Override
 	public int writeBoard(Board board) throws Exception {
 		return sqlsession.insert("board-mapper.writeBoard",board);
@@ -60,6 +55,11 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int deleteBoardComment(int boardNo, BoardComment boardComment) throws Exception {
 		return sqlsession.delete("board-mapper.deleteBoardComment", boardComment);
+	}
+
+	@Override
+	public List<Board> getBoardByMemberNo(int memberNo) throws Exception {
+		return null;
 	}
 
 }

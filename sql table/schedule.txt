@@ -1,0 +1,20 @@
+CREATE SEQUENCE schedule_seq
+		start with 1
+	        increment by 1
+		nocache;
+
+
+
+
+
+CREATE TABLE schedule (
+	schedule_no NUMBER PRIMARY KEY,
+	schedule_title VARCHAR2(50) NOT NULL,
+	schedule_start_date DATE NOT NULL,
+	schedule_end_date DATE NULL,
+	schedule_content VARCHAR2(200),
+	schedule_tag VARCHAR2(100),
+	schedule_check VARCHAR2(100),
+	member_no NUMBER,
+	CONSTRAINT fk_schedule FOREIGN KEY (member_no) REFERENCES member(member_no) on delete cascade
+);

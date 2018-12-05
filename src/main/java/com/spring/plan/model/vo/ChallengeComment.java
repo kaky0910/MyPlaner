@@ -3,9 +3,9 @@ package com.spring.plan.model.vo;
 public class ChallengeComment {
 
 	private int challengeCommentNo;
-	private String challengeReplyComment;
+	private int challengeReplyComment;
 	private int challengeNo;
-	private String challengeCommentNickname;
+	private int challengeCommentMemberNo;
 	private String challengeComment;
 	private String challengeCommentWriteDate;
 	
@@ -28,20 +28,20 @@ public class ChallengeComment {
 		this.challengeNo = challengeNo;
 	}
 
-	public String getChallengeReplyComment() {
+	public int getChallengeReplyComment() {
 		return challengeReplyComment;
 	}
 
-	public void setChallengeReplyComment(String challengeReplyComment) {
+	public void setChallengeReplyComment(int challengeReplyComment) {
 		this.challengeReplyComment = challengeReplyComment;
 	}
-
-	public String getChallengeCommentNickname() {
-		return challengeCommentNickname;
+	
+	public int getChallengeCommentMemberNo() {
+		return challengeCommentMemberNo;
 	}
 
-	public void setChallengeCommentNickname(String challengeCommentNickname) {
-		this.challengeCommentNickname = challengeCommentNickname;
+	public void setChallengeCommentMemberNo(int challengeCommentMemberNo) {
+		this.challengeCommentMemberNo = challengeCommentMemberNo;
 	}
 
 	public String getChallengeComment() {
@@ -59,13 +59,11 @@ public class ChallengeComment {
 	public void setChallengeCommentWriteDate(String challengeCommentWriteDate) {
 		this.challengeCommentWriteDate = challengeCommentWriteDate;
 	}
-
 	@Override
 	public String toString() {
 		return "ChallengeComment [challengeCommentNo=" + challengeCommentNo + ", challengeReplyComment="
-				+ challengeReplyComment + ", challengeNo=" + challengeNo + ", challengeCommentNickname="
-				+ challengeCommentNickname + ", challengeComment=" + challengeComment + ", challengeCommentWriteDate="
+				+ challengeReplyComment + ", challengeNo=" + challengeNo + ", challengeCommentMemberNo="
+				+ challengeCommentMemberNo + ", challengeComment=" + challengeComment + ", challengeCommentWriteDate="
 				+ challengeCommentWriteDate + "]";
 	}
-	
 }

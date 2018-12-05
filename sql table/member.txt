@@ -1,5 +1,10 @@
+CREATE SEQUENCE member_seq
+		start with 1
+	    increment by 1
+		nocache;
+
 CREATE TABLE member (
-	nickname varchar2(30) NOT NULL PRIMARY KEY,
+	member_no NUMBER PRIMARY KEY,
 	id varchar2(30) NULL UNIQUE,
 	kakao_id varchar2(20) NULL UNIQUE,
 	password varchar2(30) NULL,

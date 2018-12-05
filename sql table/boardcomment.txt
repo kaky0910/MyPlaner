@@ -1,6 +1,0 @@
-CREATE TABLE boardcomment (
-	commentNickname varchar2(30) NOT NULL PRIMARY KEY,
-	boardComment varchar2(60) NOT NULL,
-	boardReplyComment varchar2(2000),
-	boardCommentWriteDate date DEFAULT sysdate
-);

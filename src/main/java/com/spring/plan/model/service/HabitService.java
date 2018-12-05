@@ -1,5 +1,8 @@
 package com.spring.plan.model.service;
 
+import java.util.List;
+
+import com.spring.plan.model.vo.CheckHabit;
 import com.spring.plan.model.vo.Habit;
 
 public interface HabitService {
@@ -13,5 +16,9 @@ public interface HabitService {
 	int checkHabit(Habit habit, String day) throws Exception;
 
 	// 해당 월의 habit 체크한 기록 return
-	String getHabitCheckByMonth(Habit habit, String month) throws Exception; // getHabitCheckByWeek는 이 method로
+	String getCheckHabitByMonth(CheckHabit checkHabit) throws Exception; // getHabitCheckByWeek는 이 method로
+	
+	// 멤버의 habit 가져옴
+	List<Habit> getHabitList(int memberNo) throws Exception;
+
 }
