@@ -134,6 +134,10 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 			return 30;
 		else return 31;
 	}
+	
+	public int getLastDate() {
+		return getLastDate(month.substring(4));
+	}
 
 	@Override
 	public String toString() {
@@ -168,6 +172,21 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 			}
 		}
 		
+		return result;
+	}
+	
+	public List<MonthlyCheckHabit> getMonthlyCheckHabit(){ // tracker용
+		List<CheckHabit> list = getCheckHabitByMonth();
+		List<MonthlyCheckHabit> result = new ArrayList<MonthlyCheckHabit>();
+		char[] arr = new char[getLastDate()];
+		for(CheckHabit ch : list) {
+			MonthlyCheckHabit mch = new MonthlyCheckHabit();
+			mch.setMonth(month);
+			arr = ch.getCheckHabit().substring(6, getLastDate()+6).toCharArray();
+			mch.setCheckHabit(arr);
+			mch.setHabit(ch.getHabit());
+			result.add(mch);
+		}
 		return result;
 	}
 	

@@ -13,8 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="${path}/css/challengeCard.css">
 <link rel="stylesheet" href="${path}/css/calendar.css">
 <link rel="stylesheet" href="${path}/css/emoticon.css">
@@ -26,6 +25,10 @@
 
 <link href="https://fonts.googleapis.com/css?family=Yeon+Sung"
    rel="stylesheet">
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="${path}/js/calendar.js"></script>
 <script src="${path}/js/moment.js"></script>
 <script src="${path}/js/glider.js"></script>
@@ -39,7 +42,6 @@
    var yearCount = moment().year();
 
    $(function() {
-      
       //2. Section2(Daily)에 오늘 날짜를 출력하는 기능
       var date = moment().date();
       var month = moment().month() + 1;
@@ -47,6 +49,7 @@
       $('#Date ').html(year + "년 " + month + "월 " + date + "일");
       //$('#Date ').html(year +"/ " + month + "/ " + date);
       $('#Date ').css('font-size', '2.8em');
+      $('#sec3month').html(month+"월");
       //2
 
       //3. emotion 가져오기, 보내기
@@ -139,19 +142,36 @@
 //    	  alert($(this).parent().attr('id'));						$(this).parent().attr('id') -- habit
 //    	  alert(getDateByTrackerId($(this).attr('id')));           ex)20181202
 			var id = $(this).attr('id');
+      		var x = getDateByTrackerId(id).substring(6);
+      		if(x<10) x=x.substring(1);
+      		x=x-1;
+			var monthId = id.substring(0,1)+x;
+
 			$.ajax({
 				url : "checkHabit.do",
 				data : {
 					"habit" : $(this).parent().attr('id'),
 					"day" : getDateByTrackerId($(this).attr('id')),
-					"memberNo" : ${member.memberNo}
+					"memberNo" : ${param.memberNo}
 				},
 				success : function(data){
-					$('#'+id).css('background-color','red');
-					alert("Zz");
+					if(data.flag=='check'){
+						$('#'+id).css('background-color','red');
+						$('#m'+monthId).css('background-color','red');
+					} else if(data.flag == 'uncheck'){
+						$('#'+id).css('background-color','white');
+						$('#m'+monthId).css('background-color','white');
+					}else{
+						alert("fail");
+					}
 				}
-			})
+			});
       });
+   
+	    $('#weeklyHabit').click(function(){
+	    	alert($(this).position().left+"       "+$(this).position().top);
+			   window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
+	    });
    });//ready
 </script>
 
@@ -325,33 +345,57 @@
       </div>
       <!-- END section2 -->
 
-	<div id="section3" style="margin-top: 100px">
-		<div style="display: inline-block; width:400px;border: 1px solid white; height:800px">
-			<table style="border: 1px solid white; width:300px; margin-left: auto;margin-right: auto; margin-top: 30px; text-align: center;">
-				<tr>
-					<td></td><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
-				</tr>
-				<tr>
-					<td>물 2리터</td><td style="background: white; cursor: pointer;"></td><td></td><td></td><td></td><td></td><td></td><td></td>
-				</tr>
+	<div class="row" id="section3" style="margin-top: 100px">
+			<div class="col-3" style="display: inline-block; width:250px;border: 1px solid white; height:800px">
+				<div style="margin-right: 50px;  margin-top: 30px; height: 20px"><img src="${path}/img/set.png" width="20px;" style="float: right; cursor: pointer;" id="weeklyHabit"></div>
 				<c:forEach items="${daily.weeklyCheckHabit}" var="item" varStatus="h">
-					<tr id="${item.habit}">
-						<td>${item.habit}${s.index }</td>
-						<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
-							<c:if test="${fn:contains(i, '0')}">
-								<td id="${h.index}${d.index}" style="background: white; cursor: pointer;" class="tracker"></td>
-							</c:if>
-						</c:forEach>
-						
-					</tr>
+					<table style="border: 1px solid white; width:300px; margin-left: auto;margin-right: auto; margin-top: 30px; text-align: center;">
+						<tr>
+							<td></td><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+						</tr>
+						<tr id="${item.habit}">
+							<td>${item.habit}${s.index }</td>
+							<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
+								<c:choose>
+									<c:when test="${fn:contains(i, '0')}">
+										<td id="${h.index}${d.index}"class="tracker" style="background: white; cursor: pointer;" >
+									</c:when>
+									<c:otherwise>
+										<td id="${h.index}${d.index}"class="tracker" style="cursor: pointer; background-color: red" >
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</tr>
+					</table>
 				</c:forEach>
-			</table>
-		
-		</div>
-		<div style="display: inline-block; width:800px;border: 1px solid white; height:800px; margin-left: 200px">
-			
-		</div>
-	
+			</div>
+			<div class="col-8" style="display: inline-block; width:750px;border: 1px solid white; height:800px; margin-left: 100px">
+				<h1 id="sec3month" align="center" style="margin-top: 20px"></h1>
+				<table style="border: 1px solid white; width:500px;  margin-left: auto;margin-right: auto; margin-top: 30px; text-align: center;">
+					<thead>
+						<tr>
+							<c:forEach begin="1" end="${daily.lastDate}" varStatus="s"><td>${s.count}</td></c:forEach>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${daily.monthlyCheckHabit}" var="item" varStatus="h"> 
+							<tr id="${item.habit}">
+								<td>${item.habit}</td>
+								<c:forEach items="${item.checkHabit}" var="i" varStatus="d">
+									<c:choose>
+										<c:when test="${fn:contains(i, '0')}">
+											<td id="m${h.index}${d.index}"class="tracker" style="background: white; " >
+										</c:when>
+										<c:otherwise>
+											<td id="m${h.index}${d.index}"class="tracker" style=" background-color: red" >
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 	</div>
 
 

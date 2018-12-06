@@ -15,6 +15,10 @@ public class WeeklyCheckHabit {
 	public void setHabitCheck(String habitCheck) {
 		this.habitCheck = habitCheck;
 	}
+	@Override
+	public String toString() {
+		return "WeeklyCheckHabit [habit=" + habit + ", habitCheck=" + habitCheck + "]";
+	}
 	
 	
 }

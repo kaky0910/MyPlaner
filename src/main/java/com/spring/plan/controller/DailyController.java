@@ -96,11 +96,14 @@ public class DailyController {
 		daily.setMemo(dailyDao.getMemo(memberNo));
 		
 		daily.setScheduleList(scheduleService.getScheduleByMonth(daily));
+		System.out.println("@@@@@@@@@  "+daily.getHabitList());
 		daily.setHabitList(habitService.getHabitList(memberNo));
+		System.out.println("getHabitList :::::::: "+daily.getHabitList());
 		daily.setChallengeList(challengeService.getChallengeByMonth(daily.getMonth(), memberNo));		
 		
 		System.out.println(daily);
 		System.out.println("::::"+daily.getScheduleFormattedArray());
+		System.out.println("!!!!!!!  "+daily.getWeeklyCheckHabit());
 		return new ModelAndView("index","daily",daily);
 	}
 

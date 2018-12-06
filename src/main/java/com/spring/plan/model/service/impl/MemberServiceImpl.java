@@ -26,8 +26,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int idCheck(String id) throws Exception {
-		return memberDao.idCheck(id);
+	public boolean idCheck(String id) throws Exception {
+		if(memberDao.idCheck(id)==1) return true;
+		else return false;
 	}
 
 	@Override

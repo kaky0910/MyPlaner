@@ -24,8 +24,10 @@ public class HabitController {
 	public ModelAndView checkHabit(Habit habit, String day) throws Exception{
 		System.out.println("habit :::::::: "+habit);
 		System.out.println("day :::::::::: "+day);
-		habitService.checkHabit(habit, day);
-		return new ModelAndView("JsonView","flag","success");
+		int result = habitService.checkHabit(habit, day);
+		if(result == 11) return new ModelAndView("JsonView","flag","check");
+		else if(result == 1) return new ModelAndView("JsonView","flag","uncheck");
+		else return new ModelAndView("JsonView","flag","fail");
 	}
 
 }

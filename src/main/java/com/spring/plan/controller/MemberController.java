@@ -39,4 +39,20 @@ public class MemberController {
 		session.setAttribute("member", mvo);
 		return new ModelAndView("redirect:loadingDaily.do?memberNo="+mvo.getMemberNo());
 	}
+	
+	@RequestMapping("idCheck.do")
+	public ModelAndView idcheck(String id) throws Exception{
+		boolean flag = false;
+		flag = memberService.idCheck(id);
+		return new ModelAndView("JsonView","flag",flag);
+	}
+	
+	@RequestMapping("memberRegist.do")
+	public ModelAndView regist(Member member) throws Exception{
+		int result = memberService.regist(member);
+		if(result==0) return new ModelAndView("Error");
+		
+		
+		return new ModelAndView("redirect:login.jsp");
+	}
 }

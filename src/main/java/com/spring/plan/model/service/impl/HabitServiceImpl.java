@@ -35,17 +35,24 @@ public class HabitServiceImpl implements HabitService {
 
 	@Override
 	public int checkHabit(Habit habit, String day) throws Exception {
+		String result = "";
 		CheckHabit checkHabit = new CheckHabit();
 		checkHabit.setMemberNo(habit.getMemberNo());
 		checkHabit.setHabit(habit.getHabit());
 		checkHabit.setMonth(day.substring(0, 6));
 		CheckHabit getCheck = habitDao.getCheckHabitByMonth(checkHabit);
+		System.out.println("getCheck :::::::: "+getCheck);
 		char[] arr = getCheck.getCheckHabit().toCharArray();
-		if(arr[Integer.parseInt(day.substring(6,8))+5]==0)					////////////////////////////陥獣びびびびびびびびびびびびびびびびび
-			arr[Integer.parseInt(day.substring(6,8))+5]=1;
-		else arr[Integer.parseInt(day.substring(6,8))+5]=0;
+		if(arr[Integer.parseInt(day.substring(6,8))+5]=='0') {					////////////////////////////陥獣びびびびびびびびびびびびびびびびび
+			arr[Integer.parseInt(day.substring(6,8))+5]='1';
+			result = "check";
+		}
+		else {
+			arr[Integer.parseInt(day.substring(6,8))+5]='0';
+			result = "uncheck";
+		}
 		checkHabit.setCheckHabit(new String(arr));
-
+		if(result.equals("check")) return habitDao.checkHabit(checkHabit)+10;		//11戚檎 端滴失因
 		return habitDao.checkHabit(checkHabit);
 	}
 
