@@ -144,7 +144,7 @@
 			var id = $(this).attr('id');
       		var x = getDateByTrackerId(id).substring(6);
       		if(x<10) x=x.substring(1);
-      		x=x-1;
+      		x=x-2;
 			var monthId = id.substring(0,1)+x;
 
 			$.ajax({

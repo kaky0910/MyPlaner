@@ -15,29 +15,23 @@ function calendarInit(y,m){
 	else day1OfWeek = (dayOfWeek - cha)+7;
 	
 	var day31 = [1,3,5,7,8,10,12];
-	var endOfMonth;
+	var endOfMonth = moment(y+""+m,"yyyymm").daysInMonth();
 	
 	
 	// month의 일수를 계산. endOfMonth 에
-	if(curMonth == 1) endOfMonth=28;
-	else if(day31.filter(filter1)!=0){
-		endOfMonth = 31;
+	if(endOfMonth == 31){
 		if(day1OfWeek>=5) {
 			var arr = $('.calendar__week');
 			if(arr.length==5)
 				$('#calendar').append('<div class="calendar__week"></div>');
 		}
-	} else{
-		endOfMonth = 30;
+	} else if(endOfMonth == 30){
 		if(day1OfWeek==6){
 			var arr = $('.calendar__week');
 			if(arr.length==5)
 				$('#calendar').append('<div class="calendar__week"></div>');
 		}
 	}
-	function filter1(value, index, array){
-		return value === curMonth+1;
-	}//
 	
 	
 	//calendar div에 day추가

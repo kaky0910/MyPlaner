@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.plan.model.dao.DailyDao;
 import com.spring.plan.model.service.MemberService;
 import com.spring.plan.model.vo.Member;
 
@@ -14,7 +15,9 @@ import com.spring.plan.model.vo.Member;
 public class MemberController {
 	
 	@Resource
-	MemberService memberService;
+	private MemberService memberService;
+	@Resource
+	private DailyDao dailyDao;
 	
 	@RequestMapping("kakaoLogin.do")
 	public ModelAndView kakaoLogin(Member member,HttpSession session) throws Exception{
@@ -51,7 +54,6 @@ public class MemberController {
 	public ModelAndView regist(Member member) throws Exception{
 		int result = memberService.regist(member);
 		if(result==0) return new ModelAndView("Error");
-		
 		
 		return new ModelAndView("redirect:login.jsp");
 	}
