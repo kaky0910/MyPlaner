@@ -13,7 +13,7 @@ import com.spring.plan.model.vo.Member;
 public class MemberDaoImpl implements MemberDao {
 	
 	@Resource
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 
 	@Override
 	public Member login(Member mvo) throws Exception {
@@ -51,3 +51,4 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 }
+

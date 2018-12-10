@@ -29,3 +29,4 @@ public interface MemberDao {
 	// 카카오 회원 체크
 	int checkKakao(Member member) throws Exception;
 }
+

@@ -29,4 +29,5 @@ public interface MemberService {
 	Member kakaoLogin(Member mvo) throws Exception;
 
 
+
 }

@@ -15,9 +15,10 @@ public class BlockMember {
 	public void setBlockMemberNo(int blockMemberNo) {
 		this.blockMemberNo = blockMemberNo;
 	}
+
 	@Override
 	public String toString() {
 		return "BlockMember [memberNo=" + memberNo + ", blockMemberNo=" + blockMemberNo + "]";
 	}
-	
+
 }

@@ -25,3 +25,4 @@ public interface ScheduleService {
 	// schedule ¼öÁ¤
 	int updateSchedule(Schedule schedule) throws Exception;
 }
+

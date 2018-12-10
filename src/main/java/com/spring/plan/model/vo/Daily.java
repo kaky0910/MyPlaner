@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+<<<<<<< HEAD
 public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 	private int memberNo;
 	private String day; // YYYYMMDD
@@ -24,23 +25,20 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 		this.day = day;
 	}
 
-	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
-	public int getMemberNo() {
-		return memberNo;
-	}
+   //////여기에 생성자 추가(어따쓰는지도  *주*석*)
+   public int getMemberNo() {
+      return memberNo;
+   }
 
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
-	}
+   public void setMemberNo(int memberNo) {
+      this.memberNo = memberNo;
+   }
 
-	public String getMonth() {
-		return month;
-	}
+   public String getMonth() {
+      return month;
+   }
 
-	public void setMonth(String month) {
-		this.month = month;
-	}
-
+<<<<<<< HEAD
 	public String getDay() {
 		return day;
 	}
