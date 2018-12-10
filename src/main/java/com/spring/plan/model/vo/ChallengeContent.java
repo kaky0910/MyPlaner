@@ -8,6 +8,11 @@ public class ChallengeContent {
 	public ChallengeContent() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
+	public ChallengeContent(int challengeNo, String challengeContent) {
+		super();
+		this.challengeNo = challengeNo;
+		this.challengeContent = challengeContent;
+	}//희정 /addChallengeContent
 
 	public ChallengeContent(int challengeNo, String challengeContent) {
 		this.challengeNo = challengeNo;
@@ -17,6 +22,7 @@ public class ChallengeContent {
 	public int getChallengeNo() {
 		return challengeNo;
 	}
+	
 	public void setChallengeNo(int challengeNo) {
 		this.challengeNo = challengeNo;
 	}

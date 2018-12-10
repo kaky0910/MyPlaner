@@ -32,7 +32,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return sqlSession.update("schedule-mapper.updateSchedule",schedule);
 	}
 
-	
 	@Override
 	public Schedule getScheduleDetail(int scheduleNo) throws Exception {
 		return sqlSession.selectOne("schedule-mapper.getScehduleDetail",scheduleNo);

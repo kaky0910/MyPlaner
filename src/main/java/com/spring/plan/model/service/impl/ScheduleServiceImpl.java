@@ -16,7 +16,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Resource
 	ScheduleDao scheduleDao;
-	
 	@Override
 	public int addSchedule(Schedule schedule) throws Exception {
 		return scheduleDao.addSchedule(schedule);

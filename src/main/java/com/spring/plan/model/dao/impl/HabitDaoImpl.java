@@ -16,7 +16,7 @@ import com.spring.plan.model.vo.Habit;
 public class HabitDaoImpl implements HabitDao{
 
 	@Resource
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 	
 	@Override
 	public int addHabit(Habit habit) throws Exception {
@@ -49,3 +49,4 @@ public class HabitDaoImpl implements HabitDao{
 	}
 
 }
+

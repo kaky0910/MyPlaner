@@ -56,3 +56,4 @@
 		member_no = #{memberNo} AND habit = #{habit} AND month = #{month}
 	</select>
 </mapper>
+

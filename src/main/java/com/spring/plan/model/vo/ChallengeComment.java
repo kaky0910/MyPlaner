@@ -12,7 +12,16 @@ public class ChallengeComment {
 	public ChallengeComment() {}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
-
+	public ChallengeComment(int challengeCommentNo, int challengeReplyComment, int challengeNo,
+			int challengeCommentMemberNo, String challengeComment, String challengeCommentWriteDate) {
+		super();
+		this.challengeCommentNo = challengeCommentNo;
+		this.challengeReplyComment = challengeReplyComment;
+		this.challengeNo = challengeNo;
+		this.challengeCommentMemberNo = challengeCommentMemberNo;
+		this.challengeComment = challengeComment;
+		this.challengeCommentWriteDate = challengeCommentWriteDate;
+	}//희정 addChallengeComment
 	
 	public int getChallengeCommentNo() {
 		return challengeCommentNo;

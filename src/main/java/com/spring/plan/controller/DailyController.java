@@ -25,35 +25,35 @@ import com.spring.plan.model.vo.Member;
 
 @Controller
 public class DailyController {
-	
-	@Resource
-	private DailyDao dailyDao;
-	@Resource
-	private HabitService habitService;
-	@Resource
-	private ScheduleService scheduleService;
-	@Resource
-	private ChallengeService challengeService;
-	
-	@RequestMapping("/searchResult.do")				// 네이버 검색결과
-	public ModelAndView searchResult(String word) throws Exception{
-		String resource = "config/api.properties";
-		Properties properties = new Properties();
-		String naverClientId="";
-		String naverSecretClientId="";
-		String result="";
-		
-		try {
-			Reader reader = Resources.getResourceAsReader(resource);
-			properties.load(reader);
-			naverClientId = properties.getProperty("naver.ClientId");
-			naverSecretClientId = properties.getProperty("naver.SecretClientId");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("client"+naverClientId);
-		System.out.println("secretclient"+naverSecretClientId);
-		try {
+   
+   @Resource
+   private DailyDao dailyDao;
+   @Resource
+   private HabitService habitService;
+   @Resource
+   private ScheduleService scheduleService;
+   @Resource
+   private ChallengeService challengeService;
+   
+   @RequestMapping("/searchResult.do")            // 네이버 검색결과
+   public ModelAndView searchResult(String word) throws Exception{
+      String resource = "config/api.properties";
+      Properties properties = new Properties();
+      String naverClientId="";
+      String naverSecretClientId="";
+      String result="";
+      
+      try {
+         Reader reader = Resources.getResourceAsReader(resource);
+         properties.load(reader);
+         naverClientId = properties.getProperty("naver.ClientId");
+         naverSecretClientId = properties.getProperty("naver.SecretClientId");
+      }catch (Exception e) {
+         e.printStackTrace();
+      }
+      /*System.out.println("client"+naverClientId);
+      System.out.println("secretclient"+naverSecretClientId);
+     */ try {
             String text = URLEncoder.encode(word, "UTF-8");
             String apiURL = "https://openapi.naver.com/v1/search/blog.json?query="+ text; // json 결과
             //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
@@ -75,36 +75,33 @@ public class DailyController {
                 response.append(inputLine);
             }
             br.close();
-            System.out.println(response.toString());
+           /* System.out.println(response.toString());*/
             result = response.toString();
         } catch (Exception e) {
             System.out.println(e);
         }
-		
-		return new ModelAndView("JsonView","result",result);
-	}
-	
-	@RequestMapping("loadingDaily.do")
-	public ModelAndView loadingDaily(int memberNo) throws Exception{
-		Daily daily = new Daily();
-		
-		daily.setDay(Daily.getDayByDate());
-		daily.setMemberNo(memberNo);
-		
-		String emotion = dailyDao.getTodayEmotion(daily);
-		if(emotion!=null) daily.setEmotion(emotion);
-		daily.setMemo(dailyDao.getMemo(memberNo));
-		
-		daily.setScheduleList(scheduleService.getScheduleByMonth(daily));
-		System.out.println("@@@@@@@@@  "+daily.getHabitList());
-		daily.setHabitList(habitService.getHabitList(memberNo));
-		System.out.println("getHabitList :::::::: "+daily.getHabitList());
-		daily.setChallengeList(challengeService.getChallengeByMonth(daily.getMonth(), memberNo));		
-		
-		System.out.println(daily);
-		System.out.println("::::"+daily.getScheduleFormattedArray());
-		System.out.println("!!!!!!!  "+daily.getWeeklyCheckHabit());
-		return new ModelAndView("index","daily",daily);
-	}
+      return new ModelAndView("JsonView","result",result);
+   }
+   
+   @RequestMapping("loadingDaily.do")
+   public ModelAndView loadingDaily(int memberNo) throws Exception{
+      Daily daily = new Daily();
+      
+      daily.setDay(Daily.getDayByDate());
+      daily.setMemberNo(memberNo);
+      
+      String emotion = dailyDao.getTodayEmotion(daily);
+      if(emotion!=null) daily.setEmotion(emotion);
+      daily.setMemo(dailyDao.getMemo(memberNo));
+      
+      daily.setScheduleList(scheduleService.getScheduleByMonth(daily));
+     // System.out.println(daily.getScheduleList());
+      daily.setHabitList(habitService.getHabitList(memberNo));
+      daily.setChallengeList(challengeService.getChallengeByMonth(daily.getMonth(), memberNo));      
+      
+      System.out.println(daily);
+     // System.out.println("::::"+daily.getScheduleFormattedArray());
+      return new ModelAndView("index","daily",daily);
+   }
 
 }

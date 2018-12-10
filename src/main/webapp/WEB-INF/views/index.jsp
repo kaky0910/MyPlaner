@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -18,13 +19,14 @@
 <link rel="stylesheet" href="${path}/css/calendar.css">
 <link rel="stylesheet" href="${path}/css/emoticon.css">
 <link rel="stylesheet" href="${path}/css/checkbox.css">
+<link rel="stylesheet" href="${path}/css/switch.css">
 <link rel="stylesheet" href="${path}/css/memo.css">
 <link rel="stylesheet" href="${path}/css/carousel.css">
 <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo"
-   rel="stylesheet">
+	rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css?family=Yeon+Sung"
-   rel="stylesheet">
+	rel="stylesheet">
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -69,24 +71,24 @@
       //3
 
       //4. newChallengeBtn을 누르면 writechallenge.jsp를 캐러셀에 포함한다.
-      $('#newChallengeBtn').click(function() {
-         $.ajax({
-            url : "writechallenge.jsp?",
+		$('#newChallengeBtn').click(function() {
+			$.ajax({
+				url : "writechallenge.jsp",
 
-            success : function(result) {
+				success : function(result) {
 
-               $("#newchallengeDiv").html(result);
-               /* $('#challengeWriteOK').click(function(){
-                  location.href="addChallenge.do"
-               }); */
-            }//susccess
-         });//ajax
-      });//click
+					$("#newchallengeDiv").html(result);
+					/* $('#challengeWriteOK').click(function(){
+					   location.href="addChallenge.do"
+					}); */
+				}//susccess
+			});//ajax
+		});//click
 
-      //5. challenge 마지막 속성에 표시하기
-      $('#glider-add div').last().addClass('last');
-      //$('#glider-add div').last().prev().css('color','red');
-      $('.card:eq(-2)').css('color', 'red');
+		//5. challenge 마지막 속성에 표시하기
+		$('#glider-add div').last().addClass('last');
+		//$('#glider-add div').last().prev().css('color','red');
+		$('.card:eq(-2)').css('color', 'red');
 
       //6.
       var tempArr = ${daily.scheduleFormattedArray};
@@ -119,6 +121,8 @@
             }
          });
       });
+	
+      //7. calendar next searchResultTab..
       $.ajax({
          method : 'get',
          url : 'searchResult.do',
@@ -137,6 +141,7 @@
                   });
          }
       })
+      
       
       $('.tracker').click(function(){
 //    	  alert($(this).parent().attr('id'));						$(this).parent().attr('id') -- habit
@@ -173,14 +178,53 @@
 			   window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
 	    });
    });//ready
+   function addChallenge() {
+       var flag = $('input:checked').length;
+       $('.challengeSection .center:eq(0)').css('background-color','red');
+       $.ajax({
+                url : 'addChallenge.do',
+                method : 'post',
+                dataType : 'json',
+                data : {
+                   "challengeTitle" : $(
+                         'input[name=challengeTitle]')
+                         .val(),
+                   "challengeCategory" : $(
+                         'select option:selected').val(),
+                   "challengeStartDate" : $(
+                         'input[name=challengeStartDate]')
+                         .val(),
+                   "challengeEndDate" : $(
+                         'input[name=challengeEndDate]')
+                         .val(),
+                   "challengeSharing" : flag,
+                   "memberNo" : $(
+                   'input[type=hidden]')
+                   .val()
+                },
+                success : function(result) {
+                	$('.challengeSection .center:eq(0)').after("<div class='newchallengeDiv'>"+$("#challengeSection:last").html()+"</div>"); 
+
+                  /*  $('.challengeSection:last').after("<div class='challengeSection'>"+$('.challengeSection:last').html()+"</div>");  */
+               	$('.challengeSection:last #challengeTitle').html(result.json.challenge.challengeTitle);
+               	$('.challengeSection:last #startDate').html(result.json.challenge.challengeStartDate);
+               	$('.challengeSection:last #endDate').html(result.json.challenge.challengeEndDate);
+               	$('.challengeSection:last #challengeCategory').html(result.json.challenge.challengeCategory);
+               	$('.challengeSection:last #challengeSharing').html(result.json.challenge.challengeSharing);
+               	
+               	/*$('#challengeSection:last').after("<div class='newchallengeDiv'>"+$('#challengeSection').html()+"</div>"); */
+                }
+             });//ajax
+    }//addChallenge
 </script>
 
 </head>
 <body>
-   <div id="titleArea"
-      style="height: 85px; /* background-color: gray;  */margin-top: 0px;">
-      <p align="center" style="padding-top: 35px;">Title</p>
-   </div>
+    <div id="titleArea"
+		style="height: 85px; /* background-color: gray;  */ margin-top: 0px;">
+		<p align="center" style="padding-top: 35px;">Title</p>
+		<a href="messagewrite.jsp">MessageWrite</a>
+	</div>
 
    <div id="contents"
       style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */height: 1600px">
@@ -400,159 +444,156 @@
 
 
       <div id="section4"
-         style="height: 450px; /* background-color: blue; */ margin-top: 20px;">
+			style="height: 450px; /* background-color: blue; */ margin-top: 20px;">
 
-         <div class="demo">
-            <div id="add">
-               <h1></h1>
-            </div>
-            <div align="right">
-               <p class="buttons">
-                  <a class="button" id="addSlide">Add</a> <a class="button"
-                     id="removeSlide">Remove</a>
-               </p>
-            </div>
+			<div class="demo">
+				
+				<div align="right">
+					<p class="buttons">
+						<a class="button" id="addSlide">Add</a> <a class="button"
+							id="removeSlide">Remove</a>
+					</p>
+				</div>
 
-
-            <div data-name="Add/Remove Items" class="glider-contain multiple">
-               <div class="gradient-border-bottom">
-                  <div class="gradient-border">
-                     <div class="glider" id="glider-add"
-                        style="width: 1160px; height: auto;">
-                        <c:forEach var="challengeList" items="${daily.challengeList}">
-                           <div>
-                              <div class="card">
-                                 <!-- Face 1 -->
-                                 <div class="card-face face-1">
-                                    <!-- Avatar -->
-                                    <div class="card-face__avatar">
-                                       <!-- User avatar -->
-                                       <img
-                                          src="https://image.flaticon.com/icons/svg/188/188241.svg"
-                                          width="110" height="110" draggable="false" />
-                                    </div>
-                                    <!-- Name -->
-                                    <h2 class="card-face__name">
-                                       <b>${challengeList.challengeTitle}</b>
-                                    </h2>
-                                    <!-- Title -->
-                                    <span class="card-face__title"><b>${challengeList.memberNo}</b></span>
-                                    <div class="challenge-content">
-                                       <h4>
-                                          <b> STARTDATE : </b> <span id="startDate">${challengeList.challengeStartDate}</span>
-                                          <br> <b> ENDDATE : </b> <span id="endDate">${challengeList.challengeEndDate}</span>
-                                       </h4>
-                                       <b>Category : </b> ${challengeList.challengeCategory}<br>
-                                       <b>Sharing : </b> ${challengeList.challengeSharing}
-                                       <hr>
-                                       <ul style="text-align: left">
-                                          <c:forEach var="challengeLogList"
-                                             items="${challengeList.challengeLogList}">
-                                             <li><b>Day ${challengeLogList.dayCount}</b>
-                                                ${challengeLogList.challengeLogContent}
-                                          </c:forEach>
-                                       </ul>
-                                       <hr>
-                                       <em>${challengeList.challengeLikes}명</em>이 응원합니당.
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </c:forEach>
-                        <div id="newchallengeDiv" style="width: 290px; height: 500px">
-                           <div class="card">
-                              <img src="${path}/img/writeChallenge.png"
-                                 style="display: block; margin: auto; width: 50%; margin-top: 38%">
-                              <br> <br>
-                              <h3 align="center">새로운 도전을 해보세요!</h3>
-                              <br>
-                              <button id="newChallengeBtn" style="margin-left: 46%">GO</button>
-                           </div>
-                        </div>
+				<div data-name="Add/Remove Items" class="glider-contain multiple">
+					<div class="gradient-border-bottom">
+						<div class="gradient-border">
+							<div class="glider" id="glider-add"
+								style="width: 1160px; height: auto;">
+								<c:forEach var="challengeList" items="${daily.challengeList}">
+									<div class="challengeSection">
+										<div class="card">
+											<!-- Face 1 -->
+											<div class="card-face face-1">
+												<!-- Avatar -->
+												<div class="card-face__avatar">
+													<!-- User avatar -->
+													<img
+														src="https://image.flaticon.com/icons/svg/188/188241.svg"
+														width="110" height="110" draggable="false" />
+												</div>
+												<!-- Name -->
+												<h2 id="challengeTitle" class="card-face__name">
+													<b>${challengeList.challengeTitle}</b>
+												</h2>
+												<!-- Title -->
+												<span class="card-face__title"><b>${challengeList.memberNo}</b></span>
+												<div class="challenge-content">
+													<h4>
+														<b> STARTDATE : </b> <span id="startDate">${challengeList.challengeStartDate}</span>
+														<br> <b> ENDDATE : </b> <span id="endDate">${challengeList.challengeEndDate}</span>
+													</h4>
+													<b>Category : </b><label id="challengeCategory"> ${challengeList.challengeCategory}</label><br>
+													<b>Sharing : </b><label id="challengeSharing"> ${challengeList.challengeSharing}</label>
+													<hr>
+													<ul style="text-align: left">
+														<c:forEach var="challengeLogList"
+															items="${challengeList.challengeLogList}">
+															<li><b>Day ${challengeLogList.dayCount}</b>
+																${challengeLogList.challengeLogContent}
+														</c:forEach>
+													</ul>
+													<hr>
+													<em>${challengeList.challengeLikes}명</em>이 응원합니당.
+												</div>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+								<div id="newchallengeDiv" class="newchallengeDiv"  style="width: 290px; height: 500px">
+									<div class="card">
+										<img src="${path}/img/writeChallenge.png"
+											style="display: block; margin: auto; width: 50%; margin-top: 38%">
+										<br> <br>
+										<h3 align="center">새로운 도전을 해보세요!</h3>
+										<br>
+										<button id="newChallengeBtn" style="margin-left: 46%">GO</button>
+									</div>
+								</div>
 
 
 
-                     </div>
+							</div>
 
 
 
-                  </div>
-                  <button role="button" aria-label="Previous" class="glider-prev"
-                     id="glider-prev-add">
-                     <i class="fa fa-chevron-left"></i>prev</i>
-                  </button>
-                  <button role="button" aria-label="Next" class="glider-next"
-                     id="glider-next-add">
-                     <i class="fa fa-chevron-right"></i>next</i>
-                  </button>
-                  <div id="add-dots"></div>
-               </div>
+						</div>
+						<button role="button" aria-label="Previous" class="glider-prev"
+							id="glider-prev-add">
+							<i class="fa fa-chevron-left"></i>prev</i>
+						</button>
+						<button role="button" aria-label="Next" class="glider-next"
+							id="glider-next-add">
+							<i class="fa fa-chevron-right"></i>next</i>
+						</button>
+						<div id="add-dots"></div>
+					</div>
 
-               <script>
-                  window
-                        .addEventListener(
-                              'load',
-                              function() {
-                                 var glider = new Glider(
-                                       document
-                                             .getElementById('glider-add'),
-                                       {
-                                          slidesToShow : 4,
-                                          duration : .6,
-                                          dots : '#add-dots',
-                                          arrows : {
-                                             prev : '#glider-prev-add',
-                                             next : '#glider-next-add'
-                                          }
-                                       });
-                                 document
-                                       .getElementById('addSlide')
-                                       .addEventListener(
-                                             'click',
-                                             function() {
-                                                var ele = document
-                                                      .getElementById(
-                                                            'add')
-                                                      .cloneNode(
-                                                            true);
-                                                ele.id = '';
-                                                ele
-                                                      .querySelector('h1').textContent = glider.slides.length + 1;
-                                                glider
-                                                      .addItem(ele);
-                                                try {
-                                                   ga(
-                                                         'send',
-                                                         'event',
-                                                         'Add/Remove Item',
-                                                         'Add')
-                                                } catch (ex) {
-                                                }
-                                             });
-                                 document
-                                       .getElementById(
-                                             'removeSlide')
-                                       .addEventListener(
-                                             'click',
-                                             function() {
-                                                glider
-                                                      .removeItem(glider.slides.length - 1);
-                                                try {
-                                                   ga(
-                                                         'send',
-                                                         'event',
-                                                         'Add/Remove Item',
-                                                         'Remove')
-                                                } catch (ex) {
-                                                }
-                                             });
-                              })
-               </script>
+					<script>
+						window
+								.addEventListener(
+										'load',
+										function() {
+											var glider = new Glider(
+													document
+															.getElementById('glider-add'),
+													{
+														slidesToShow : 4,
+														duration : .6,
+														dots : '#add-dots',
+														arrows : {
+															prev : '#glider-prev-add',
+															next : '#glider-next-add'
+														}
+													});
+											document
+													.getElementById('addSlide')
+													.addEventListener(
+															'click',
+															function() {
+																var ele = document
+																		.getElementById(
+																				'challengeSection')
+																		.cloneNode(
+																				true);
+																ele.id = '';
+																ele
+																		.querySelector('h1').textContent = glider.slides.length + 1;
+																glider
+																		.addItem(ele);
+																try {
+																	ga(
+																			'send',
+																			'event',
+																			'Add/Remove Item',
+																			'Add')
+																} catch (ex) {
+																}
+															});
+											document
+													.getElementById(
+															'removeSlide')
+													.addEventListener(
+															'click',
+															function() {
+																glider
+																		.removeItem(glider.slides.length - 1);
+																try {
+																	ga(
+																			'send',
+																			'event',
+																			'Add/Remove Item',
+																			'Remove')
+																} catch (ex) {
+																}
+															});
+										})
+					</script>
 
 
-            </div>
-         </div>
-         <!-- section4 -->
+				</div>
+			</div>
+			<!-- section4 -->
       </div>
       <!-- contents -->
 
