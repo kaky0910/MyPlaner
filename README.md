@@ -1,5 +1,5 @@
 # MyPlaner
-spring web application project 
+spring web application project <br><br>
 사용자의 생활습관 및 일정, 목표를 설정하고 관리하는 웹 어플리케이션 (진행중)
 
 <br><br>
