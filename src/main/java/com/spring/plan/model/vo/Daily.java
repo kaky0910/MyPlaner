@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-<<<<<<< HEAD
 public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 	private int memberNo;
 	private String day; // YYYYMMDD
@@ -38,7 +37,6 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
       return month;
    }
 
-<<<<<<< HEAD
 	public String getDay() {
 		return day;
 	}

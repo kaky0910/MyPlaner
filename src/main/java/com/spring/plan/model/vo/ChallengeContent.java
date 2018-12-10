@@ -14,11 +14,6 @@ public class ChallengeContent {
 		this.challengeContent = challengeContent;
 	}//»Ò¡§ /addChallengeContent
 
-	public ChallengeContent(int challengeNo, String challengeContent) {
-		this.challengeNo = challengeNo;
-		this.challengeContent = challengeContent;
-	}
-
 	public int getChallengeNo() {
 		return challengeNo;
 	}

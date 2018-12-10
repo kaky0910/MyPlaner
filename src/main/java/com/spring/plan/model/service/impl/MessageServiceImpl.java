@@ -13,41 +13,6 @@ import com.spring.plan.model.vo.Message;
 @Service
 public class MessageServiceImpl implements MessageService {
 
-<<<<<<< HEAD
-   @Resource
-   MessageDao messageDao;
-   
-   @Override
-   public List<Message> getSendMessageList(String nickname) throws Exception {
-      return messageDao.getSendMessageList(nickname);
-   }
-
-   @Override
-   public List<Message> getMessageList(String nickname) throws Exception {
-      return messageDao.getMessageList(nickname);
-   }
-
-   @Override
-   public int deleteMessage(int messageNo) throws Exception {
-      if(messageDao.deleteMessage(messageNo)==0)
-         System.out.println("★ deleteMessage 실패");
-      return messageDao.deleteMessage(messageNo);
-   }
-
-   @Override
-   public Message getMessage(int messageNo) throws Exception {
-      return messageDao.getMessage(messageNo);
-   }
-
-   @Override
-   public int sendMessage(Message message) throws Exception {
-      if(messageDao.sendMessage(message)==0)
-         System.out.println("★ sendMessage 실패");
-      return messageDao.sendMessage(message);
-   }
-
-}
-=======
 	@Resource
 	MessageDao messageDao;
 
@@ -85,4 +50,3 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 }
->>>>>>> 2efc4869a926453b3bb988e8802ec28e2b27ec8e
