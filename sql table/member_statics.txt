@@ -1,0 +1,7 @@
+CREATE TABLE member_statics_per_day (
+	member_no NUMBER,
+	day DATE,
+	rate_of_challenge_per_day NUMBER,
+	rate_of_habit_per_day NUMBER,
+	rate_of_schedule_per_day NUMBER	
+)
