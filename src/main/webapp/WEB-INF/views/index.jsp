@@ -36,7 +36,6 @@
 	var yearCount = moment().year();
 
 	$(function() {
-
 		//2. Section2(Daily)에 오늘 날짜를 출력하는 기능
 		var date = moment().date();
 		var month = moment().month() + 1;
@@ -82,8 +81,6 @@
 		//$('#glider-add div').last().prev().css('color','red');
 		$('.card:eq(-2)').css('color', 'red');
 
-		
-		
 		//6. challenge (시작일, 마지막일) format으로 arr로 입력
 		var tempArr = ${daily.scheduleFormattedArray};
 		var arr = ${daily.scheduleFormattedArray};
@@ -140,14 +137,11 @@
 		});//ajax
 		//7
 
-		//8
-		 
-		
-
+		//8. 
 	});//ready
 	function addChallenge() {
         var flag = $('input:checked').length;
-
+        $('.challengeSection .center:eq(0)').css('background-color','red');
         $.ajax({
                  url : 'addChallenge.do',
                  method : 'post',
@@ -170,12 +164,16 @@
                     .val()
                  },
                  success : function(result) {
-                    $('.challengeSection:last').after("<div class='challengeSection'>"+$('.challengeSection:last').html()+"</div>"); 
+                 	$('.challengeSection .center:eq(0)').after("<div class='newchallengeDiv'>"+$("#challengeSection:last").html()+"</div>"); 
+
+                   /*  $('.challengeSection:last').after("<div class='challengeSection'>"+$('.challengeSection:last').html()+"</div>");  */
                 	$('.challengeSection:last #challengeTitle').html(result.json.challenge.challengeTitle);
                 	$('.challengeSection:last #startDate').html(result.json.challenge.challengeStartDate);
                 	$('.challengeSection:last #endDate').html(result.json.challenge.challengeEndDate);
                 	$('.challengeSection:last #challengeCategory').html(result.json.challenge.challengeCategory);
-                	$('.challengeSection:last #challengeSharing').html(result.json.challenge.challengeSharing) 
+                	$('.challengeSection:last #challengeSharing').html(result.json.challenge.challengeSharing);
+                	
+                	/*$('#challengeSection:last').after("<div class='newchallengeDiv'>"+$('#challengeSection').html()+"</div>"); */
                  }
               });//ajax
      }//addChallenge
@@ -186,6 +184,7 @@
 	<div id="titleArea"
 		style="height: 85px; /* background-color: gray;  */ margin-top: 0px;">
 		<p align="center" style="padding-top: 35px;">Title</p>
+		<a href="messagewrite.jsp">MessageWrite</a>
 	</div>
 
 	<div id="contents"
@@ -253,7 +252,7 @@
 					<td align="right">
 						<table id="emotion_tbl"
 							style="float: right; margin-top: 22px; margin-right: 22px; height: 30px;">
-							<td><img id="happy" src="${path}/img/emotion/happy.png"></a></td>
+							<td><img id="happy" src="${path}/img/emotion/happy.png"></td>
 							<td><img id="love" src="${path}/img/emotion/love.png"></td>
 							<td><img id="shocked" src="${path}/img/emotion/shocked.png"></td>
 							<td><img id="shy" src="${path}/img/emotion/shy.png"></td>
@@ -352,9 +351,7 @@
 			style="height: 450px; /* background-color: blue; */ margin-top: 20px;">
 
 			<div class="demo">
-				<div id="add">
-					<h1></h1>
-				</div>
+				
 				<div align="right">
 					<p class="buttons">
 						<a class="button" id="addSlide">Add</a> <a class="button"
@@ -407,7 +404,7 @@
 										</div>
 									</div>
 								</c:forEach>
-								<div id="newchallengeDiv" style="width: 290px; height: 500px">
+								<div id="newchallengeDiv" class="newchallengeDiv"  style="width: 290px; height: 500px">
 									<div class="card">
 										<img src="${path}/img/writeChallenge.png"
 											style="display: block; margin: auto; width: 50%; margin-top: 38%">
@@ -460,7 +457,7 @@
 															function() {
 																var ele = document
 																		.getElementById(
-																				'add')
+																				'challengeSection')
 																		.cloneNode(
 																				true);
 																ele.id = '';

@@ -26,7 +26,7 @@ public class ChallengeController {
 		challenge.setMemberNo(((Member) session.getAttribute("member")).getMemberNo());
 
 		try {
-			service.addChallenge(challenge);
+			service.addChallenge(challenge);;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

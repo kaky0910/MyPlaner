@@ -51,9 +51,9 @@ public class DailyController {
       }catch (Exception e) {
          e.printStackTrace();
       }
-      System.out.println("client"+naverClientId);
+      /*System.out.println("client"+naverClientId);
       System.out.println("secretclient"+naverSecretClientId);
-      try {
+     */ try {
             String text = URLEncoder.encode(word, "UTF-8");
             String apiURL = "https://openapi.naver.com/v1/search/blog.json?query="+ text; // json 결과
             //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
@@ -75,7 +75,7 @@ public class DailyController {
                 response.append(inputLine);
             }
             br.close();
-            System.out.println(response.toString());
+           /* System.out.println(response.toString());*/
             result = response.toString();
         } catch (Exception e) {
             System.out.println(e);
@@ -96,12 +96,12 @@ public class DailyController {
       daily.setMemo(dailyDao.getMemo(memberNo));
       
       daily.setScheduleList(scheduleService.getScheduleByMonth(daily));
-      System.out.println(daily.getScheduleList());
+     // System.out.println(daily.getScheduleList());
       daily.setHabitList(habitService.getHabitList(memberNo));
       daily.setChallengeList(challengeService.getChallengeByMonth(daily.getMonth(), memberNo));      
       
       System.out.println(daily);
-      System.out.println("::::"+daily.getScheduleFormattedArray());
+     // System.out.println("::::"+daily.getScheduleFormattedArray());
       return new ModelAndView("index","daily",daily);
    }
 
