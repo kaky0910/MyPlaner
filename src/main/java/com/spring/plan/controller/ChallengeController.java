@@ -1,5 +1,7 @@
 package com.spring.plan.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -16,21 +18,22 @@ import com.spring.plan.model.vo.Member;
 public class ChallengeController {
    
    @Resource
-   private ChallengeService service;
+   private ChallengeService challengeService;
    
    @RequestMapping("/addChallenge.do")
-   public ModelAndView addChallenge(HttpSession session,Challenge challenge){
+   public ModelAndView addChallenge(HttpSession session,Challenge challenge,String month) throws Exception{
       
       JSONObject jsonObject = new JSONObject();
-      
-      challenge.setMemberNo(((Member)session.getAttribute("member")).getMemberNo());
+      int memberNo = ((Member)session.getAttribute("member")).getMemberNo();
+      challenge.setMemberNo(memberNo);
       
       try {
-    	  service.addChallenge(challenge);
+    	  challengeService.addChallenge(challenge);
       }catch(Exception e) {
     	  e.printStackTrace();
       }
-      jsonObject.put("challenge", challenge);
+      List<Challenge> challengeList = challengeService.getChallengeByMonth(month, memberNo);
+      jsonObject.put("challenge", challengeList);
       return new ModelAndView("JsonView","json",jsonObject);
    }
    

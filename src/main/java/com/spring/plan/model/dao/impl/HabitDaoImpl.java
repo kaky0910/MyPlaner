@@ -25,7 +25,7 @@ public class HabitDaoImpl implements HabitDao{
 	
 	@Override
 	public int addCheckHabit(CheckHabit checkHabit) throws Exception {
-		return sqlSession.insert("habit-mapper.addHabit",checkHabit);
+		return sqlSession.insert("habit-mapper.addCheckHabit",checkHabit);
 	}
 
 	@Override

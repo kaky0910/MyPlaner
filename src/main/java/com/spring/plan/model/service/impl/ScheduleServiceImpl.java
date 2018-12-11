@@ -18,6 +18,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 	ScheduleDao scheduleDao;
 	@Override
 	public int addSchedule(Schedule schedule) throws Exception {
+		String sd = schedule.getScheduleStartDate();
+		String ed = schedule.getScheduleEndDate();
+		
 		return scheduleDao.addSchedule(schedule);
 	}
 

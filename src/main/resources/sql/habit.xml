@@ -25,7 +25,7 @@
 		)
 	</insert>
 	
-	<insert id="addHabitCheck" parameterType="CheckHabit">
+	<insert id="addCheckHabit" parameterType="CheckHabit">
 		INSERT INTO check_habit(
 			member_no, habit, month
 		) VALUES (

@@ -16,10 +16,6 @@ public class HabitController {
 	@Resource
 	private HabitService habitService;
 	
-	public ModelAndView sample() throws Exception{
-		return new ModelAndView();
-	}
-	
 	@RequestMapping("checkHabit.do")
 	public ModelAndView checkHabit(Habit habit, String day) throws Exception{
 		System.out.println("habit :::::::: "+habit);
@@ -29,5 +25,18 @@ public class HabitController {
 		else if(result == 1) return new ModelAndView("JsonView","flag","uncheck");
 		else return new ModelAndView("JsonView","flag","fail");
 	}
-
+	
+	@RequestMapping("addHabit.do")
+	public ModelAndView addHabit(Habit habit,String day) throws Exception{
+		
+		habitService.addHabit(habit);
+		habitService.addCheckHabit(habit, day);
+		return new ModelAndView();
+	}
+	
+	@RequestMapping("deleteHabit.do")
+	public ModelAndView deleteHabit(Habit habit) throws Exception{
+		
+		return new ModelAndView();
+	}
 }

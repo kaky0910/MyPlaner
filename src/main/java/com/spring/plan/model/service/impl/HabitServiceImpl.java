@@ -66,4 +66,13 @@ public class HabitServiceImpl implements HabitService {
 		return habitDao.getHabitList(memberNo);
 	}
 
+	@Override
+	public int addCheckHabit(Habit habit, String day) throws Exception {
+		CheckHabit ch = new CheckHabit();
+		ch.setHabit(habit.getHabit());
+		ch.setMemberNo(habit.getMemberNo());
+		ch.setMonth(day.substring(0, 6));
+		return habitDao.addCheckHabit(ch);
+	}
+
 }

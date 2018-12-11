@@ -20,5 +20,8 @@ public interface HabitService {
    
    // ¸â¹öÀÇ habit °¡Á®¿È
    List<Habit> getHabitList(int memberNo) throws Exception;
+   
+   // add checkHabit
+   int addCheckHabit(Habit habit, String day)throws Exception;
 
 }

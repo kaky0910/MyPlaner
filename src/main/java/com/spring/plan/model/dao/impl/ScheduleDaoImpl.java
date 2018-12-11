@@ -47,4 +47,9 @@ public class ScheduleDaoImpl implements ScheduleDao {
 		return sqlSession.selectList("schedule-mapper.getScheduleByMonth",daily);
 	}
 
+	@Override
+	public int getScheduleLength(Schedule schedule) throws Exception {
+		return sqlSession.selectOne("schedule-mapper.getScheduleLength",schedule);
+	}
+
 }

@@ -39,7 +39,7 @@ function calendarInit(y,m){
 	var dayOfWeekCount=0;
 	var arrCursor = 0;
 	for(i=0;i<day1OfWeek;i++){
-		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day"></div>');
+		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" style="background-color:white;"></div>');
 		dayOfWeekCount++;
 	}
 	for(dayCount;dayCount<=endOfMonth;dayCount++){
@@ -47,12 +47,12 @@ function calendarInit(y,m){
 			arrCursor+=1;
 			dayOfWeekCount=0;
 		}
-		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" id="day'+dayCount+'"><span>'+dayCount+'</span></div>');
+		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" style="background-color:white;" id="day'+dayCount+'"><span>'+dayCount+'</span></div>');
 		dayOfWeekCount++;
 	}
 	if(dayOfWeekCount<7){
 		while(dayOfWeekCount!=7){
-			$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day"></div>');
+			$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" style="background-color:white;"></div>');
 			dayOfWeekCount++;
 		}
 	}
@@ -67,32 +67,152 @@ function markym(y,m){
 
 
 function next(){
-	monthCount++;
-	if(monthCount == 12){
-		monthCount=0;
-		yearCount++;
-	}
+	var arr;
+	new Promise(function(resolve, reject) { 
+		monthCount++;
+		if(monthCount == 12){
+			monthCount=0;
+			yearCount++;
+		}	
+		resolve(monthCount,yearCount);
+	}).then(function(monthCount,yearCount){
 
-	$('#title_monthdate').html('');
-	$('.calendar__week').each(function(){
-		$(this).html('');
+		$('#title_monthdate').html('');
+		$('.calendar__week').each(function(){
+			$(this).html('');
+		});
+		var str = yearCount+""+monthCount;
+		return ;
+	}).then(function(){
+		var month = monthCount+1;
+		if(month<10) month="0"+month;
+		$.ajax({
+			url : "getScheduleByMonth.do",
+			data : {
+				"month" : yearCount+""+month
+			},
+			success : function(data){
+				new Promise(function(resolve, reject) { 
+					calendarInit(yearCount,monthCount);
+					arr = data.daily.scheduleFormattedArray;
+					resolve();
+				}).then(function(){
+					setChallenge1(arr);
+				}).then(function(){
+					setChallenge2(arr);
+				}).then(function(){
+					setChallenge3(arr);
+				}).then(function(){
+					$(function(){
+						$('.calendar__day').hover(function() {
+					    	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
+								$.ajax({
+									url : "getScheduleByDay.do",
+									data : {
+										month : yearCount + "" + month,
+										d : $(this).attr('id')
+									},
+									success : function(data) {
+										if(data.json!= ""){}
+									}
+								});
+								TweenMax.to(this, 0.5, {
+									scale : 3
+								});
+								$(this).css('z-index', '100');
+								$(this).find('hr').css('display', 'none');
+							}
+						}, function() {
+							if ($(this).attr('id') != null) {
+								TweenMax.to(this, 0.5, {
+									scale : 1
+								});
+								$(this).css('z-index', '0');
+								$(this).find('hr').css('display', 'block');
+							}
+						});
+					});
+				});
+			}
+		});
 	});
-	calendarInit(yearCount,monthCount);
 	
+	
+
 }
 
 function prev(){
-	monthCount--;
-	if(monthCount <0){
-		monthCount=11;
-		yearCount--;
-	}
+	var arr;
+	new Promise(function(resolve, reject) { 
+		monthCount--;
+		if(monthCount <0){
+			monthCount=11;
+			yearCount--;
+		}	
+		resolve(monthCount,yearCount);
+	}).then(function(monthCount,yearCount){
 
-	$('#title_monthdate').html('');
-	$('.calendar__week').each(function(){
-		$(this).html('');
+		$('#title_monthdate').html('');
+		$('.calendar__week').each(function(){
+			$(this).html('');
+		});
+		var str = yearCount+""+monthCount;
+		return ;
+	}).then(function(){
+		var month = monthCount+1;
+		if(month<10) month="0"+month;
+		$.ajax({
+			url : "getScheduleByMonth.do",
+			data : {
+				"month" : yearCount+""+month
+			},
+			success : function(data){
+				new Promise(function(resolve, reject) { 
+					calendarInit(yearCount,monthCount);
+					arr = data.daily.scheduleFormattedArray;
+					resolve();
+				},function(e){
+					alert(e);
+				}).then(function(){
+					setChallenge1(arr);
+				}).then(function(){
+					setChallenge2(arr);
+				}).then(function(){
+					setChallenge3(arr);
+				}).then(function(){
+					$(function(){
+						$('.calendar__day').hover(function(){
+					    	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
+								$.ajax({
+									url : "getScheduleByDay.do",
+									data : {
+										month : yearCount + "" + m,
+										d : $(this).attr('id')
+									},
+									success : function(data) {
+										if(data.json!= ""){}
+									}
+								});
+								TweenMax.to(this, 0.5, {
+									scale : 3
+								});
+								$(this).css('z-index', '100');
+								$(this).find('hr').css('display', 'none');
+							}
+						}, function() {
+							if ($(this).attr('id') != null) {
+								TweenMax.to(this, 0.5, {
+									scale : 1
+								});
+								$(this).css('z-index', '0');
+								$(this).find('hr').css('display', 'block');
+							}
+						});
+					});
+				});
+			}
+		});
 	});
-	calendarInit(yearCount,monthCount);
 }
 
 function markSchedule(schedule,m){
@@ -110,13 +230,14 @@ function markSchedule(schedule,m){
 }
 
 function setChallenge1(arr){
+	if(arr==null) return;
 	const length = arr.length;
 	if(length==0 || arr ==null){
 		return null;
 	}
 	for(j=0;j<length;j++){
-		var flag1 = false;
-		var flag2 = false;
+		var flag1 = false;					//기간내에 겹치는 일정있나
+		var flag2 = false;					//일정 표시했나
 		for(x=arr[length-j-1][0];x<=arr[length-j-1][1];x++){
 			if($('#day'+x).hasClass('c1')) {
 				flag1=true;
@@ -138,6 +259,7 @@ function setChallenge1(arr){
 }
 
 function setChallenge2(arr){
+	if(arr==null) return;
 	const length = arr.length;
 	for(j=0;j<length;j++){
 		if(arr.length==0) return;
@@ -169,6 +291,7 @@ function setChallenge2(arr){
 }
 
 function setChallenge3(arr){
+	if(arr==null) return;
 	const length = arr.length;
 	for(j=0;j<length;j++){
 		if(arr.length==0) return;
@@ -198,4 +321,20 @@ function getDateByTrackerId(id){
 	if(month<10) month = "0"+month;
 	if(targetDate<10) targetDate = "0"+targetDate;
 	return moment().year()+""+month+""+targetDate;
+}
+
+function getScheduleInCal(data,str){
+	var arr = '${daily}';
+	var s = str.substring(3);
+	var result = [];
+	for(var i=0; i<arr.length;i++){
+		if(arr[i].startDay>arr[i].endDay && arr[i].endDay>s){
+			result.push(arr[i]);
+		}else if(arr[i].startDay===arr[i].endDay && arr[i].startDay==s){
+			result.push(arr[i]);
+		}else if(arr[i].startDay<arr[i].endDay && arr[i].startDay<s && s<arr[i].endDay){
+			result.push(arr[i]);
+		}
+	}
+	return result;
 }

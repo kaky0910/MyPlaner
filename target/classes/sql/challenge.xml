@@ -53,7 +53,7 @@
 			challenge_seq.nextval from dual
 		</selectKey>
 		insert into Challenge(challenge_No, challenge_Title, challenge_Start_Date, challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing)
-		values(#{challengeNo}, #{challengeTitle}, #{challengeStartDate}, #{challengeEndDate}, #{memberNo}, #{challengeCategory}, #{challengeLikes}, #{challengeSharing} )
+		values(#{challengeNo}, #{challengeTitle}, TO_DATE(#{challengeStartDate},'YYYYMMDD'), TO_DATE(#{challengeEndDate},'YYYYMMDD'), #{memberNo}, #{challengeCategory}, #{challengeLikes}, #{challengeSharing} )
 	</insert>
 	
 	 <insert id="addChallengeContent" parameterType="java.util.List">
@@ -90,7 +90,7 @@
 	</update>
 	
 	<select id="getAllChallengeList" resultMap="challengeSelectMap">
-		select challenge_No, challenge_Title, challenge_Start_Date, challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing
+		select challenge_No, challenge_Title, TO_DATE(challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_DATE(challenge_End_Date,'YYYYMMDD') challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing
 		from challenge
 	</select>
 	
@@ -109,8 +109,9 @@
 	</select>
 	
 	<select id="getChallengeByMonth" parameterType="Daily" resultMap="challengeSelectMap">
-        select * from challenge
-		where (to_char(challenge_start_date,'yyyymm')=#{month} OR to_char(challenge_end_date,'yyyymm')=#{month}) AND member_no=#{memberNo}
+        SELECT challenge_No, challenge_Title, TO_CHAR(challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_CHAR(challenge_End_Date,'YYYYMMDD') challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing
+        FROM challenge
+		WHERE (to_char(challenge_start_date,'yyyymm')=#{month} OR to_char(challenge_end_date,'yyyymm')=#{month}) AND member_no=#{memberNo}
 		
     </select>
     

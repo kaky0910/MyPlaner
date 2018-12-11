@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -12,6 +11,7 @@
 
 
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -27,23 +27,30 @@
 
 <link href="https://fonts.googleapis.com/css?family=Yeon+Sung"
 	rel="stylesheet">
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="${path}/js/calendar.js"></script>
 <script src="${path}/js/moment.js"></script>
 <script src="${path}/js/glider.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+
 <style type="text/css">
 	.checked{
 		background-image: url("./img/check.png");
+	}
+	.weeklyTracker{
+		
 	}
 </style>
 <script type="text/javascript">
    var monthCount = moment().month();
    var yearCount = moment().year();
-
+	var m;
+		
    $(function() {
+	   if(monthCount<10) m = '0'+monthCount;
+	   m = monthCount+1;
       //2. Section2(Daily)에 오늘 날짜를 출력하는 기능
       var date = moment().date();
       var month = moment().month() + 1;
@@ -52,6 +59,7 @@
       //$('#Date ').html(year +"/ " + month + "/ " + date);
       $('#Date ').css('font-size', '2.8em');
       $('#sec3month').html(month+"월");
+      $('#search h2').html(year + "년 " + month + "월 " + date + "일");
       //2
 
       //3. emotion 가져오기, 보내기
@@ -90,7 +98,7 @@
 		//$('#glider-add div').last().prev().css('color','red');
 		$('.card:eq(-2)').css('color', 'red');
 
-      //6.
+      //6.	달력
       var tempArr = ${daily.scheduleFormattedArray};
       var arr = ${daily.scheduleFormattedArray}; //challenge (시작일, 마지막일) format으로 arr로 입력
       new Promise(function(resolve, reject) {
@@ -98,9 +106,9 @@
          if(arr==null || arr[0]==null || arr.length==0){
         	 reject("No Schedule");
          }
-         resolve(arr);
-      },function(m){
-    	  alert(m);
+         resolve(arr);       
+      },function(e){
+    	  alert(e);
       }).then(setChallenge1(arr)).then(setChallenge2(arr)).then(
             setChallenge3(arr));
       //alert(moment().format());
@@ -135,7 +143,7 @@
             $('#search div').each(
                   function(index) {
                      $(this).html(
-                           '<h4>' + d.items[index].title + '</h4><p>'
+                           '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
                                  + d.items[index].description
                                  + '</p>');
                   });
@@ -149,7 +157,7 @@
 			var id = $(this).attr('id');
       		var x = getDateByTrackerId(id).substring(6);
       		if(x<10) x=x.substring(1);
-      		x=x-2;
+      		x=x-1;
 			var monthId = id.substring(0,1)+x;
 
 			$.ajax({
@@ -177,45 +185,112 @@
 	    	alert($(this).position().left+"       "+$(this).position().top);
 			   window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
 	    });
-   });//ready
-   function addChallenge() {
-       var flag = $('input:checked').length;
-       $('.challengeSection .center:eq(0)').css('background-color','red');
-       $.ajax({
-                url : 'addChallenge.do',
-                method : 'post',
-                dataType : 'json',
-                data : {
-                   "challengeTitle" : $(
-                         'input[name=challengeTitle]')
-                         .val(),
-                   "challengeCategory" : $(
-                         'select option:selected').val(),
-                   "challengeStartDate" : $(
-                         'input[name=challengeStartDate]')
-                         .val(),
-                   "challengeEndDate" : $(
-                         'input[name=challengeEndDate]')
-                         .val(),
-                   "challengeSharing" : flag,
-                   "memberNo" : $(
-                   'input[type=hidden]')
-                   .val()
-                },
-                success : function(result) {
-                	$('.challengeSection .center:eq(0)').after("<div class='newchallengeDiv'>"+$("#challengeSection:last").html()+"</div>"); 
+	    
+	    $('.calendar__day').hover(function(){
+	    	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
+	    		$.ajax({
+	    			url : "getScheduleByDay.do",
+	    			data : {
+	    				month : yearCount+""+m,
+	    				d : $(this).attr('id')
+	    			},
+	    			success : function(data){
+	    				if(data.json!= ""){}
+							
+	    			}
+	    		});
+		    	TweenMax.to(this, 0.5, {scale:3});
+		    	$(this).css('z-index','100');
+		    	$(this).find('hr').css('display','none');
+	    	}
+	    },function(){
+	    	if($(this).attr('id')!=null){
+		    	TweenMax.to(this, 0.5, {scale:1});
+		    	$(this).css('z-index','0');
+		    	$(this).find('hr').css('display','block');
+	    	}
+	    });
+   }); //ready
+   function renderChallenge(challArr){
+		var str = new StringBuffer();
+		for(i=0;i<challArr.length;i++){
+			str.append(makeChallCard(challArr[i]));
+		}
+		str.append(newChallengeDiv());
+		$('.glider').html(str.toString());
+	}
 
-                  /*  $('.challengeSection:last').after("<div class='challengeSection'>"+$('.challengeSection:last').html()+"</div>");  */
-               	$('.challengeSection:last #challengeTitle').html(result.json.challenge.challengeTitle);
-               	$('.challengeSection:last #startDate').html(result.json.challenge.challengeStartDate);
-               	$('.challengeSection:last #endDate').html(result.json.challenge.challengeEndDate);
-               	$('.challengeSection:last #challengeCategory').html(result.json.challenge.challengeCategory);
-               	$('.challengeSection:last #challengeSharing').html(result.json.challenge.challengeSharing);
-               	
-               	/*$('#challengeSection:last').after("<div class='newchallengeDiv'>"+$('#challengeSection').html()+"</div>"); */
-                }
-             });//ajax
-    }//addChallenge
+	var StringBuffer = function(){
+		this.buffer = new Array();
+	};
+	StringBuffer.prototype.append = function(str){
+		this.buffer.push(str);
+		return this;
+	};
+	StringBuffer.prototype.toString = function(){
+		if(this.buffer.length>1) return this.buffer.join('');
+		return;
+		
+	}
+
+
+	function makeChallCard(challenge){
+		var str = new StringBuffer();
+		str.append('<div class="challengeSection"><div class="card"><div class="card-face face-1"><div class="card-face__avatar">'
+					+'<img src="https://image.flaticon.com/icons/svg/188/188241.svg" width="110" height="110" draggable="false"/></div>'
+					+'<h2 id="challengeTitle" class="card-face__name">');
+		str.append('<b>'+challenge.challengeTitle+'</b></h2>');
+		str.append('<span class="card-face__title"><b>'+challenge.memberNo+'</b></span>');
+		str.append('<div class="challenge-content"><h4><b> STARTDATE : </b> <span id="startDate">'+challenge.challengeStartDate+'</span>');
+		str.append('<br> <b> ENDDATE : </b> <span id="endDate">'+challenge.challengeEndDate+'</span></h4>');
+		str.append('<b>Category : </b><label id="challengeCategory">'+challenge.challengeCategory+'</label><br>');
+		str.append('<b>Sharing : </b><label id="challengeSharing">'+challenge.challengeSharing+'</label><hr><ul style="text-align: left">');
+		/* for(i=0;i<challenge.challengeLogList.length;i++){
+			str.append('<li><b>Day '+challenge.challengeLogList[i].dayCount+'</b>'+challenge.challengeLogList[i].challengeLogContent);
+		} */
+		str.append('</ul><hr><em>'+challenge.challengeLikes+'명</em>이 응원합니당.</div></div></div></div>');
+		return str.toString();
+	}
+
+	function newChallengeDiv(){
+		var str = new StringBuffer();
+		str.append('<div id="newchallengeDiv" class="newchallengeDiv"  style="width: 290px; height: 500px"><div class="card">');
+		str.append('<img src="${path}/img/writeChallenge.png" style="display: block; margin: auto; width: 50%; margin-top: 38%"><br><br>');
+		str.append('<h3 align="center">새로운 도전을 해보세요!</h3><br><button id="newChallengeBtn" style="margin-left: 46%">GO</button></div></div>');
+		return str.toString();
+	}
+
+	function addChallenge() {
+	   var flag = $('input:checked').length;
+	   $('.challengeSection .center:eq(0)').css('background-color','red');
+	   $.ajax({
+	            url : 'addChallenge.do',
+	            method : 'post',
+	            dataType : 'json',
+	            data : {
+	               "challengeTitle" : $(
+	                     'input[name=challengeTitle]')
+	                     .val(),
+	               "challengeCategory" : $(
+	                     'select option:selected').val(),
+	               "challengeStartDate" : $(
+	                     'input[name=challengeStartDate]')
+	                     .val(),
+	               "challengeEndDate" : $(
+	                     'input[name=challengeEndDate]')
+	                     .val(),
+	               "challengeSharing" : flag,
+	               "memberNo" : $(
+	               'input[type=hidden]')
+	               .val(),
+	               "month" : moment().format('YYYYMM') 
+	            },
+	            success : function(result) {
+	            	renderChallenge(result.json.challenge);
+	            }
+	         });//ajax
+	}//addChallenge
+
 </script>
 
 </head>
@@ -227,7 +302,7 @@
 	</div>
 
    <div id="contents"
-      style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */height: 1600px">
+      style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */height: 100%">
 
       <div>${data}</div>
       <div id="weatherTest">
@@ -258,9 +333,9 @@
             <div class="calendar__week"></div>
          </div>
          <div
-            style="width: 20%; border: 1px black double; display: inline-block; margin-top: 140px; margin-left: 60px;"
+            style="width: 30%; border: 1px black double; display: inline-block;  margin-left: 60px;"
             id="search">
-            <h2>Date</h2>
+            <h2></h2>
             <h4>tag</h4>
             <div
                style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
@@ -270,19 +345,15 @@
                style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
             <div
                style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+               <div
+               style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
          </div>
-         <div id="search" style="float: left; width: 20%"></div>
       </div>
       <!-- END section1 -->
 
-
-
-
-
-
       <hr>
       <!-- START section2 -->
-      <div id="section2" style="height: 450px; /* background-color: pink; */">
+      <div id="section2" style="height: 450px; margin-top: 200px; /* background-color: pink; */">
          <table style="width: 100%; margin: auto">
             <tr>
                <td colspan="2">
@@ -314,23 +385,16 @@
                            Today's Schedule <i class="fa fa-check"></i>
                         </h2>
                         <hr>
-                        <div>
-                           <input type="checkbox" id="scheduleCheck1" /> <label
-                              for="scheduleCheck1">
-                              <div>
-                                 <i class="fa fa-check"></i>
-                              </div> 11월 가스비 내기
-                           </label>
-                        </div>
-
-                        <div>
-                           <input type="checkbox" id="scheduleCheck2" /> <label
-                              for="scheduleCheck2">
-                              <div>
-                                 <i class="fa fa-check"></i>
-                              </div> FinalProject Query 작성하기
-                           </label>
-                        </div>
+                        <c:forEach items="${daily.todaySchedule}" var="item" varStatus="i">
+                        	<div>
+	                           <input type="checkbox" id="checkSchedule${i.count}" /> <label
+	                              for="checkSchedule${i.count}">
+	                              <div>
+	                                 <i class="fa fa-check"></i>
+	                              </div> ${item.scheduleTitle}
+	                           </label>
+	                        </div>
+                        </c:forEach>
                      </div>
                   </div></td>
                <td colspan="2">
@@ -342,32 +406,17 @@
                            Your Challenge <i class="fa fa-check"></i>
                         </h2>
                         <hr>
-                        <div>
-                           <input type="checkbox" id="checkChallenge1" /> <label
-                              for="checkChallenge1">
+                        <c:forEach items="${daily.todayChallenge}" var="item" varStatus="i">
+                        	<div>
+                           <input type="checkbox" id="checkChallenge${i.count}" /> <label
+                              for="checkChallenge${i.count}">
                               <div>
                                  <i class="fa fa-check"></i>
-                              </div> 11월 가스비 내기
+                              </div> ${item.challengeTitle}
                            </label>
                         </div>
+                        </c:forEach>
 
-                        <div>
-                           <input type="checkbox" id="checkChallenge2" /> <label
-                              for="checkChallenge2">
-                              <div>
-                                 <i class="fa fa-check"></i>
-                              </div> FinalProject Query 작성하기
-                           </label>
-                        </div>
-
-                        <div>
-                           <input type="checkbox" id="checkChallenge3" /> <label
-                              for="checkChallenge3">
-                              <div>
-                                 <i class="fa fa-check"></i>
-                              </div> FinalProject Query 작성하기
-                           </label>
-                        </div>
                      </div>
                   </div>
                </td>
@@ -378,7 +427,7 @@
                         <form id="paper" method="get" action="" style="margin-right: 2%">
                            <textarea placeholder="Enter something." id="text" name="text"
                               rows="4"
-                              style="overflow: hidden; word-wrap: break-word; resize: none; width: 50%; height: 180px;"></textarea>
+                              style="overflow: hidden; word-wrap: break-word; resize: none; width: 50%; height: 180px;">${daily.memo}</textarea>
                            <br> <input id="button" type="submit" value="Create">
 
                         </form>
@@ -389,36 +438,37 @@
       </div>
       <!-- END section2 -->
 
-	<div class="row" id="section3" style="margin-top: 100px">
-			<div class="col-3" style="display: inline-block; width:250px;border: 1px solid white; height:800px">
-				<div style="margin-right: 50px;  margin-top: 30px; height: 20px"><img src="${path}/img/set.png" width="20px;" style="float: right; cursor: pointer;" id="weeklyHabit"></div>
+	<div id="section3" style="margin-top: 100px">
+		<img src="${path}/img/set.png" width="20px;" style="float: right; cursor: pointer;" id="weeklyHabit">
+			<div class="row" style="border: 1px solid white">
 				<c:forEach items="${daily.weeklyCheckHabit}" var="item" varStatus="h">
-					<table style="border: 1px solid white; width:300px; margin-left: auto;margin-right: auto; margin-top: 30px; text-align: center;">
-						<tr>
-							<td></td><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
-						</tr>
-						<tr id="${item.habit}">
-							<td>${item.habit}${s.index }</td>
-							<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
-								<c:choose>
-									<c:when test="${fn:contains(i, '0')}">
-										<td id="${h.index}${d.index}"class="tracker" style="background: white; cursor: pointer;" >
-									</c:when>
-									<c:otherwise>
-										<td id="${h.index}${d.index}"class="tracker" style="cursor: pointer; background-color: red" >
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</tr>
+					<table style="border: 1px solid white;  width:300px ;margin-left: 10px;margin-top: 30px; text-align: center;display: inline-block;">
+							<tr class="weeklyTracker">
+								<td style="width:50%; " rowspan="2" style="width:50%;">${item.habit}</td><td style=width:10px;></td><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+							</tr>
+							<tr id="${item.habit}" height="25">
+								<td></td>
+								<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
+									<c:choose>
+										<c:when test="${fn:contains(i, '0')}">
+											<td id="${h.index}${d.index}"class="tracker" style="background: white; cursor: pointer; width:20px;" >
+										</c:when>
+										<c:otherwise>
+											<td id="${h.index}${d.index}"class="tracker" style="cursor: pointer; background-color: red; width:20px;" >
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</tr>
 					</table>
 				</c:forEach>
 			</div>
-			<div class="col-8" style="display: inline-block; width:750px;border: 1px solid white; height:800px; margin-left: 100px">
-				<h1 id="sec3month" align="center" style="margin-top: 20px"></h1>
-				<table style="border: 1px solid white; width:500px;  margin-left: auto;margin-right: auto; margin-top: 30px; text-align: center;">
+			<div class="row" style="border: 1px solid white; height:300px; margin-top: 100px">
+				<h1 id="sec3month" align="center" style="margin-top: 20px; height:50px;"></h1>
+				<table style="border: 1px solid white; width:100%; text-align: center; margin-top: 0;">
 					<thead>
 						<tr>
-							<c:forEach begin="1" end="${daily.lastDate}" varStatus="s"><td>${s.count}</td></c:forEach>
+							<td></td>
+							<c:forEach begin="1" end="${daily.lastDate}" varStatus="s"><td style="width:2.5%">${s.count}</td></c:forEach>
 						</tr>
 					</thead>
 					<tbody>
@@ -428,10 +478,10 @@
 								<c:forEach items="${item.checkHabit}" var="i" varStatus="d">
 									<c:choose>
 										<c:when test="${fn:contains(i, '0')}">
-											<td id="m${h.index}${d.index}"class="tracker" style="background: white; " >
+											<td id="m${h.index}${d.index}" style="background: white; " >
 										</c:when>
 										<c:otherwise>
-											<td id="m${h.index}${d.index}"class="tracker" style=" background-color: red" >
+											<td id="m${h.index}${d.index}" style=" background-color: red" >
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>

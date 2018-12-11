@@ -41,6 +41,10 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 		return day;
 	}
 	
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
 	public void setDay(String day) {
 		this.day = day;
 		this.month = day.substring(0, 6);
@@ -83,8 +87,8 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 		List<List<Integer>> result = new ArrayList<List<Integer>>();
 		for(Schedule s : list) {
 			List<Integer> temp = new ArrayList<Integer>();
-			temp.add(Integer.parseInt(s.getScheduleStartDate().substring(6)));
-			temp.add(Integer.parseInt(s.getScheduleEndDate().substring(6)));
+			temp.add(Integer.parseInt(roundDay(s.getScheduleStartDate(),month).substring(6)));
+			temp.add(Integer.parseInt(roundDay(s.getScheduleEndDate(),month).substring(6)));
 			System.out.println(s.getScheduleStartDate()+ ":::::::::::::::::" +s.getScheduleEndDate());
 			System.out.println("추가~~~~~~~~~~~("+temp.get(0)+","+temp.get(1)+")");
 			result.add(temp);
@@ -93,32 +97,51 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 		return result;
 	}
 	
+	public String roundDay(String day, String month) {
+		int d = Integer.parseInt(day);
+		int m = Integer.parseInt(month);
+		if(Integer.parseInt(day.substring(0, 6))>m) {
+			return month+""+getLastDate(month);
+		}else if(Integer.parseInt(day.substring(0, 6))<m) {
+			return month+"01";
+		}
+		
+		return d+"";
+	}
+	
 	public List<Schedule> getTodaySchedule() {
 		ArrayList<Schedule> list = new ArrayList<Schedule>();
-		for(Schedule s : scheduleList) {
-			if(Integer.parseInt(s.getScheduleStartDate())<=Integer.parseInt(day) && 
-					Integer.parseInt(s.getScheduleEndDate())>=Integer.parseInt(day))
-				list.add(s);
+		if(scheduleList!=null) {	
+			for(Schedule s : scheduleList) {
+				System.out.println(s);
+				if(Integer.parseInt(s.getScheduleStartDate())<=Integer.parseInt(day) && 
+						Integer.parseInt(s.getScheduleEndDate())>=Integer.parseInt(day))
+					list.add(s);
+			}
 		}
 		return list;
 	}
 	
 	public List<Challenge> getTodayChallenge(){
 		ArrayList<Challenge> list = new ArrayList<Challenge>();
-		for(Challenge c : challengeList) {
-			if(Integer.parseInt(c.getChallengeStartDate())<=Integer.parseInt(day) && 
-					Integer.parseInt(c.getChallengeEndDate())>=Integer.parseInt(day))
-				list.add(c);
+		if(challengeList!=null) {
+			for(Challenge c : challengeList) {
+				if(Integer.parseInt(c.getChallengeStartDate())<=Integer.parseInt(day) && 
+						Integer.parseInt(c.getChallengeEndDate())>=Integer.parseInt(day))
+					list.add(c);
+			}
 		}
 		return list;
 	}
 	
 	public List<CheckHabit> getCheckHabit(){
 		ArrayList<CheckHabit> list = new ArrayList<CheckHabit>();
-		for(Habit h : habitList) {
-			for(CheckHabit ch : h.getCheckHabitList()) {
-				if(ch.getMonth().equals(month))
-					list.add(ch);
+		if(habitList!=null) {
+			for(Habit h : habitList) {
+				for(CheckHabit ch : h.getCheckHabitList()) {
+					if(ch.getMonth().equals(month))
+						list.add(ch);
+				}
 			}
 		}
 		return list;
