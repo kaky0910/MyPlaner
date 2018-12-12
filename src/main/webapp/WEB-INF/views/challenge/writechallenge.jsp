@@ -10,8 +10,7 @@
                   style="display: inline; margin-top: 25px; height: 25px; font-weight: 100%; font: bold;"><br>
                <b>Category</b> &nbsp;&nbsp;&nbsp; <select name="challengeCategory">
                   <option value="readBook">독서</option>
-
-                  <option value="life">생활 습관</option>
+                  <option value="life">생활습관</option>
                   <option value="diet">식이요법</option>
                </select><br> <br>
                <hr>

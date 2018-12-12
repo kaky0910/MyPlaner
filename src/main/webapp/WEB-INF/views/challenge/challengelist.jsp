@@ -78,40 +78,5 @@
 			</div>
 		</div>
 	</div>
-
-
-
-	<!-- <form>
-
-
-		<aside class="profile-card">
-			<header>
-				here’s the avatar <a target="_blank" href="#"> <img
-					src="http://lorempixel.com/150/150/people/" class="hoverZoomLink">
-				</a> the Title
-				<h1>
-					<b>물 여덟잔 마시기</b>
-				</h1>
-				<b>핫브레이커</b>님 START-END DATE
-				<h2>
-					<b> STARTDATE : </b> <span id="startDate"></span> <br> <b>
-						ENDDATE : </b> <span id="endDate"></span>
-				</h2>
-			</header>
-			challenge-content
-			<div class="challenge-content">
-				profile-bio <b>Category : </b> 독서<br> <b>Sharing : </b> ON
-				<hr>
-				<ul style="text-align: left">
-					<li><b>Day 1</b> 첫 날
-					<li><b>Day 2</b> 두번째 날
-				</ul>
-				<hr>
-				<p>
-					<em>124명</em>이 응원합니당.
-				</p>
-			</div>
-		</aside>
-	</form> -->
 </body>
 </html>

@@ -1,13 +1,13 @@
 package com.spring.plan.model.service.impl;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.spring.plan.model.dao.MessageDao;
 import com.spring.plan.model.service.MessageService;
+import com.spring.plan.model.service.paging.MessageListVO;
+import com.spring.plan.model.service.paging.PagingBean;
 import com.spring.plan.model.vo.Message;
 
 @Service
@@ -17,13 +17,37 @@ public class MessageServiceImpl implements MessageService {
 	MessageDao messageDao;
 
 	@Override
-	public List<Message> getSendMessageList(String nickname) throws Exception {
-		return messageDao.getSendMessageList(nickname);
+	public MessageListVO getSendMessageList(int memberNo, int spageNo) throws Exception {
+		int pn = 0;
+		if(spageNo == 0) pn=1;
+		else pn = spageNo;
+		
+		int total = messageDao.totalSendMessageNumber(memberNo);
+		
+		PagingBean pb = new PagingBean(total, pn);
+		
+		MessageListVO param = new MessageListVO();
+	
+		param.setMemberNo(memberNo);
+		param.setPageNo(spageNo);
+		return new MessageListVO(messageDao.getSendMessageList(param), pb, memberNo);
 	}
-
+	
 	@Override
-	public List<Message> getMessageList(String nickname) throws Exception {
-		return messageDao.getMessageList(nickname);
+	public MessageListVO getMessageList(int memberNo, int rpageNo) throws Exception {
+		int pn = 0;
+		if(rpageNo == 0) pn =1;
+		else pn = rpageNo;
+		
+		int total = messageDao.totalRecvMessageNumber(memberNo);
+		
+		PagingBean pb = new PagingBean(total, pn);
+		MessageListVO param = new MessageListVO();
+		
+		param.setMemberNo(memberNo);
+		param.setPageNo(rpageNo);
+		
+		return new MessageListVO(messageDao.getMessageList(param), pb, memberNo);
 	}
 
 	@Override

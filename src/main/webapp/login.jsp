@@ -24,9 +24,7 @@
 	$(function() {
 		$('input[type=button]')
 				.click(
-						function() {/* 
-									$('div img:eq(0)').css('display', 'none');
-									$('div img:eq(1)').css('display', 'block'); */
+						function() {
 							$('div img')
 									.attr('src',
 											'${pageContext.request.contextPath}/img/unlock.gif');
@@ -36,7 +34,7 @@
 							});
 							$('h3').css('text-decoration', 'line-through');
 
-							location.href = "loadingDaily.do?memberNo=1";
+							location.href = "loadingDaily.do?memberNo="+${sessionScope.member.memberNo};
 						});
 	});//ready
 </script>

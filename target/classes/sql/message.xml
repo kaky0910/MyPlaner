@@ -32,23 +32,38 @@
 		delete from message where message_no = #{value}
 	</delete>
 	
-	<select id="getMessageList" parameterType="string" resultMap="messageSelectMap">
-		select message_No, sender_member_no, message_Send_Date, message_Content, message_Title, message_check
+	<select id="getMessageList" parameterType="MessageListVO" resultMap="messageSelectMap">
+		SELECT message_No, sender_member_no, message_Send_Date, message_Content, message_Title, message_check, pageNo
+		FROM(
+		select message_No, sender_member_no, message_Send_Date, message_Content, message_Title, message_check, CEIL(rownum/7) as pageNo
 		from message
-		where destination_member_no=#{value} <![CDATA[ AND ROWNUM <= 5 ]]>
-		order by message_no desc
+		where destination_member_no=#{memberNo}
+		order by message_no desc)
+		WHERE pageNo = #{pageNo}
 	</select>
 	
-	<select id="getSendMessageList" parameterType="string" resultMap="messageSelectMap">
-		select message_No, destination_member_no, message_Send_Date, message_Content, message_Title
+	<select id="getSendMessageList" parameterType="MessageListVO" resultMap="messageSelectMap">
+		SELECT message_No, destination_member_no, message_Send_Date, message_Content, message_Title,pageNo
+		FROM(
+		select message_No, destination_member_no, message_Send_Date, message_Content, message_Title, CEIL(rownum/7) as pageNo
 		from message
-		where sender_member_no=#{value} <![CDATA[ AND ROWNUM <= 5 ]]>
-		order by message_no desc
+		where sender_member_no=#{memberNo}
+		order by message_no desc)
+		WHERE pageNo = #{pageNo}
+		
 	</select>
 	
 	<update id="readMessage" parameterType="int">
 		update message set message_check=1 where message_No=#{value}
 	</update>
+	
+	<select id="totalSendMessageNumber" parameterType="int" resultType="int">
+		select count(-1) from message where sender_Member_No = #{value}
+	</select>
+	
+	<select id="totalRecvMessageNumber" parameterType="int" resultType="int">
+		select count(-1) from message where destination_Member_No = #{value}
+	</select>
 </mapper>
 
 

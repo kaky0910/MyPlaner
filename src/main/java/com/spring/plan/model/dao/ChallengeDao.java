@@ -9,7 +9,6 @@ import com.spring.plan.model.vo.ChallengeComment;
 import com.spring.plan.model.vo.ChallengeLog;
 
 public interface ChallengeDao {
-
 	
 	// challenge 전체 목록
 	List<Challenge> getAllChallengeList() throws Exception;

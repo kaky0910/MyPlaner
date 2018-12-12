@@ -6,9 +6,8 @@
 
 <!DOCTYPE html>
 <html>
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
-
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
@@ -30,6 +29,14 @@
 <script src="${path}/js/calendar.js"></script>
 <script src="${path}/js/moment.js"></script>
 <script src="${path}/js/glider.js"></script>
+
+<!-- nav start-->
+<link rel="stylesheet" href="${path}/css/nav.css">
+<link rel="stylesheet/less" type="text/css"
+	href="${path}/less/style.less">
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+<script src="${path}/js/nav.js"></script>
+<!-- nav end-->
 
 <script type="text/javascript">
 	var monthCount = moment().month();
@@ -82,10 +89,17 @@
 		$('.card:eq(-2)').css('color', 'red');
 
 		//6. challenge (시작일, 마지막일) format으로 arr로 입력
-		var tempArr = ${daily.scheduleFormattedArray};
-		var arr = ${daily.scheduleFormattedArray};
+		var tempArr = $
+		{
+			daily.scheduleFormattedArray
+		}
+		;
+		var arr = $
+		{
+			daily.scheduleFormattedArray
+		}
+		;
 
-		
 		new Promise(function(resolve, reject) {
 			calendarInit(yearCount, monthCount);
 			if (arr == null || arr[0] == null || arr.length == 0) {
@@ -140,43 +154,44 @@
 		//8. 
 	});//ready
 	function addChallenge() {
-        var flag = $('input:checked').length;
-        $('.challengeSection .center:eq(0)').css('background-color','red');
-        $.ajax({
-                 url : 'addChallenge.do',
-                 method : 'post',
-                 dataType : 'json',
-                 data : {
-                    "challengeTitle" : $(
-                          'input[name=challengeTitle]')
-                          .val(),
-                    "challengeCategory" : $(
-                          'select option:selected').val(),
-                    "challengeStartDate" : $(
-                          'input[name=challengeStartDate]')
-                          .val(),
-                    "challengeEndDate" : $(
-                          'input[name=challengeEndDate]')
-                          .val(),
-                    "challengeSharing" : flag,
-                    "memberNo" : $(
-                    'input[type=hidden]')
-                    .val()
-                 },
-                 success : function(result) {
-                 	$('.challengeSection .center:eq(0)').after("<div class='newchallengeDiv'>"+$("#challengeSection:last").html()+"</div>"); 
+		var flag = $('input:checked').length;
+		$('.challengeSection .center:eq(0)').css('background-color', 'red');
+		$.ajax({
+			url : 'addChallenge.do',
+			method : 'post',
+			dataType : 'json',
+			data : {
+				"challengeTitle" : $('input[name=challengeTitle]').val(),
+				"challengeCategory" : $('select option:selected').val(),
+				"challengeStartDate" : $('input[name=challengeStartDate]')
+						.val(),
+				"challengeEndDate" : $('input[name=challengeEndDate]').val(),
+				"challengeSharing" : flag,
+				"memberNo" : $('input[type=hidden]').val()
+			},
+			success : function(result) {
+				$('.challengeSection .center:eq(0)')
+						.after(
+								"<div class='newchallengeDiv'>"
+										+ $("#challengeSection:last").html()
+										+ "</div>");
 
-                   /*  $('.challengeSection:last').after("<div class='challengeSection'>"+$('.challengeSection:last').html()+"</div>");  */
-                	$('.challengeSection:last #challengeTitle').html(result.json.challenge.challengeTitle);
-                	$('.challengeSection:last #startDate').html(result.json.challenge.challengeStartDate);
-                	$('.challengeSection:last #endDate').html(result.json.challenge.challengeEndDate);
-                	$('.challengeSection:last #challengeCategory').html(result.json.challenge.challengeCategory);
-                	$('.challengeSection:last #challengeSharing').html(result.json.challenge.challengeSharing);
-                	
-                	/*$('#challengeSection:last').after("<div class='newchallengeDiv'>"+$('#challengeSection').html()+"</div>"); */
-                 }
-              });//ajax
-     }//addChallenge
+				/*  $('.challengeSection:last').after("<div class='challengeSection'>"+$('.challengeSection:last').html()+"</div>");  */
+				$('.challengeSection:last #challengeTitle').html(
+						result.json.challenge.challengeTitle);
+				$('.challengeSection:last #startDate').html(
+						result.json.challenge.challengeStartDate);
+				$('.challengeSection:last #endDate').html(
+						result.json.challenge.challengeEndDate);
+				$('.challengeSection:last #challengeCategory').html(
+						result.json.challenge.challengeCategory);
+				$('.challengeSection:last #challengeSharing').html(
+						result.json.challenge.challengeSharing);
+
+				/*$('#challengeSection:last').after("<div class='newchallengeDiv'>"+$('#challengeSection').html()+"</div>"); */
+			}
+		});//ajax
+	}//addChallenge
 </script>
 
 </head>
@@ -184,7 +199,7 @@
 	<div id="titleArea"
 		style="height: 85px; /* background-color: gray;  */ margin-top: 0px;">
 		<p align="center" style="padding-top: 35px;">Title</p>
-		<a href="messagewrite.jsp">MessageWrite</a>
+
 	</div>
 
 	<div id="contents"
@@ -345,13 +360,13 @@
 			</table>
 		</div>
 		<!-- END section2 -->
-		
-		
+
+
 		<div id="section4"
 			style="height: 450px; /* background-color: blue; */ margin-top: 20px;">
 
 			<div class="demo">
-				
+
 				<div align="right">
 					<p class="buttons">
 						<a class="button" id="addSlide">Add</a> <a class="button"
@@ -378,7 +393,8 @@
 												</div>
 												<!-- Name -->
 												<h2 id="challengeTitle" class="card-face__name">
-													<b>${challengeList.challengeTitle}</b>
+													<a
+														href="detailChallenge.do?challengeNo=${challengeList.challengeNo}"><b>${challengeList.challengeTitle}</b></a>
 												</h2>
 												<!-- Title -->
 												<span class="card-face__title"><b>${challengeList.memberNo}</b></span>
@@ -387,8 +403,10 @@
 														<b> STARTDATE : </b> <span id="startDate">${challengeList.challengeStartDate}</span>
 														<br> <b> ENDDATE : </b> <span id="endDate">${challengeList.challengeEndDate}</span>
 													</h4>
-													<b>Category : </b><label id="challengeCategory"> ${challengeList.challengeCategory}</label><br>
-													<b>Sharing : </b><label id="challengeSharing"> ${challengeList.challengeSharing}</label>
+													<b>Category : </b><label id="challengeCategory">
+														${challengeList.challengeCategory}</label><br> <b>Sharing
+														: </b><label id="challengeSharing">
+														${challengeList.challengeSharing}</label>
 													<hr>
 													<ul style="text-align: left">
 														<c:forEach var="challengeLogList"
@@ -404,7 +422,8 @@
 										</div>
 									</div>
 								</c:forEach>
-								<div id="newchallengeDiv" class="newchallengeDiv"  style="width: 290px; height: 500px">
+								<div id="newchallengeDiv" class="newchallengeDiv"
+									style="width: 290px; height: 500px">
 									<div class="card">
 										<img src="${path}/img/writeChallenge.png"
 											style="display: block; margin: auto; width: 50%; margin-top: 38%">
@@ -502,13 +521,6 @@
 		<!-- contents -->
 
 	</div>
-	<div id="navigater"
-		style="float: right; width: 8%; margin-right: 5%; margin-top: 25px; margin-left: 2%; /* background-color: blue; */ height: 1600px">
-		★★★★★★★★★<br> ★★★★★★★★★<br> ★★★★★★★★★<br> ★★★★★★★★★<br>
-		★★★★★★★★★<br>
-	</div>
+	<%@include file="nav.jsp"%>
 </body>
-<script type="text/javascript">
-	
-</script>
 </html>

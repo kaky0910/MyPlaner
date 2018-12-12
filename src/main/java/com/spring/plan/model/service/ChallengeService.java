@@ -8,6 +8,9 @@ import com.spring.plan.model.vo.ChallengeLog;
 
 public interface ChallengeService {
 
+	//challenge 검색
+	List<Challenge> searchChallengeList(Challenge challenge) throws Exception;
+	
 	// challenge 전체 목록
 	List<Challenge> getAllChallengeList() throws Exception;
 
