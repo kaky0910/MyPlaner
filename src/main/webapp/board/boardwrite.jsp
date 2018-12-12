@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,20 +23,17 @@ function content_submit(){
 </script>
 </head>
 <font face="HY나무L" size="5"><strong>글쓰기 <br><br></strong></font>
-  <form action="${pageContext.request.contextPath}/boardwrite.do" method="post" name="write_form" enctype="multipart/form-data">
+  <form action="../boardwrite.do" method="post" name="write_form" enctype="multipart/form-data">
            <!-- ${pageContext.request.contextPath} : 하면 '../' 안해도 자동으로 잡힌다. (저거 자체가 webapp로 기억..)-->
   
    <table>
     <tr>
-     <td>제목</td>
-     <td><input type="text" name="boardTitle"  size="50"></td>
+     <td>제목<input type="text" name="boardTitle"  size="30"></td>
     </tr>
-    
-
-    
+        
     <tr>
      <td colspan="2">
-     <textarea cols="35" rows="10" name="boardContent"></textarea>
+     	<textarea cols="35" rows="20" name="boardContent"></textarea>
      </td>
     </tr>
     

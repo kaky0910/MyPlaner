@@ -16,9 +16,6 @@ public class Board {
 	private List<String> boardPictures;
 	private List<BoardComment> boardCommentList;
 	
-	// 테이블 연결
-	private Member member;
-	
 	// 추가되는 컬럼
 	private String orgfilename;
 	private String newfilename;
@@ -30,6 +27,7 @@ public class Board {
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 	
+		
 	public Board(String boardTitle, String boardWriteDate, String boardContent, int boardLikes, int boardHits,
 			int boardNo, List<String> boardPictures, List<BoardComment> boardCommentList) {
 		super();
@@ -41,20 +39,7 @@ public class Board {
 		this.boardNo = boardNo;
 		this.boardPictures = boardPictures;
 		this.boardCommentList = boardCommentList;
-	}
-	//member
-	public Board(String boardTitle, String boardWriteDate, String boardContent, int boardLikes, int boardHits,
-			int boardNo, List<String> boardPictures, List<BoardComment> boardCommentList, Member member) {
-		super();
-		this.boardTitle = boardTitle;
-		this.boardWriteDate = boardWriteDate;
-		this.boardContent = boardContent;
-		this.boardLikes = boardLikes;
-		this.boardHits = boardHits;
-		this.boardNo = boardNo;
-		this.boardPictures = boardPictures;
-		this.boardCommentList = boardCommentList;
-		this.member = member;
+		
 	}
 	
 	public String getBoardTitle() {
@@ -129,14 +114,7 @@ public class Board {
 		this.boardCommentList = boardCommentList;
 	}
 	
-
-	public Member getMember() {
-		return member;
-	}
-
-	public void setMember(Member member) {
-		this.member = member;
-	}
+	
 
 	public String getOrgfilename() {
 		return orgfilename;

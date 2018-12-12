@@ -23,19 +23,19 @@
 	}
 </script>
 </head>
-<font face="HY나무L" size="5"><strong>글쓰기 <br> <br></strong></font>
-<form action="update.do?filename=${board.newfilename}" method="get"
+<font face="HY나무L" size="5"><strong>수정게시판 <br> <br></strong></font>
+<form action="./updatego.do" method="get"
 	name="write_form" enctype="multipart/form-data">
 
 	<table cellpadding="5">
 		<tr>
 			<td>
-				<table width="550">
+				<table width="750">
 					<tr>
 						<td><b>글번호 : <input type="text" name="no"
-								value="${requestScope.board.boardno}" readonly="readonly"> |
+								value="${requestScope.board.boardNo}" readonly="readonly"> |
 								타이틀 : <input type="text" name="title"
-								 value="${board.boardTitle}" maxlength="100" size="30">
+								 value="${board.boardTitle}" >
 								
 						</b>
 							<hr style="color: #6691BC; border-style: dotted; margin: 0">
@@ -43,13 +43,13 @@
 					</tr>
 					<tr>
 						<td>작성자 : <input type="text" name="name"
-							value="${requestScope.board.member.name}" readonly="readonly">
+							value="${requestScope.board.memberNo}" readonly="readonly">
 							| 작성일시 : <input type="text" name="writeDate"
-							value="${requestScope.board.boardwriteDate}" readonly="readonly">
+							value="${requestScope.board.boardWriteDate}" readonly="readonly">
 							Count : <input type="text" name="count"
 							value="${requestScope.board.boardHits}" readonly="readonly"></b></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td><span id="uploadView"> <c:choose>
 									<c:when test="${board.orgfilename!=null}">
 										<b>${board.orefilename }</b>
@@ -59,9 +59,9 @@
 									</c:otherwise>
 								</c:choose>
 						</span></td>
-					</tr>
+					</tr> --%>
 					<tr>
-						<td><textarea cols="35" rows="10" name="content">${board.boardContent}</textarea>
+						<td><textarea cols="35" rows="30" width="50%" name="content">${board.boardContent}</textarea>
 						</td>
 					</tr>
 					<tr>

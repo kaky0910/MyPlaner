@@ -29,15 +29,6 @@ public class BoardComment {
 		this.boardNo = boardNo;
 	}
 	
-	public BoardComment(String boardComment, int boardReplyComment,
-			String boardCommentWriteDate, int boardNo, int boardCommentMemberNo) {
-		super();
-		this.boardComment = boardComment;
-		this.boardReplyComment = boardReplyComment;
-		this.boardCommentWriteDate = boardCommentWriteDate;
-		this.boardNo = boardNo;
-		this.boardCommentMemberNo = boardCommentMemberNo;
-	}
 	
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 	
