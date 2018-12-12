@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,6 +9,24 @@
 </head>
 <body>
 <b>목 록</b><p>
+<%-- <form action="boardlist.jsp" method="post">
+	<table border="1" cellpadding="0" cellspacing="0" width="700">
+	<tr>
+		<td align="right">
+			<select name="searchCondition">
+			<c:forEach items="${conditionMap}" var="option">
+				<option value="${option.value }">${option.key }</option>
+			</c:forEach>
+			</select>
+			<input name="searchKeyword" type="text" />
+			<input type="submit" value="검색" />
+		</td>
+	</tr>
+	</table>
+	
+	</form>
+	<!-- 검색 종료 --> --%>
+
 <table border="1" width="650" cellpadding="2">
 	<tr>
 		<th width="10%">번 호</th>
@@ -18,21 +36,22 @@
 		<th width="10%">조회수</th>
 	</tr>
 	<!-- @@@@@이 부분 반드시 수정 @@@@-->
-	<c:forEach var="board" items="${requestScope.lvo.list}">
+	<c:forEach items="${lb}" var="board">
 		<tr>
-			<td>${board.board_no}</td>
-			<td><a href="showContent.do?no=${board.board_no}">${board.board_title}</a></td>
-			<td>${board.member.name}</td>
-			<td>${board.board_write_date}</td>
-			<td>${board.board_hits}</td>		
+			<td>${board.boardNo}</td>
+			<td><a href="show_content.do?no=${board.boardNo}">${board.boardTitle}</a></td>
+			<td>${board.memberNo}</td>
+			<td>${board.boardWriteDate}</td>
+			<td>${board.boardHits}</td>		
 		</tr>
 	</c:forEach>
 </table><p>
+	<tr>
 
-<a href="boardwrite.do">작성</a>
+		<td colspan="5"><a href="./board/boardwrite.jsp">글 작성</a>
+	</tr>
 
-
- <!-- 비로그인 사용자는 아래 버튼을 보여주지 않는다. -->
+ <%-- <!-- 비로그인 사용자는 아래 버튼을 보여주지 않는다. -->
 <c:if test="${sessionScope.mvo!=null}">
 <a href="board/write.jsp"><img src="./img/write_btn.jpg" border="0"></a>
 
@@ -80,7 +99,7 @@
 	 endPageOfPageGroup+1}">
 	 <img src="./img/right_arrow_btn.gif">
 	 </a>
-	 </c:if>	  
+	 </c:if>	   --%>
 </body>
 </html>
 

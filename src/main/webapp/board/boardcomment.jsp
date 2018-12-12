@@ -1,10 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
     <head>
-        <title>게시판</title>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js"></script>
+        <title>댓글???</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.js">
+        function content_submit(){
+        	   var f=document.boardcomment_form;
+        	   if(f.boardCommentList.value==""){
+        	      alert("댓글을 입력하세요!");
+        	      f.comment.focus();
+        	      return; 
+        	   }   
+        </script>
+        
     </head>
     <style>
     	textarea{
@@ -20,7 +29,7 @@
     <body>
     <h2> 댓글게시판</h2>
     <form action="${pageContext.request.contextPath}/boardcomment.do" method="post" name="boardcomment_form">
-    	<input type="hidden" id="board_id" name="board_id" value="${board.nickname}" />
+    	<%-- <input type="hidden" id="board_id" name="board_id" value="${board.nickname}" /> --%>
     	<div align="center">
     
    			<table border="1" width="1200px" >
@@ -30,7 +39,7 @@
 						제목: ${board.boardTitle}
 					</td>
 					<td>
-						작성자: ${board.nickname}
+						작성자: ${board.memberNo}
 					</td>
    				</tr>
    				<tr height="500px">
@@ -39,28 +48,27 @@
    					</td>
    				</tr>
    			</table>
-   			<table border="1" width="1200px" id="reply_area">
+   			<table border="1" width="1200px" id="comment_area">
    				<tr reply_type="all"  style="display:none"><!-- 뒤에 댓글 붙이기 쉽게 선언 -->
    					<td colspan="4"></td>
    				</tr>
 	   			<!-- 댓글이 들어갈 공간 -->
-	   			<c:forEach var="replyList" items="${replyList}" varStatus="status">
-					<tr reply_type="<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>"><!-- 댓글의 depth 표시 -->
+	   			<c:forEach var="commentList" items="${commentList}" varStatus="status">
+					<tr reply_type="<c:if test="${commentList.depth == '0'}">main</c:if>
+					<c:if test="${commentList.depth == '1'}">sub</c:if>"><!-- 댓글의 depth 표시 -->
 			    		<td width="820px">
-			    			<c:if test="${replyList.depth == '1'}"> → </c:if>${replyList.reply_content}
+			    			<c:if test="${commentList.depth == '1'}"> → </c:if>${commentList.board_reply_comment}
 			    		</td>
 			    		<td width="100px">
-			    			${replylist.reply_writer}
+			    			${commentList.board_reply_comment}
 			    		</td>
-			    		<td width="100px">
-			    			<input type="password" id="reply_password_${replyList.reply_id}" style="width:100px;" maxlength="10" placeholder="패스워드"/>
-			    		</td>
+			    		
 			    		<td align="center">
-			    			<c:if test="${replyList.depth != '1'}">
-			    				<button name="reply_reply" parent_id = "${replyList.reply_id}" reply_id = "${replyList.reply_id}">댓글</button><!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
+			    			<c:if test="${commentList.depth != '1'}">
+			    				<button name="comment_comment" parent_id = "${commentList.reply_id}" reply_id = "${commentList.reply_id}">댓글</button><!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
 			    			</c:if>
-			    			<button name="reply_modify" parent id = "${replyList.parent_id}" r_type = "<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>" reply_id = "${replyList.reply_id}">수정</button>
-			    			<button name="reply_del" r_type = "<c:if test="${replyList.depth == '0'}">main</c:if><c:if test="${replyList.depth == '1'}">sub</c:if>" reply_id = "${replyList.reply_id}">삭제</button>
+			    			<button name="comment_modify" parent id = "${commentList.parent_id}" r_type = "<c:if test="${commentList.depth == '0'}">main</c:if><c:if test="${commentList.depth == '1'}">sub</c:if>" reply_id = "${commentList.reply_id}">수정</button>
+			    			<button name="comment_del" r_type = "<c:if test="${commentList.depth == '0'}">main</c:if><c:if test="${commentList.depth == '1'}">sub</c:if>" reply_id = "${commentList.reply_id}">삭제</button>
 			    		</td>
 			    	</tr>
 			    </c:forEach>
@@ -82,7 +90,7 @@
    			<table width="1200px">
    				<tr>
    					<td align="right">
-   						<button id="boardlist" name="boardlist">게시판목록</button>
+   						<a href="./boardlist.do">게시판목록</button>
    					</td>
    				</tr>
    			</table>

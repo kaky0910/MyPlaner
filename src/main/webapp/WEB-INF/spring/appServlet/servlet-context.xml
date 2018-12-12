@@ -47,6 +47,12 @@
 	
 	<context:component-scan base-package="com.spring.plan" />
 	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="utf-8"/>
+		<beans:property name="maxUploadSize" value="-1"/>
+	</beans:bean>
+	
+	
 	<beans:bean name="JsonView" id="JsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 	<aop:aspectj-autoproxy/>
 	

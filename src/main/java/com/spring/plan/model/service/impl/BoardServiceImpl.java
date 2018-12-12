@@ -35,7 +35,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int writeBoard(Board board) throws Exception {
 		System.out.println("inset Àü:"+board.getBoardNo());
-		boardDao.writeBoard(board);
 		return boardDao.writeBoard(board);
 		
 	}
@@ -60,5 +59,5 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteBoardComment(boardNo, boardComment);
 	}
 
-
+	
 }

@@ -19,7 +19,7 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public Board getBoardByNo(int boardNo) throws Exception {
-		return sqlsession.selectOne("board-mapper.getBoardByNO", boardNo);
+		return sqlsession.selectOne("board-mapper.getBoardByNo", boardNo);
 	}
 
 	@Override
@@ -59,7 +59,6 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<Board> getBoardByMemberNo(int memberNo) throws Exception {
-		return null;
+		return sqlsession.selectList("board-mapper.getBoardByMemberNo" , memberNo);
 	}
-
 }
