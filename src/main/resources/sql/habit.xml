@@ -4,6 +4,8 @@
 	
 <mapper namespace="habit-mapper">
 	<resultMap type="CheckHabit" id="CheckHabitResultMap">
+		<result property="memberNo" column="member_no"/>
+		<result property="habit" column="habit"/>
 		<result property="month" column="month"/>
 		<result property="checkHabit" column="check_habit"/>
 	</resultMap>
@@ -23,7 +25,7 @@
 		)
 	</insert>
 	
-	<insert id="addHabitCheck" parameterType="CheckHabit">
+	<insert id="addCheckHabit" parameterType="CheckHabit">
 		INSERT INTO check_habit(
 			member_no, habit, month
 		) VALUES (
@@ -32,9 +34,8 @@
 	</insert>
 	
 	<select id="getHabit" resultMap="HabitResultMap" parameterType="int">
-		SELECT * FROM habit
-		JOIN check_habit ON habit.member_no = check_habit.member_no
-		WHERE habit.member_no = #{value}
+		SELECT habit.member_no member_no,habit.habit habit,habit_start_date,habit_end_date, month, check_habit FROM habit,check_habit
+		WHERE habit.member_no = #{value} AND habit.habit = check_habit.habit AND habit.member_no = check_habit.member_no
 			
 	</select>
 	
@@ -47,11 +48,12 @@
 	<update id="checkHabit" parameterType="CheckHabit">
 		UPDATE check_habit SET 
 			check_habit = #{checkHabit}
-		WHERE member_no = #{habit.memberNo} AND habit = #{habit.habit} AND month = #{month}
+		WHERE member_no = #{memberNo} AND habit = #{habit} AND month = #{month}
 	</update>
 	
-	<select id="getCheckHabit" resultType="string" parameterType="CheckHabit">
-		SELECT check_habit FROM check_habit WHERE 
-		member_no = #{habit.memberNo} AND habit = #{habit.habit} AND month = #{month}
+	<select id="getCheckHabit" resultMap="CheckHabitResultMap" parameterType="CheckHabit">
+		SELECT member_no,habit,month,check_habit FROM check_habit WHERE 
+		member_no = #{memberNo} AND habit = #{habit} AND month = #{month}
 	</select>
 </mapper>
+

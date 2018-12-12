@@ -39,7 +39,7 @@
 	</update>
 	
 	<select id="getScheduleByDay" parameterType="Daily" resultMap="scheduleResultMap">
-		SELECT schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
+		SELECT schedule_no,schedule_title,TO_CHAR(schedule_start_date,'YYYYMMDD') schedule_start_date,TO_CHAR(schedule_end_date,'YYYYMMDD') schedule_end_date,schedule_content,schedule_tag,member_no
 		FROM schedule
 		WHERE (#{day} BETWEEN schedule_start_date AND schedule_end_date) AND member_no = #{memberNo} 
 	</select>
@@ -54,6 +54,10 @@
 		SELECT schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
 		FROM schedule
 		WHERE schedule_no = #{value}
+	</select>
+	
+	<select id="getScheduleLength" parameterType="Schedule" >
+		SELECT (TO_DATE(#{scheduleStartDate},'YYYYMMDD')-TO_DATE(#{scheduleEndDate},'YYYYMMDD')) FROM dual
 	</select>
 	
 	

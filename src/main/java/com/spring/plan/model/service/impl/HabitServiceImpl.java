@@ -21,8 +21,9 @@ public class HabitServiceImpl implements HabitService {
 	public int addHabit(Habit habit) throws Exception {
 		int result = habitDao.addHabit(habit);
 		CheckHabit checkHabit = new CheckHabit();
-		checkHabit.setHabit(habit);
-		checkHabit.setMonth(habit.getStartMonth());
+		checkHabit.setMemberNo(habit.getMemberNo());
+		checkHabit.setHabit(habit.getHabit());
+		checkHabit.setMonth(habit.getHabitStartDate().substring(0, 6));
 		result += habitDao.addCheckHabit(checkHabit)*10;
 		return result;
 	}
@@ -34,27 +35,44 @@ public class HabitServiceImpl implements HabitService {
 
 	@Override
 	public int checkHabit(Habit habit, String day) throws Exception {
+		String result = "";
 		CheckHabit checkHabit = new CheckHabit();
-		checkHabit.setHabit(habit);
+		checkHabit.setMemberNo(habit.getMemberNo());
+		checkHabit.setHabit(habit.getHabit());
 		checkHabit.setMonth(day.substring(0, 6));
-		String getCheck = habitDao.getCheckHabitByMonth(checkHabit);
-		char[] arr = getCheck.toCharArray();
-		if(arr[Integer.parseInt(day.substring(6,8))-1]==0)
-			arr[Integer.parseInt(day.substring(6,8))-1]=1;
-		else arr[Integer.parseInt(day.substring(6,8))-1]=0;
+		CheckHabit getCheck = habitDao.getCheckHabitByMonth(checkHabit);
+		System.out.println("getCheck :::::::: "+getCheck);
+		char[] arr = getCheck.getCheckHabit().toCharArray();
+		if(arr[Integer.parseInt(day.substring(6,8))+5]=='0') {					////////////////////////////陥獣びびびびびびびびびびびびびびびびび
+			arr[Integer.parseInt(day.substring(6,8))+5]='1';
+			result = "check";
+		}
+		else {
+			arr[Integer.parseInt(day.substring(6,8))+5]='0';
+			result = "uncheck";
+		}
 		checkHabit.setCheckHabit(new String(arr));
-
+		if(result.equals("check")) return habitDao.checkHabit(checkHabit)+10;		//11戚檎 端滴失因
 		return habitDao.checkHabit(checkHabit);
 	}
 
 	@Override
-	public String getCheckHabitByMonth(CheckHabit checkHabit) throws Exception {
+	public CheckHabit getCheckHabitByMonth(CheckHabit checkHabit) throws Exception {
 		return habitDao.getCheckHabitByMonth(checkHabit);
 	}
 
 	@Override
 	public List<Habit> getHabitList(int memberNo) throws Exception {
 		return habitDao.getHabitList(memberNo);
+	}
+
+	@Override
+	public int addCheckHabit(Habit habit, String day) throws Exception {
+		CheckHabit ch = new CheckHabit();
+		ch.setHabit(habit.getHabit());
+		ch.setMemberNo(habit.getMemberNo());
+		ch.setMonth(day.substring(0, 6));
+		return habitDao.addCheckHabit(ch);
 	}
 
 }

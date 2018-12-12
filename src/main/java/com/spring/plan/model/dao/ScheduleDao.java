@@ -24,4 +24,6 @@ public interface ScheduleDao {
 	
 	// schedule ¼öÁ¤
 	int updateSchedule(Schedule schedule) throws Exception;
+	
+	int getScheduleLength(Schedule schedule) throws Exception;
 }

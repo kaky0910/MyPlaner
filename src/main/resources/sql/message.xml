@@ -1,54 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-   
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
 <mapper namespace="message-mapper">
-   <resultMap type="Message" id="messageSelectMap">
-      <result property="messageNo" column="message_No" />
-      <result property="senderMemberNo" column="sender_member_no" />
-      <result property="destinationMemberNo" column="destination_member_no" />
-      <result property="messageSendDate" column="message_send_Date" />
-      <result property="messageContent" column="message_content" />
-      <result property="messageTitle" column="message_title" />
-      <result property="check" column="message_check" />
-   </resultMap>
-   
-   <insert id="sendMessage" parameterType="Message">
-      <selectKey keyProperty="messageNo" resultType="int" order="BEFORE">
-         select
-         message_seq.nextval from dual
-      </selectKey>
-      insert into message(message_No, sender_member_no, destination_member_no, message_send_Date, message_content, message_title) 
-      values(#{messageNo}, #{senderMemberNo}, #{destinationMemberNo}, sysdate, #{messageContent}, #{messageTitle})
-   </insert>
-   
-   <select id="getMessage" resultMap="messageSelectMap" parameterType="int">
-      select message_No, sender_member_no, destination_member_no, message_Send_Date, message_Content, message_Title, message_check
-      from message
-      where message_No=#{value}
-   </select>
-   
-   <delete id="deleteMessage" parameterType="int">
-      delete from message where message_no = #{value}
-   </delete>
-   
-   <select id="getMessageList" parameterType="string" resultMap="messageSelectMap">
-      select message_No, sender_member_no, message_Send_Date, message_Content, message_Title, message_check
-      from message
-      where destination_member_no=#{value} <![CDATA[ AND ROWNUM <= 5 ]]>
-      order by message_no desc
-   </select>
-   
-   <select id="getSendMessageList" parameterType="string" resultMap="messageSelectMap">
-      select message_No, destination_member_no, message_Send_Date, message_Content, message_Title
-      from message
-      where sender_member_no=#{value} <![CDATA[ AND ROWNUM <= 5 ]]>
-      order by message_no desc
-   </select>
-   
-   <update id="readMessage" parameterType="int">
-      update message set message_check=1 where message_No=#{value}
-   </update>
+	<resultMap type="Message" id="messageSelectMap">
+		<result property="messageNo" column="message_No" />
+		<result property="senderMemberNo" column="sender_member_no" />
+		<result property="destinationMemberNo" column="destination_member_no" />
+		<result property="messageSendDate" column="message_send_Date" />
+		<result property="messageContent" column="message_content" />
+		<result property="messageTitle" column="message_title" />
+		<result property="check" column="message_check" />
+	</resultMap>
+	
+	<insert id="sendMessage" parameterType="Message">
+		<selectKey keyProperty="messageNo" resultType="int" order="BEFORE">
+			select
+			message_seq.nextval from dual
+		</selectKey>
+		insert into message(message_No, sender_member_no, destination_member_no, message_send_Date, message_content, message_title) 
+		values(#{messageNo}, #{senderMemberNo}, #{destinationMemberNo}, sysdate, #{messageContent}, #{messageTitle})
+	</insert>
+	
+	<select id="getMessage" resultMap="messageSelectMap" parameterType="int">
+		select message_No, sender_member_no, destination_member_no, message_Send_Date, message_Content, message_Title, message_check
+		from message
+		where message_No=#{value}
+	</select>
+	
+	<delete id="deleteMessage" parameterType="int">
+		delete from message where message_no = #{value}
+	</delete>
+	
+	<select id="getMessageList" parameterType="string" resultMap="messageSelectMap">
+		select message_No, sender_member_no, message_Send_Date, message_Content, message_Title, message_check
+		from message
+		where destination_member_no=#{value} <![CDATA[ AND ROWNUM <= 5 ]]>
+		order by message_no desc
+	</select>
+	
+	<select id="getSendMessageList" parameterType="string" resultMap="messageSelectMap">
+		select message_No, destination_member_no, message_Send_Date, message_Content, message_Title
+		from message
+		where sender_member_no=#{value} <![CDATA[ AND ROWNUM <= 5 ]]>
+		order by message_no desc
+	</select>
+	
+	<update id="readMessage" parameterType="int">
+		update message set message_check=1 where message_No=#{value}
+	</update>
 </mapper>
-
-

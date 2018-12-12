@@ -17,14 +17,14 @@ public interface ChallengeDao {
 	// challenge 정보 return 		(challenge detail 페이지에서)
 	Challenge getChallengeByNo(int challengeNo) throws Exception;
 	
-	// 해당 아이디, 날짜의 challenge return		(index page. )
-	List<Challenge> getChallengeByDay(String day, int memberNo) throws Exception;
-	
 	// 해당 아이디, 월의 challenge return		(index page.  paging)
 	List<Challenge> getChallengeByMonth(String month, int memberNo) throws Exception;
 	
+	// 해당 아이디, 날짜의 challenge return		(index page. )
+	List<Challenge> getChallengeByDay(String day, int memberNo) throws Exception;
+	
 	// challenge 체크, 체크 푸는 method
-	int checkChallenge(int challengeNo,String challengeContent) throws Exception;
+	int checkChallenge(int challengeNo, String challengeContent) throws Exception;
 	
 	// challenge를 추가 (index page)
 	int addChallenge(Challenge challenge) throws Exception;

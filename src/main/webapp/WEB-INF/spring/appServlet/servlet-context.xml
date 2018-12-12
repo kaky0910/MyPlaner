@@ -21,11 +21,11 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/" />
+		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<beans:bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0"></beans:property>
 	</beans:bean>
 	
@@ -53,7 +53,7 @@
 	</beans:bean>
 	
 	
-	<beans:bean name="JsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+	<beans:bean name="JsonView" id="JsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 	<aop:aspectj-autoproxy/>
 	
 </beans:beans>

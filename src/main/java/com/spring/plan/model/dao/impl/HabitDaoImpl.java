@@ -16,7 +16,7 @@ import com.spring.plan.model.vo.Habit;
 public class HabitDaoImpl implements HabitDao{
 
 	@Resource
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 	
 	@Override
 	public int addHabit(Habit habit) throws Exception {
@@ -25,7 +25,7 @@ public class HabitDaoImpl implements HabitDao{
 	
 	@Override
 	public int addCheckHabit(CheckHabit checkHabit) throws Exception {
-		return sqlSession.insert("habit-mapper.addHabit",checkHabit);
+		return sqlSession.insert("habit-mapper.addCheckHabit",checkHabit);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class HabitDaoImpl implements HabitDao{
 	}
 
 	@Override
-	public String getCheckHabitByMonth(CheckHabit checkHabit) throws Exception {
+	public CheckHabit getCheckHabitByMonth(CheckHabit checkHabit) throws Exception {
 		return sqlSession.selectOne("habit-mapper.getCheckHabit",checkHabit);
 	}
 
@@ -49,3 +49,4 @@ public class HabitDaoImpl implements HabitDao{
 	}
 
 }
+

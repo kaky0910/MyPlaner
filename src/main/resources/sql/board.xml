@@ -101,4 +101,5 @@
 		DELETE FROM board_comment
 		WHERE board_comment_no = #{boardCommentNo}
 	</delete>
+
 </mapper>   

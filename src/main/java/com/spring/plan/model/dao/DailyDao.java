@@ -30,3 +30,4 @@ public interface DailyDao {
 	
 	//////////Ελ    °θ~~~~~~~~~~~~~~~~~~~~~
 }
+

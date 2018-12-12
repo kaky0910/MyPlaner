@@ -14,7 +14,7 @@ public interface MemberService {
 	int regist(Member mvo) throws Exception;
 	
 	// id 중복체크
-	int idCheck(String id) throws Exception;
+	boolean idCheck(String id) throws Exception;
 	
 /*	// nickname 중복체크
 	int nicknameCheck(String nickname) throws Exception;
@@ -27,6 +27,7 @@ public interface MemberService {
 	
 	// kakao login
 	Member kakaoLogin(Member mvo) throws Exception;
+
 
 
 }

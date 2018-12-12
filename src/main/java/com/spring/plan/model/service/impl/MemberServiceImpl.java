@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.plan.model.dao.DailyDao;
 import com.spring.plan.model.dao.MemberDao;
 import com.spring.plan.model.service.MemberService;
 import com.spring.plan.model.vo.BlockMember;
@@ -13,7 +14,9 @@ import com.spring.plan.model.vo.Member;
 public class MemberServiceImpl implements MemberService {
 
 	@Resource
-	MemberDao memberDao;
+	private MemberDao memberDao;
+	@Resource
+	private DailyDao dailyDao;
 	
 	@Override
 	public Member login(Member mvo) throws Exception {
@@ -22,12 +25,15 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int regist(Member mvo) throws Exception {
-		return memberDao.regist(mvo);
+		int result = memberDao.regist(mvo);
+		System.out.println("memo insert :::: "+dailyDao.insertMemo(mvo));
+		return result;
 	}
 
 	@Override
-	public int idCheck(String id) throws Exception {
-		return memberDao.idCheck(id);
+	public boolean idCheck(String id) throws Exception {
+		if(memberDao.idCheck(id)==1) return true;
+		else return false;
 	}
 
 	@Override
@@ -47,7 +53,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int registKakao(Member mvo) throws Exception {
-		return memberDao.registKakao(mvo);
+		int result = memberDao.registKakao(mvo);
+		System.out.println("memo insert :::: "+dailyDao.insertMemo(mvo));
+		return result;
 	}
 
 	@Override

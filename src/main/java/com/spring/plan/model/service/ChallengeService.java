@@ -15,10 +15,10 @@ public interface ChallengeService {
 	Challenge getChallengeByNo(int challengeNo) throws Exception;
 
 	// 해당 아이디, 월의 challenge return (index page. paging)
-	List<Challenge> getChallengeByMonth(String month, int memberNo) throws Exception;
+	List<Challenge> getChallengeByMonth(String month,  int memberNo) throws Exception;
 
 	// 해당 아이디, 날짜의 challenge return (index page. )
-	List<Challenge> getChallengeByDay(String day, int memberNo) throws Exception;
+	List<Challenge> getChallengeByDay(String day,  int memberNo) throws Exception;
 
 	// challenge 체크, 체크 푸는 method
 	int checkChallenge(int challengeNo, String challengeContent) throws Exception;

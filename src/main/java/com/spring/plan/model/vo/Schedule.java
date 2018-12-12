@@ -87,6 +87,13 @@ public class Schedule {
 		this.memberNo = memberNo;
 	}
 	
+	public String getStartDay() {			//날짜만
+		return getScheduleStartDate().substring(6);
+	}
+	public String getEndDay() {				//날짜만
+		return getScheduleEndDate().substring(6);
+	}
+	
 	
 
 	@Override

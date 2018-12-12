@@ -1,4 +1,5 @@
-*{	margin:0;	padding:0; }
+
+*{	 margin:0;	padding:0; }
 
 #section2{
 	color:#fff;
@@ -38,6 +39,6 @@ label div{
 }
 
 label i{ font-size:16px;	opacity:0; }
-label:hover div{ background:#c0c0c0; }
+/* label:hover div{ background:#ff0000; } */
 input:checked+label i{ opacity:1; }
-input:checked+label div{ background:#c0c0c0; }
+input:checked+label div{ background:rgba(156,156,156,0.25)}
