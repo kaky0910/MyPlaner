@@ -136,16 +136,18 @@
       });
 	
       //7. calendar next searchResultTab..
+      var tag = '${daily.scheduleList[0].scheduleTag}';
       $.ajax({
          method : 'get',
          url : 'searchResult.do',
          data : {
-            "word" : '${daily}'
+            "word" : tag
          },
          dataType : 'json',
          success : function(data) {
             var d = JSON.parse(data.result);
             alert(JSON.stringify(d));
+            $('#search h4').html('#'+tag);
             $('#search div').each(
                   function(index) {
                      $(this).html(
@@ -210,9 +212,9 @@
 			    			            "word" : data.json[0].scheduleTag
 			    			         },
 			    			         dataType : 'json',
-			    			         success : function(data) {
-			    			            var d = JSON.parse(data.result);
-			    			            $('search h4').append(data.json[0].scheduleTag);
+			    			         success : function(r) {
+			    			            var d = JSON.parse(r.result);
+			    			            $('#search h4').html('#'+data.json[0].scheduleTag);
 			    			            $('#search div').each(
 			    			                  function(index) {
 			    			                     $(this).html(
@@ -230,9 +232,9 @@
 			    			            "word" : data.json[0].scheduleCategory
 			    			         },
 			    			         dataType : 'json',
-			    			         success : function(data) {
-			    			            var d = JSON.parse(data.result);
-			    			            $('search h4').append(data.json[0].scheduleTag);
+			    			         success : function(r) {
+			    			            var d = JSON.parse(r.result);
+			    			            $('#search h4').html('#'+data.json[0].scheduleTag);
 			    			            $('#search div').each(
 			    			                  function(index) {
 			    			                     $(this).html(
@@ -256,6 +258,31 @@
 		    	TweenMax.to(this, 0.5, {scale:1});
 		    	$(this).css('z-index','0');
 		    	$(this).find('hr').css('display','block');
+	    	}
+	    });
+	    
+	    $('input[type=checkbox]').change(function(){
+	    	alert($(this).attr('id'));
+	    	if($(this).attr('id').indexOf('Challenge')!=-1){
+	    		$.ajax({
+		    		url : $(this).attr('id')+'.do',
+		    		data : {
+		    			"scheduleNo" : $(this).attr('id').substring(13)
+		    		}
+		    		success : function(){
+		    			
+		    		}
+		    	});
+	    	}else{
+		    	$.ajax({
+		    		url : $(this).attr('id')+'.do',
+		    		data : {
+		    			"challengeNo" : $(this).attr('id').substring(14);
+		    		}
+		    		success : function(){
+		    			
+		    		}
+		    	});
 	    	}
 	    });
    }); //ready
@@ -353,8 +380,8 @@
                         <hr>
                         <c:forEach items="${daily.todaySchedule}" var="item" varStatus="i">
                         	<div>
-	                           <input type="checkbox" id="checkSchedule${i.count}" /> <label
-	                              for="checkSchedule${i.count}">
+	                           <input type="checkbox" id="checkSchedule${item.scheduleNo}" /> <label
+	                              for="checkSchedule${item.scheduleNo}">
 	                              <div>
 	                                 <i class="fa fa-check"></i>
 	                              </div> ${item.scheduleTitle}
@@ -374,8 +401,8 @@
                         <hr>
                         <c:forEach items="${daily.todayChallenge}" var="item" varStatus="i">
                         	<div>
-                           <input type="checkbox" id="checkChallenge${i.count}" /> <label
-                              for="checkChallenge${i.count}">
+                           <input type="checkbox" id="checkChallenge${item.challengeNo}" /> <label
+                              for="checkChallenge${item.challengeNo}">
                               <div>
                                  <i class="fa fa-check"></i>
                               </div> ${item.challengeTitle}

@@ -34,5 +34,5 @@ public interface BoardDao {
 	int addBoardComment(int boardNo, BoardComment boardComment) throws Exception;
 	
 	// ¥Ò±€ªË¡¶
-	int deleteBoardComment(int boardNo, BoardComment boardComment) throws Exception;
+	int deleteBoardComment(BoardComment boardComment) throws Exception;
 }

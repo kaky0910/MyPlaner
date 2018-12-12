@@ -15,7 +15,7 @@ import com.spring.plan.model.vo.Schedule;
 public class ScheduleDaoImpl implements ScheduleDao {
 
 	@Resource
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 	
 	@Override
 	public int addSchedule(Schedule schedule) throws Exception {
@@ -50,6 +50,11 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	@Override
 	public int getScheduleLength(Schedule schedule) throws Exception {
 		return sqlSession.selectOne("schedule-mapper.getScheduleLength",schedule);
+	}
+
+	@Override
+	public int checkSchedule(Schedule schedule) throws Exception {
+		return sqlSession.update("schedule-mapper.checkSchedule",schedule);
 	}
 
 }

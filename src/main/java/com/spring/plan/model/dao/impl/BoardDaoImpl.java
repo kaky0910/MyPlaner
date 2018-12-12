@@ -53,7 +53,7 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int deleteBoardComment(int boardNo, BoardComment boardComment) throws Exception {
+	public int deleteBoardComment(BoardComment boardComment) throws Exception {
 		return sqlsession.delete("board-mapper.deleteBoardComment", boardComment);
 	}
 

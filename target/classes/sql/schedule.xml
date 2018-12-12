@@ -18,9 +18,9 @@
 			SELECT schedule_seq.nextVal FROM dual
 		</selectKey>
 		INSERT INTO schedule(
-			schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
+			schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no,schedule_check
 		) VALUES(
-			#{scheduleNo},#{scheduleTitle},#{scheduleStartDate},#{scheduleEndDate},#{scheduleContent},#{scheduleTag},#{memberNo}
+			#{scheduleNo},#{scheduleTitle},#{scheduleStartDate},#{scheduleEndDate},#{scheduleContent},#{scheduleTag},#{memberNo},#{scheduleCheck}
 		)
 	</insert>
 	
@@ -56,9 +56,14 @@
 		WHERE schedule_no = #{value}
 	</select>
 	
-	<select id="getScheduleLength" parameterType="Schedule" >
-		SELECT (TO_DATE(#{scheduleStartDate},'YYYYMMDD')-TO_DATE(#{scheduleEndDate},'YYYYMMDD')) FROM dual
+	<select id="getScheduleLength" parameterType="Schedule" resultType="integer">
+		SELECT (TO_DATE(#{scheduleEndDate},'YYYYMMDD')-TO_DATE(#{scheduleStartDate},'YYYYMMDD'))+1 FROM dual
 	</select>
 	
+	<update id="checkSchedule" parameterType="Schedule">
+		UPDATE schedule 
+		SET schedule_check = #{scheduleCheck}
+		WHERE schedule_no = #{scheduleNo}
+	</update>
 	
 </mapper>

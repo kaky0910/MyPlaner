@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.plan.model.vo.Challenge;
 import com.spring.plan.model.vo.ChallengeComment;
+import com.spring.plan.model.vo.ChallengeContent;
 import com.spring.plan.model.vo.ChallengeLog;
 
 public interface ChallengeDao {
@@ -22,9 +23,6 @@ public interface ChallengeDao {
 	
 	// 해당 아이디, 날짜의 challenge return		(index page. )
 	List<Challenge> getChallengeByDay(String day, int memberNo) throws Exception;
-	
-	// challenge 체크, 체크 푸는 method
-	int checkChallenge(int challengeNo, String challengeContent) throws Exception;
 	
 	// challenge를 추가 (index page)
 	int addChallenge(Challenge challenge) throws Exception;
@@ -46,5 +44,11 @@ public interface ChallengeDao {
 	
 	// challenge 댓글 삭제 
 	int deleteChallengeComment(ChallengeComment challengeComment) throws Exception;
+	
+	// challenge 기간 return
+	int getChallengeLength(Challenge challenge) throws Exception;
+	
+	// check challenge content
+	int checkChallengeContent(ChallengeContent challengeContent) throws Exception;
 	
 }

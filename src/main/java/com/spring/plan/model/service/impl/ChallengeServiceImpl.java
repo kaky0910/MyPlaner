@@ -10,13 +10,14 @@ import com.spring.plan.model.dao.ChallengeDao;
 import com.spring.plan.model.service.ChallengeService;
 import com.spring.plan.model.vo.Challenge;
 import com.spring.plan.model.vo.ChallengeComment;
+import com.spring.plan.model.vo.ChallengeContent;
 import com.spring.plan.model.vo.ChallengeLog;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
 
 	@Resource
-	ChallengeDao challengeDao;
+	private ChallengeDao challengeDao;
 
 	@Override
 	public List<Challenge> getAllChallengeList() throws Exception {
@@ -40,15 +41,6 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
-	public int checkChallenge(int challengeNo, String challengeContent) throws Exception {
-		if (challengeDao.checkChallenge(challengeNo, challengeContent) == 0) {
-			System.out.println("★ checkChallenge 실패");
-			return 0;
-		}
-		return 1;
-	}
-
-	@Override
 	public int addChallenge(Challenge challenge) throws Exception {
 		if (challengeDao.addChallenge(challenge) == 0) {
 			System.out.println("★ addChallenge  실패");
@@ -68,6 +60,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Override
 	public int addChallengeContent(int challengeNo, List<String> challengeContent) throws Exception {
+		
 		if (challengeDao.addChallengeContent(challengeNo, challengeContent) == 0) {
 			System.out.println("★ addChallengeContent  실패");
 			return 0;
@@ -109,6 +102,22 @@ public class ChallengeServiceImpl implements ChallengeService {
 			return 0;
 		}
 		return 1;
+	}
+
+	@Override
+	public int checkChallengeContent(ChallengeContent challengeContent,String day) throws Exception {
+
+		Challenge challenge = new Challenge();
+		challenge.setChallengeEndDate(day);
+		challenge.setChallengeStartDate(challengeDao.getChallengeByNo(challengeContent.getChallengeNo()).getChallengeStartDate());
+		int dayCount = challengeDao.getChallengeLength(challenge);
+		
+		char[] arr = challengeContent.getChallengeContentCheck().toCharArray();
+		if(arr[dayCount-1]=='0') arr[dayCount-1]='1';
+		else arr[dayCount-1] = '0';
+		challengeContent.setChallengeContentCheck(new String(arr)); 		//check setting
+		
+		return challengeDao.checkChallengeContent(challengeContent);
 	}
 
 }

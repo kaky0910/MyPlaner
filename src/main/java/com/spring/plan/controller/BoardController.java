@@ -140,20 +140,14 @@ public class BoardController {
 	}
 	@RequestMapping("comment.do")
 	public ModelAndView insert(HttpServletRequest request, HttpSession session, int boardNo, BoardComment boardComment)throws Exception {
-		List<BoardComment> lbc =boardService.addBoardComment(boardComment.getBoardCommentNo(),boardComment.getBoardComment());
+		int lbc =boardService.addBoardComment(boardComment.getBoardCommentNo(),boardComment);
 		return new ModelAndView("../board/boardcomment","lbc",lbc);
 		
 	}
 	@RequestMapping("deletecomment.do")
 	public ModelAndView deletecomment(HttpServletRequest request,BoardComment boardComment)throws Exception {
-		boardService.deleteBoardComment(boardComment.getBoardNo());
+		boardService.deleteBoardComment(boardComment);
 		return new ModelAndView("redirect:./show_content.do");
 	}
 
 }
-
-
-
-
-
-

@@ -58,9 +58,9 @@
 	
 	 <insert id="addChallengeContent" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index"  open="INSERT ALL " separator=" " close="SELECT * FROM DUAL" > 
-        into Challenge_Content(challenge_no, challenge_content)
+        into Challenge_Content(challenge_no, challenge_content,challenge_content_check)
 		values(
-			#{item.challengeNo}, #{item.challengeContent})
+			#{item.challengeNo}, #{item.challengeContent},#{item.challengeContentCheck})
         </foreach>
     </insert>
 
@@ -86,7 +86,7 @@
 	</delete>	
 	
 	<update id="checkChallenge" parameterType="ChallengeContent">
-		update challenge_content set challenge_Content_Check=1 where challenge_No=#{challengeNo} AND challenge_content = #{challengeContent}
+		update challenge_content set challenge_Content_Check=#{challengeContentCheck} where challenge_No=#{challengeNo} AND challenge_content = #{challengeContent}
 	</update>
 	
 	<select id="getAllChallengeList" resultMap="challengeSelectMap">
@@ -118,5 +118,10 @@
     <select id="getChallengeByDay" parameterType="Daily" resultMap="challengeSelectMap">
         select * from challenge
 		where (#{day} BETWEEN challenge_start_date AND challenge_end_date) AND member_no=#{memberNo}
+    </select>
+    
+    <select id="getChallengeLength" parameterType="Challenge" resultType="integer">
+		SELECT (TO_DATE(#{challengeEndDate},'YYYYMMDD')-TO_DATE(#{challengeStartDate},'YYYYMMDD'))+1 
+		FROM dual    	
     </select>
 </mapper>

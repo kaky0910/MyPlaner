@@ -77,4 +77,17 @@ public class ScheduleController {
 		return new ModelAndView(); 		//index?
 	}
 	
+	@RequestMapping("checkSchedule*.do")
+	   public ModelAndView checkChallenge(int scheduleNo) throws Exception{
+			Schedule schedule = scheduleService.getScheduleDetail(scheduleNo);
+		    String day = Daily.getDayByDate();
+		    int result = scheduleService.checkSchedule(schedule, day);
+		    if(result == 1) {		// 성공
+		    	
+		    }else {					// 실패
+		    	
+		    }
+		    return new ModelAndView();
+	   }
+	
 }

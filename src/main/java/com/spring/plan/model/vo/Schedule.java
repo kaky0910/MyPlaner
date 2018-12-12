@@ -13,6 +13,10 @@ public class Schedule {
 	
 	public Schedule() {}
 	
+	public Schedule(String scheduleStartDate,String scheduleEndDate) {
+		this.scheduleStartDate = scheduleStartDate;
+		this.scheduleEndDate = scheduleEndDate;
+	}
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 	
 	public String getScheduleTitle() {

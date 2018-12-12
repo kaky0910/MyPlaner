@@ -55,8 +55,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int deleteBoardComment(int boardNo, BoardComment boardComment) throws Exception {
-		return boardDao.deleteBoardComment(boardNo, boardComment);
+	public int deleteBoardComment(BoardComment boardComment) throws Exception {
+		return boardDao.deleteBoardComment(boardComment);
 	}
 
 	

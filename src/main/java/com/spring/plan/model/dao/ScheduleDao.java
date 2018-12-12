@@ -25,5 +25,9 @@ public interface ScheduleDao {
 	// schedule 수정
 	int updateSchedule(Schedule schedule) throws Exception;
 	
+	// schedule 기간 return
 	int getScheduleLength(Schedule schedule) throws Exception;
+	
+	// check schedule
+	int checkSchedule(Schedule schedule) throws Exception;
 }

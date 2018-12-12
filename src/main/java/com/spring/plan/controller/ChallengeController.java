@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.plan.model.service.ChallengeService;
 import com.spring.plan.model.vo.Challenge;
+import com.spring.plan.model.vo.Daily;
 import com.spring.plan.model.vo.Member;
 
 @Controller
@@ -35,6 +36,12 @@ public class ChallengeController {
       List<Challenge> challengeList = challengeService.getChallengeByMonth(month, memberNo);
       jsonObject.put("challenge", challengeList);
       return new ModelAndView("JsonView","json",jsonObject);
+   }
+   
+   @RequestMapping("checkChallenge*.do")
+   public ModelAndView checkChallenge(int challengeNo) throws Exception{
+	   String day = Daily.getDayByDate();
+	   return new ModelAndView();
    }
    
 }

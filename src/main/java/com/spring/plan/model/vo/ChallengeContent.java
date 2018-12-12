@@ -14,6 +14,13 @@ public class ChallengeContent {
 		this.challengeContent = challengeContent;
 	}//»Ò¡§ /addChallengeContent
 
+	public ChallengeContent(int challengeNo, String challengeContent, String challengeContentCheck) {
+		super();
+		this.challengeNo = challengeNo;
+		this.challengeContent = challengeContent;
+		this.challengeContentCheck = challengeContentCheck;
+	}//addChallengeContent
+
 	public int getChallengeNo() {
 		return challengeNo;
 	}

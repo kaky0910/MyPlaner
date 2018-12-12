@@ -325,4 +325,16 @@ public class SqlTest {
 		System.out.println("출력 완료");
 	}*/
 	
+	@Test
+	public void getScheduleLength() throws Exception {
+		Reader reader = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
+		SqlSession sqlSession = factory.openSession();
+		
+		Schedule s = new Schedule();
+		s.setScheduleStartDate("20181220");
+		s.setScheduleEndDate("20181222");
+		System.out.println(sqlSession.selectOne("schedule-mapper.getScheduleLength", s));
+	}
 }
