@@ -1,60 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-   
-<mapper namespace="schedule-mapper">                           
-   <resultMap type="Schedule" id="scheduleResultMap">
-      <result property="scheduleNo" column="schedule_no"/>
-      <result property="scheduleTitle" column="schedule_title"/>
-      <result property="scheduleStartDate" column="schedule_start_date"/>
-      <result property="scheduleEndDate" column="schedule_end_date"/>
-      <result property="scheduleContent" column="schedule_content"/>
-      <result property="scheduleTag" column="schedule_tag"/>
-      <result property="memberNo" column="member_no"/>
-   </resultMap>               
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="schedule-mapper">									
+	<resultMap type="Schedule" id="scheduleResultMap">
+		<result property="scheduleNo" column="schedule_no"/>
+		<result property="scheduleTitle" column="schedule_title"/>
+		<result property="scheduleStartDate" column="schedule_start_date"/>
+		<result property="scheduleEndDate" column="schedule_end_date"/>
+		<result property="scheduleContent" column="schedule_content"/>
+		<result property="scheduleTag" column="schedule_tag"/>
+		<result property="memberNo" column="member_no"/>
+	</resultMap>					
 
-   <insert id="addSchedule" parameterType="Schedule">
-      <selectKey keyProperty="scheduleNo" resultType="int" order="BEFORE">
-         SELECT schedule_seq.nextVal FROM dual
-      </selectKey>
-      INSERT INTO schedule(
-         schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
-      ) VALUES(
-         #{scheduleNo},#{scheduleTitle},#{scheduleStartDate},#{scheduleEndDate},#{scheduleContent},#{scheduleTag},#{memberNo}
-      )
-   </insert>
-   
-   <delete id="deleteSchedule" parameterType="int">
-      DELETE FROM schedule WHERE schedule_no = #{value}
-   </delete>
-   
-   <update id="updateSchedule" parameterType="Schedule">
-      UPDATE schedule SET 
-         schedule_title = #{scheduleTitle}, 
-         schedule_start_date = #{scheduleStartDate}, 
-         schedule_end_date = #{scheduleEndDate}, 
-         schedule_content = #{scheduleContent}, 
-         schedule_tag = #{scheduleTag}
-      WHERE schedule_no = #{scheduleNo}
-   </update>
-   
-   <select id="getScheduleByDay" parameterType="Daily" resultMap="scheduleResultMap">
-      SELECT schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
-      FROM schedule
-      WHERE (#{day} BETWEEN schedule_start_date AND schedule_end_date) AND member_no = #{memberNo} 
-   </select>
-   
-   <select id="getScheduleByMonth" parameterType="Daily" resultMap="scheduleResultMap">
-      SELECT schedule_no,schedule_title,to_char(schedule_start_date,'yyyymmdd') schedule_start_date,to_char(schedule_end_date,'yyyymmdd') schedule_end_date,schedule_content,schedule_tag,member_no
-      FROM schedule
-      WHERE (to_char(schedule_start_date,'yyyymm')=#{month} OR to_char(schedule_end_date,'yyyymm')=#{month}) AND member_no = #{memberNo}
-   </select>
-   
-   <select id="getScheduleDetail" parameterType="int" resultMap="scheduleResultMap">
-      SELECT schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
-      FROM schedule
-      WHERE schedule_no = #{value}
-   </select>
-   
-   
+	<insert id="addSchedule" parameterType="Schedule">
+		<selectKey keyProperty="scheduleNo" resultType="int" order="BEFORE">
+			SELECT schedule_seq.nextVal FROM dual
+		</selectKey>
+		INSERT INTO schedule(
+			schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no,schedule_check
+		) VALUES(
+			#{scheduleNo},#{scheduleTitle},#{scheduleStartDate},#{scheduleEndDate},#{scheduleContent},#{scheduleTag},#{memberNo},#{scheduleCheck}
+		)
+	</insert>
+	
+	<delete id="deleteSchedule" parameterType="int">
+		DELETE FROM schedule WHERE schedule_no = #{value}
+	</delete>
+	
+	<update id="updateSchedule" parameterType="Schedule">
+		UPDATE schedule SET 
+			schedule_title = #{scheduleTitle}, 
+			schedule_start_date = #{scheduleStartDate}, 
+			schedule_end_date = #{scheduleEndDate}, 
+			schedule_content = #{scheduleContent}, 
+			schedule_tag = #{scheduleTag}
+		WHERE schedule_no = #{scheduleNo}
+	</update>
+	
+	<select id="getScheduleByDay" parameterType="Daily" resultMap="scheduleResultMap">
+		SELECT schedule_no,schedule_title,TO_CHAR(schedule_start_date,'YYYYMMDD') schedule_start_date,TO_CHAR(schedule_end_date,'YYYYMMDD') schedule_end_date,schedule_content,schedule_tag,member_no
+		FROM schedule
+		WHERE (#{day} BETWEEN schedule_start_date AND schedule_end_date) AND member_no = #{memberNo} 
+	</select>
+	
+	<select id="getScheduleByMonth" parameterType="Daily" resultMap="scheduleResultMap">
+		SELECT schedule_no,schedule_title,to_char(schedule_start_date,'yyyymmdd') schedule_start_date,to_char(schedule_end_date,'yyyymmdd') schedule_end_date,schedule_content,schedule_tag,member_no
+		FROM schedule
+		WHERE (to_char(schedule_start_date,'yyyymm')=#{month} OR to_char(schedule_end_date,'yyyymm')=#{month}) AND member_no = #{memberNo}
+	</select>
+	
+	<select id="getScheduleDetail" parameterType="int" resultMap="scheduleResultMap">
+		SELECT schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
+		FROM schedule
+		WHERE schedule_no = #{value}
+	</select>
+	
+	<select id="getScheduleLength" parameterType="Schedule" resultType="integer">
+		SELECT (TO_DATE(#{scheduleEndDate},'YYYYMMDD')-TO_DATE(#{scheduleStartDate},'YYYYMMDD'))+1 FROM dual
+	</select>
+	
+	<update id="checkSchedule" parameterType="Schedule">
+		UPDATE schedule 
+		SET schedule_check = #{scheduleCheck}
+		WHERE schedule_no = #{scheduleNo}
+	</update>
+	
 </mapper>

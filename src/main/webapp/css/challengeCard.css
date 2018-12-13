@@ -533,7 +533,7 @@ p {
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
 -webkit-animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards   , moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards;
   animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards;
- }¿©ƒ…´Â ¸Ç ¸¶Áö¸· ¾Ö´Ï¸ŞÀÌ¼ÇÀº ÃÊ±âÈ­¶§ °ø Åö Æ¢ ÇÏ´Â °Å ±îÁöÀÓ
+ }ì—¬ÂƒÂ…ëŠ” ë§¨ ë§ˆì§€ë§‰ ì• ë‹ˆë©”ì´ì…˜ì€ ì´ˆê¸°í™”ë•Œ ê³µ íˆ­ íŠ€ í•˜ëŠ” ê±° ê¹Œì§€ì„
 
 .profile-card header {
   width: 179px;
@@ -549,7 +549,7 @@ p {
   text-align: center;
   -webkit-animation: moveIn 1s 3.1s ease forwards;
   animation: moveIn 1s 3.1s ease forwards;
-}¿©±â ¾Ö´Ï¸ŞÀÌ¼ÇÀº header ºÎºĞ ¾È³ª¿È
+}ì—¬ê¸° ì• ë‹ˆë©”ì´ì…˜ì€ header ë¶€ë¶„ ì•ˆë‚˜ì˜´
 
 .profile-card header h1 {
   color: #FF5722;
@@ -612,7 +612,7 @@ p {
   opacity: 0;
   -webkit-animation: moveIn 1s 3.1s ease forwards;
   animation: moveIn 1s 3.1s ease forwards;
-}Çì´õ ¹Ø¿¡	ºÎºĞ
+}í—¤ë” ë°‘ì—	ë¶€ë¶„
 
 
 

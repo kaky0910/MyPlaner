@@ -17,6 +17,7 @@ import com.spring.plan.model.vo.Daily;
 
 @Repository
 public class ChallengeDaoImpl implements ChallengeDao {
+
 	@Resource
 	SqlSession sqlSession;
 	
@@ -44,11 +45,6 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
-	public int checkChallenge(int challengeNo, String challengeContent) throws Exception {
-		return sqlSession.update("challenge-mapper.checkChallenge", new ChallengeContent(challengeNo, challengeContent));
-	}
-
-	@Override
 	public int addChallenge(Challenge challenge) throws Exception {
 		return sqlSession.insert("challenge-mapper.addChallenge", challenge);
 	}
@@ -60,11 +56,14 @@ public class ChallengeDaoImpl implements ChallengeDao {
 
 	@Override
 	public int addChallengeContent(int challengeNo, List<String> challengeContent) throws Exception {
+		int length = getChallengeLength(getChallengeByNo(challengeNo));
+		StringBuffer sb = new StringBuffer();
+		for(int i=0;i<length;i++) sb.append("0");
 		
 		List<ChallengeContent> challengeContentList = new ArrayList<ChallengeContent>();
 		
 		for(String content : challengeContent)
-			challengeContentList.add(new ChallengeContent(challengeNo, content));
+			challengeContentList.add(new ChallengeContent(challengeNo, content,sb.toString()));
 	
 		return sqlSession.insert("challenge-mapper.addChallengeContent", challengeContentList);
 	}
@@ -90,6 +89,15 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
+	public int getChallengeLength(Challenge challenge) throws Exception {
+		return sqlSession.delete("challenge-mapper.getChallengeLength", challenge);
+	}
+
+	@Override
+	public int checkChallengeContent(ChallengeContent challengeContent) throws Exception {
+		return sqlSession.update("challenge-mapper.checkChallenge",challengeContent);
+	}
+		
 	public List<Challenge> searchChallengeList(Challenge challenge) throws Exception {
 		return sqlSession.selectList("challenge-mapper.searchChallengeList", challenge);
 	}

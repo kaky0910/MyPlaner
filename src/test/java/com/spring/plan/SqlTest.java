@@ -1,6 +1,7 @@
 package com.spring.plan;
 
 import java.io.Reader;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -9,9 +10,15 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import com.spring.plan.model.vo.Board;
+import com.spring.plan.model.vo.BoardComment;
+import com.spring.plan.model.vo.CheckHabit;
+import com.spring.plan.model.vo.Daily;
+import com.spring.plan.model.vo.Habit;
+import com.spring.plan.model.vo.Member;
+import com.spring.plan.model.vo.Schedule;
 import com.spring.plan.model.vo.Challenge;
 import com.spring.plan.model.vo.ChallengeLog;
-import com.spring.plan.model.vo.Daily;
 
 public class SqlTest {
 	/*@Test
@@ -30,15 +37,20 @@ public class SqlTest {
 		daily.setMemberNo(4);
 		Schedule schedule = new Schedule();
 		schedule.setScheduleNo(0);
-		schedule.setScheduleStartDate("20181111");
-		schedule.setScheduleEndDate("20181130");
-		schedule.setScheduleContent("내용");
+		schedule.setScheduleStartDate("20181206");
+		schedule.setScheduleEndDate("20181214");
+		schedule.setScheduleContent("내용3");
 		schedule.setScheduleTag("운동");
-		schedule.setScheduleTitle("운동");
-		System.out.println("11");
-		System.out.println(sqlSession.selectOne("daily-mapper.selectEmotionByYear","2018"));
+		schedule.setScheduleTitle("운동3");
+		schedule.setMemberNo(4);
+		/*
+		System.out.println(sqlSession.insert("schedule-mapper.addSchedule",schedule));
 		sqlSession.commit();
+		
+		
+		System.out.println("11");
 		System.out.println("@2");
+
 	}*/
 	
 	
@@ -313,4 +325,16 @@ public class SqlTest {
 		System.out.println("출력 완료");
 	}*/
 	
+	@Test
+	public void getScheduleLength() throws Exception {
+		Reader reader = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
+		SqlSession sqlSession = factory.openSession();
+		
+		Schedule s = new Schedule();
+		s.setScheduleStartDate("20181220");
+		s.setScheduleEndDate("20181222");
+		System.out.println(sqlSession.selectOne("schedule-mapper.getScheduleLength", s));
+	}
 }

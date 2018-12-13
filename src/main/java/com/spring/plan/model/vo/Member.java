@@ -3,14 +3,14 @@ package com.spring.plan.model.vo;
 import java.util.List;
 
 public class Member {
-	private int memberNo;
+	private Integer memberNo;
 	private String password;
 	private String id;
 	private String kakaoId;
 	private String gender;
+	private String birth;
 	private String mail;
 	private String registDate;
-	private String birth;
 	private String memo;
 	private List<Challenge> challengeList;
 	private List<Schedule> ScheduleList;
@@ -25,11 +25,11 @@ public class Member {
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 
 	
-	public int getMemberNo() {
+	public Integer getMemberNo() {
 		return memberNo;
 	}
 
-	public void setMemberNo(int memberNo) {
+	public void setMemberNo(Integer memberNo) {
 		this.memberNo = memberNo;
 	}
 
@@ -153,4 +153,5 @@ public class Member {
 				+ ", boardList=" + boardList + ", habitList=" + habitList + ", messageList=" + messageList
 				+ ", colorList=" + colorList + "]";
 	}
+	
 }

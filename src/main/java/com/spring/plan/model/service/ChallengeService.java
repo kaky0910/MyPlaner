@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.plan.model.vo.Challenge;
 import com.spring.plan.model.vo.ChallengeComment;
+import com.spring.plan.model.vo.ChallengeContent;
 import com.spring.plan.model.vo.ChallengeLog;
 
 public interface ChallengeService {
@@ -22,9 +23,6 @@ public interface ChallengeService {
 
 	// 해당 아이디, 날짜의 challenge return (index page. )
 	List<Challenge> getChallengeByDay(String day,  int memberNo) throws Exception;
-
-	// challenge 체크, 체크 푸는 method
-	int checkChallenge(int challengeNo, String challengeContent) throws Exception;
 
 	// challenge를 추가 (index page)
 	int addChallenge(Challenge challenge) throws Exception;
@@ -46,4 +44,7 @@ public interface ChallengeService {
 
 	// challenge 댓글 삭제
 	int deleteChallengeComment(ChallengeComment challengeComment) throws Exception;
+	
+	// check ChallengeContent
+	int checkChallengeContent(ChallengeContent challengeContent,String day) throws Exception;
 }

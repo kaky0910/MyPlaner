@@ -3,8 +3,8 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 	
 <configuration>
-	<properties resource="config/jdbc.properties"/>
-	<settings>
+ 	<properties resource="config/jdbc.properties"/>
+ 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	
@@ -29,10 +29,10 @@
 		<mapper resource="sql/member.xml"/>
 		<mapper resource="sql/daily.xml"/>
 		<mapper resource="sql/schedule.xml"/>
-		<mapper resource="sql/message.xml"/>
-		<mapper resource="sql/challenge.xml"/>
 		<mapper resource="sql/board.xml"/>
 		<mapper resource="sql/habit.xml"/>
+		<mapper resource="sql/message.xml"/>
+		<mapper resource="sql/challenge.xml"/>
 	</mappers>
 </configuration>
 

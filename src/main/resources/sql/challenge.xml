@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="challenge-mapper">
@@ -52,14 +53,14 @@
 			challenge_seq.nextval from dual
 		</selectKey>
 		insert into Challenge(challenge_No, challenge_Title, challenge_Start_Date, challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing)
-		values(#{challengeNo}, #{challengeTitle}, #{challengeStartDate}, #{challengeEndDate}, #{memberNo}, #{challengeCategory}, #{challengeLikes}, #{challengeSharing} )
+		values(#{challengeNo}, #{challengeTitle}, TO_DATE(#{challengeStartDate},'YYYYMMDD'), TO_DATE(#{challengeEndDate},'YYYYMMDD'), #{memberNo}, #{challengeCategory}, #{challengeLikes}, #{challengeSharing} )
 	</insert>
 	
 	 <insert id="addChallengeContent" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index"  open="INSERT ALL " separator=" " close="SELECT * FROM DUAL" > 
-        into Challenge_Content(challenge_no, challenge_content)
+        into Challenge_Content(challenge_no, challenge_content,challenge_content_check)
 		values(
-			#{item.challengeNo}, #{item.challengeContent})
+			#{item.challengeNo}, #{item.challengeContent},#{item.challengeContentCheck})
         </foreach>
     </insert>
 
@@ -85,11 +86,11 @@
 	</delete>	
 	
 	<update id="checkChallenge" parameterType="ChallengeContent">
-		update challenge_content set challenge_Content_Check=1 where challenge_No=#{challengeNo} AND challenge_content = #{challengeContent}
+		update challenge_content set challenge_Content_Check=#{challengeContentCheck} where challenge_No=#{challengeNo} AND challenge_content = #{challengeContent}
 	</update>
 	
 	<select id="getAllChallengeList" resultMap="challengeSelectMap">
-		select challenge_No, challenge_Title, challenge_Start_Date, challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing
+		select challenge_No, challenge_Title, TO_DATE(challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_DATE(challenge_End_Date,'YYYYMMDD') challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing
 		from challenge
 	</select>
 	
@@ -123,13 +124,19 @@
 	</select>
 	
 	<select id="getChallengeByMonth" parameterType="Daily" resultMap="challengeSelectMap">
-        select * from challenge
-		where (to_char(challenge_start_date,'yyyymm')=#{month} OR to_char(challenge_end_date,'yyyymm')=#{month}) AND member_no=#{memberNo}
+        SELECT challenge_No, challenge_Title, TO_CHAR(challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_CHAR(challenge_End_Date,'YYYYMMDD') challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing
+        FROM challenge
+		WHERE (to_char(challenge_start_date,'yyyymm')=#{month} OR to_char(challenge_end_date,'yyyymm')=#{month}) AND member_no=#{memberNo}
 		
     </select>
     
     <select id="getChallengeByDay" parameterType="Daily" resultMap="challengeSelectMap">
         select * from challenge
 		where (#{day} BETWEEN challenge_start_date AND challenge_end_date) AND member_no=#{memberNo}
+    </select>
+    
+    <select id="getChallengeLength" parameterType="Challenge" resultType="integer">
+		SELECT (TO_DATE(#{challengeEndDate},'YYYYMMDD')-TO_DATE(#{challengeStartDate},'YYYYMMDD'))+1 
+		FROM dual    	
     </select>
 </mapper>

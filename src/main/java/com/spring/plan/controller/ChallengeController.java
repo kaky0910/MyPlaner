@@ -14,13 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.plan.model.service.ChallengeService;
 import com.spring.plan.model.vo.Challenge;
+import com.spring.plan.model.vo.Daily;
 import com.spring.plan.model.vo.Member;
 
 @Controller
 public class ChallengeController {
 
 	@Resource
-	ChallengeService service;
+	private ChallengeService service;
 
 	@RequestMapping("/addChallenge.do")
 	public ModelAndView addChallenge(HttpSession session, Challenge challenge) throws Exception {
@@ -71,4 +72,11 @@ public class ChallengeController {
 	public ModelAndView getAllChallengeList() throws Exception {
 		return new ModelAndView("challenge/searchchallenge", "challengeList", service.getAllChallengeList());
 	}
+	
+	@RequestMapping("checkChallenge*.do")
+	   public ModelAndView checkChallenge(int challengeNo) throws Exception{
+		   String day = Daily.getDayByDate();
+		   return new ModelAndView();
+	   }
 }
+

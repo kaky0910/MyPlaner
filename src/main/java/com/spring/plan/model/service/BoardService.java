@@ -16,9 +16,6 @@ public interface BoardService {
 	// 게시판 제목 검색 (paging)
 	List<Board> getBoardByTitle(String title) throws Exception;
 
-	// 게시판 작성자 검색 (paging)
-	List<Board> getBoardByNickname(String nickname) throws Exception;
-
 	// 글 올리기
 	int writeBoard(Board board) throws Exception;
 
@@ -32,5 +29,5 @@ public interface BoardService {
 	int addBoardComment(int boardNo, BoardComment boardComment) throws Exception;
 
 	// 댓글삭제
-	int deleteBoardComment(int boardNo, BoardComment boardComment) throws Exception;
+	int deleteBoardComment(BoardComment boardComment) throws Exception;
 }

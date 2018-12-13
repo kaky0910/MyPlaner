@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Challenge {
-	private int challengeNo;
+	private Integer challengeNo;
 	private String challengeTitle;
 	private String challengeStartDate;
 	private String challengeEndDate;
-	private int memberNo;
+	private Integer memberNo;
 	private String challengeCategory;
 	private int challengeLikes;
 	private boolean challengeSharing;
@@ -46,14 +46,14 @@ public class Challenge {
 	public int getChallengeNo() {
 		return challengeNo;
 	}
-	public void setChallengeNo(int challengeNo) {
+	public void setChallengeNo(Integer challengeNo) {
 		this.challengeNo = challengeNo;
 	}
-	public int getMemberNo() {
+	public Integer getMemberNo() {
 		return memberNo;
 	}
 
-	public void setMemberNo(int memberNo) {
+	public void setMemberNo(Integer memberNo) {
 		this.memberNo = memberNo;
 	}
 

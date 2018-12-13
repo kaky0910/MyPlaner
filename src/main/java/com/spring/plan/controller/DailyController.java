@@ -80,7 +80,6 @@ public class DailyController {
         } catch (Exception e) {
             System.out.println(e);
         }
-      
       return new ModelAndView("JsonView","result",result);
    }
    

@@ -15,36 +15,46 @@ import com.spring.plan.model.vo.Schedule;
 public class ScheduleDaoImpl implements ScheduleDao {
 
 	@Resource
-	SqlSession sqlSession;
-
+	private SqlSession sqlSession;
+	
 	@Override
 	public int addSchedule(Schedule schedule) throws Exception {
-		return sqlSession.insert("schedule-mapper.addSchedule", schedule);
+		return sqlSession.insert("schedule-mapper.addSchedule",schedule);
 	}
 
 	@Override
 	public int deleteSchedule(int scheduleNo) throws Exception {
-		return sqlSession.delete("schedule-mapper.deleteSchedule", scheduleNo);
+		return sqlSession.delete("schedule-mapper.deleteSchedule",scheduleNo);
 	}
 
 	@Override
 	public int updateSchedule(Schedule schedule) throws Exception {
-		return sqlSession.update("schedule-mapper.updateSchedule", schedule);
+		return sqlSession.update("schedule-mapper.updateSchedule",schedule);
 	}
 
 	@Override
 	public Schedule getScheduleDetail(int scheduleNo) throws Exception {
-		return sqlSession.selectOne("schedule-mapper.getScehduleDetail", scheduleNo);
+		return sqlSession.selectOne("schedule-mapper.getScehduleDetail",scheduleNo);
 	}
 
 	@Override
 	public List<Schedule> getScheduleByDay(Daily daily) throws Exception {
-		return sqlSession.selectList("schedule-mapper.getScheduleByDay", daily);
+		return sqlSession.selectList("schedule-mapper.getScheduleByDay",daily);
 	}
 
 	@Override
 	public List<Schedule> getScheduleByMonth(Daily daily) throws Exception {
-		return sqlSession.selectList("schedule-mapper.getScheduleByMonth", daily);
+		return sqlSession.selectList("schedule-mapper.getScheduleByMonth",daily);
+	}
+
+	@Override
+	public int getScheduleLength(Schedule schedule) throws Exception {
+		return sqlSession.selectOne("schedule-mapper.getScheduleLength",schedule);
+	}
+
+	@Override
+	public int checkSchedule(Schedule schedule) throws Exception {
+		return sqlSession.update("schedule-mapper.checkSchedule",schedule);
 	}
 
 }

@@ -3,8 +3,8 @@ package com.spring.plan.model.vo;
 public class Schedule {
 	private int scheduleNo;
 	private String scheduleTitle;
-	private String scheduleStartDate;
-	private String scheduleEndDate;
+	private String scheduleStartDate;			//YYYYMMDD
+	private String scheduleEndDate;				//YYYYMMDD
 	private String scheduleContent;
 	private String scheduleTag;
 	private String scheduleCheck;
@@ -13,6 +13,10 @@ public class Schedule {
 	
 	public Schedule() {}
 	
+	public Schedule(String scheduleStartDate,String scheduleEndDate) {
+		this.scheduleStartDate = scheduleStartDate;
+		this.scheduleEndDate = scheduleEndDate;
+	}
 	//////여기에 생성자 추가(어따쓰는지도  *주*석*)
 	
 	public String getScheduleTitle() {
@@ -86,6 +90,15 @@ public class Schedule {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+	
+	public String getStartDay() {			//날짜만
+		return getScheduleStartDate().substring(6);
+	}
+	public String getEndDay() {				//날짜만
+		return getScheduleEndDate().substring(6);
+	}
+	
+	
 
 	@Override
 	public String toString() {
