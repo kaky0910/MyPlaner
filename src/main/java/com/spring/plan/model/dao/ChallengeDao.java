@@ -10,6 +10,9 @@ import com.spring.plan.model.vo.ChallengeLog;
 
 public interface ChallengeDao {
 	
+	//searchChallenge
+	List<Challenge> searchChallengeList(Challenge challenge) throws Exception;
+	
 	// challenge 전체 목록
 	List<Challenge> getAllChallengeList() throws Exception;
 	

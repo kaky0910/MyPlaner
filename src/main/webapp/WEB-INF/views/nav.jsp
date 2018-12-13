@@ -10,7 +10,7 @@
 		<li data-value="#5790E6"><b><a style="text-decoration: none;"
 				href="${path}/loadingDaily.do?memberNo=${sessionScope.member.memberNo}">메인페이지</a></b></li>
 
-		<li data-value="#E884B0"><b>챌린지게시판</b></li>
+		<li data-value="#E884B0"><a href="getAllChallengeList.do"><b>챌린지게시판</b></a></li>
 		<li data-value="#B27CD9"><a href="board.jsp"><b>게시판</b></a></li>
 		<li data-value="#112F41"><b>마이페이지</b></li>
 

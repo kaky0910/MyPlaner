@@ -23,34 +23,52 @@ public class ChallengeController {
 	ChallengeService service;
 
 	@RequestMapping("/addChallenge.do")
-	public ModelAndView addChallenge(HttpSession session, Challenge challenge) throws Exception{
+	public ModelAndView addChallenge(HttpSession session, Challenge challenge) throws Exception {
 
 		JSONObject jsonObject = new JSONObject();
 
 		challenge.setMemberNo(((Member) session.getAttribute("member")).getMemberNo());
 
 		service.addChallenge(challenge);
-		
+
 		jsonObject.put("challenge", challenge);
 		return new ModelAndView("JsonView", "json", jsonObject);
 	}
-	
+
 	@RequestMapping("/searchChallenge.do")
-	public ModelAndView searchChallenge(HttpServletRequest request, Challenge challenge) throws Exception{
+	public ModelAndView searchChallenge(HttpServletRequest request, Challenge challenge) throws Exception {
 		List<Challenge> challList = new ArrayList<Challenge>();
-		System.out.println("controller ::::::::::: "+challenge);
+
+		String challengeNo = challenge.getMemberNo() + "";
+		String challengeCategory = challenge.getChallengeCategory();
+		String challengeTitle = challenge.getChallengeTitle();
+
+		challenge.setMemberNo(Integer.parseInt(challengeNo.substring(challengeNo.lastIndexOf("100") + 1)));
+		challenge.setChallengeCategory(challengeCategory.substring(3));
+		challenge.setChallengeTitle(challengeTitle.substring(3));
 		
+		if(challenge.getChallengeCategory().equals(""))
+			challenge.setChallengeCategory(null);
+		if(challenge.getChallengeTitle().equals(""))
+			challenge.setChallengeTitle(null);
+		
+		System.out.println(challenge);
 		challList = service.searchChallengeList(challenge);
 		System.out.println("contoller " + challList);
-		return new ModelAndView("challenge/searchResultChallengeData","challList",challList);
+		return new ModelAndView("challenge/searchResultChallengeData", "challList", challList);
 	}
-	
+
 	@RequestMapping("/detailChallenge.do")
-	public ModelAndView detailChallenge(HttpServletRequest request, Challenge challenge) throws Exception{
-		System.out.println("★ 디테일챌린지 테스트 : "+challenge);
-		
+	public ModelAndView detailChallenge(HttpServletRequest request, Challenge challenge) throws Exception {
+		System.out.println("★ 디테일 챌린지 테스트 : " + challenge);
+
 		Challenge rchallenge = service.getChallengeByNo(challenge.getChallengeNo());
-		
-		return new ModelAndView("challenge/detailchallenge","challenge",rchallenge);
+
+		return new ModelAndView("challenge/detailchallenge", "challenge", rchallenge);
+	}
+
+	@RequestMapping("/getAllChallengeList.do")
+	public ModelAndView getAllChallengeList() throws Exception {
+		return new ModelAndView("challenge/searchchallenge", "challengeList", service.getAllChallengeList());
 	}
 }

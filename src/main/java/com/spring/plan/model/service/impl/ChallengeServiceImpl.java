@@ -1,6 +1,5 @@
 package com.spring.plan.model.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,48 +24,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
-	public List<Challenge> searchChallengeList(Challenge challenge) {
-		List<Challenge> searchResultChallenge = new ArrayList<Challenge>();
-
-		try {
-			List<Challenge> challengeList = new ArrayList<Challenge>();
-			System.out.println(challenge);
-			challengeList = getAllChallengeList();
-
-			String category = challenge.getChallengeCategory();
-			String memberNo = challenge.getMemberNo() + "";
-			String title = challenge.getChallengeTitle();
-
-			System.out.println(category + " === " + memberNo + " === " + title);
-
-			/*if (!category.equals("") && !memberNo.equals("") && !title.equals("")) {
-				for (Challenge c : challengeList) {
-					if (c.getChallengeCategory().equals(category) && c.getChallengeTitle().contains(title)
-							&& memberNo.equals(c.getMemberNo() + "")) {
-						searchResultChallenge.add(c);
-					}
-				}
-			} else if (!category.equals("") && title.equals("") ) {
-				System.out.println("test2★");
-				for (Challenge c : challengeList)
-					if (c.getChallengeCategory().contains(category)) {
-						searchResultChallenge.add(c);
-						System.out.println("카테고리로 검색 : " + c + "★★" + searchResultChallenge);
-					}
-			} else if (!title.equals("") && category.equals("")) {
-				System.out.println("test3★");
-				for (Challenge c : challengeList)
-					if (c.getChallengeTitle().contains(title)) {
-						searchResultChallenge.add(c);
-						System.out.println("카테고리로 검색 : " + c + "★★★" + searchResultChallenge);
-					}
-			}*/
-			
-			//이거 날리고 XML !!! 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return searchResultChallenge;
+	public List<Challenge> searchChallengeList(Challenge challenge) throws Exception {
+		return challengeDao.searchChallengeList(challenge);
 	}
 
 	@Override

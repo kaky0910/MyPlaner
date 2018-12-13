@@ -89,4 +89,9 @@ public class ChallengeDaoImpl implements ChallengeDao {
 		return sqlSession.delete("challenge-mapper.deleteChallengeComment", challengeComment);
 	}
 
+	@Override
+	public List<Challenge> searchChallengeList(Challenge challenge) throws Exception {
+		return sqlSession.selectList("challenge-mapper.searchChallengeList", challenge);
+	}
+
 }
