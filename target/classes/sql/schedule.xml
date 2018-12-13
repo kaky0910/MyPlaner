@@ -11,6 +11,7 @@
 		<result property="scheduleContent" column="schedule_content"/>
 		<result property="scheduleTag" column="schedule_tag"/>
 		<result property="memberNo" column="member_no"/>
+		<result property="scheduleCheck" column="schedule_check"/>
 	</resultMap>					
 
 	<insert id="addSchedule" parameterType="Schedule">
@@ -51,7 +52,7 @@
 	</select>
 	
 	<select id="getScheduleDetail" parameterType="int" resultMap="scheduleResultMap">
-		SELECT schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
+		SELECT schedule_no,schedule_title,TO_CHAR(schedule_start_date,'YYYYMMDD') schedule_start_date,TO_CHAR(schedule_end_date,'YYYYMMDD') schedule_end_date,schedule_content,schedule_tag,member_no, schedule_check
 		FROM schedule
 		WHERE schedule_no = #{value}
 	</select>

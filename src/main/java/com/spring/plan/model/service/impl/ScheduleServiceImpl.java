@@ -1,5 +1,6 @@
 package com.spring.plan.model.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -55,12 +56,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public int checkSchedule(Schedule schedule,String day) throws Exception {
 		//////////////////////////////////schedule check
 		int dayCount = scheduleDao.getScheduleLength(new Schedule(schedule.getScheduleStartDate(), day));
-		
-		char[] arr = schedule.getScheduleCheck().toCharArray();
+		Schedule s = scheduleDao.getScheduleDetail(schedule.getScheduleNo());
+		char[] arr = s.getScheduleCheck().toCharArray();
 		if(arr[dayCount-1]=='0') arr[dayCount-1] = '1';
 		else arr[dayCount-1] ='0';
+		s.setScheduleCheck(new String(arr));
 		
-		int result = scheduleDao.checkSchedule(schedule);
+		int result = scheduleDao.checkSchedule(s);
 		return result;
 	}
 

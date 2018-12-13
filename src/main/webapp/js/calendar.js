@@ -248,8 +248,8 @@ function setChallenge1(arr){
 					$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c1');
 					flag2 = true;
 			}
+			colorArr.push(color);
 		}
-		colorArr.push(color);
 		if(flag2) arr.splice(length-j-1,1);
 		flag = false;
 	}
@@ -268,19 +268,19 @@ function setChallenge2(arr){
 				flag1=true;
 			}
 		}
-		var color = colorArr.shift();
-		for(i=arr[length-j-1][0] ; i<=arr[length-j-1][1] ; i++){
-			if(!flag1){
-				if($('#day'+i).hasClass('c1')){
-					$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
+		if(!flag1){
+			var color = colorArr.shift();
+			for(i=arr[length-j-1][0] ; i<=arr[length-j-1][1] ; i++){
+					if($('#day'+i).hasClass('c1')){
+						$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
+					}
+					else{
+						$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
+					}
+					flag2 = true;
 				}
-				else{
-					$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
-				}
-				flag2 = true;
-			}
+			colorArr.push(color);
 		}
-		colorArr.push(color);
 		if(flag2) arr.splice(length-j-1,1);
 		flag2 = false;
 	}

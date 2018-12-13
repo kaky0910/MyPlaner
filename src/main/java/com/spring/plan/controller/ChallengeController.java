@@ -74,7 +74,7 @@ public class ChallengeController {
 	}
 	
 	@RequestMapping("checkChallenge*.do")
-	   public ModelAndView checkChallenge(int challengeNo) throws Exception{
+	   public ModelAndView checkChallenge(String challengeNo) throws Exception{
 		   String day = Daily.getDayByDate();
 		   return new ModelAndView();
 	   }

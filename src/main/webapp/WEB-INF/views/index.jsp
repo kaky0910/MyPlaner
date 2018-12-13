@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -23,8 +22,9 @@
 <link rel="stylesheet" href="${path}/css/switch.css">
 <link rel="stylesheet" href="${path}/css/memo.css">
 <link rel="stylesheet" href="${path}/css/carousel.css">
-	
-	<!-- nav start-->
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!-- nav start-->
 <link rel="stylesheet" href="${path}/css/nav.css">
 <link rel="stylesheet/less" type="text/css"
 	href="${path}/less/style.less">
@@ -273,23 +273,25 @@
 	    $('input[type=checkbox]').change(function(){
 	    	alert($(this).attr('id'));
 	    	if($(this).attr('id').indexOf('Challenge')!=-1){
+	    		alert($(this).attr('id').substring(14));
 	    		$.ajax({
 		    		url : $(this).attr('id')+'.do',
 		    		data : {
-		    			"scheduleNo" : $(this).attr('id').substring(13)
-		    		}
-		    		success : function(){
-		    			
+		    			"challengeNo" : $(this).attr('id').substring(14)
+		    		},
+		    		success : function(data){
+		    			alert(data.flag);
 		    		}
 		    	});
 	    	}else{
+	    		alert($(this).attr('id').substring(13));
 		    	$.ajax({
 		    		url : $(this).attr('id')+'.do',
 		    		data : {
-		    			"challengeNo" : $(this).attr('id').substring(14);
-		    		}
-		    		success : function(){
-		    			
+		    			"scheduleNo" : $(this).attr('id').substring(13)
+		    		},
+		    		success : function(data){
+		    			alert(data.flag);
 		    		}
 		    	});
 	    	}
@@ -559,7 +561,7 @@
 										<br> <br>
 										<h3 align="center">새로운 도전을 해보세요!</h3>
 										<br>
-										<button id="newChallengeBtn" style="margin-left: 46%">GO</button>
+										<button id="newChallengeBtn">GO</button>
 									</div>
 								</div>
 
@@ -650,11 +652,7 @@
       <!-- contents -->
 
    </div>
-   <div id="navigater"
-      style="float: right; width: 8%; margin-right: 5%; margin-top: 25px; margin-left: 2%; /* background-color: blue; */ height: 1600px">
-      ★★★★★★★★★<br> ★★★★★★★★★<br> ★★★★★★★★★<br> ★★★★★★★★★<br>
-      ★★★★★★★★★<br>
-   </div>
+   <%@include file="nav.jsp" %>
 </body>
 <script type="text/javascript">
    

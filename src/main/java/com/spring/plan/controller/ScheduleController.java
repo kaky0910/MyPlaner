@@ -78,16 +78,18 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("checkSchedule*.do")
-	   public ModelAndView checkChallenge(int scheduleNo) throws Exception{
-			Schedule schedule = scheduleService.getScheduleDetail(scheduleNo);
+	   public ModelAndView checkSchedule(String scheduleNo) throws Exception{
+			Schedule schedule = scheduleService.getScheduleDetail(Integer.parseInt(scheduleNo));
+			System.out.println("************************"+schedule);
 		    String day = Daily.getDayByDate();
 		    int result = scheduleService.checkSchedule(schedule, day);
+		    boolean flag = false;
 		    if(result == 1) {		// 성공
-		    	
+		    	flag = true;
 		    }else {					// 실패
 		    	
 		    }
-		    return new ModelAndView();
+		    return new ModelAndView("JsonView","flag",flag);
 	   }
 	
 }
