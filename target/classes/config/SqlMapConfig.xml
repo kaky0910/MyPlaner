@@ -10,6 +10,7 @@
 	
 	<typeAliases>
  		<package name="com.spring.plan.model.vo"/>
+ 		<package name="com.spring.plan.model.service.paging"/>
  	</typeAliases>
 	
 	<environments default="development">

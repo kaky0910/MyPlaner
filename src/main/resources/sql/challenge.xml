@@ -108,6 +108,21 @@
 		where CHALLENGE.challenge_no=#{value}
 	</select>
 	
+	<select id="searchChallengeList" parameterType="Challenge" resultMap="challengeSelectMap">
+		select * from challenge
+		<where>
+			<if test="memberNo!=null">
+				member_no = #{memberNo} <if test="challengeTitle!=null || challengeCategory!= null">and</if>
+			</if>
+			<if test="challengeTitle!=null">
+				challenge_title=#{challengeTitle} <if test="challengeCategory!= null"> and</if>
+			</if>
+			<if test="challengeCategory!=null">
+				challenge_category=#{challengeCategory}
+			</if>
+		</where>
+	</select>
+	
 	<select id="getChallengeByMonth" parameterType="Daily" resultMap="challengeSelectMap">
         SELECT challenge_No, challenge_Title, TO_CHAR(challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_CHAR(challenge_End_Date,'YYYYMMDD') challenge_End_Date, member_No, challenge_Category, challenge_Likes, challenge_Sharing
         FROM challenge

@@ -1,8 +1,10 @@
 package com.spring.plan.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -17,32 +19,64 @@ import com.spring.plan.model.vo.Member;
 
 @Controller
 public class ChallengeController {
-   
-   @Resource
-   private ChallengeService challengeService;
-   
-   @RequestMapping("/addChallenge.do")
-   public ModelAndView addChallenge(HttpSession session,Challenge challenge,String month) throws Exception{
-      
-      JSONObject jsonObject = new JSONObject();
-      int memberNo = ((Member)session.getAttribute("member")).getMemberNo();
-      challenge.setMemberNo(memberNo);
-      
-      try {
-    	  challengeService.addChallenge(challenge);
-      }catch(Exception e) {
-    	  e.printStackTrace();
-      }
-      List<Challenge> challengeList = challengeService.getChallengeByMonth(month, memberNo);
-      jsonObject.put("challenge", challengeList);
-      return new ModelAndView("JsonView","json",jsonObject);
-   }
-   
-   @RequestMapping("checkChallenge*.do")
-   public ModelAndView checkChallenge(int challengeNo) throws Exception{
-	   String day = Daily.getDayByDate();
-	   return new ModelAndView();
-   }
-   
+
+	@Resource
+	private ChallengeService service;
+
+	@RequestMapping("/addChallenge.do")
+	public ModelAndView addChallenge(HttpSession session, Challenge challenge) throws Exception {
+
+		JSONObject jsonObject = new JSONObject();
+
+		challenge.setMemberNo(((Member) session.getAttribute("member")).getMemberNo());
+
+		service.addChallenge(challenge);
+
+		jsonObject.put("challenge", challenge);
+		return new ModelAndView("JsonView", "json", jsonObject);
+	}
+
+	@RequestMapping("/searchChallenge.do")
+	public ModelAndView searchChallenge(HttpServletRequest request, Challenge challenge) throws Exception {
+		List<Challenge> challList = new ArrayList<Challenge>();
+
+		String challengeNo = challenge.getMemberNo() + "";
+		String challengeCategory = challenge.getChallengeCategory();
+		String challengeTitle = challenge.getChallengeTitle();
+
+		challenge.setMemberNo(Integer.parseInt(challengeNo.substring(challengeNo.lastIndexOf("100") + 1)));
+		challenge.setChallengeCategory(challengeCategory.substring(3));
+		challenge.setChallengeTitle(challengeTitle.substring(3));
+		
+		if(challenge.getChallengeCategory().equals(""))
+			challenge.setChallengeCategory(null);
+		if(challenge.getChallengeTitle().equals(""))
+			challenge.setChallengeTitle(null);
+		
+		System.out.println(challenge);
+		challList = service.searchChallengeList(challenge);
+		System.out.println("contoller " + challList);
+		return new ModelAndView("challenge/searchResultChallengeData", "challList", challList);
+	}
+
+	@RequestMapping("/detailChallenge.do")
+	public ModelAndView detailChallenge(HttpServletRequest request, Challenge challenge) throws Exception {
+		System.out.println("★ 디테일 챌린지 테스트 : " + challenge);
+
+		Challenge rchallenge = service.getChallengeByNo(challenge.getChallengeNo());
+
+		return new ModelAndView("challenge/detailchallenge", "challenge", rchallenge);
+	}
+
+	@RequestMapping("/getAllChallengeList.do")
+	public ModelAndView getAllChallengeList() throws Exception {
+		return new ModelAndView("challenge/searchchallenge", "challengeList", service.getAllChallengeList());
+	}
+	
+	@RequestMapping("checkChallenge*.do")
+	   public ModelAndView checkChallenge(int challengeNo) throws Exception{
+		   String day = Daily.getDayByDate();
+		   return new ModelAndView();
+	   }
 }
 

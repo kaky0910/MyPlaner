@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -22,10 +23,18 @@
 <link rel="stylesheet" href="${path}/css/switch.css">
 <link rel="stylesheet" href="${path}/css/memo.css">
 <link rel="stylesheet" href="${path}/css/carousel.css">
-<link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo"
-	rel="stylesheet">
-
+	
+	<!-- nav start-->
+<link rel="stylesheet" href="${path}/css/nav.css">
+<link rel="stylesheet/less" type="text/css"
+	href="${path}/less/style.less">
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+<script src="${path}/js/nav.js"></script>
+<!-- nav end-->
+	
 <link href="https://fonts.googleapis.com/css?family=Yeon+Sung"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo"
 	rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

@@ -97,5 +97,9 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	public int checkChallengeContent(ChallengeContent challengeContent) throws Exception {
 		return sqlSession.update("challenge-mapper.checkChallenge",challengeContent);
 	}
+		
+	public List<Challenge> searchChallengeList(Challenge challenge) throws Exception {
+		return sqlSession.selectList("challenge-mapper.searchChallengeList", challenge);
+	}
 
 }
