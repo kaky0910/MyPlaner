@@ -26,7 +26,9 @@
 <link rel="stylesheet" href="${path}/css/switch.css">
 <link rel="stylesheet" href="${path}/css/memo.css">
 <link rel="stylesheet" href="${path}/css/carousel.css">
-<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
 
 
 <!-- title -->
@@ -86,14 +88,14 @@ h4 {
 }
 </style>
 <script type="text/javascript">
-	var colorArr = ['red','yellow','green','blue','pink','orange'];
+   var colorArr = ['red','yellow','green','blue','pink','orange'];
     var monthCount = moment().month();
     var yearCount = moment().year();
-	var m;
-		
+   var m;
+      
    $(function() {
-	   if(monthCount<10) m = '0'+monthCount;
-	   m = monthCount+1;
+      if(monthCount<10) m = '0'+monthCount;
+      m = monthCount+1;
       //2. Section2(Daily)에 오늘 날짜를 출력하는 기능
       var date = moment().date();
       var month = moment().month() + 1;
@@ -108,6 +110,13 @@ h4 {
       //3. emotion 가져오기, 보내기
       $('#emotion_tbl td').click(function() {
          var emotion = $(this).children().attr('id');
+         
+        /*  $('#emotion_tbl td').addClass('clicked');
+         $('#'+emotion).parent().removeClass('clicked'); */
+         
+         //이거 위에꺼 기능 되니까 ajax랑 합쳐보세요%^^%
+         //밑에 넣어보시지!
+          alert(emotion);
          $.ajax({
             type : "get",
             url : "",
@@ -117,36 +126,37 @@ h4 {
                $('#emotion_tbl td').addClass('clicked');
                $('#' + data.emotion).parent().removeClass('clicked');
             }//callback
-         });//ajax 
+         });//ajax  
+         
       });//click
       //3
 
       //4. newChallengeBtn을 누르면 writechallenge.jsp를 캐러셀에 포함한다.
-		$('#newChallengeBtn').click(function() {
-			$.ajax({
-				url : "writechallenge.jsp",
+      $('#newChallengeBtn').click(function() {
+         $.ajax({
+            url : "writechallenge.jsp",
 
-				success : function(result) {
+            success : function(result) {
 
-					$("#newchallengeDiv").html(result);
-					/* $('#challengeWriteOK').click(function(){
-					   location.href="addChallenge.do"
-					}); */
-				}//susccess
-			});//ajax
-		});//click
+               $("#newchallengeDiv").html(result);
+               /* $('#challengeWriteOK').click(function(){
+                  location.href="addChallenge.do"
+               }); */
+            }//susccess
+         });//ajax
+      });//click
 
-      //6.	달력
+      //6.   달력
       var tempArr = ${daily.scheduleFormattedArray};
       var arr = ${daily.scheduleFormattedArray}; //challenge (시작일, 마지막일) format으로 arr로 입력
       new Promise(function(resolve, reject) {
          calendarInit(yearCount, monthCount);
          if(arr==null || arr[0]==null || arr.length==0){
-        	 reject("No Schedule");
+            reject("No Schedule");
          }
          resolve(arr);       
       },function(e){
-    	  alert(e);
+         alert(e);
       }).then(setChallenge1(arr)).then(setChallenge2(arr)).then(
             setChallenge3(arr));
       //alert(moment().format());
@@ -167,7 +177,7 @@ h4 {
             }
          });
       });
-	
+   
       //7. calendar next searchResultTab..
       var tag = '${daily.scheduleList[0].scheduleTag}';
       $.ajax({
@@ -193,137 +203,137 @@ h4 {
       
       
       $('.tracker').click(function(){
-//    	  alert($(this).parent().attr('id'));						$(this).parent().attr('id') -- habit
-//    	  alert(getDateByTrackerId($(this).attr('id')));           ex)20181202
-			var id = $(this).attr('id');
-      		var x = getDateByTrackerId(id).substring(6);
-      		if(x<10) x=x.substring(1);
-      		x=x-1;
-			var monthId = id.substring(0,1)+x;
+//         alert($(this).parent().attr('id'));                  $(this).parent().attr('id') -- habit
+//         alert(getDateByTrackerId($(this).attr('id')));           ex)20181202
+         var id = $(this).attr('id');
+            var x = getDateByTrackerId(id).substring(6);
+            if(x<10) x=x.substring(1);
+            x=x-1;
+         var monthId = id.substring(0,1)+x;
 
-			$.ajax({
-				url : "checkHabit.do",
-				data : {
-					"habit" : $(this).parent().attr('id'),
-					"day" : getDateByTrackerId($(this).attr('id')),
-					"memberNo" : ${member.memberNo}
-				},
-				success : function(data){
-					if(data.flag=='check'){
-						$('#'+id).css('background-color','red');
-						$('#m'+monthId).css('background-color','red');
-					} else if(data.flag == 'uncheck'){
-						$('#'+id).css('background-color','white');
-						$('#m'+monthId).css('background-color','white');
-					}else{
-						alert("fail");
-					}
-				}
-			});
-   	  	 });
+         $.ajax({
+            url : "checkHabit.do",
+            data : {
+               "habit" : $(this).parent().attr('id'),
+               "day" : getDateByTrackerId($(this).attr('id')),
+               "memberNo" : ${member.memberNo}
+            },
+            success : function(data){
+               if(data.flag=='check'){
+                  $('#'+id).css('background-color','red');
+                  $('#m'+monthId).css('background-color','red');
+               } else if(data.flag == 'uncheck'){
+                  $('#'+id).css('background-color','white');
+                  $('#m'+monthId).css('background-color','white');
+               }else{
+                  alert("fail");
+               }
+            }
+         });
+            });
    
-	   	 $('#weeklyHabit').click(function(){
-	  	  	alert($(this).position().left+"       "+$(this).position().top);
-			  	 window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
-	   	 });
-	    
-	     $('.calendar__day').hover(function(){
-	   	 	var selector = $(this);
-	 	   	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
-	    		$.ajax({
-	    			url : "getScheduleByDay.do",
-	    			data : {
-	    				month : yearCount+""+m,
-	    				d : $(this).attr('id')
-	    			},
-	    			success : function(data){
-	    				if(data.json!= ""){
-	    					importSchedule(data.json,selector);
-	    					if(data.json[0].scheduleTag!=''){
-			    				$.ajax({
-			    			         method : 'get',
-			    			         url : 'searchResult.do',
-			    			         data : {
-			    			            "word" : data.json[0].scheduleTag
-			    			         },
-			    			         dataType : 'json',
-			    			         success : function(r) {
-			    			            var d = JSON.parse(r.result);
-			    			            $('#search h4').html('#'+data.json[0].scheduleTag);
-			    			            $('#search div').each(
-			    			                  function(index) {
-			    			                     $(this).html(
-			    			                           '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
-			    			                                 + d.items[index].description
-			    			                                 + '</p>');
-			    			                  });
-			    			         }
-			    			      });
-	    					}else{
-	    						$.ajax({
-			    			         method : 'get',
-			    			         url : 'searchResult.do',
-			    			         data : {
-			    			            "word" : data.json[0].scheduleCategory
-			    			         },
-			    			         dataType : 'json',
-			    			         success : function(r) {
-			    			            var d = JSON.parse(r.result);
-			    			            $('#search h4').html('#'+data.json[0].scheduleTag);
-			    			            $('#search div').each(
-			    			                  function(index) {
-			    			                     $(this).html(
-			    			                           '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
-			    			                                 + d.items[index].description
-			    			                                 + '</p>');
-			    			                  });
-			    			         }		///success
-			    			      });	///ajax
-	    					}//else
-	    				}////    if data.json!=''
-	    			}///success
-	    		});//    ajax
-	    		
-		    	TweenMax.to(this, 0.5, {scale:3});
-		    	$(this).css('z-index','100');
-		    	$(this).find('hr').css('display','none');
-	    	}
-	    },function(){
-	    	$(this).find('h6').remove();
-	    	if($(this).attr('id')!=null){
-		    	TweenMax.to(this, 0.5, {scale:1});
-		    	$(this).css('z-index','0');
-		    	$(this).find('hr').css('display','block');
-	    	}
-	    });
-	    
-	    $('input[type=checkbox]').change(function(){
-	    	alert($(this).attr('id'));
-	    	if($(this).attr('id').indexOf('Challenge')!=-1){
-	    		alert($(this).attr('id').substring(14));
-	    		$.ajax({
-		    		url : $(this).attr('id')+'.do',
-		    		data : {
-		    			"challengeNo" : $(this).attr('id').substring(14),
-		    			"challengeContent" : $(this).attr('value')
-		    		},
-		    		success : function(data){
-		    			alert(data.flag);
-		    		}
-		    	});
-	    	}else{
-	    		alert($(this).attr('id').substring(13));
-		    	$.ajax({
-		    		url : $(this).attr('id')+'.do',
-		    		data : {
-		    			"scheduleNo" : $(this).attr('id').substring(13)
-		    		},
-		    		success : function(data){
-		    			alert(data.flag);
-		    		}
-		    	});
-	    	}
-	    });
+          $('#weeklyHabit').click(function(){
+           /*   alert($(this).position().left+"       "+$(this).position().top); */
+               window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
+          });
+       
+        $('.calendar__day').hover(function(){
+             var selector = $(this);
+             if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
+             $.ajax({
+                url : "getScheduleByDay.do",
+                data : {
+                   month : yearCount+""+m,
+                   d : $(this).attr('id')
+                },
+                success : function(data){
+                   if(data.json!= ""){
+                      importSchedule(data.json,selector);
+                      if(data.json[0].scheduleTag!=''){
+                         $.ajax({
+                               method : 'get',
+                               url : 'searchResult.do',
+                               data : {
+                                  "word" : data.json[0].scheduleTag
+                               },
+                               dataType : 'json',
+                               success : function(r) {
+                                  var d = JSON.parse(r.result);
+                                  $('#search h4').html('#'+data.json[0].scheduleTag);
+                                  $('#search div').each(
+                                        function(index) {
+                                           $(this).html(
+                                                 '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
+                                                       + d.items[index].description
+                                                       + '</p>');
+                                        });
+                               }
+                            });
+                      }else{
+                         $.ajax({
+                               method : 'get',
+                               url : 'searchResult.do',
+                               data : {
+                                  "word" : data.json[0].scheduleCategory
+                               },
+                               dataType : 'json',
+                               success : function(r) {
+                                  var d = JSON.parse(r.result);
+                                  $('#search h4').html('#'+data.json[0].scheduleTag);
+                                  $('#search div').each(
+                                        function(index) {
+                                           $(this).html(
+                                                 '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
+                                                       + d.items[index].description
+                                                       + '</p>');
+                                        });
+                               }      ///success
+                            });   ///ajax
+                      }//else
+                   }////    if data.json!=''
+                }///success
+             });//    ajax
+             
+             TweenMax.to(this, 0.5, {scale:3});
+             $(this).css('z-index','100');
+             $(this).find('hr').css('display','none');
+          }
+       },function(){
+          $(this).find('h6').remove();
+          if($(this).attr('id')!=null){
+             TweenMax.to(this, 0.5, {scale:1});
+             $(this).css('z-index','0');
+             $(this).find('hr').css('display','block');
+          }
+       });
+       
+       $('input[type=checkbox]').change(function(){
+         /*  alert($(this).attr('id')); */
+          if($(this).attr('id').indexOf('Challenge')!=-1){
+         /*     alert($(this).attr('id').substring(14)); */
+             $.ajax({
+                url : $(this).attr('id')+'.do',
+                data : {
+                   "challengeNo" : $(this).attr('id').substring(14),
+                   "challengeContent" : $(this).attr('value')
+                },
+                success : function(data){
+                   alert(data.flag);
+                }
+             });
+          }else{
+             alert($(this).attr('id').substring(13));
+             $.ajax({
+                url : $(this).attr('id')+'.do',
+                data : {
+                   "scheduleNo" : $(this).attr('id').substring(13)
+                },
+                success : function(data){
+                   alert(data.flag);
+                }
+             });
+          }
+       });
    }); //ready
 
   
@@ -333,202 +343,121 @@ h4 {
 <body>
 	<div id="titleArea"
 		style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
-		<h1 class="row skew-title">
+		<h1 class="titleRow skew-title">
 			<span>M</span><span class="last">Y</span> <span class="alt">P</span><span
 				class="alt">L</span><span class="alt">A</span><span class="alt last">N</span><span
 				class="alt">N</span><span class="alt">E</span><span class="alt">R</span>
 		</h1>
 	</div>
 
-   <div id="contents"
-      style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */height: 100%">
+	<div id="contents"
+		style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */ height: 100%">
 
-      <div>${data}</div>
-      <div id="weatherTest">
-         <h2 style="margin-left: 10%">weather :</h2>
-      </div>
+		<div>${data}</div>
+		<div id="weatherTest">
+			<h2 style="margin-left: 10%">weather :</h2>
+		</div>
 
-      <!-- START section1 -->
-      <div id="section1">
-         <div id="weather"></div>
-         <div class="calendar" id="calendar"
-            style="width: 50%; display: inline-block;">
-            <a href="javascript:prev()">이전</a>
-            <p id="title_monthdate" style="display: inline-block;"></p>
-            <a href="javascript:next()">이후</a>
-            <div class="calendar__header">
-               <div>SUN</div>
-               <div>MON</div>
-               <div>TUE</div>
-               <div>WED</div>
-               <div>THU</div>
-               <div>FRI</div>
-               <div>SAT</div>
-            </div>
-            <div class="calendar__week"></div>
-            <div class="calendar__week"></div>
-            <div class="calendar__week"></div>
-            <div class="calendar__week"></div>
-            <div class="calendar__week"></div>
-         </div>
-         <div
-            style="width: 30%; border: 1px black double; display: inline-block;  margin-left: 100px; margin-top: -40px;"
-            id="search">
-            <h4>#</h4>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-         </div>
-      </div>
-      <!-- END section1 -->
+		<!-- START section1 -->
+		<div id="section1">
+			<div id="weather"></div>
+			<div class="calendar" id="calendar"
+				style="width: 50%; display: inline-block;">
+				<a href="javascript:prev()">이전</a>
+				<p id="title_monthdate" style="display: inline-block;"></p>
+				<a href="javascript:next()">이후</a>
+				<div class="calendar__header">
+					<div>SUN</div>
+					<div>MON</div>
+					<div>TUE</div>
+					<div>WED</div>
+					<div>THU</div>
+					<div>FRI</div>
+					<div>SAT</div>
+				</div>
+				<div class="calendar__week"></div>
+				<div class="calendar__week"></div>
+				<div class="calendar__week"></div>
+				<div class="calendar__week"></div>
+				<div class="calendar__week"></div>
+			</div>
+			<div
+				style="width: 30%; border: 1px black double; display: inline-block; margin-left: 100px; margin-top: -40px;"
+				id="search">
+				<h4>#</h4>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+			</div>
+		</div>
+		<!-- END section1 -->
 
-      <hr>
-      <!-- START section2 -->
-      <div id="section2" style="height: 450px; margin-top: 200px; /* background-color: pink; */">
-         <table style="width: 100%; margin: auto">
-            <tr>
-               <td colspan="2">
-                  <h1 id="Date" align="left"
-                     style="display: inline; margin-left: 35px; margin-bottom: 5px;"></h1>
-               </td>
-               <td><img src="${path}/img/weather/rainy.png" width="70px"
-                  height="70px" style="float: left">
-               <td>
-               <td align="right">
-                  <table id="emotion_tbl"
-                     style="float: right; margin-top: 22px; margin-right: 22px; height: 30px;">
-                     <td><img id="happy" src="${path}/img/emotion/happy.png"></a></td>
-                     <td><img id="love" src="${path}/img/emotion/love.png"></td>
-                     <td><img id="shocked" src="${path}/img/emotion/shocked.png"></td>
-                     <td><img id="shy" src="${path}/img/emotion/shy.png"></td>
-                     <td><img id="tired" src="${path}/img/emotion/tired.png"></td>
-                     <td><img id="upset" src="${path}/img/emotion/upset.png"></td>
-                     <td><img id="verysad" src="${path}/img/emotion/verysad.png"></td>
-                  </table>
-               </td>
-            </tr>
-            <tr>
-               <td colspan="2"><div
-                     style="float: left; width: 100%; padding-left: 4%; padding-right: 2%; height: 400px;">
-                     <div id="wrapper">
-                        <hr>
-                        <h2>
-                           Today's Schedule <i class="fa fa-check"></i>
-                        </h2>
-                        <hr>
-                        <c:forEach items="${daily.todaySchedule}" var="item" varStatus="i">
-                        	<div>
-                        		<c:if test="${item.check}">
-		                           <input type="checkbox" id="checkSchedule${item.scheduleNo}" checked="checked" /> 
-		                           <label for="checkSchedule${item.scheduleNo}">
-		                              <div>
-		                                 <i class="fa fa-check"></i>
-		                              </div> ${item.scheduleTitle}
-		                           </label>
-	                           </c:if>
-	                           <c:if test="${!item.check}">
-	                           		<input type="checkbox" id="checkSchedule${item.scheduleNo}"/> 
-		                           <label for="checkSchedule${item.scheduleNo}">
-		                              <div>
-		                                 <i class="fa fa-check"></i>
-		                              </div> ${item.scheduleTitle}
-		                           </label>
-	                           </c:if>
-	                        </div>
-                        </c:forEach>
-                     </div>
-                  </div></td>
-               <td colspan="2">
-                  <div
-                     style="float: left; width: 100%; margin-left: 5%; margin-right: 1%; height: 400px;">
-                     <div id="wrapper">
-                        <hr>
-                        <h2>
-                           Your Challenge <i class="fa fa-check"></i>
-                        </h2>
-                        <hr>
-                        <c:forEach items="${daily.todayChallenge}" var="item">
-                        	<c:if test="${item.challengeContentSize==0}">
-	                        	<div>
-		                           <input type="checkbox" id="checkChallenge${item.challengeNo}" /> <label
-		                              for="checkChallenge${item.challengeNo}">
-		                              <div>
-		                                 <i class="fa fa-check"></i>
-		                              </div> ${item.challengeTitle}
-		                           </label>
-		                        </div>
-	                        </c:if>
-	                        <c:if test="${item.challengeContentSize!=0}">
-	                        	<c:forEach items="${item.challengeContentList}" var="i">
-	                        		<c:if test="${i.check && i.challengeContent!=null}">
-	                        			<div>
-		                           		<input type="checkbox" id="checkChallenge${item.challengeNo}" value="${i.challengeContent}" checked="checked"/> <label
-			                              for="checkChallenge${item.challengeNo}">
-			                              <div>
-			                                 <i class="fa fa-check"></i>
-			                              </div> ${item.challengeTitle} : ${i.challengeContent}
-			                              </label>
-				                        </div>
-	                        		</c:if>
-	                        		<c:if test="${!i.check && i.challengeContent!=null}">
-	                        			<div>
-		                           		<input type="checkbox" id="checkChallenge${item.challengeNo}" value="${i.challengeContent}"/> <label
-			                              for="checkChallenge${item.challengeNo}">
-			                              <div>
-			                                 <i class="fa fa-check"></i>
-			                              </div> ${item.challengeTitle} : ${i.challengeContent}
-				                           </label>
-				                        </div>
-	                        		</c:if>
-	                        	</c:forEach>
-	                        </c:if>
-                        </c:forEach>
-
-                     </div>
-                  </div>
-               </td>
-               <td colspan="2" align="right">
-                  <div
-                     style="float: right; width: 100%; height: 400px; margin-top: 20px; margin-right: 0;">
-                     <div id="wrapper">
-                        <form id="paper" method="get" action="" style="margin-right: 2%">
-                           <textarea placeholder="Enter something." id="text" name="text"
-                              rows="4"
-                              style="overflow: hidden; word-wrap: break-word; resize: none; width: 50%; height: 180px;">${daily.memo}</textarea>
-                           <br> <input id="button" type="submit" value="Create">
-
-                        </form>
-                     </div>
-                  </div>
-               </td>
-         </table>
-      </div>
-      <!-- END section2 -->
-
-	<div id="section3" style="margin-top: 100px">
-		<img src="${path}/img/set.png" width="20px;" style="float: right; cursor: pointer;" id="weeklyHabit">
-			<div class="row" style="border: 1px solid white">
-				<c:forEach items="${daily.weeklyCheckHabit}" var="item" varStatus="h">
-					<table style="border: 1px solid white;  width:300px ;margin-left: 10px;margin-top: 30px; text-align: center;display: inline-block;">
-							<tr class="weeklyTracker">
-								<td style="width:50%; " rowspan="2" style="width:50%;">${item.habit}</td><td style=width:10px;></td><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
-							</tr>
-							<tr id="${item.habit}" height="25">
-								<td></td>
-								<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
-									<c:choose>
-										<c:when test="${fn:contains(i, '0')}">
-											<td id="${h.index}${d.index}"class="tracker" style="background: white; cursor: pointer; width:20px;" >
-										</c:when>
-										<c:otherwise>
-											<td id="${h.index}${d.index}"class="tracker" style="cursor: pointer; background-color: red; width:20px;" >
-										</c:otherwise>
-									</c:choose>
-
+		<hr>
+		<!-- START section2 -->
+		<div id="section2" style="height: 450px; margin-top: 200px;">
+			<table style="width: 100%; margin: auto">
+				<tr>
+					<td colspan="2">
+						<h1 id="Date" align="left"
+							style="display: inline; margin-left: 35px; margin-bottom: 5px;"></h1>
+					</td>
+					<td><img src="${path}/img/weather/rainy.png" width="70px"
+						height="70px" style="float: left">
+					<td>
+					<td align="right">
+						<table id="emotion_tbl"
+							style="float: right; margin-top: 22px; margin-right: 22px; height: 30px;">
+							<td><img id="happy" src="${path}/img/emotion/happy.png"></a></td>
+							<td><img id="love" src="${path}/img/emotion/love.png"></td>
+							<td><img id="shocked" src="${path}/img/emotion/shocked.png"></td>
+							<td><img id="shy" src="${path}/img/emotion/shy.png"></td>
+							<td><img id="tired" src="${path}/img/emotion/tired.png"></td>
+							<td><img id="upset" src="${path}/img/emotion/upset.png"></td>
+							<td><img id="verysad" src="${path}/img/emotion/verysad.png"></td>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><div
+							style="float: left; width: 100%; padding-left: 4%; padding-right: 2%; height: 400px;">
+							<div id="wrapper">
+								<hr>
+								<h2>
+									Today's Schedule <i class="fa fa-check"></i>
+								</h2>
+								<hr>
+								<c:forEach items="${daily.todaySchedule}" var="item"
+									varStatus="i">
+									<div>
+										<c:if test="${item.check}">
+											<input type="checkbox" id="checkSchedule${item.scheduleNo}"
+												checked="checked" />
+											<label for="checkSchedule${item.scheduleNo}">
+												<div>
+													<i class="fa fa-check"></i>
+												</div> ${item.scheduleTitle}
+											</label>
+										</c:if>
+										<c:if test="${!item.check}">
+											<input type="checkbox" id="checkSchedule${item.scheduleNo}" />
+											<label for="checkSchedule${item.scheduleNo}">
+												<div>
+													<i class="fa fa-check"></i>
+												</div> ${item.scheduleTitle}
+											</label>
+										</c:if>
+									</div>
 								</c:forEach>
 							</div>
 						</div></td>
@@ -541,16 +470,45 @@ h4 {
 									Your Challenge <i class="fa fa-check"></i>
 								</h2>
 								<hr>
-								<c:forEach items="${daily.todayChallenge}" var="item"
-									varStatus="i">
-									<div>
-										<input type="checkbox" id="checkChallenge${item.challengeNo}" />
-										<label for="checkChallenge${item.challengeNo}">
-											<div>
-												<i class="fa fa-check"></i>
-											</div> ${item.challengeTitle}
-										</label>
-									</div>
+								<c:forEach items="${daily.todayChallenge}" var="item">
+									<c:if test="${item.challengeContentSize==0}">
+										<div>
+											<input type="checkbox" id="checkChallenge${item.challengeNo}" />
+											<label for="checkChallenge${item.challengeNo}">
+												<div>
+													<i class="fa fa-check"></i>
+												</div> ${item.challengeTitle}
+											</label>
+										</div>
+									</c:if>
+									<c:if test="${item.challengeContentSize!=0}">
+										<c:forEach items="${item.challengeContentList}" var="i">
+											<c:if test="${i.check && i.challengeContent!=null}">
+												<div>
+													<input type="checkbox"
+														id="checkChallenge${item.challengeNo}"
+														value="${i.challengeContent}" checked="checked" /> <label
+														for="checkChallenge${item.challengeNo}">
+														<div>
+															<i class="fa fa-check"></i>
+														</div> ${item.challengeTitle} : ${i.challengeContent}
+													</label>
+												</div>
+											</c:if>
+											<c:if test="${!i.check && i.challengeContent!=null}">
+												<div>
+													<input type="checkbox"
+														id="checkChallenge${item.challengeNo}"
+														value="${i.challengeContent}" /> <label
+														for="checkChallenge${item.challengeNo}">
+														<div>
+															<i class="fa fa-check"></i>
+														</div> ${item.challengeTitle} : ${i.challengeContent}
+													</label>
+												</div>
+											</c:if>
+										</c:forEach>
+									</c:if>
 								</c:forEach>
 
 							</div>
@@ -570,12 +528,12 @@ h4 {
 							</div>
 						</div>
 					</td>
-				</table>
-			</c:forEach>
+			</table>
 		</div>
 		<!-- END section2 -->
 
-		<div id="section3" style="margin-top: 100px">
+		<div id="section3"
+			style="margin-top: 100px; height: 700px; width: 100%">
 			<img src="${path}/img/set.png" width="20px;"
 				style="float: right; cursor: pointer;" id="weeklyHabit">
 			<div class="row" style="border: 1px solid #ECECEC">
@@ -612,12 +570,11 @@ h4 {
 					</table>
 				</c:forEach>
 			</div>
-			<div class="row"
-				style="border: 1px solid white; height: 300px; margin-top: 100px">
+			<div class="row" style="height: 300px; margin-top: 100px">
 				<h1 id="sec3month" align="center"
 					style="margin-top: 20px; height: 50px;"></h1>
 				<table
-					style="border: 1px solid white; width: 100%; text-align: center; margin-top: 0;">
+					style="border: 1px solid white; width: 100%; height: 200px; text-align: center; margin-top: 0;">
 					<thead>
 						<tr>
 							<td></td>
@@ -732,65 +689,65 @@ h4 {
 					</div>
 
 					<script>
-						window
-								.addEventListener(
-										'load',
-										function() {
-											var glider = new Glider(
-													document
-															.getElementById('glider-add'),
-													{
-														slidesToShow : 4,
-														duration : .6,
-														dots : '#add-dots',
-														arrows : {
-															prev : '#glider-prev-add',
-															next : '#glider-next-add'
-														}
-													});
-											document
-													.getElementById('addSlide')
-													.addEventListener(
-															'click',
-															function() {
-																var ele = document
-																		.getElementById(
-																				'challengeSection')
-																		.cloneNode(
-																				true);
-																ele.id = '';
-																ele
-																		.querySelector('h1').textContent = glider.slides.length + 1;
-																glider
-																		.addItem(ele);
-																try {
-																	ga(
-																			'send',
-																			'event',
-																			'Add/Remove Item',
-																			'Add')
-																} catch (ex) {
-																}
-															});
-											document
-													.getElementById(
-															'removeSlide')
-													.addEventListener(
-															'click',
-															function() {
-																glider
-																		.removeItem(glider.slides.length - 1);
-																try {
-																	ga(
-																			'send',
-																			'event',
-																			'Add/Remove Item',
-																			'Remove')
-																} catch (ex) {
-																}
-															});
-										})
-					</script>
+                  window
+                        .addEventListener(
+                              'load',
+                              function() {
+                                 var glider = new Glider(
+                                       document
+                                             .getElementById('glider-add'),
+                                       {
+                                          slidesToShow : 4,
+                                          duration : .6,
+                                          dots : '#add-dots',
+                                          arrows : {
+                                             prev : '#glider-prev-add',
+                                             next : '#glider-next-add'
+                                          }
+                                       });
+                                 document
+                                       .getElementById('addSlide')
+                                       .addEventListener(
+                                             'click',
+                                             function() {
+                                                var ele = document
+                                                      .getElementById(
+                                                            'challengeSection')
+                                                      .cloneNode(
+                                                            true);
+                                                ele.id = '';
+                                                ele
+                                                      .querySelector('h1').textContent = glider.slides.length + 1;
+                                                glider
+                                                      .addItem(ele);
+                                                try {
+                                                   ga(
+                                                         'send',
+                                                         'event',
+                                                         'Add/Remove Item',
+                                                         'Add')
+                                                } catch (ex) {
+                                                }
+                                             });
+                                 document
+                                       .getElementById(
+                                             'removeSlide')
+                                       .addEventListener(
+                                             'click',
+                                             function() {
+                                                glider
+                                                      .removeItem(glider.slides.length - 1);
+                                                try {
+                                                   ga(
+                                                         'send',
+                                                         'event',
+                                                         'Add/Remove Item',
+                                                         'Remove')
+                                                } catch (ex) {
+                                                }
+                                             });
+                              })
+               </script>
 
 
 				</div>
