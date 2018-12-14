@@ -34,7 +34,7 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
 	@Override
 	public Schedule getScheduleDetail(int scheduleNo) throws Exception {
-		return sqlSession.selectOne("schedule-mapper.getScehduleDetail",scheduleNo);
+		return sqlSession.selectOne("schedule-mapper.getScheduleDetail",scheduleNo);
 	}
 
 	@Override
@@ -45,11 +45,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
 	@Override
 	public List<Schedule> getScheduleByMonth(Daily daily) throws Exception {
 		return sqlSession.selectList("schedule-mapper.getScheduleByMonth",daily);
-	}
-
-	@Override
-	public int getScheduleLength(Schedule schedule) throws Exception {
-		return sqlSession.selectOne("schedule-mapper.getScheduleLength",schedule);
 	}
 
 	@Override

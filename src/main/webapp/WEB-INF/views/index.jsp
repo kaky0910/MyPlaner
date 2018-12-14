@@ -1,4 +1,3 @@
-
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -27,6 +26,7 @@
 <link rel="stylesheet" href="${path}/css/switch.css">
 <link rel="stylesheet" href="${path}/css/memo.css">
 <link rel="stylesheet" href="${path}/css/carousel.css">
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 
 <!-- title -->
@@ -179,7 +179,6 @@ h4 {
          dataType : 'json',
          success : function(data) {
             var d = JSON.parse(data.result);
-          //  alert(JSON.stringify(d));
             $('#search h4').html('#'+tag);
             $('#search div').each(
                   function(index) {
@@ -207,7 +206,7 @@ h4 {
 				data : {
 					"habit" : $(this).parent().attr('id'),
 					"day" : getDateByTrackerId($(this).attr('id')),
-					"memberNo" : ${param.memberNo}
+					"memberNo" : ${member.memberNo}
 				},
 				success : function(data){
 					if(data.flag=='check'){
@@ -221,15 +220,16 @@ h4 {
 					}
 				}
 			});
-      });
+   	  	 });
    
-	    $('#weeklyHabit').click(function(){
-	    	alert($(this).position().left+"       "+$(this).position().top);
-			   window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
-	    });
+	   	 $('#weeklyHabit').click(function(){
+	  	  	alert($(this).position().left+"       "+$(this).position().top);
+			  	 window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
+	   	 });
 	    
-	    $('.calendar__day').hover(function(){
-	    	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
+	     $('.calendar__day').hover(function(){
+	   	 	var selector = $(this);
+	 	   	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
 	    		$.ajax({
 	    			url : "getScheduleByDay.do",
 	    			data : {
@@ -238,6 +238,7 @@ h4 {
 	    			},
 	    			success : function(data){
 	    				if(data.json!= ""){
+	    					importSchedule(data.json,selector);
 	    					if(data.json[0].scheduleTag!=''){
 			    				$.ajax({
 			    			         method : 'get',
@@ -288,6 +289,7 @@ h4 {
 		    	$(this).find('hr').css('display','none');
 	    	}
 	    },function(){
+	    	$(this).find('h6').remove();
 	    	if($(this).attr('id')!=null){
 		    	TweenMax.to(this, 0.5, {scale:1});
 		    	$(this).css('z-index','0');
@@ -298,23 +300,26 @@ h4 {
 	    $('input[type=checkbox]').change(function(){
 	    	alert($(this).attr('id'));
 	    	if($(this).attr('id').indexOf('Challenge')!=-1){
+	    		alert($(this).attr('id').substring(14));
 	    		$.ajax({
+		    		url : $(this).attr('id')+'.do',
+		    		data : {
+		    			"challengeNo" : $(this).attr('id').substring(14),
+		    			"challengeContent" : $(this).attr('value')
+		    		},
+		    		success : function(data){
+		    			alert(data.flag);
+		    		}
+		    	});
+	    	}else{
+	    		alert($(this).attr('id').substring(13));
+		    	$.ajax({
 		    		url : $(this).attr('id')+'.do',
 		    		data : {
 		    			"scheduleNo" : $(this).attr('id').substring(13)
 		    		},
-		    		success : function(){
-		    			
-		    		}
-		    	});
-	    	}else{
-		    	$.ajax({
-		    		url : $(this).attr('id')+'.do',
-		    		data : {
-		    			"challengeNo" : $(this).attr('id').substring(14)
-		    		},
-		    		success : function(){
-		    			
+		    		success : function(data){
+		    			alert(data.flag);
 		    		}
 		    	});
 	    	}
@@ -335,103 +340,195 @@ h4 {
 		</h1>
 	</div>
 
-	<div id="contents"
-		style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */ height: 100%">
+   <div id="contents"
+      style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */height: 100%">
 
-		<div>${data}</div>
-		<div id="weatherTest">
-			<h2 style="margin-left: 10%">weather :</h2>
-		</div>
+      <div>${data}</div>
+      <div id="weatherTest">
+         <h2 style="margin-left: 10%">weather :</h2>
+      </div>
 
-		<!-- START section1 -->
-		<div id="section1">
-			<div id="weather"></div>
-			<div class="calendar" id="calendar"
-				style="width: 50%; display: inline-block;">
-				<a href="javascript:prev()">이전</a>
-				<p id="title_monthdate" style="display: inline-block;"></p>
-				<a href="javascript:next()">이후</a>
-				<div class="calendar__header">
-					<div>SUN</div>
-					<div>MON</div>
-					<div>TUE</div>
-					<div>WED</div>
-					<div>THU</div>
-					<div>FRI</div>
-					<div>SAT</div>
-				</div>
-				<div class="calendar__week"></div>
-				<div class="calendar__week"></div>
-				<div class="calendar__week"></div>
-				<div class="calendar__week"></div>
-				<div class="calendar__week"></div>
-			</div>
-			<div
-				style="width: 30%; border: 1px black double; display: inline-block; margin-left: 100px; margin-top: -40px;"
-				id="search">
-				<h4>#</h4>
-				<div
-					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-				<div
-					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-				<div
-					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-				<div
-					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-				<div
-					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-				<div
-					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-				<div
-					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-			</div>
-		</div>
-		<!-- END section1 -->
+      <!-- START section1 -->
+      <div id="section1">
+         <div id="weather"></div>
+         <div class="calendar" id="calendar"
+            style="width: 50%; display: inline-block;">
+            <a href="javascript:prev()">이전</a>
+            <p id="title_monthdate" style="display: inline-block;"></p>
+            <a href="javascript:next()">이후</a>
+            <div class="calendar__header">
+               <div>SUN</div>
+               <div>MON</div>
+               <div>TUE</div>
+               <div>WED</div>
+               <div>THU</div>
+               <div>FRI</div>
+               <div>SAT</div>
+            </div>
+            <div class="calendar__week"></div>
+            <div class="calendar__week"></div>
+            <div class="calendar__week"></div>
+            <div class="calendar__week"></div>
+            <div class="calendar__week"></div>
+         </div>
+         <div
+            style="width: 30%; border: 1px black double; display: inline-block;  margin-left: 100px; margin-top: -40px;"
+            id="search">
+            <h4>#</h4>
+            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+         </div>
+      </div>
+      <!-- END section1 -->
 
-		<hr>
-		<!-- START section2 -->
-		<div id="section2" style="height: 450px; margin-top: 200px;">
-			<table style="width: 100%; margin: auto">
-				<tr>
-					<td colspan="2">
-						<h1 id="Date" align="left"
-							style="display: inline; margin-left: 35px; margin-bottom: 5px;"></h1>
-					</td>
-					<td><img src="${path}/img/weather/rainy.png" width="70px"
-						height="70px" style="float: left">
-					<td>
-					<td align="right">
-						<table id="emotion_tbl"
-							style="float: right; margin-top: 22px; margin-right: 22px; height: 30px;">
-							<td><img id="happy" src="${path}/img/emotion/happy.png"></a></td>
-							<td><img id="love" src="${path}/img/emotion/love.png"></td>
-							<td><img id="shocked" src="${path}/img/emotion/shocked.png"></td>
-							<td><img id="shy" src="${path}/img/emotion/shy.png"></td>
-							<td><img id="tired" src="${path}/img/emotion/tired.png"></td>
-							<td><img id="upset" src="${path}/img/emotion/upset.png"></td>
-							<td><img id="verysad" src="${path}/img/emotion/verysad.png"></td>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2"><div
-							style="float: left; width: 100%; padding-left: 4%; padding-right: 2%; height: 400px;">
-							<div id="wrapper">
-								<hr>
-								<h2>
-									Today's Schedule <i class="fa fa-check"></i>
-								</h2>
-								<hr>
-								<c:forEach items="${daily.todaySchedule}" var="item"
-									varStatus="i">
-									<div>
-										<input type="checkbox" id="checkSchedule${item.scheduleNo}" />
-										<label for="checkSchedule${item.scheduleNo}">
-											<div>
-												<i class="fa fa-check"></i>
-											</div> ${item.scheduleTitle}
-										</label>
-									</div>
+      <hr>
+      <!-- START section2 -->
+      <div id="section2" style="height: 450px; margin-top: 200px; /* background-color: pink; */">
+         <table style="width: 100%; margin: auto">
+            <tr>
+               <td colspan="2">
+                  <h1 id="Date" align="left"
+                     style="display: inline; margin-left: 35px; margin-bottom: 5px;"></h1>
+               </td>
+               <td><img src="${path}/img/weather/rainy.png" width="70px"
+                  height="70px" style="float: left">
+               <td>
+               <td align="right">
+                  <table id="emotion_tbl"
+                     style="float: right; margin-top: 22px; margin-right: 22px; height: 30px;">
+                     <td><img id="happy" src="${path}/img/emotion/happy.png"></a></td>
+                     <td><img id="love" src="${path}/img/emotion/love.png"></td>
+                     <td><img id="shocked" src="${path}/img/emotion/shocked.png"></td>
+                     <td><img id="shy" src="${path}/img/emotion/shy.png"></td>
+                     <td><img id="tired" src="${path}/img/emotion/tired.png"></td>
+                     <td><img id="upset" src="${path}/img/emotion/upset.png"></td>
+                     <td><img id="verysad" src="${path}/img/emotion/verysad.png"></td>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <td colspan="2"><div
+                     style="float: left; width: 100%; padding-left: 4%; padding-right: 2%; height: 400px;">
+                     <div id="wrapper">
+                        <hr>
+                        <h2>
+                           Today's Schedule <i class="fa fa-check"></i>
+                        </h2>
+                        <hr>
+                        <c:forEach items="${daily.todaySchedule}" var="item" varStatus="i">
+                        	<div>
+                        		<c:if test="${item.check}">
+		                           <input type="checkbox" id="checkSchedule${item.scheduleNo}" checked="checked" /> 
+		                           <label for="checkSchedule${item.scheduleNo}">
+		                              <div>
+		                                 <i class="fa fa-check"></i>
+		                              </div> ${item.scheduleTitle}
+		                           </label>
+	                           </c:if>
+	                           <c:if test="${!item.check}">
+	                           		<input type="checkbox" id="checkSchedule${item.scheduleNo}"/> 
+		                           <label for="checkSchedule${item.scheduleNo}">
+		                              <div>
+		                                 <i class="fa fa-check"></i>
+		                              </div> ${item.scheduleTitle}
+		                           </label>
+	                           </c:if>
+	                        </div>
+                        </c:forEach>
+                     </div>
+                  </div></td>
+               <td colspan="2">
+                  <div
+                     style="float: left; width: 100%; margin-left: 5%; margin-right: 1%; height: 400px;">
+                     <div id="wrapper">
+                        <hr>
+                        <h2>
+                           Your Challenge <i class="fa fa-check"></i>
+                        </h2>
+                        <hr>
+                        <c:forEach items="${daily.todayChallenge}" var="item">
+                        	<c:if test="${item.challengeContentSize==0}">
+	                        	<div>
+		                           <input type="checkbox" id="checkChallenge${item.challengeNo}" /> <label
+		                              for="checkChallenge${item.challengeNo}">
+		                              <div>
+		                                 <i class="fa fa-check"></i>
+		                              </div> ${item.challengeTitle}
+		                           </label>
+		                        </div>
+	                        </c:if>
+	                        <c:if test="${item.challengeContentSize!=0}">
+	                        	<c:forEach items="${item.challengeContentList}" var="i">
+	                        		<c:if test="${i.check && i.challengeContent!=null}">
+	                        			<div>
+		                           		<input type="checkbox" id="checkChallenge${item.challengeNo}" value="${i.challengeContent}" checked="checked"/> <label
+			                              for="checkChallenge${item.challengeNo}">
+			                              <div>
+			                                 <i class="fa fa-check"></i>
+			                              </div> ${item.challengeTitle} : ${i.challengeContent}
+			                              </label>
+				                        </div>
+	                        		</c:if>
+	                        		<c:if test="${!i.check && i.challengeContent!=null}">
+	                        			<div>
+		                           		<input type="checkbox" id="checkChallenge${item.challengeNo}" value="${i.challengeContent}"/> <label
+			                              for="checkChallenge${item.challengeNo}">
+			                              <div>
+			                                 <i class="fa fa-check"></i>
+			                              </div> ${item.challengeTitle} : ${i.challengeContent}
+				                           </label>
+				                        </div>
+	                        		</c:if>
+	                        	</c:forEach>
+	                        </c:if>
+                        </c:forEach>
+
+                     </div>
+                  </div>
+               </td>
+               <td colspan="2" align="right">
+                  <div
+                     style="float: right; width: 100%; height: 400px; margin-top: 20px; margin-right: 0;">
+                     <div id="wrapper">
+                        <form id="paper" method="get" action="" style="margin-right: 2%">
+                           <textarea placeholder="Enter something." id="text" name="text"
+                              rows="4"
+                              style="overflow: hidden; word-wrap: break-word; resize: none; width: 50%; height: 180px;">${daily.memo}</textarea>
+                           <br> <input id="button" type="submit" value="Create">
+
+                        </form>
+                     </div>
+                  </div>
+               </td>
+         </table>
+      </div>
+      <!-- END section2 -->
+
+	<div id="section3" style="margin-top: 100px">
+		<img src="${path}/img/set.png" width="20px;" style="float: right; cursor: pointer;" id="weeklyHabit">
+			<div class="row" style="border: 1px solid white">
+				<c:forEach items="${daily.weeklyCheckHabit}" var="item" varStatus="h">
+					<table style="border: 1px solid white;  width:300px ;margin-left: 10px;margin-top: 30px; text-align: center;display: inline-block;">
+							<tr class="weeklyTracker">
+								<td style="width:50%; " rowspan="2" style="width:50%;">${item.habit}</td><td style=width:10px;></td><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+							</tr>
+							<tr id="${item.habit}" height="25">
+								<td></td>
+								<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
+									<c:choose>
+										<c:when test="${fn:contains(i, '0')}">
+											<td id="${h.index}${d.index}"class="tracker" style="background: white; cursor: pointer; width:20px;" >
+										</c:when>
+										<c:otherwise>
+											<td id="${h.index}${d.index}"class="tracker" style="cursor: pointer; background-color: red; width:20px;" >
+										</c:otherwise>
+									</c:choose>
+
 								</c:forEach>
 							</div>
 						</div></td>
@@ -473,7 +570,8 @@ h4 {
 							</div>
 						</div>
 					</td>
-			</table>
+				</table>
+			</c:forEach>
 		</div>
 		<!-- END section2 -->
 

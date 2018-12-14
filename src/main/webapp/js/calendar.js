@@ -64,7 +64,7 @@ function markym(y,m){
 	$('#title_monthdate').append(y+"년 "+(m+1)+"월");
 }
 
-
+//////////////// 다음 달
 function next(){
 	var arr;
 	new Promise(function(resolve, reject) { 
@@ -131,15 +131,15 @@ function next(){
 							}
 						});
 					});
-				});
-			}
-		});
+				});		//then
+			}		//success
+		});		//ajax
 	});
 	
 	
 
 }
-
+///////////////////이전 달
 function prev(){
 	var arr;
 	new Promise(function(resolve, reject) { 
@@ -213,7 +213,7 @@ function prev(){
 		});
 	});
 }
-
+/*				@deprecated
 function markSchedule(schedule,m){
 	var startDate = moment(schedule.scheduleStartDate);
 	var endDate = moment(schedule.scheduleEndDate);
@@ -227,7 +227,8 @@ function markSchedule(schedule,m){
 		
 	}
 }
-
+*/
+/////////////schedule first line
 function setChallenge1(arr){
 	if(arr==null) return;
 	const length = arr.length;
@@ -248,14 +249,14 @@ function setChallenge1(arr){
 					$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c1');
 					flag2 = true;
 			}
+			colorArr.push(color);
 		}
-		colorArr.push(color);
 		if(flag2) arr.splice(length-j-1,1);
 		flag = false;
 	}
 	return arr;
 }
-
+/////////////schedule second line
 function setChallenge2(arr){
 	if(arr==null) return;
 	const length = arr.length;
@@ -268,25 +269,25 @@ function setChallenge2(arr){
 				flag1=true;
 			}
 		}
-		var color = colorArr.shift();
-		for(i=arr[length-j-1][0] ; i<=arr[length-j-1][1] ; i++){
-			if(!flag1){
-				if($('#day'+i).hasClass('c1')){
-					$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
+		if(!flag1){
+			var color = colorArr.shift();
+			for(i=arr[length-j-1][0] ; i<=arr[length-j-1][1] ; i++){
+					if($('#day'+i).hasClass('c1')){
+						$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
+					}
+					else{
+						$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
+					}
+					flag2 = true;
 				}
-				else{
-					$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
-				}
-				flag2 = true;
-			}
+			colorArr.push(color);
 		}
-		colorArr.push(color);
 		if(flag2) arr.splice(length-j-1,1);
 		flag2 = false;
 	}
 	return arr;
 }
-
+/////////////schedule third line
 function setChallenge3(arr){
 	if(arr==null) return;
 	const length = arr.length;
@@ -319,7 +320,7 @@ function getDateByTrackerId(id){
 	if(targetDate<10) targetDate = "0"+targetDate;
 	return moment().year()+""+month+""+targetDate;
 }
-
+/////////// ;;;;;;
 function getScheduleInCal(data,str){
 	var arr = '${daily}';
 	var s = str.substring(3);
@@ -334,4 +335,13 @@ function getScheduleInCal(data,str){
 		}
 	}
 	return result;
+}
+
+///////////////////hover mark schedule
+function importSchedule(arr,selector){
+	$(selector).append('<br>');
+	for(i=0 ; i<arr.length;i++){
+		$(selector).append('<h6></h6>');
+		$(selector).find('h6').eq(i).html(arr[i].scheduleTitle);
+	}
 }

@@ -1,11 +1,15 @@
 package com.spring.plan.model.service.impl;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.plan.model.SubLogics;
 import com.spring.plan.model.dao.ChallengeDao;
 import com.spring.plan.model.service.ChallengeService;
 import com.spring.plan.model.vo.Challenge;
@@ -46,82 +50,74 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Override
 	public int addChallenge(Challenge challenge) throws Exception {
-		if (challengeDao.addChallenge(challenge) == 0) {
-			System.out.println("★ addChallenge  실패");
-			return 0;
-		}
-		return 1;
+		return challengeDao.addChallenge(challenge);
 	}
 
 	@Override
 	public int deleteChallenge(int challengeNo) throws Exception {
-		if (challengeDao.deleteChallenge(challengeNo) == 0) {
-			System.out.println("★ deleteChallenge  실패");
-			return 0;
-		}
-		return 1;
+		return challengeDao.deleteChallenge(challengeNo);
 	}
 
 	@Override
-	public int addChallengeContent(int challengeNo, List<String> challengeContent) throws Exception {
-		
-		if (challengeDao.addChallengeContent(challengeNo, challengeContent) == 0) {
-			System.out.println("★ addChallengeContent  실패");
-			return 0;
+	public int addChallengeContent(Challenge challenge, List<ChallengeContent> challengeContent) throws Exception {
+		List<ChallengeContent> list;
+		if(challengeContent.size()==0 || challengeContent==null) {
+			list = new ArrayList<ChallengeContent>();
+			
+			ChallengeContent cc = new ChallengeContent();
+			
+			cc.setChallengeNo(challenge.getChallengeNo());
+			cc.setChallengeContent(challenge.getChallengeTitle());
+			
+			cc.setChallengeContentCheck(SubLogics.getCheckString(challenge.getChallengeStartDate(), challenge.getChallengeEndDate()));
+			list.add(cc);
 		}
-		return 1;
+		else {
+			for(ChallengeContent cc : challengeContent) cc.setChallengeContentCheck(SubLogics.getCheckString(challenge.getChallengeStartDate(), challenge.getChallengeEndDate()));
+			list = challengeContent;
+		}
+		return challengeDao.addChallengeContent(list);
 	}
 
 	@Override
 	public int deleteChallengeContent(String challengeContent) throws Exception {
-		if (challengeDao.deleteChallengeContent(challengeContent) == 0) {
-			System.out.println("★ deleteChallengeContent  실패");
-			return 0;
-		}
-		return 1;
+		return challengeDao.deleteChallengeContent(challengeContent);
 	}
 
 	@Override
 	public int updateChallengeLog(ChallengeLog challengeLog) throws Exception {
-		if (challengeDao.updateChallengeLog(challengeLog) == 0) {
-			System.out.println("★ updateChallengeLog  실패");
-			return 0;
-		}
-		return 1;
+		return challengeDao.updateChallengeLog(challengeLog);
 	}
 
 	@Override
 	public int writeChallengeComment(ChallengeComment challengeComment) throws Exception {
-		if (challengeDao.writeChallengeComment(challengeComment) == 0) {
-			System.out.println("★ writeChallengeComment  실패");
-			return 0;
-		}
-		return 1;
+		return challengeDao.writeChallengeComment(challengeComment);
 	}
 
 	@Override
 	public int deleteChallengeComment(ChallengeComment challengeComment) throws Exception {
-		if (challengeDao.deleteChallengeComment(challengeComment) == 0) {
-			System.out.println("★ deleteChallengeComment  실패");
-			return 0;
-		}
-		return 1;
+		return challengeDao.deleteChallengeComment(challengeComment);
 	}
 
 	@Override
 	public int checkChallengeContent(ChallengeContent challengeContent,String day) throws Exception {
 
-		Challenge challenge = new Challenge();
-		challenge.setChallengeEndDate(day);
-		challenge.setChallengeStartDate(challengeDao.getChallengeByNo(challengeContent.getChallengeNo()).getChallengeStartDate());
-		int dayCount = challengeDao.getChallengeLength(challenge);
+		Challenge challenge = challengeDao.getChallengeByNo(challengeContent.getChallengeNo());
+		int dayCount = SubLogics.getDuration(challenge.getChallengeStartDate(), day)-1;
 		
+		String ccc = challengeDao.getChallengeContentCheck(challengeContent);
+		System.out.println("challengeContent :::::: "+challengeContent);
 		char[] arr = challengeContent.getChallengeContentCheck().toCharArray();
-		if(arr[dayCount-1]=='0') arr[dayCount-1]='1';
-		else arr[dayCount-1] = '0';
+		if(arr[dayCount]=='0') arr[dayCount]='1';
+		else arr[dayCount] = '0';
 		challengeContent.setChallengeContentCheck(new String(arr)); 		//check setting
-		
-		return challengeDao.checkChallengeContent(challengeContent);
+		System.out.println("challenge check result : : :  "+challengeDao.checkChallengeContent(challengeContent));
+		return 1;
+	}
+
+	@Override
+	public String getChallengeContentCheck(ChallengeContent challengeContent) throws Exception {
+		return challengeDao.getChallengeContentCheck(challengeContent);
 	}
 
 }

@@ -26,12 +26,12 @@
 
 	<resultMap type="ChallengeContent" id="challengeContentMap">
 		<result property="challengeNo" column="challenge_No" />
-		<result property="challengeContent" column="challenge_Content" />
-		<result property="challengeContentCheck"
-			column="challenge_Content_Check" />
+		<result property="challengeContent" column="challenge_Content"/>
+		<result property="challengeContentCheck" column="challenge_Content_Check"/>
+		<result property="challengeStartDate" column="challenge_start_date" />
 	</resultMap>
-
-	<resultMap type="Challenge" id="challengListMap">
+	
+	<resultMap type="Challenge" id="challengeListMap">
 		<result property="challengeNo" column="challenge_No" />
 		<result property="challengeTitle" column="challenge_Title" />
 		<result property="challengeStartDate"
@@ -142,19 +142,16 @@
 		values(#{challengeNo}, #{challengeLogContent}, #{dayCount})
 	</insert>
 
-	<select id="getChallengeByNo" parameterType="int"
-		resultMap="challengListMap">
-		select *
+	<select id="getChallengeByNo" parameterType="int" resultMap="challengeListMap">
+		SELECT challenge.challenge_No, challenge_Title, TO_CHAR(challenge.challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_CHAR(challenge_End_Date,'YYYYMMDD') challenge_End_Date, 
+		member_No, challenge_Category, challenge_Likes, challenge_Sharing, challenge_comment_no,challenge_reply_comment,challenge_comment_member_no,
+		challenge_comment,challenge_comment_write_date, challenge_content,challenge_content_check, challenge_log_content, day_count
 		from challenge
-		JOIN challenge_log ON
-		challenge.CHALLENGE_NO = challenge_log.CHALLENGE_NO
-		JOIN
-		challenge_content ON CHALLENGE.CHALLENGE_NO =
-		challenge_content.CHALLENGE_NO
-		JOIN challenge_comment ON
-		challenge.CHALLENGE_NO = challenge_comment.CHALLENGE_NO
-		where
-		CHALLENGE.challenge_no=#{value}
+		LEFT OUTER JOIN challenge_log ON challenge.CHALLENGE_NO = challenge_log.CHALLENGE_NO
+		LEFT OUTER JOIN challenge_content ON CHALLENGE.CHALLENGE_NO = challenge_content.CHALLENGE_NO
+		LEFT OUTER JOIN challenge_comment ON challenge.CHALLENGE_NO = challenge_comment.CHALLENGE_NO
+		where CHALLENGE.challenge_no=#{value}
+
 	</select>
 
 	<select id="searchChallengeList" parameterType="Challenge"
@@ -175,30 +172,35 @@
 		</where>
 	</select>
 
-	<select id="getChallengeByMonth" parameterType="Daily"
-		resultMap="challengeSelectMap">
-		SELECT challenge_No, challenge_Title,
-		TO_CHAR(challenge_Start_Date,'YYYYMMDD') challenge_Start_Date,
-		TO_CHAR(challenge_End_Date,'YYYYMMDD') challenge_End_Date, member_No,
-		challenge_Category, challenge_Likes, challenge_Sharing
-		FROM challenge
-		WHERE (to_char(challenge_start_date,'yyyymm')=#{month} OR
-		to_char(challenge_end_date,'yyyymm')=#{month}) AND
-		member_no=#{memberNo}
+	<select id="getChallengeByMonth" parameterType="Daily" resultMap="challengeListMap">
+        SELECT *
+        FROM (
+        SELECT 
+        	challenge_No, challenge_Title, TO_CHAR(challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_CHAR(challenge_End_Date,'YYYYMMDD') challenge_End_Date, 
+        	member_No, challenge_Category, challenge_Likes, challenge_Sharing, null as challenge_content, null as challenge_content_check
+        FROM challenge
+		WHERE (to_char(challenge_start_date,'yyyymm')=#{month} OR to_char(challenge_end_date,'yyyymm')=#{month}) AND member_no=#{memberNo}
+		
+		UNION
+		
+		SELECT 
+        	challenge.challenge_No challenge_no, challenge_Title, TO_CHAR(challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_CHAR(challenge_End_Date,'YYYYMMDD') challenge_End_Date, 
+        	member_No, challenge_Category, challenge_Likes, challenge_Sharing, challenge_content, challenge_content_check
+        FROM challenge,challenge_content
+		WHERE (to_char(challenge_start_date,'yyyymm')=#{month} OR to_char(challenge_end_date,'yyyymm')=#{month}) AND member_no=#{memberNo} AND challenge.challenge_no = challenge_content.challenge_no
+		) 
+		<!-- WHERE challenge_content_check IS NOT null -->
+    </select>
+    
+    <select id="getChallengeByDay" parameterType="Daily" resultMap="challengeSelectMap">
+        select * from challenge
+		where (#{day} BETWEEN challenge_start_date AND challenge_end_date) AND member_no=#{memberNo}
+    </select>
+    
+    <select id="getChallengeContentCheck" parameterType="ChallengeContent" resultType="String">
+    	SELECT challenge_content_check
+    	FROM challenge_content
+    	WHERE challenge_no = #{challengeNo} AND challenge_content = #{challengeContent}
+    </select>
 
-	</select>
-
-	<select id="getChallengeByDay" parameterType="Daily"
-		resultMap="challengeSelectMap">
-		select * from challenge
-		where (#{day} BETWEEN challenge_start_date AND
-		challenge_end_date) AND member_no=#{memberNo}
-	</select>
-
-	<select id="getChallengeLength" parameterType="Challenge"
-		resultType="integer">
-		SELECT
-		(TO_DATE(#{challengeEndDate},'YYYYMMDD')-TO_DATE(#{challengeStartDate},'YYYYMMDD'))+1
-		FROM dual
-	</select>
 </mapper>

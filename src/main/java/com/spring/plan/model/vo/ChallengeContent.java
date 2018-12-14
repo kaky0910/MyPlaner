@@ -1,9 +1,12 @@
 package com.spring.plan.model.vo;
 
+import com.spring.plan.model.SubLogics;
+
 public class ChallengeContent {
 	private int challengeNo;
 	private String challengeContent;
 	private String challengeContentCheck;
+	private String challengeStartDate;
 	
 	public ChallengeContent() {}
 	
@@ -35,10 +38,31 @@ public class ChallengeContent {
 		this.challengeContent = challengeContent;
 	}
 	public String getChallengeContentCheck() {
+		
 		return challengeContentCheck;
 	}
 	public void setChallengeContentCheck(String challengeContentCheck) {
 		this.challengeContentCheck = challengeContentCheck;
+	}
+	
+	public String getChallengeStartDate() {
+		return challengeStartDate;
+	}
+
+	public void setChallengeStartDate(String challengeStartDate) {
+		this.challengeStartDate = challengeStartDate;
+	}
+
+	public boolean isCheck() {
+		String day = Daily.getDayByDate();
+		int count = SubLogics.getDuration(challengeStartDate, day);
+		if(challengeContentCheck!=null) {
+			System.out.println("Challenge :::::::::: "+toString());
+			char[] arr = challengeContentCheck.toCharArray();
+			if(arr[count-1]=='0') return false;
+			else return true;
+		}
+		return false;
 	}
 
 	@Override

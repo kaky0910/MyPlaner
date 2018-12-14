@@ -25,14 +25,7 @@ public class ScheduleController {
 	
 	@RequestMapping("addSchedule.do")
 	public ModelAndView addSchedule(Schedule schedule) throws Exception{			//schedule 길이 계산해서 set 후 add
-		StringBuffer scheduleCheck = new StringBuffer();
-		int length = scheduleDao.getScheduleLength(schedule);
-		for(int i=0;i<length+1;i++) {
-			scheduleCheck.append("0");
-		}
-		schedule.setScheduleCheck(scheduleCheck.toString());
 		scheduleService.addSchedule(schedule);
-		
 		return new ModelAndView();
 	}
 	
@@ -78,16 +71,18 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("checkSchedule*.do")
-	   public ModelAndView checkChallenge(int scheduleNo) throws Exception{
-			Schedule schedule = scheduleService.getScheduleDetail(scheduleNo);
+	   public ModelAndView checkSchedule(String scheduleNo) throws Exception{
+			Schedule schedule = scheduleService.getScheduleDetail(Integer.parseInt(scheduleNo));
+			System.out.println("************************"+schedule);
 		    String day = Daily.getDayByDate();
 		    int result = scheduleService.checkSchedule(schedule, day);
+		    boolean flag = false;
 		    if(result == 1) {		// 성공
-		    	
+		    	flag = true;
 		    }else {					// 실패
 		    	
 		    }
-		    return new ModelAndView();
+		    return new ModelAndView("JsonView","flag",flag);
 	   }
 	
 }

@@ -55,16 +55,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
-	public int addChallengeContent(int challengeNo, List<String> challengeContent) throws Exception {
-		int length = getChallengeLength(getChallengeByNo(challengeNo));
-		StringBuffer sb = new StringBuffer();
-		for(int i=0;i<length;i++) sb.append("0");
-		
-		List<ChallengeContent> challengeContentList = new ArrayList<ChallengeContent>();
-		
-		for(String content : challengeContent)
-			challengeContentList.add(new ChallengeContent(challengeNo, content,sb.toString()));
-	
+	public int addChallengeContent(List<ChallengeContent> challengeContentList) throws Exception {
 		return sqlSession.insert("challenge-mapper.addChallengeContent", challengeContentList);
 	}
 
@@ -89,17 +80,17 @@ public class ChallengeDaoImpl implements ChallengeDao {
 	}
 
 	@Override
-	public int getChallengeLength(Challenge challenge) throws Exception {
-		return sqlSession.delete("challenge-mapper.getChallengeLength", challenge);
-	}
-
-	@Override
 	public int checkChallengeContent(ChallengeContent challengeContent) throws Exception {
 		return sqlSession.update("challenge-mapper.checkChallenge",challengeContent);
 	}
 		
 	public List<Challenge> searchChallengeList(Challenge challenge) throws Exception {
 		return sqlSession.selectList("challenge-mapper.searchChallengeList", challenge);
+	}
+
+	@Override
+	public String getChallengeContentCheck(ChallengeContent challengeContent) throws Exception {
+		return sqlSession.selectOne("challenge-mapper.getChallengeContentCheck",challengeContent);
 	}
 
 }

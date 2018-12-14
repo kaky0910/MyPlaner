@@ -31,7 +31,7 @@ public interface ChallengeService {
 	int deleteChallenge(int challengeNo) throws Exception;
 
 	// challenge에 항목 추가
-	int addChallengeContent(int challengeNo, List<String> challengeContent) throws Exception;
+	int addChallengeContent(Challenge challenge, List<ChallengeContent> challengeContent) throws Exception;
 
 	// challenge에 항목 삭제
 	int deleteChallengeContent(String challengeContent) throws Exception;
@@ -47,4 +47,7 @@ public interface ChallengeService {
 	
 	// check ChallengeContent
 	int checkChallengeContent(ChallengeContent challengeContent,String day) throws Exception;
+	
+	//return challengeContentCheck
+	String getChallengeContentCheck(ChallengeContent challengeContent) throws Exception;
 }

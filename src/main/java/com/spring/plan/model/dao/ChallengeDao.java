@@ -33,7 +33,7 @@ public interface ChallengeDao {
 	int deleteChallenge(int challengeNo) throws Exception;
 	
 	// challenge에 항목 추가
-	int addChallengeContent(int challengeNo, List<String> challengeContent) throws Exception;
+	int addChallengeContent(List<ChallengeContent> challengeContentList) throws Exception;
 	
 	// challenge에 항목 삭제
 	int deleteChallengeContent(String challengeContent) throws Exception;
@@ -47,10 +47,10 @@ public interface ChallengeDao {
 	// challenge 댓글 삭제 
 	int deleteChallengeComment(ChallengeComment challengeComment) throws Exception;
 	
-	// challenge 기간 return
-	int getChallengeLength(Challenge challenge) throws Exception;
-	
 	// check challenge content
 	int checkChallengeContent(ChallengeContent challengeContent) throws Exception;
+	
+	// challenge_content_check return
+	String getChallengeContentCheck(ChallengeContent challengeContent) throws Exception;
 	
 }

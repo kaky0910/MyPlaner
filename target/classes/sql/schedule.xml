@@ -11,6 +11,7 @@
 		<result property="scheduleContent" column="schedule_content"/>
 		<result property="scheduleTag" column="schedule_tag"/>
 		<result property="memberNo" column="member_no"/>
+		<result property="scheduleCheck" column="schedule_check"/>
 	</resultMap>					
 
 	<insert id="addSchedule" parameterType="Schedule">
@@ -39,25 +40,21 @@
 	</update>
 	
 	<select id="getScheduleByDay" parameterType="Daily" resultMap="scheduleResultMap">
-		SELECT schedule_no,schedule_title,TO_CHAR(schedule_start_date,'YYYYMMDD') schedule_start_date,TO_CHAR(schedule_end_date,'YYYYMMDD') schedule_end_date,schedule_content,schedule_tag,member_no
+		SELECT schedule_no,schedule_title,TO_CHAR(schedule_start_date,'YYYYMMDD') schedule_start_date,TO_CHAR(schedule_end_date,'YYYYMMDD') schedule_end_date,schedule_content,schedule_tag,member_no,schedule_check
 		FROM schedule
 		WHERE (#{day} BETWEEN schedule_start_date AND schedule_end_date) AND member_no = #{memberNo} 
 	</select>
 	
 	<select id="getScheduleByMonth" parameterType="Daily" resultMap="scheduleResultMap">
-		SELECT schedule_no,schedule_title,to_char(schedule_start_date,'yyyymmdd') schedule_start_date,to_char(schedule_end_date,'yyyymmdd') schedule_end_date,schedule_content,schedule_tag,member_no
+		SELECT schedule_no,schedule_title,to_char(schedule_start_date,'yyyymmdd') schedule_start_date,to_char(schedule_end_date,'yyyymmdd') schedule_end_date,schedule_content,schedule_tag,member_no,schedule_check
 		FROM schedule
 		WHERE (to_char(schedule_start_date,'yyyymm')=#{month} OR to_char(schedule_end_date,'yyyymm')=#{month}) AND member_no = #{memberNo}
 	</select>
 	
 	<select id="getScheduleDetail" parameterType="int" resultMap="scheduleResultMap">
-		SELECT schedule_no,schedule_title,schedule_start_date,schedule_end_date,schedule_content,schedule_tag,member_no
+		SELECT schedule_no,schedule_title,TO_CHAR(schedule_start_date,'YYYYMMDD') schedule_start_date,TO_CHAR(schedule_end_date,'YYYYMMDD') schedule_end_date,schedule_content,schedule_tag,member_no, schedule_check
 		FROM schedule
 		WHERE schedule_no = #{value}
-	</select>
-	
-	<select id="getScheduleLength" parameterType="Schedule" resultType="integer">
-		SELECT (TO_DATE(#{scheduleEndDate},'YYYYMMDD')-TO_DATE(#{scheduleStartDate},'YYYYMMDD'))+1 FROM dual
 	</select>
 	
 	<update id="checkSchedule" parameterType="Schedule">

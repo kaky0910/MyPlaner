@@ -131,6 +131,7 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 					list.add(c);
 			}
 		}
+		System.out.println("getTodayChallenge ::: "+list);
 		return list;
 	}
 	
