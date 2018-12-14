@@ -98,7 +98,7 @@ h4 {
 
 			<div class="clear-shadow"></div>
 
-			<div class="content">
+			<div class="content" style="height : 780px;">
 				<div class="content-1">
 					<h2>받은 메세지 리스트</h2>
 					<table border="1" id="recvTbl" style="left: 20%;">

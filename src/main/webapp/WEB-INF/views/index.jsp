@@ -28,7 +28,6 @@
 <link rel="stylesheet" href="${path}/css/carousel.css">
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-
 <!-- title -->
 <link href="https://fonts.googleapis.com/css?family=Bangers"
 	rel="stylesheet">
@@ -298,9 +297,7 @@ h4 {
 	    });
 	    
 	    $('input[type=checkbox]').change(function(){
-	    	alert($(this).attr('id'));
 	    	if($(this).attr('id').indexOf('Challenge')!=-1){
-	    		alert($(this).attr('id').substring(14));
 	    		$.ajax({
 		    		url : $(this).attr('id')+'.do',
 		    		data : {
@@ -308,18 +305,15 @@ h4 {
 		    			"challengeContent" : $(this).attr('value')
 		    		},
 		    		success : function(data){
-		    			alert(data.flag);
 		    		}
 		    	});
 	    	}else{
-	    		alert($(this).attr('id').substring(13));
 		    	$.ajax({
 		    		url : $(this).attr('id')+'.do',
 		    		data : {
 		    			"scheduleNo" : $(this).attr('id').substring(13)
 		    		},
 		    		success : function(data){
-		    			alert(data.flag);
 		    		}
 		    	});
 	    	}
@@ -333,7 +327,7 @@ h4 {
 <body>
 	<div id="titleArea"
 		style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
-		<h1 class="row skew-title">
+		<h1 class="titleRow skew-title">
 			<span>M</span><span class="last">Y</span> <span class="alt">P</span><span
 				class="alt">L</span><span class="alt">A</span><span class="alt last">N</span><span
 				class="alt">N</span><span class="alt">E</span><span class="alt">R</span>
@@ -509,73 +503,7 @@ h4 {
       </div>
       <!-- END section2 -->
 
-	<div id="section3" style="margin-top: 100px">
-		<img src="${path}/img/set.png" width="20px;" style="float: right; cursor: pointer;" id="weeklyHabit">
-			<div class="row" style="border: 1px solid white">
-				<c:forEach items="${daily.weeklyCheckHabit}" var="item" varStatus="h">
-					<table style="border: 1px solid white;  width:300px ;margin-left: 10px;margin-top: 30px; text-align: center;display: inline-block;">
-							<tr class="weeklyTracker">
-								<td style="width:50%; " rowspan="2" style="width:50%;">${item.habit}</td><td style=width:10px;></td><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
-							</tr>
-							<tr id="${item.habit}" height="25">
-								<td></td>
-								<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
-									<c:choose>
-										<c:when test="${fn:contains(i, '0')}">
-											<td id="${h.index}${d.index}"class="tracker" style="background: white; cursor: pointer; width:20px;" >
-										</c:when>
-										<c:otherwise>
-											<td id="${h.index}${d.index}"class="tracker" style="cursor: pointer; background-color: red; width:20px;" >
-										</c:otherwise>
-									</c:choose>
-
-								</c:forEach>
-							</div>
-						</div></td>
-					<td colspan="2">
-						<div
-							style="float: left; width: 100%; margin-left: 5%; margin-right: 1%; height: 400px;">
-							<div id="wrapper">
-								<hr>
-								<h2>
-									Your Challenge <i class="fa fa-check"></i>
-								</h2>
-								<hr>
-								<c:forEach items="${daily.todayChallenge}" var="item"
-									varStatus="i">
-									<div>
-										<input type="checkbox" id="checkChallenge${item.challengeNo}" />
-										<label for="checkChallenge${item.challengeNo}">
-											<div>
-												<i class="fa fa-check"></i>
-											</div> ${item.challengeTitle}
-										</label>
-									</div>
-								</c:forEach>
-
-							</div>
-						</div>
-					</td>
-					<td colspan="2" align="right">
-						<div
-							style="float: right; width: 100%; height: 400px; margin-top: 20px; margin-right: 0;">
-							<div id="wrapper">
-								<form id="paper" method="get" action="" style="margin-right: 2%">
-									<textarea placeholder="Enter something." id="text" name="text"
-										rows="4"
-										style="overflow: hidden; word-wrap: break-word; resize: none; width: 50%; height: 180px;">${daily.memo}</textarea>
-									<br> <input id="button" type="submit" value="Create">
-
-								</form>
-							</div>
-						</div>
-					</td>
-				</table>
-			</c:forEach>
-		</div>
-		<!-- END section2 -->
-
-		<div id="section3" style="margin-top: 100px">
+		<div id="section3" style="margin-top: 100px; height: 700px; width: 100%">
 			<img src="${path}/img/set.png" width="20px;"
 				style="float: right; cursor: pointer;" id="weeklyHabit">
 			<div class="row" style="border: 1px solid #ECECEC">
@@ -613,16 +541,16 @@ h4 {
 				</c:forEach>
 			</div>
 			<div class="row"
-				style="border: 1px solid white; height: 300px; margin-top: 100px">
+				style=" height: 300px; margin-top: 100px">
 				<h1 id="sec3month" align="center"
 					style="margin-top: 20px; height: 50px;"></h1>
 				<table
-					style="border: 1px solid white; width: 100%; text-align: center; margin-top: 0;">
+					style="border: 1px solid white; width: 100%;height : 200px; text-align: center; margin-top: 0;" id="monthlyTrackerTable">
 					<thead>
 						<tr>
 							<td></td>
 							<c:forEach begin="1" end="${daily.lastDate}" varStatus="s">
-								<td style="width: 2.5%">${s.count}</td>
+								<td style="width: 2.5%"><h6>${s.count}</h6></td>
 							</c:forEach>
 						</tr>
 					</thead>
@@ -637,7 +565,7 @@ h4 {
 											<td id="m${h.index}${d.index}" style="background: white;">
 										</c:when>
 										<c:otherwise>
-											<td id="m${h.index}${d.index}" style="background-color: red">
+											<td id="m${h.index}${d.index}" style="background-color:red">
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -789,7 +717,7 @@ h4 {
 																} catch (ex) {
 																}
 															});
-										})
+										});
 					</script>
 
 
