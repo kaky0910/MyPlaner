@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 		<div class="content-2" style="left:5%;">
-			<h2>About us</h2>
+			<h2>보낸 메세지 리스트</h2>
 			<table border="1" id="sendTbl" style="left: 20%;">
 				<thead>
 					<tr>

@@ -65,7 +65,7 @@ public class BoardController {
 				  
 				boardService.writeBoard(board);
 
-				return new ModelAndView("../board/show_content", "board", board);
+				return new ModelAndView("board/show_content", "board", board);
 
 			}
 	
@@ -73,11 +73,11 @@ public class BoardController {
 	public ModelAndView getAllBoard()throws Exception {
 		List<Board> lb = boardService.getAllBoard();
 		System.out.println("lb+"+lb);
-		return new ModelAndView("../board/boardlist","lb",lb);
+		return new ModelAndView("board/boardlist","lb",lb);
 	}
 	
 	@RequestMapping("show_content.do")
-	public ModelAndView boardinfo(HttpServletRequest request,HttpSession session,int no)throws Exception {
+	public ModelAndView boardinfo(HttpServletRequest request,HttpSession session)throws Exception {
 	
 		/*Member member = (Member)session.getAttribute("member");*/
 		/*
@@ -85,8 +85,9 @@ public class BoardController {
 			return new ModelAndView("redirect:/index.jsp");
 		}*/
 		
-		Board board = boardService.getBoardByNo(no);
-		return new ModelAndView("../board/show_content", "board",board);
+		Board board = boardService.getBoardByNo(Integer.parseInt(request.getParameter("boardNo")));
+		System.out.println(board.getBoardCommentList());
+		return new ModelAndView("board/show_content", "board",board);
 	}
 	
 	@RequestMapping("delete.do")
@@ -107,7 +108,7 @@ public class BoardController {
 			return new ModelAndView("redirect:/index.jsp");
 		}*/
 		Board board = boardService.getBoardByNo(boardNo);
-		return new ModelAndView("../board/update", "boardNo", boardNo);
+		return new ModelAndView("board/update", "boardNo", boardNo);
 	}
 
 	@RequestMapping("updatego.do")
@@ -141,7 +142,7 @@ public class BoardController {
 	@RequestMapping("comment.do")
 	public ModelAndView insert(HttpServletRequest request, HttpSession session, int boardNo, BoardComment boardComment)throws Exception {
 		int lbc =boardService.addBoardComment(boardComment.getBoardCommentNo(),boardComment);
-		return new ModelAndView("../board/boardcomment","lbc",lbc);
+		return new ModelAndView("board/boardcomment","lbc",lbc);
 		
 	}
 	@RequestMapping("deletecomment.do")

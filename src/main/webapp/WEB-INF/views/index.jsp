@@ -1,8 +1,8 @@
-<<<<<<< HEAD
+
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-   pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -12,10 +12,14 @@
 
 
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
 <link rel="stylesheet" href="${path}/css/challengeCard.css">
 <link rel="stylesheet" href="${path}/css/calendar.css">
 <link rel="stylesheet" href="${path}/css/emoticon.css">
@@ -23,38 +27,63 @@
 <link rel="stylesheet" href="${path}/css/switch.css">
 <link rel="stylesheet" href="${path}/css/memo.css">
 <link rel="stylesheet" href="${path}/css/carousel.css">
-	
-	<!-- nav start-->
+
+
+<!-- title -->
+<link href="https://fonts.googleapis.com/css?family=Bangers"
+	rel="stylesheet">
+<link rel="stylesheet" href="${path}/css/title.css">
+<script src="${path}/js/title.js"></script>
+<!-- title -->
+
+<!-- nav start-->
 <link rel="stylesheet" href="${path}/css/nav.css">
 <link rel="stylesheet/less" type="text/css"
 	href="${path}/less/style.less">
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 <script src="${path}/js/nav.js"></script>
+
 <!-- nav end-->
-	
-<link href="https://fonts.googleapis.com/css?family=Yeon+Sung"
+
+<link href="https://fonts.googleapis.com/css?family=Cute+Font"
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo"
 	rel="stylesheet">
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
 <script src="${path}/js/calendar.js"></script>
 <script src="${path}/js/moment.js"></script>
 <script src="${path}/js/glider.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 
 <style type="text/css">
-	.checked{
-		background-image: url("./img/check.png");
-	}
-	.weeklyTracker{
-		
-	}
-	hr {
+hr {
 	width: 100%;
-	}
-	
+}
+
+body {
+	background-color: #ECECEC;
+	font-family: 'Cute Font', cursive;
+}
+
+a, h1, h2, label {
+	color: #001E36;
+}
+
+h4 {
+	color: #0F3347;
+}
 </style>
 <script type="text/javascript">
 	var colorArr = ['red','yellow','green','blue','pink','orange'];
@@ -107,11 +136,6 @@
 			});//ajax
 		});//click
 
-		//5. challenge 마지막 속성에 표시하기
-		$('#glider-add div').last().addClass('last');
-		//$('#glider-add div').last().prev().css('color','red');
-		$('.card:eq(-2)').css('color', 'red');
-
       //6.	달력
       var tempArr = ${daily.scheduleFormattedArray};
       var arr = ${daily.scheduleFormattedArray}; //challenge (시작일, 마지막일) format으로 arr로 입력
@@ -155,7 +179,7 @@
          dataType : 'json',
          success : function(data) {
             var d = JSON.parse(data.result);
-            alert(JSON.stringify(d));
+          //  alert(JSON.stringify(d));
             $('#search h4').html('#'+tag);
             $('#search div').each(
                   function(index) {
@@ -163,7 +187,8 @@
                            '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
                                  + d.items[index].description
                                  + '</p>');
-                  });
+                     
+                     });
          }
       });
       
@@ -277,7 +302,7 @@
 		    		url : $(this).attr('id')+'.do',
 		    		data : {
 		    			"scheduleNo" : $(this).attr('id').substring(13)
-		    		}
+		    		},
 		    		success : function(){
 		    			
 		    		}
@@ -286,8 +311,8 @@
 		    	$.ajax({
 		    		url : $(this).attr('id')+'.do',
 		    		data : {
-		    			"challengeNo" : $(this).attr('id').substring(14);
-		    		}
+		    			"challengeNo" : $(this).attr('id').substring(14)
+		    		},
 		    		success : function(){
 		    			
 		    		}
@@ -296,194 +321,225 @@
 	    });
    }); //ready
 
-
+  
 </script>
 
 </head>
 <body>
-    <div id="titleArea"
-		style="height: 85px; /* background-color: gray;  */ margin-top: 0px;">
-		<p align="center" style="padding-top: 35px;">Title</p>
-		<a href="messagewrite.jsp">MessageWrite</a>
+	<div id="titleArea"
+		style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
+		<h1 class="row skew-title">
+			<span>M</span><span class="last">Y</span> <span class="alt">P</span><span
+				class="alt">L</span><span class="alt">A</span><span class="alt last">N</span><span
+				class="alt">N</span><span class="alt">E</span><span class="alt">R</span>
+		</h1>
 	</div>
 
-   <div id="contents"
-      style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */height: 100%">
+	<div id="contents"
+		style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */ height: 100%">
 
-      <div>${data}</div>
-      <div id="weatherTest">
-         <h2 style="margin-left: 10%">weather :</h2>
-      </div>
+		<div>${data}</div>
+		<div id="weatherTest">
+			<h2 style="margin-left: 10%">weather :</h2>
+		</div>
 
-      <!-- START section1 -->
-      <div id="section1">
-         <div id="weather"></div>
-         <div class="calendar" id="calendar"
-            style="width: 50%; display: inline-block;">
-            <a href="javascript:prev()">이전</a>
-            <p id="title_monthdate" style="display: inline-block;"></p>
-            <a href="javascript:next()">이후</a>
-            <div class="calendar__header">
-               <div>SUN</div>
-               <div>MON</div>
-               <div>TUE</div>
-               <div>WED</div>
-               <div>THU</div>
-               <div>FRI</div>
-               <div>SAT</div>
-            </div>
-            <div class="calendar__week"></div>
-            <div class="calendar__week"></div>
-            <div class="calendar__week"></div>
-            <div class="calendar__week"></div>
-            <div class="calendar__week"></div>
-         </div>
-         <div
-            style="width: 30%; border: 1px black double; display: inline-block;  margin-left: 100px; margin-top: -40px;"
-            id="search">
-            <h4>#</h4>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-            <div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
-         </div>
-      </div>
-      <!-- END section1 -->
+		<!-- START section1 -->
+		<div id="section1">
+			<div id="weather"></div>
+			<div class="calendar" id="calendar"
+				style="width: 50%; display: inline-block;">
+				<a href="javascript:prev()">이전</a>
+				<p id="title_monthdate" style="display: inline-block;"></p>
+				<a href="javascript:next()">이후</a>
+				<div class="calendar__header">
+					<div>SUN</div>
+					<div>MON</div>
+					<div>TUE</div>
+					<div>WED</div>
+					<div>THU</div>
+					<div>FRI</div>
+					<div>SAT</div>
+				</div>
+				<div class="calendar__week"></div>
+				<div class="calendar__week"></div>
+				<div class="calendar__week"></div>
+				<div class="calendar__week"></div>
+				<div class="calendar__week"></div>
+			</div>
+			<div
+				style="width: 30%; border: 1px black double; display: inline-block; margin-left: 100px; margin-top: -40px;"
+				id="search">
+				<h4>#</h4>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+				<div
+					style="border-bottom: 4px solid gray; border-top: 4px solid gray; height: 100px; overflow: hidden;"></div>
+			</div>
+		</div>
+		<!-- END section1 -->
 
-      <hr>
-      <!-- START section2 -->
-      <div id="section2" style="height: 450px; margin-top: 200px; /* background-color: pink; */">
-         <table style="width: 100%; margin: auto">
-            <tr>
-               <td colspan="2">
-                  <h1 id="Date" align="left"
-                     style="display: inline; margin-left: 35px; margin-bottom: 5px;"></h1>
-               </td>
-               <td><img src="${path}/img/weather/rainy.png" width="70px"
-                  height="70px" style="float: left">
-               <td>
-               <td align="right">
-                  <table id="emotion_tbl"
-                     style="float: right; margin-top: 22px; margin-right: 22px; height: 30px;">
-                     <td><img id="happy" src="${path}/img/emotion/happy.png"></a></td>
-                     <td><img id="love" src="${path}/img/emotion/love.png"></td>
-                     <td><img id="shocked" src="${path}/img/emotion/shocked.png"></td>
-                     <td><img id="shy" src="${path}/img/emotion/shy.png"></td>
-                     <td><img id="tired" src="${path}/img/emotion/tired.png"></td>
-                     <td><img id="upset" src="${path}/img/emotion/upset.png"></td>
-                     <td><img id="verysad" src="${path}/img/emotion/verysad.png"></td>
-                  </table>
-               </td>
-            </tr>
-            <tr>
-               <td colspan="2"><div
-                     style="float: left; width: 100%; padding-left: 4%; padding-right: 2%; height: 400px;">
-                     <div id="wrapper">
-                        <hr>
-                        <h2>
-                           Today's Schedule <i class="fa fa-check"></i>
-                        </h2>
-                        <hr>
-                        <c:forEach items="${daily.todaySchedule}" var="item" varStatus="i">
-                        	<div>
-	                           <input type="checkbox" id="checkSchedule${item.scheduleNo}" /> <label
-	                              for="checkSchedule${item.scheduleNo}">
-	                              <div>
-	                                 <i class="fa fa-check"></i>
-	                              </div> ${item.scheduleTitle}
-	                           </label>
-	                        </div>
-                        </c:forEach>
-                     </div>
-                  </div></td>
-               <td colspan="2">
-                  <div
-                     style="float: left; width: 100%; margin-left: 5%; margin-right: 1%; height: 400px;">
-                     <div id="wrapper">
-                        <hr>
-                        <h2>
-                           Your Challenge <i class="fa fa-check"></i>
-                        </h2>
-                        <hr>
-                        <c:forEach items="${daily.todayChallenge}" var="item" varStatus="i">
-                        	<div>
-                           <input type="checkbox" id="checkChallenge${item.challengeNo}" /> <label
-                              for="checkChallenge${item.challengeNo}">
-                              <div>
-                                 <i class="fa fa-check"></i>
-                              </div> ${item.challengeTitle}
-                           </label>
-                        </div>
-                        </c:forEach>
-
-                     </div>
-                  </div>
-               </td>
-               <td colspan="2" align="right">
-                  <div
-                     style="float: right; width: 100%; height: 400px; margin-top: 20px; margin-right: 0;">
-                     <div id="wrapper">
-                        <form id="paper" method="get" action="" style="margin-right: 2%">
-                           <textarea placeholder="Enter something." id="text" name="text"
-                              rows="4"
-                              style="overflow: hidden; word-wrap: break-word; resize: none; width: 50%; height: 180px;">${daily.memo}</textarea>
-                           <br> <input id="button" type="submit" value="Create">
-
-                        </form>
-                     </div>
-                  </div>
-               </td>
-         </table>
-      </div>
-      <!-- END section2 -->
-
-	<div id="section3" style="margin-top: 100px">
-		<img src="${path}/img/set.png" width="20px;" style="float: right; cursor: pointer;" id="weeklyHabit">
-			<div class="row" style="border: 1px solid white">
-				<c:forEach items="${daily.weeklyCheckHabit}" var="item" varStatus="h">
-					<table style="border: 1px solid white;  width:300px ;margin-left: 10px;margin-top: 30px; text-align: center;display: inline-block;">
-							<tr class="weeklyTracker">
-								<td style="width:50%; " rowspan="2" style="width:50%;">${item.habit}</td><td style=width:10px;></td><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
-							</tr>
-							<tr id="${item.habit}" height="25">
-								<td></td>
-								<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
-									<c:choose>
-										<c:when test="${fn:contains(i, '0')}">
-											<td id="${h.index}${d.index}"class="tracker" style="background: white; cursor: pointer; width:20px;" >
-										</c:when>
-										<c:otherwise>
-											<td id="${h.index}${d.index}"class="tracker" style="cursor: pointer; background-color: red; width:20px;" >
-										</c:otherwise>
-									</c:choose>
+		<hr>
+		<!-- START section2 -->
+		<div id="section2" style="height: 450px; margin-top: 200px;">
+			<table style="width: 100%; margin: auto">
+				<tr>
+					<td colspan="2">
+						<h1 id="Date" align="left"
+							style="display: inline; margin-left: 35px; margin-bottom: 5px;"></h1>
+					</td>
+					<td><img src="${path}/img/weather/rainy.png" width="70px"
+						height="70px" style="float: left">
+					<td>
+					<td align="right">
+						<table id="emotion_tbl"
+							style="float: right; margin-top: 22px; margin-right: 22px; height: 30px;">
+							<td><img id="happy" src="${path}/img/emotion/happy.png"></a></td>
+							<td><img id="love" src="${path}/img/emotion/love.png"></td>
+							<td><img id="shocked" src="${path}/img/emotion/shocked.png"></td>
+							<td><img id="shy" src="${path}/img/emotion/shy.png"></td>
+							<td><img id="tired" src="${path}/img/emotion/tired.png"></td>
+							<td><img id="upset" src="${path}/img/emotion/upset.png"></td>
+							<td><img id="verysad" src="${path}/img/emotion/verysad.png"></td>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><div
+							style="float: left; width: 100%; padding-left: 4%; padding-right: 2%; height: 400px;">
+							<div id="wrapper">
+								<hr>
+								<h2>
+									Today's Schedule <i class="fa fa-check"></i>
+								</h2>
+								<hr>
+								<c:forEach items="${daily.todaySchedule}" var="item"
+									varStatus="i">
+									<div>
+										<input type="checkbox" id="checkSchedule${item.scheduleNo}" />
+										<label for="checkSchedule${item.scheduleNo}">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> ${item.scheduleTitle}
+										</label>
+									</div>
 								</c:forEach>
-							</tr>
+							</div>
+						</div></td>
+					<td colspan="2">
+						<div
+							style="float: left; width: 100%; margin-left: 5%; margin-right: 1%; height: 400px;">
+							<div id="wrapper">
+								<hr>
+								<h2>
+									Your Challenge <i class="fa fa-check"></i>
+								</h2>
+								<hr>
+								<c:forEach items="${daily.todayChallenge}" var="item"
+									varStatus="i">
+									<div>
+										<input type="checkbox" id="checkChallenge${item.challengeNo}" />
+										<label for="checkChallenge${item.challengeNo}">
+											<div>
+												<i class="fa fa-check"></i>
+											</div> ${item.challengeTitle}
+										</label>
+									</div>
+								</c:forEach>
+
+							</div>
+						</div>
+					</td>
+					<td colspan="2" align="right">
+						<div
+							style="float: right; width: 100%; height: 400px; margin-top: 20px; margin-right: 0;">
+							<div id="wrapper">
+								<form id="paper" method="get" action="" style="margin-right: 2%">
+									<textarea placeholder="Enter something." id="text" name="text"
+										rows="4"
+										style="overflow: hidden; word-wrap: break-word; resize: none; width: 50%; height: 180px;">${daily.memo}</textarea>
+									<br> <input id="button" type="submit" value="Create">
+
+								</form>
+							</div>
+						</div>
+					</td>
+			</table>
+		</div>
+		<!-- END section2 -->
+
+		<div id="section3" style="margin-top: 100px">
+			<img src="${path}/img/set.png" width="20px;"
+				style="float: right; cursor: pointer;" id="weeklyHabit">
+			<div class="row" style="border: 1px solid #ECECEC">
+				<c:forEach items="${daily.weeklyCheckHabit}" var="item"
+					varStatus="h">
+					<table
+						style="border: 1px solid white; width: 300px; margin-left: 10px; margin-top: 30px; text-align: center; display: inline-block;">
+						<tr class="weeklyTracker">
+							<td style="width: 50%;" rowspan="2" style="width:50%;">${item.habit}</td>
+							<td style="width: 10px;"></td>
+							<td>일</td>
+							<td>월</td>
+							<td>화</td>
+							<td>수</td>
+							<td>목</td>
+							<td>금</td>
+							<td>토</td>
+						</tr>
+						<tr id="${item.habit}" height="25">
+							<td></td>
+							<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
+								<c:choose>
+									<c:when test="${fn:contains(i, '0')}">
+										<td id="${h.index}${d.index}" class="tracker"
+											style="background: white; cursor: pointer; width: 20px;">
+									</c:when>
+									<c:otherwise>
+										<td id="${h.index}${d.index}" class="tracker"
+											style="cursor: pointer; background-color: red; width: 20px;">
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</tr>
 					</table>
 				</c:forEach>
 			</div>
-			<div class="row" style="border: 1px solid white; height:300px; margin-top: 100px">
-				<h1 id="sec3month" align="center" style="margin-top: 20px; height:50px;"></h1>
-				<table style="border: 1px solid white; width:100%; text-align: center; margin-top: 0;">
+			<div class="row"
+				style="border: 1px solid white; height: 300px; margin-top: 100px">
+				<h1 id="sec3month" align="center"
+					style="margin-top: 20px; height: 50px;"></h1>
+				<table
+					style="border: 1px solid white; width: 100%; text-align: center; margin-top: 0;">
 					<thead>
 						<tr>
 							<td></td>
-							<c:forEach begin="1" end="${daily.lastDate}" varStatus="s"><td style="width:2.5%">${s.count}</td></c:forEach>
+							<c:forEach begin="1" end="${daily.lastDate}" varStatus="s">
+								<td style="width: 2.5%">${s.count}</td>
+							</c:forEach>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${daily.monthlyCheckHabit}" var="item" varStatus="h"> 
+						<c:forEach items="${daily.monthlyCheckHabit}" var="item"
+							varStatus="h">
 							<tr id="${item.habit}">
 								<td>${item.habit}</td>
 								<c:forEach items="${item.checkHabit}" var="i" varStatus="d">
 									<c:choose>
 										<c:when test="${fn:contains(i, '0')}">
-											<td id="m${h.index}${d.index}" style="background: white; " >
+											<td id="m${h.index}${d.index}" style="background: white;">
 										</c:when>
 										<c:otherwise>
-											<td id="m${h.index}${d.index}" style=" background-color: red" >
+											<td id="m${h.index}${d.index}" style="background-color: red">
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -492,21 +548,13 @@
 					</tbody>
 				</table>
 			</div>
-	</div>
+		</div>
 
 
-      <div id="section4"
+		<div id="section4"
 			style="height: 450px; /* background-color: blue; */ margin-top: 20px;">
 
 			<div class="demo">
-				
-				<div align="right">
-					<p class="buttons">
-						<a class="button" id="addSlide">Add</a> <a class="button"
-							id="removeSlide">Remove</a>
-					</p>
-				</div>
-
 				<div data-name="Add/Remove Items" class="glider-contain multiple">
 					<div class="gradient-border-bottom">
 						<div class="gradient-border">
@@ -526,17 +574,20 @@
 												</div>
 												<!-- Name -->
 												<h2 id="challengeTitle" class="card-face__name">
-													<b>${challengeList.challengeTitle}</b>
+													<a
+														href="detailChallenge.do?challengeNo=${challengeList.challengeNo}"><b>${challengeList.challengeTitle}</b></a>
 												</h2>
 												<!-- Title -->
 												<span class="card-face__title"><b>${challengeList.memberNo}</b></span>
-												<div class="challenge-content">
+												<div class="challenge-content" style="font-size: 20px;">
 													<h4>
 														<b> STARTDATE : </b> <span id="startDate">${challengeList.challengeStartDate}</span>
 														<br> <b> ENDDATE : </b> <span id="endDate">${challengeList.challengeEndDate}</span>
 													</h4>
-													<b>Category : </b><label id="challengeCategory"> ${challengeList.challengeCategory}</label><br>
-													<b>Sharing : </b><label id="challengeSharing"> ${challengeList.challengeSharing}</label>
+													<b>Category : </b><label id="challengeCategory">
+														${challengeList.challengeCategory}</label><br> <b>Sharing
+														: </b><label id="challengeSharing">
+														${challengeList.challengeSharing}</label>
 													<hr>
 													<ul style="text-align: left">
 														<c:forEach var="challengeLogList"
@@ -552,14 +603,15 @@
 										</div>
 									</div>
 								</c:forEach>
-								<div id="newchallengeDiv" class="newchallengeDiv"  style="width: 290px; height: 500px">
+								<div id="newchallengeDiv" class="newchallengeDiv"
+									style="width: 290px; height: 500px">
 									<div class="card">
 										<img src="${path}/img/writeChallenge.png"
 											style="display: block; margin: auto; width: 50%; margin-top: 38%">
 										<br> <br>
 										<h3 align="center">새로운 도전을 해보세요!</h3>
 										<br>
-										<button id="newChallengeBtn" style="margin-left: 46%">GO</button>
+										<button id="newChallengeBtn">GO</button>
 									</div>
 								</div>
 
@@ -572,11 +624,11 @@
 						</div>
 						<button role="button" aria-label="Previous" class="glider-prev"
 							id="glider-prev-add">
-							<i class="fa fa-chevron-left"></i>prev</i>
+							<i class="fa fa-chevron-left"></i>
 						</button>
 						<button role="button" aria-label="Next" class="glider-next"
 							id="glider-next-add">
-							<i class="fa fa-chevron-right"></i>next</i>
+							<i class="fa fa-chevron-right"></i>
 						</button>
 						<div id="add-dots"></div>
 					</div>
@@ -646,15 +698,11 @@
 				</div>
 			</div>
 			<!-- section4 -->
-      </div>
-      <!-- contents -->
+		</div>
+		<!-- contents -->
 
-   </div>
-   <div id="navigater"
-      style="float: right; width: 8%; margin-right: 5%; margin-top: 25px; margin-left: 2%; /* background-color: blue; */ height: 1600px">
-      ★★★★★★★★★<br> ★★★★★★★★★<br> ★★★★★★★★★<br> ★★★★★★★★★<br>
-      ★★★★★★★★★<br>
-   </div>
+	</div>
+	<%@include file="nav.jsp"%>
 </body>
 <script type="text/javascript">
    

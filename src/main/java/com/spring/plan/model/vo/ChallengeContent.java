@@ -40,6 +40,10 @@ public class ChallengeContent {
 	public void setChallengeContentCheck(String challengeContentCheck) {
 		this.challengeContentCheck = challengeContentCheck;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "ChallengeContent [challengeNo=" + challengeNo + ", challengeContent=" + challengeContent
+				+ ", challengeContentCheck=" + challengeContentCheck + "]";
+	}
 }

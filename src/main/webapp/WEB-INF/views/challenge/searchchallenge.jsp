@@ -10,6 +10,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<link href="https://fonts.googleapis.com/css?family=Cute+Font" rel="stylesheet">
+
 <!-- nav start-->
 <link rel="stylesheet" href="${path}/css/nav.css">
 <link rel="stylesheet/less" type="text/css"
@@ -18,6 +20,32 @@
 <script src="${path}/js/nav.js"></script>
 <!-- nav end-->
 
+
+<!-- title -->
+<link href="https://fonts.googleapis.com/css?family=Bangers"
+	rel="stylesheet">
+<link rel="stylesheet" href="${path}/css/title.css">
+<script src="${path}/js/title.js"></script>
+<!-- title -->
+
+<style type="text/css">
+hr {
+	width: 100%;
+}
+
+body {
+	background-color: #ECECEC;
+	font-family: 'Cute Font', cursive;
+}
+
+a, h1, h2, label {
+	color: #001E36;
+}
+
+h4 {
+	color: #0F3347;
+}
+</style>
 
 
 <script type="text/javascript">
@@ -47,44 +75,58 @@
 <!-- challengeList로 getAllChallengeList() ... 바인딩 -->
 <body>
 	<div id="titleArea"
-		style="height: 85px; background-color: gray; margin-top: 0px;">
-		<p align="center" style="padding-top: 35px;">Title</p>
+		style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
+		<h1 class="row skew-title">
+			<span >M</span><span class="last">Y</span><span class="alt">P</span><span
+				class="alt">L</span><span class="alt">A</span><span class="alt last">N</span><span
+				class="alt">N</span><span class="alt">E</span><span class="alt">R</span>
+		</h1>
 	</div>
 	<div id="searchNav"
-		style="float: left; height: 800px; background-color: blue; margin-left: 5%; width: 13%; margin-top: 25px; padding: 10px;">
-		<h2 align="center">검색</h2>
+		style="background-color: #BDD3DE; position: fixed; float: left; height: auto; margin-left: 10%; width: 13%; margin-top: 160px; padding: 10px; text-align: left;">
+		<h2 align="center" style="font-size: 26px; color: #15317F;">검색</h2>
 		<form>
-
-
-			주제 <select name="challengeCategory">
+			<strong style="font-size: 23px;">주제 </strong> <select
+				name="challengeCategory" style="height: 25px;">
 				<option value="" selected disabled>선택하세요</option>
 				<option value="게임">게임</option>
 				<option value="독서">독서</option>
 				<option value="다이어트">다이어트</option>
 				<option value="생활습관">생활습관</option>
-			</select> <br> 작성자 <input type="text" name="memberNo"> <br>
-			제목 <input type="text" name="challengeTitle" value=""> <br>
-			<input type="button" name="search" style="width: 100%;" value="검색">
+			</select> <br> <br> <strong style="font-size: 23px;">작성자</strong> <input
+				type="text" name="memberNo" style="height: 25px;"> <br>
+			<br> <strong style="font-size: 23px;">제목 </strong><input
+				type="text" name="challengeTitle" value="" style="height: 25px;">
+			<br> <br> <input type="button" name="search"
+				style="width: 100%; height: 25px;" value="검색">
 		</form>
-		<hr>
-		<hr>
-		<h2 align="center">정렬</h2>
-		<a>최신순</a> <a>응원순</a> <a>기간순</a>
-		<hr>
-		<hr>
-		<ul>
-			<li>리스트형 보기
-			<li>카드형 보기
-		</ul>
+		<br> <br> <br>
+		<h2 align="center">
+			<strong style="font-size: 26px; color: #15317F;">정렬</strong>
+		</h2>
+		<p style="font-size: 20px;">
+			<a>응원순</a> <a>기간순</a>
+		</p>
+		<br> <br>
+		<h2 align="center">
+			<strong style="font-size: 26px; color: #15317F;">보기</strong>
+		</h2>
+		<a href="#" style="text-decoration: none; font-size: 20px;">리스트형
+			보기</a> <a href="#" style="text-decoration: none; font-size: 20px;">카드형
+			보기</a>
 		<hr>
 	</div>
 	<div id="contents"
-		style="float: left; width: 61%; margin-left: 2%; padding-right: 2%; margin-top: 25px; background-color: green; height: 800px">
-		<h2 align="center">Challenge List</h2>
-		<div id="here" style="display: inline;">
+		style="float: left; width: 61%; margin-left: 25%; padding-right: 2%; margin-top: 105px; height: 800px">
+		<h2 align="center" style="font-size: 60px;">
+			<i><b>Challenge List</b></i>
+		</h2>
+
+		<div id="here" style="display: inline; margin-top: 35px;">
 			<c:set var="i" value="0" />
 			<c:set var="j" value="3" />
-			<table border="1" align="center">
+			<table border="1" style="margin-left: 10%; margin-top: 35px;">
+
 				<c:forEach var="item" items="${challengeList}">
 					<c:if test="${i%j == 0 }">
 						<tr>
@@ -98,7 +140,7 @@
 								<div class="card-face__avatar">
 									<!-- User avatar -->
 									<img src="https://image.flaticon.com/icons/svg/188/188241.svg"
-										width="110" height="110" draggable="false" />
+										width="80" height="80" draggable="false" />
 								</div>
 								<!-- Name -->
 								<h2 id="challengeTitle" class="card-face__name">
@@ -106,7 +148,7 @@
 								</h2>
 								<!-- Title -->
 								<span class="card-face__title"><b>${item.memberNo}</b></span>
-								<div class="challenge-content">
+								<div class="challenge-content" style="font-size: 16px;">
 									<h4>
 										<b> STARTDATE : </b> <span id="startDate">${item.challengeStartDate}</span>
 										<br> <b> ENDDATE : </b> <span id="endDate">${item.challengeEndDate}</span>

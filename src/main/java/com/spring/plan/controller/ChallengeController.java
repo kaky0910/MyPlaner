@@ -56,15 +56,18 @@ public class ChallengeController {
 		System.out.println(challenge);
 		challList = service.searchChallengeList(challenge);
 		System.out.println("contoller " + challList);
-		return new ModelAndView("challenge/searchResultChallengeData", "challList", challList);
+		return new ModelAndView("challenge/searchResultChallengeData", "challengeList", challList);
 	}
 
 	@RequestMapping("/detailChallenge.do")
-	public ModelAndView detailChallenge(HttpServletRequest request, Challenge challenge) throws Exception {
-		System.out.println("★ 디테일 챌린지 테스트 : " + challenge);
+	public ModelAndView detailChallenge(HttpServletRequest request) throws Exception {
+		System.out.println("★ 디테일 챌린지 테스트 : " + request.getParameter("challengeNo"));
 
-		Challenge rchallenge = service.getChallengeByNo(challenge.getChallengeNo());
+		int challengeNo = Integer.parseInt(request.getParameter("challengeNo"));
+ 		Challenge rchallenge = service.getChallengeByNo(challengeNo);
 
+		System.out.println("rchallehceTest:" + rchallenge);
+		System.out.println(rchallenge.getChallengeContentList());
 		return new ModelAndView("challenge/detailchallenge", "challenge", rchallenge);
 	}
 
