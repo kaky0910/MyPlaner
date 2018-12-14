@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html >
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<c:set var="path" value="${pageContext.request.contextPath}" />
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 
 <!-- title -->
 <link href="https://fonts.googleapis.com/css?family=Bangers"
@@ -27,20 +31,7 @@
 <link href="https://fonts.googleapis.com/css?family=Cute+Font"
 	rel="stylesheet">
 
-<title>Insert title here</title>
 </head>
-<script type="text/javascript">
-	$(function() {
-		$('#deleteBtn').click(function() {
-			if (confirm("정말로 삭제하시겠습니까?") == true)
-				location.href = "deleteMessage.do?messageNo=" + $
-			{
-				requestScope.message.messageNo
-			}
-			;
-		});//click
-	});//ready
-</script>
 <body>
 	<div id="titleArea"
 		style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
@@ -50,22 +41,58 @@
 				class="alt">N</span><span class="alt">E</span><span class="alt">R</span>
 		</h1>
 	</div>
-
 	<div id="contents"
 		style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; background-color: green; height: 800px">
+		<b>목 록</b>
+		<p>
+		<table border="1" width="650" cellpadding="2">
+			<tr>
+				<th width="10%">번 호</th>
+				<th width="50%">제 목</th>
+				<th width="15%">작성자</th>
+				<th width="15%">작성일</th>
+				<th width="10%">조회수</th>
+			</tr>
+			<!-- @@@@@이 부분 반드시 수정 @@@@-->
+			<c:forEach items="${lb}" var="board">
+				<tr>
+					<td>${board.boardNo}</td>
+					<td><a href="show_content.do?boardNo=${board.boardNo}">${board.boardTitle}</a></td>
+					<td>${board.memberNo}</td>
+					<td>${board.boardWriteDate}</td>
+					<td>${board.boardHits}</td>
+				</tr>
+			</c:forEach>
+		</table>
+		<p>
+			<tr>
 
-		<a href="getMessageList.do">목록</a> 받은 쪽지함&nbsp;&nbsp;&nbsp;<a
-			href="${pageContext.request.contextPath}/messagewrite.jsp">쪽지쓰기</a>
-		<hr>
-		<a
-			href="${pageContext.request.contextPath}/messagewrite.jsp?destinationMemberNo=${requestScope.message.senderMessageNo}">답장하기</a><br>
-		<a id="deleteBtn" href="#">삭제하기</a><br> <a href="#">차단</a><br>
-		제목 : ${requestScope.message.messageTitle} 보낸 사람 :
-		${requestScope.message.senderMemberNo} 받은 시간 :
-		${requestScope.message.messageSendDate} 내용 :
-		${requestScope.message.messageContent}
+				<td colspan="5"><a href="${path}/board/boardwrite.jsp">글 작성</a>
+			</tr>
+		</p>
 	</div>
-	<%@include file="../nav.jsp"%>
-
+	
+	<%@include file="../nav.jsp" %>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

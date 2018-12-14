@@ -70,6 +70,4 @@ public class ChallengeContent {
 		return "ChallengeContent [challengeNo=" + challengeNo + ", challengeContent=" + challengeContent
 				+ ", challengeContentCheck=" + challengeContentCheck + "]";
 	}
-	
-	
 }

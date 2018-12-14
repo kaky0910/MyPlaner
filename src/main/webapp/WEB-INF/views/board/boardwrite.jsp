@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -27,20 +28,23 @@
 <link href="https://fonts.googleapis.com/css?family=Cute+Font"
 	rel="stylesheet">
 
-<title>Insert title here</title>
-</head>
 <script type="text/javascript">
-	$(function() {
-		$('#deleteBtn').click(function() {
-			if (confirm("정말로 삭제하시겠습니까?") == true)
-				location.href = "deleteMessage.do?messageNo=" + $
-			{
-				requestScope.message.messageNo
-			}
-			;
-		});//click
-	});//ready
+	function content_submit() {
+		var f = document.write_form;
+		if (f.boardTitle.value == "") {
+			alert("제목을 입력하세요!");
+			f.title.focus();
+			return;
+		}
+		if (f.boardContent.value == "") {
+			alert("내용을 입력하세요!");
+			f.content.focus();
+			return;
+		}
+		f.submit();
+	}
 </script>
+</head>
 <body>
 	<div id="titleArea"
 		style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
@@ -50,22 +54,30 @@
 				class="alt">N</span><span class="alt">E</span><span class="alt">R</span>
 		</h1>
 	</div>
+	<font face="HY나무L" size="5"><strong>글쓰기 <br>
+		<br></strong></font>
+	<form action="../boardwrite.do" method="post" name="write_form"
+		enctype="multipart/form-data">
+		<!-- ${pageContext.request.contextPath} : 하면 '../' 안해도 자동으로 잡힌다. (저거 자체가 webapp로 기억..)-->
 
-	<div id="contents"
-		style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; background-color: green; height: 800px">
+		<table>
+			<tr>
+				<td>제목<input type="text" name="boardTitle" size="30"></td>
+			</tr>
 
-		<a href="getMessageList.do">목록</a> 받은 쪽지함&nbsp;&nbsp;&nbsp;<a
-			href="${pageContext.request.contextPath}/messagewrite.jsp">쪽지쓰기</a>
-		<hr>
-		<a
-			href="${pageContext.request.contextPath}/messagewrite.jsp?destinationMemberNo=${requestScope.message.senderMessageNo}">답장하기</a><br>
-		<a id="deleteBtn" href="#">삭제하기</a><br> <a href="#">차단</a><br>
-		제목 : ${requestScope.message.messageTitle} 보낸 사람 :
-		${requestScope.message.senderMemberNo} 받은 시간 :
-		${requestScope.message.messageSendDate} 내용 :
-		${requestScope.message.messageContent}
-	</div>
-	<%@include file="../nav.jsp"%>
+			<tr>
+				<td colspan="2"><textarea cols="35" rows="20"
+						name="boardContent"></textarea></td>
+			</tr>
 
+			<tr>
+				<td><input type="file" name="uploadFile"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><img src="../img/confirm.gif"
+					onclick="content_submit()" style="cursor: pointer;"></td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>

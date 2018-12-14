@@ -16,6 +16,15 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/message.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Cute+Font"
+	rel="stylesheet">
+	
+<!-- title -->
+<link href="https://fonts.googleapis.com/css?family=Bangers"
+	rel="stylesheet">
+<link rel="stylesheet" href="${path}/css/title.css">
+<script src="${path}/js/title.js"></script>
+<!-- title -->
 
 <!-- nav start-->
 <link rel="stylesheet" href="${path}/css/nav.css">
@@ -23,12 +32,13 @@
 	href="${path}/less/style.less">
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 <script src="${path}/js/nav.js"></script>
-<!-- nav end-->
 
+<!-- nav end-->
 
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300,300italic'
 	rel='stylesheet' type='text/css'>
+	
 <script type="text/javascript">
 	$(function() {
 		$('#tab-1').click(function() {
@@ -46,15 +56,38 @@
 
 	}); //ready
 </script>
+
+<style type="text/css">
+hr {
+	width: 100%;
+}
+
+body {
+	background-color: #ECECEC;
+	font-family: 'Cute Font', cursive;
+}
+
+a, h1, h2, label {
+	color: #001E36;
+}
+
+h4 {
+	color: #0F3347;
+}
+</style>
 </head>
 <body>
 	<div id="titleArea"
-		style="height: 85px; background-color: gray; margin-top: 0px;">
-		<p align="center" style="padding-top: 35px;">Title</p>
+		style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
+		<h1 class="row skew-title">
+			<span>M</span><span class="last">Y</span><span class="alt">P</span><span
+				class="alt">L</span><span class="alt">A</span><span class="alt last">N</span><span
+				class="alt">N</span><span class="alt">E</span><span class="alt">R</span>
+		</h1>
 	</div>
-
+	
 	<div id="contents" class="container"
-		style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; background-color: green; height: 800px">
+		style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px;height: 800px; font-size: 20px;">
 
 		<section class="tabs">
 			<input id="tab-1" type="radio" name="radio-set"
@@ -67,7 +100,7 @@
 
 			<div class="content">
 				<div class="content-1">
-					<h2>About us</h2>
+					<h2>받은 메세지 리스트</h2>
 					<table border="1" id="recvTbl" style="left: 20%;">
 						<thead>
 							<tr>

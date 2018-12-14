@@ -2,8 +2,8 @@
 *{	 margin:0;	padding:0; }
 
 #section2{
-	color:#fff;
-    font-family: 'Yeon Sung', cursive;
+	color:#001E36;
+    font-family: 'Cute Font', cursive;
 	font-size:20px;
 }
 
@@ -15,7 +15,7 @@
 
 /*HEADER*/
 h2{	margin-bottom:23px; margin-top:40px;}
-a{color:#fff;}
+a{color:#001E36;}
 /* a:hover{color:#78e7d1;} */
 
 /*WRAPPER*/
@@ -30,7 +30,7 @@ label div{
 	width:23px;
 	height:23px;
 	display:inline-block;
-	border:2px solid #fff;
+	border:2px solid #001E36;
 	text-align:center;
 	line-height:20px;
 	margin-right:6px;	
