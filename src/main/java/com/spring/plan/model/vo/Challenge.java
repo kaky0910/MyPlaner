@@ -1,7 +1,11 @@
 package com.spring.plan.model.vo;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.spring.plan.model.SubLogics;
 
 public class Challenge {
 	private Integer challengeNo;
@@ -123,6 +127,14 @@ public class Challenge {
 	}
 	public void setChallengeContentList(List<ChallengeContent> challengeContentList) {
 		this.challengeContentList = challengeContentList;
+	}
+	public int getChallengeContentSize() {
+		if(challengeContentList==null) return 0;
+		return challengeContentList.size();
+	}
+	
+	public int getChallengeLength() {
+		return SubLogics.getDuration(getChallengeStartDate(), getChallengeEndDate());
 	}
 
 	@Override

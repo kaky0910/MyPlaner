@@ -25,14 +25,7 @@ public class ScheduleController {
 	
 	@RequestMapping("addSchedule.do")
 	public ModelAndView addSchedule(Schedule schedule) throws Exception{			//schedule 길이 계산해서 set 후 add
-		StringBuffer scheduleCheck = new StringBuffer();
-		int length = scheduleDao.getScheduleLength(schedule);
-		for(int i=0;i<length+1;i++) {
-			scheduleCheck.append("0");
-		}
-		schedule.setScheduleCheck(scheduleCheck.toString());
 		scheduleService.addSchedule(schedule);
-		
 		return new ModelAndView();
 	}
 	

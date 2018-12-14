@@ -1,5 +1,7 @@
 package com.spring.plan.model.service.impl;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +21,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 	ScheduleDao scheduleDao;
 	@Override
 	public int addSchedule(Schedule schedule) throws Exception {
-		int length = scheduleDao.getScheduleLength(schedule);
+		String sd = schedule.getScheduleStartDate();
+		String ed = schedule.getScheduleEndDate();
+		Period p = Period.between(LocalDate.of(Integer.parseInt(sd.substring(0, 4)), Integer.parseInt(sd.substring(4, 6)), Integer.parseInt(sd.substring(6)))
+				, LocalDate.of(Integer.parseInt(ed.substring(0, 4)), Integer.parseInt(ed.substring(4,6)), Integer.parseInt(ed.substring(6))));
+		int length = p.getDays()+1;
+
 		StringBuffer sb = new StringBuffer();
 		for (int i=0; i<length;i++) 
 			sb.append("0");
@@ -55,11 +62,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public int checkSchedule(Schedule schedule,String day) throws Exception {
 		//////////////////////////////////schedule check
-		int dayCount = scheduleDao.getScheduleLength(new Schedule(schedule.getScheduleStartDate(), day));
+		String sd = schedule.getScheduleStartDate();
+		Period p = Period.between(LocalDate.of(Integer.parseInt(sd.substring(0, 4)), Integer.parseInt(sd.substring(4, 6)), Integer.parseInt(sd.substring(6)))
+				, LocalDate.of(Integer.parseInt(day.substring(0, 4)), Integer.parseInt(day.substring(4,6)), Integer.parseInt(day.substring(6))));
+		int dayCount = p.getDays();
 		Schedule s = scheduleDao.getScheduleDetail(schedule.getScheduleNo());
 		char[] arr = s.getScheduleCheck().toCharArray();
-		if(arr[dayCount-1]=='0') arr[dayCount-1] = '1';
-		else arr[dayCount-1] ='0';
+		if(arr[dayCount]=='0') arr[dayCount] = '1';
+		else arr[dayCount] ='0';
 		s.setScheduleCheck(new String(arr));
 		
 		int result = scheduleDao.checkSchedule(s);

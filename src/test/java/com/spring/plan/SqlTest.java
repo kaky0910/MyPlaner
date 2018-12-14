@@ -1,24 +1,10 @@
 package com.spring.plan;
 
-import java.io.Reader;
-import java.util.Date;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
-import com.spring.plan.model.vo.Board;
-import com.spring.plan.model.vo.BoardComment;
-import com.spring.plan.model.vo.CheckHabit;
-import com.spring.plan.model.vo.Daily;
-import com.spring.plan.model.vo.Habit;
-import com.spring.plan.model.vo.Member;
-import com.spring.plan.model.vo.Schedule;
-import com.spring.plan.model.vo.Challenge;
-import com.spring.plan.model.vo.ChallengeLog;
+import com.spring.plan.controller.ChallengeController;
 
 public class SqlTest {
 	/*@Test
@@ -324,17 +310,4 @@ public class SqlTest {
 		
 		System.out.println("출력 완료");
 	}*/
-	
-	@Test
-	public void getScheduleLength() throws Exception {
-		Reader reader = Resources.getResourceAsReader("config/SqlMapConfig.xml");
-
-		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
-		SqlSession sqlSession = factory.openSession();
-		
-		Schedule s = new Schedule();
-		s.setScheduleStartDate("20181220");
-		s.setScheduleEndDate("20181222");
-		System.out.println(sqlSession.selectOne("schedule-mapper.getScheduleLength", s));
-	}
 }

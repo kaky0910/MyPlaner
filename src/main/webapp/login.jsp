@@ -27,7 +27,7 @@ span {
 	border-radius: 0; &:
 	focus {border-color: #111;
 }
-}
+
 </style>
 </head>
 <body>

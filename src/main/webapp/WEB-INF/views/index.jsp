@@ -155,7 +155,6 @@
          dataType : 'json',
          success : function(data) {
             var d = JSON.parse(data.result);
-            alert(JSON.stringify(d));
             $('#search h4').html('#'+tag);
             $('#search div').each(
                   function(index) {
@@ -182,7 +181,7 @@
 				data : {
 					"habit" : $(this).parent().attr('id'),
 					"day" : getDateByTrackerId($(this).attr('id')),
-					"memberNo" : ${param.memberNo}
+					"memberNo" : ${member.memberNo}
 				},
 				success : function(data){
 					if(data.flag=='check'){
@@ -196,15 +195,16 @@
 					}
 				}
 			});
-      });
+   	  	 });
    
-	    $('#weeklyHabit').click(function(){
-	    	alert($(this).position().left+"       "+$(this).position().top);
-			   window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
-	    });
+	   	 $('#weeklyHabit').click(function(){
+	  	  	alert($(this).position().left+"       "+$(this).position().top);
+			  	 window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
+	   	 });
 	    
-	    $('.calendar__day').hover(function(){
-	    	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
+	     $('.calendar__day').hover(function(){
+	   	 	var selector = $(this);
+	 	   	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
 	    		$.ajax({
 	    			url : "getScheduleByDay.do",
 	    			data : {
@@ -213,6 +213,7 @@
 	    			},
 	    			success : function(data){
 	    				if(data.json!= ""){
+	    					importSchedule(data.json,selector);
 	    					if(data.json[0].scheduleTag!=''){
 			    				$.ajax({
 			    			         method : 'get',
@@ -263,6 +264,7 @@
 		    	$(this).find('hr').css('display','none');
 	    	}
 	    },function(){
+	    	$(this).find('h6').remove();
 	    	if($(this).attr('id')!=null){
 		    	TweenMax.to(this, 0.5, {scale:1});
 		    	$(this).css('z-index','0');
@@ -277,7 +279,8 @@
 	    		$.ajax({
 		    		url : $(this).attr('id')+'.do',
 		    		data : {
-		    			"challengeNo" : $(this).attr('id').substring(14)
+		    			"challengeNo" : $(this).attr('id').substring(14),
+		    			"challengeContent" : $(this).attr('value')
 		    		},
 		    		success : function(data){
 		    			alert(data.flag);
@@ -391,12 +394,22 @@
                         <hr>
                         <c:forEach items="${daily.todaySchedule}" var="item" varStatus="i">
                         	<div>
-	                           <input type="checkbox" id="checkSchedule${item.scheduleNo}" /> <label
-	                              for="checkSchedule${item.scheduleNo}">
-	                              <div>
-	                                 <i class="fa fa-check"></i>
-	                              </div> ${item.scheduleTitle}
-	                           </label>
+                        		<c:if test="${item.check}">
+		                           <input type="checkbox" id="checkSchedule${item.scheduleNo}" checked="checked" /> 
+		                           <label for="checkSchedule${item.scheduleNo}">
+		                              <div>
+		                                 <i class="fa fa-check"></i>
+		                              </div> ${item.scheduleTitle}
+		                           </label>
+	                           </c:if>
+	                           <c:if test="${!item.check}">
+	                           		<input type="checkbox" id="checkSchedule${item.scheduleNo}"/> 
+		                           <label for="checkSchedule${item.scheduleNo}">
+		                              <div>
+		                                 <i class="fa fa-check"></i>
+		                              </div> ${item.scheduleTitle}
+		                           </label>
+	                           </c:if>
 	                        </div>
                         </c:forEach>
                      </div>
@@ -410,15 +423,41 @@
                            Your Challenge <i class="fa fa-check"></i>
                         </h2>
                         <hr>
-                        <c:forEach items="${daily.todayChallenge}" var="item" varStatus="i">
-                        	<div>
-                           <input type="checkbox" id="checkChallenge${item.challengeNo}" /> <label
-                              for="checkChallenge${item.challengeNo}">
-                              <div>
-                                 <i class="fa fa-check"></i>
-                              </div> ${item.challengeTitle}
-                           </label>
-                        </div>
+                        <c:forEach items="${daily.todayChallenge}" var="item">
+                        	<c:if test="${item.challengeContentSize==0}">
+	                        	<div>
+		                           <input type="checkbox" id="checkChallenge${item.challengeNo}" /> <label
+		                              for="checkChallenge${item.challengeNo}">
+		                              <div>
+		                                 <i class="fa fa-check"></i>
+		                              </div> ${item.challengeTitle}
+		                           </label>
+		                        </div>
+	                        </c:if>
+	                        <c:if test="${item.challengeContentSize!=0}">
+	                        	<c:forEach items="${item.challengeContentList}" var="i">
+	                        		<c:if test="${i.check && i.challengeContent!=null}">
+	                        			<div>
+		                           		<input type="checkbox" id="checkChallenge${item.challengeNo}" value="${i.challengeContent}" checked="checked"/> <label
+			                              for="checkChallenge${item.challengeNo}">
+			                              <div>
+			                                 <i class="fa fa-check"></i>
+			                              </div> ${item.challengeTitle} : ${i.challengeContent}
+			                              </label>
+				                        </div>
+	                        		</c:if>
+	                        		<c:if test="${!i.check && i.challengeContent!=null}">
+	                        			<div>
+		                           		<input type="checkbox" id="checkChallenge${item.challengeNo}" value="${i.challengeContent}"/> <label
+			                              for="checkChallenge${item.challengeNo}">
+			                              <div>
+			                                 <i class="fa fa-check"></i>
+			                              </div> ${item.challengeTitle} : ${i.challengeContent}
+				                           </label>
+				                        </div>
+	                        		</c:if>
+	                        	</c:forEach>
+	                        </c:if>
                         </c:forEach>
 
                      </div>

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.plan.model.service.ChallengeService;
 import com.spring.plan.model.vo.Challenge;
+import com.spring.plan.model.vo.ChallengeContent;
 import com.spring.plan.model.vo.Daily;
 import com.spring.plan.model.vo.Member;
 
@@ -21,7 +22,7 @@ import com.spring.plan.model.vo.Member;
 public class ChallengeController {
 
 	@Resource
-	private ChallengeService service;
+	private ChallengeService challengeService;
 
 	@RequestMapping("/addChallenge.do")
 	public ModelAndView addChallenge(HttpSession session, Challenge challenge) throws Exception {
@@ -30,8 +31,10 @@ public class ChallengeController {
 
 		challenge.setMemberNo(((Member) session.getAttribute("member")).getMemberNo());
 
-		service.addChallenge(challenge);
-
+		challengeService.addChallenge(challenge);
+		///////////////////////////////////////// contentlist
+//		challengeService.addChallengeContent(challenge, cc);
+		
 		jsonObject.put("challenge", challenge);
 		return new ModelAndView("JsonView", "json", jsonObject);
 	}
@@ -54,7 +57,7 @@ public class ChallengeController {
 			challenge.setChallengeTitle(null);
 		
 		System.out.println(challenge);
-		challList = service.searchChallengeList(challenge);
+		challList = challengeService.searchChallengeList(challenge);
 		System.out.println("contoller " + challList);
 		return new ModelAndView("challenge/searchResultChallengeData", "challList", challList);
 	}
@@ -63,20 +66,30 @@ public class ChallengeController {
 	public ModelAndView detailChallenge(HttpServletRequest request, Challenge challenge) throws Exception {
 		System.out.println("★ 디테일 챌린지 테스트 : " + challenge);
 
-		Challenge rchallenge = service.getChallengeByNo(challenge.getChallengeNo());
+		Challenge rchallenge = challengeService.getChallengeByNo(challenge.getChallengeNo());
 
 		return new ModelAndView("challenge/detailchallenge", "challenge", rchallenge);
 	}
 
 	@RequestMapping("/getAllChallengeList.do")
 	public ModelAndView getAllChallengeList() throws Exception {
-		return new ModelAndView("challenge/searchchallenge", "challengeList", service.getAllChallengeList());
+		return new ModelAndView("challenge/searchchallenge", "challengeList", challengeService.getAllChallengeList());
 	}
 	
 	@RequestMapping("checkChallenge*.do")
-	   public ModelAndView checkChallenge(String challengeNo) throws Exception{
-		   String day = Daily.getDayByDate();
-		   return new ModelAndView();
+	   public ModelAndView checkChallenge(String challengeNo,String challengeContent) throws Exception{
+			boolean flag = false;
+			String day = Daily.getDayByDate();
+			ChallengeContent cc = new ChallengeContent();
+			cc.setChallengeNo(Integer.parseInt(challengeNo));
+			cc.setChallengeContent(challengeContent);
+			cc.setChallengeContentCheck(challengeService.getChallengeContentCheck(cc));
+		   
+			System.out.println("controller cc ::::::::::: "+cc);
+			
+			int result = challengeService.checkChallengeContent(cc, day);
+			if(result==1) flag = true;
+			return new ModelAndView("JsonView","flag",flag);
 	   }
 }
 

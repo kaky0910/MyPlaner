@@ -1,5 +1,8 @@
 package com.spring.plan.model.vo;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 public class Schedule {
 	private int scheduleNo;
 	private String scheduleTitle;
@@ -96,6 +99,22 @@ public class Schedule {
 	}
 	public String getEndDay() {				//³¯Â¥¸¸
 		return getScheduleEndDate().substring(6);
+	}
+	
+	public boolean isCheck() {
+		String day = Daily.getDayByDate();
+		Period p = Period.between(LocalDate.of(Integer.parseInt(scheduleStartDate.substring(0,4)), Integer.parseInt(scheduleStartDate.substring(4,6)),Integer.parseInt(scheduleStartDate.substring(6)))
+				, LocalDate.of(Integer.parseInt(day.substring(0, 4)), Integer.parseInt(day.substring(4, 6)), Integer.parseInt(day.substring(6))));
+		
+		if(p.getDays()>=0) {
+			System.out.println(scheduleCheck);
+			char[] arr = scheduleCheck.toCharArray();
+			if(p.getDays()>=0) {
+				if(arr[p.getDays()]=='0') return false;
+			}
+			else return true;
+		}
+		return false;
 	}
 	
 	
