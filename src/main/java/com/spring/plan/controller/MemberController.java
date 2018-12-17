@@ -42,4 +42,16 @@ public class MemberController {
       session.setAttribute("member", mvo);
       return new ModelAndView("redirect:loadingDaily.do?memberNo="+mvo.getMemberNo());
    }
+   
+   @RequestMapping("idCheck.do")
+   public ModelAndView idCheck(String id) throws Exception{
+	   boolean flag = memberService.idCheck(id);
+	   return new ModelAndView("JsonView","flag",flag);
+   }
+   
+   @RequestMapping("memberRegist.do")
+   public ModelAndView memberRegist(Member member) throws Exception{
+	   
+	   return new ModelAndView();
+   }
 }

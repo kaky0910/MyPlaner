@@ -1,5 +1,7 @@
 package com.spring.plan.model.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -61,6 +63,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member kakaoLogin(Member mvo) throws Exception {
 		return memberDao.kakaoLogin(mvo);
+	}
+
+	@Override
+	public List<Integer> getBlockList(int memberNo) throws Exception {
+		return memberDao.getBlockList(memberNo);
 	}
 
 }

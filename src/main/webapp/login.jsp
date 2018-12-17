@@ -14,6 +14,9 @@
 			alert($('#id').val().length);
 		});
 	});
+	function regist(){
+		document.location.href="./member/regist.jsp";
+	}
 </script>
 <style type="text/css">
 span {
@@ -44,6 +47,7 @@ span {
 				type="password" name="password" id="password" class="form-control"><br>
 			<input type="button" value="로그인">
 		</form>
+		<button onclick="regist()">회원가입</button>
 		<br>
 		<br>
 		<br> <a id="kakao-login-btn"></a>

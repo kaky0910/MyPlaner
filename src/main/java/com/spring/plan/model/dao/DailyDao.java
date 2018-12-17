@@ -8,7 +8,7 @@ import com.spring.plan.model.vo.Member;
 public interface DailyDao {
 	
 	//감정 체크
-	int insertEmotion(Daily daily) throws Exception;
+	int insertinsertDailyInfo(Daily daily) throws Exception;
 	
 	//다른거 체크
 	int updateEmotion(Daily daily) throws Exception;
@@ -27,6 +27,9 @@ public interface DailyDao {
 	
 	// 오늘 emotion return
 	String getTodayEmotion(Daily daily) throws Exception;
+	
+	// 
+	int isExist(Daily daily) throws Exception;
 	
 	//////////통    계~~~~~~~~~~~~~~~~~~~~~
 }

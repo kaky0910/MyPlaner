@@ -66,4 +66,8 @@
 		SELECT count(-1) FROM member WHERE kakao_id = #{value}
 	</select>
 	
+	<select id="getBlockList" parameterType="integer" resultType="integer">
+		SELECT BLOCK_MEMBER_NO FROM member_block WHERE member_no = #{value}
+	</select>
+	
 </mapper>

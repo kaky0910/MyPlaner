@@ -106,13 +106,17 @@ public class Schedule {
 		Period p = Period.between(LocalDate.of(Integer.parseInt(scheduleStartDate.substring(0,4)), Integer.parseInt(scheduleStartDate.substring(4,6)),Integer.parseInt(scheduleStartDate.substring(6)))
 				, LocalDate.of(Integer.parseInt(day.substring(0, 4)), Integer.parseInt(day.substring(4, 6)), Integer.parseInt(day.substring(6))));
 		
-		if(p.getDays()>=0) {
-			System.out.println(scheduleCheck);
+		if(p.getDays()>=0 && p.getDays()<scheduleCheck.length()) {
+			System.out.println(scheduleTitle+" -- schedule CHECK :: "+scheduleCheck+"       , p.getDay() ::: "+p.getDays());
 			char[] arr = scheduleCheck.toCharArray();
-			if(p.getDays()>=0) {
-				if(arr[p.getDays()]=='0') return false;
+			if(arr[p.getDays()]=='0') {
+				System.out.println("return false ");
+				return false;
 			}
-			else return true;
+			else {
+				System.out.println("return true ");
+				return true;
+			}
 		}
 		return false;
 	}

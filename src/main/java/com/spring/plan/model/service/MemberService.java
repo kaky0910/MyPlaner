@@ -1,5 +1,7 @@
 package com.spring.plan.model.service;
 
+import java.util.List;
+
 import com.spring.plan.model.vo.Member;
 
 public interface MemberService {
@@ -27,7 +29,9 @@ public interface MemberService {
 	
 	// kakao login
 	Member kakaoLogin(Member mvo) throws Exception;
-
+	
+	// Â÷´Ü list return 
+	List<Integer> getBlockList(int memberNo) throws Exception;
 
 
 }

@@ -4,11 +4,11 @@
 	
 <mapper namespace="daily-mapper">														
 
-	<insert id="insertEmotion" parameterType="Daily">
+	<insert id="insertDailyInfo" parameterType="Daily">
 		INSERT INTO daily_info(
-			member_no, day, emotion
+			member_no, day
 		) VALUES(
-			#{memberNo}, #{day}, #{emotion}
+			#{memberNo}, TO_DATE(#{day},'YYYYMMDD')
 		)
 	</insert>
 	
@@ -20,6 +20,12 @@
 	
 	<select id="getTodayEmotion" parameterType="Daily" resultType="string">
 		SELECT emotion FROM daily_info
+		WHERE day = #{day} AND member_no = #{memberNo}
+	</select>
+	
+	<!-- daily_info에 추가됐는지 안됐는지 -->
+	<select id="getDailyInfo" parameterType="Daily" resultType="integer">
+		SELECT count(-1) FROM daily_info 
 		WHERE day = #{day} AND member_no = #{memberNo}
 	</select>
 	

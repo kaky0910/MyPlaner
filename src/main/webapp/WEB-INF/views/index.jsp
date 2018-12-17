@@ -109,12 +109,14 @@ h4 {
          var emotion = $(this).children().attr('id');
          $.ajax({
             type : "get",
-            url : "",
-            data : "emotion=" + emotion,
-
+            url : "updateEmotion.do",
+            data : {
+            	"emotion" : emotion,
+            	"memberNo" : ${sessionScope.member.memberNo}
+            },
             success : function(data) {
                $('#emotion_tbl td').addClass('clicked');
-               $('#' + data.emotion).parent().removeClass('clicked');
+               $('#' + emotion).parent().removeClass('clicked');
             }//callback
          });//ajax 
       });//click
@@ -288,6 +290,7 @@ h4 {
 		    	$(this).find('hr').css('display','none');
 	    	}
 	    },function(){
+	    	$(this).find('br').remove();
 	    	$(this).find('h6').remove();
 	    	if($(this).attr('id')!=null){
 		    	TweenMax.to(this, 0.5, {scale:1});
@@ -317,6 +320,15 @@ h4 {
 		    		}
 		    	});
 	    	}
+	    });
+	    $('#scheduleSetting').click(function(){
+	    	 window.open("","SETTING","width=300,height=300,top="+($(this).position().top)+",left="+$(this).position().left);
+	    });
+	    
+	    var emotion = '${daily.emotion}';
+	    $('#emotion_tbl img').each(function(){
+	    	if($(this).attr('id')!=emotion)
+	    		$(this).addClass('clicked');
 	    });
    }); //ready
 
@@ -350,6 +362,7 @@ h4 {
             <a href="javascript:prev()">이전</a>
             <p id="title_monthdate" style="display: inline-block;"></p>
             <a href="javascript:next()">이후</a>
+            <img src="${path}/img/set.png" width="20px;" style="float: right; cursor: pointer; margin-right: 10px; margin-top: 10px;" id="scheduleSetting">
             <div class="calendar__header">
                <div>SUN</div>
                <div>MON</div>
@@ -395,7 +408,7 @@ h4 {
                <td align="right">
                   <table id="emotion_tbl"
                      style="float: right; margin-top: 22px; margin-right: 22px; height: 30px;">
-                     <td><img id="happy" src="${path}/img/emotion/happy.png"></a></td>
+                     <td><img id="happy" src="${path}/img/emotion/happy.png"></td>
                      <td><img id="love" src="${path}/img/emotion/love.png"></td>
                      <td><img id="shocked" src="${path}/img/emotion/shocked.png"></td>
                      <td><img id="shy" src="${path}/img/emotion/shy.png"></td>
@@ -506,13 +519,18 @@ h4 {
 		<div id="section3" style="margin-top: 100px; height: 700px; width: 100%">
 			<img src="${path}/img/set.png" width="20px;"
 				style="float: right; cursor: pointer;" id="weeklyHabit">
-			<div class="row" style="border: 1px solid #ECECEC">
+			<div class="row weeklyTrackerDiv" style="border: 1px solid #ECECEC">
 				<c:forEach items="${daily.weeklyCheckHabit}" var="item"
 					varStatus="h">
 					<table
 						style="border: 1px solid white; width: 300px; margin-left: 10px; margin-top: 30px; text-align: center; display: inline-block;">
 						<tr class="weeklyTracker">
-							<td style="width: 50%;" rowspan="2" style="width:50%;">${item.habit}</td>
+							<td style="width: 50%;" rowspan="2" style="width:50%;">
+								<div style="width: 0;heigth:0;">
+									<img alt="" src="${path}/img/trash.png" style="width: 12px;height: 12px; cursor: pointer;">
+								</div>
+								${item.habit}
+							</td>
 							<td style="width: 10px;"></td>
 							<td>일</td>
 							<td>월</td>

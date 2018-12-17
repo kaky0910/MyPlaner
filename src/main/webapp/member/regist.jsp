@@ -268,7 +268,7 @@ var idCheckFlag = false;			// 아이디 체크해서 없는 아이디면 true
 				<div class="m-t-lg" style="margin-left: 40%;">
 					<ul class="list-inline">
 						<li><input class="btn btn--form" type="submit"
-							value="Register" /><a class="signup__link" href="#" style="margin-left:20px ">I am already a
+							value="Register" /><a class="signup__link" href="../login.jsp" style="margin-left:20px ">I am already a
 								member</a>
 						<li>
 					</ul>

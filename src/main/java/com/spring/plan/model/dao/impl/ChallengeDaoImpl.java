@@ -93,4 +93,9 @@ public class ChallengeDaoImpl implements ChallengeDao {
 		return sqlSession.selectOne("challenge-mapper.getChallengeContentCheck",challengeContent);
 	}
 
+	@Override
+	public String getChallengeStartDate(int challengeNo) throws Exception {
+		return sqlSession.selectOne("challenge-mapper.getChallengeStartDate",challengeNo);
+	}
+
 }

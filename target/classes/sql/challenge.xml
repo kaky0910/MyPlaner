@@ -143,9 +143,9 @@
 	</insert>
 
 	<select id="getChallengeByNo" parameterType="int" resultMap="challengeListMap">
-		SELECT challenge.challenge_No, challenge_Title, TO_CHAR(challenge.challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_CHAR(challenge_End_Date,'YYYYMMDD') challenge_End_Date, 
+		SELECT challenge.challenge_No challenge_no, challenge_Title, TO_CHAR(challenge.challenge_Start_Date,'YYYYMMDD') challenge_Start_Date, TO_CHAR(challenge_End_Date,'YYYYMMDD') challenge_End_Date, 
 		member_No, challenge_Category, challenge_Likes, challenge_Sharing, challenge_comment_no,challenge_reply_comment,challenge_comment_member_no,
-		challenge_comment,challenge_comment_write_date, challenge_content,challenge_content_check, challenge_log_content, day_count
+		challenge_comment,challenge_comment_write_date, challenge_content,challenge_content_check, challenge_log.challenge_log_content challenge_log_content, day_count
 		from challenge
 		LEFT OUTER JOIN challenge_log ON challenge.CHALLENGE_NO = challenge_log.CHALLENGE_NO
 		LEFT OUTER JOIN challenge_content ON CHALLENGE.CHALLENGE_NO = challenge_content.CHALLENGE_NO
@@ -201,6 +201,10 @@
     	SELECT challenge_content_check
     	FROM challenge_content
     	WHERE challenge_no = #{challengeNo} AND challenge_content = #{challengeContent}
+    </select>
+    
+    <select id="getChallengeStartDate" parameterType="integer" resultType="String">
+    	SELECT TO_CHAR(challenge_start_date,'YYYYMMDD') challenge_start_date FROM challenge WHERE challenge_no = #{value}
     </select>
 
 </mapper>
