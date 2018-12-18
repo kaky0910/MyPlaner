@@ -26,7 +26,9 @@
 <link rel="stylesheet" href="${path}/css/switch.css">
 <link rel="stylesheet" href="${path}/css/memo.css">
 <link rel="stylesheet" href="${path}/css/carousel.css">
-<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
 
 <!-- title -->
 <link href="https://fonts.googleapis.com/css?family=Bangers"
@@ -85,14 +87,14 @@ h4 {
 }
 </style>
 <script type="text/javascript">
-	var colorArr = ['red','yellow','green','blue','pink','orange'];
+   var colorArr = ['red','yellow','green','blue','pink','orange'];
     var monthCount = moment().month();
     var yearCount = moment().year();
-	var m;
-		
+   var m;
+      
    $(function() {
-	   if(monthCount<10) m = '0'+monthCount;
-	   m = monthCount+1;
+      if(monthCount<10) m = '0'+monthCount;
+      m = monthCount+1;
       //2. Section2(Daily)에 오늘 날짜를 출력하는 기능
       var date = moment().date();
       var month = moment().month() + 1;
@@ -107,6 +109,13 @@ h4 {
       //3. emotion 가져오기, 보내기
       $('#emotion_tbl td').click(function() {
          var emotion = $(this).children().attr('id');
+         
+        /*  $('#emotion_tbl td').addClass('clicked');
+         $('#'+emotion).parent().removeClass('clicked'); */
+         
+         //이거 위에꺼 기능 되니까 ajax랑 합쳐보세요%^^%
+         //밑에 넣어보시지!
+          alert(emotion);
          $.ajax({
             type : "get",
             url : "updateEmotion.do",
@@ -118,36 +127,37 @@ h4 {
                $('#emotion_tbl td').addClass('clicked');
                $('#' + emotion).parent().removeClass('clicked');
             }//callback
-         });//ajax 
+         });//ajax  
+         
       });//click
       //3
 
       //4. newChallengeBtn을 누르면 writechallenge.jsp를 캐러셀에 포함한다.
-		$('#newChallengeBtn').click(function() {
-			$.ajax({
-				url : "writechallenge.jsp",
+      $('#newChallengeBtn').click(function() {
+         $.ajax({
+            url : "writechallenge.jsp",
 
-				success : function(result) {
+            success : function(result) {
 
-					$("#newchallengeDiv").html(result);
-					/* $('#challengeWriteOK').click(function(){
-					   location.href="addChallenge.do"
-					}); */
-				}//susccess
-			});//ajax
-		});//click
+               $("#newchallengeDiv").html(result);
+               /* $('#challengeWriteOK').click(function(){
+                  location.href="addChallenge.do"
+               }); */
+            }//susccess
+         });//ajax
+      });//click
 
-      //6.	달력
+      //6.   달력
       var tempArr = ${daily.scheduleFormattedArray};
       var arr = ${daily.scheduleFormattedArray}; //challenge (시작일, 마지막일) format으로 arr로 입력
       new Promise(function(resolve, reject) {
          calendarInit(yearCount, monthCount);
          if(arr==null || arr[0]==null || arr.length==0){
-        	 reject("No Schedule");
+            reject("No Schedule");
          }
          resolve(arr);       
       },function(e){
-    	  alert(e);
+         alert(e);
       }).then(setChallenge1(arr)).then(setChallenge2(arr)).then(
             setChallenge3(arr));
       //alert(moment().format());
@@ -168,7 +178,7 @@ h4 {
             }
          });
       });
-	
+   
       //7. calendar next searchResultTab..
       var tag = '${daily.scheduleList[0].scheduleTag}';
       $.ajax({
@@ -194,34 +204,34 @@ h4 {
       
       
       $('.tracker').click(function(){
-//    	  alert($(this).parent().attr('id'));						$(this).parent().attr('id') -- habit
-//    	  alert(getDateByTrackerId($(this).attr('id')));           ex)20181202
-			var id = $(this).attr('id');
-      		var x = getDateByTrackerId(id).substring(6);
-      		if(x<10) x=x.substring(1);
-      		x=x-1;
-			var monthId = id.substring(0,1)+x;
+//         alert($(this).parent().attr('id'));                  $(this).parent().attr('id') -- habit
+//         alert(getDateByTrackerId($(this).attr('id')));           ex)20181202
+         var id = $(this).attr('id');
+            var x = getDateByTrackerId(id).substring(6);
+            if(x<10) x=x.substring(1);
+            x=x-1;
+         var monthId = id.substring(0,1)+x;
 
-			$.ajax({
-				url : "checkHabit.do",
-				data : {
-					"habit" : $(this).parent().attr('id'),
-					"day" : getDateByTrackerId($(this).attr('id')),
-					"memberNo" : ${member.memberNo}
-				},
-				success : function(data){
-					if(data.flag=='check'){
-						$('#'+id).css('background-color','red');
-						$('#m'+monthId).css('background-color','red');
-					} else if(data.flag == 'uncheck'){
-						$('#'+id).css('background-color','white');
-						$('#m'+monthId).css('background-color','white');
-					}else{
-						alert("fail");
-					}
-				}
-			});
-   	  	 });
+         $.ajax({
+            url : "checkHabit.do",
+            data : {
+               "habit" : $(this).parent().attr('id'),
+               "day" : getDateByTrackerId($(this).attr('id')),
+               "memberNo" : ${member.memberNo}
+            },
+            success : function(data){
+               if(data.flag=='check'){
+                  $('#'+id).css('background-color','red');
+                  $('#m'+monthId).css('background-color','red');
+               } else if(data.flag == 'uncheck'){
+                  $('#'+id).css('background-color','white');
+                  $('#m'+monthId).css('background-color','white');
+               }else{
+                  alert("fail");
+               }
+            }
+         });
+            });
    
 	   	 $('#weeklyHabit').click(function(){
 	  	  	alert($(this).position().left+"       "+$(this).position().top);
