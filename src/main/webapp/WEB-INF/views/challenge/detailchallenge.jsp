@@ -54,7 +54,7 @@ h4 {
 <body>
 	<div id="titleArea"
 		style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
-		<h1 class="row skew-title">
+		<h1 class="titleRow skew-title">
 			<span>M</span><span class="last">Y</span> <span class="alt">P</span><span
 				class="alt">L</span><span class="alt">A</span><span class="alt last">N</span><span
 				class="alt">N</span><span class="alt">E</span><span class="alt">R</span>

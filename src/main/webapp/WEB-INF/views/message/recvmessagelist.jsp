@@ -87,7 +87,7 @@ h4 {
 	</div>
 	
 	<div id="contents" class="container"
-		style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px;height: 800px; font-size: 20px;">
+		style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px;height: 790px; font-size: 20px;">
 
 		<section class="tabs">
 			<input id="tab-1" type="radio" name="radio-set"
