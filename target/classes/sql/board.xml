@@ -37,9 +37,9 @@
 	</insert>
 	
 	<select id="getAllBoard" resultMap="boardResultMap">
-		SELECT board_no, board_title, board_write_date, board_contents, board_likes, board_hits, member_no
-		FROM BOARD
-		ORDER BY board_no
+		SELECT board_no, board_title, board_write_date, board_contents, board_likes, board_hits, member_no, pageNo
+		FROM (select board_no, board_title, board_write_date, board_contents, board_likes, board_hits, member_no, CEIL(rownum/7) as pageNo
+		from board order by board_no desc) where pageNo = #{pageNo}
 	</select>
 
 	<select id="getBoardByNo" parameterType="int" resultMap="boardResultMap">
@@ -81,11 +81,6 @@
 		WHERE board_title LIKE '%'||#{value}||'%'
 	</select>
 
-	<!-- 전체 게시물의 목록수 리턴 -->
-	<select id="totalCount" resultType="int">
-		select count(-1) from BOARD
-	</select>
-
 	<insert id="insertBoardComment" parameterType="BoardComment">
 		<selectKey keyProperty="boardCommentNo" resultType="int" order="BEFORE">
 			SELECT board_comment_seq.nextVal FROM dual
@@ -102,4 +97,7 @@
 		WHERE board_comment_no = #{boardCommentNo}
 	</delete>
 
+	<select id="totalBoardNumber" resultType="int">
+		select count(-1) from board
+	</select>
 </mapper>   

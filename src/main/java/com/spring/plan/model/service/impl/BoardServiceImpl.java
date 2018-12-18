@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.spring.plan.model.dao.BoardDao;
 import com.spring.plan.model.service.BoardService;
+import com.spring.plan.model.service.paging.BoardListVO;
+import com.spring.plan.model.service.paging.MessageListVO;
+import com.spring.plan.model.service.paging.PagingBean;
 import com.spring.plan.model.vo.Board;
 import com.spring.plan.model.vo.BoardComment;
 
@@ -23,8 +26,21 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Board> getAllBoard() throws Exception {
-		return boardDao.getAllBoard();
+	public BoardListVO getAllBoard(int memberNo, int bpageNo) throws Exception {
+		int pn = 0;
+		if(bpageNo == 0) pn=1;
+		else pn = bpageNo;
+		
+		int total = boardDao.totalBoardNumber(memberNo);
+		
+		PagingBean pb = new PagingBean(total, pn);
+		
+		BoardListVO param = new BoardListVO();
+	
+		param.setMemberNo(memberNo);
+		param.setPageNo(bpageNo);
+		
+		return new BoardListVO(boardDao.getAllBoard(param), pb, memberNo);
 	}
 
 	@Override
@@ -59,5 +75,4 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.deleteBoardComment(boardComment);
 	}
 
-	
 }
