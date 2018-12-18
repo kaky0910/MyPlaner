@@ -18,8 +18,8 @@ public class DailyDaoImpl implements DailyDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public int insertEmotion(Daily daily) throws Exception {
-		return sqlSession.insert("daily-mapper.insertEmotion",daily);
+	public int insertinsertDailyInfo(Daily daily) throws Exception {
+		return sqlSession.insert("daily-mapper.insertDailyInfo",daily);
 	}
 
 	@Override
@@ -50,6 +50,11 @@ public class DailyDaoImpl implements DailyDao {
 	@Override
 	public String getTodayEmotion(Daily daily) throws Exception {
 		return sqlSession.selectOne("daily-mapper.getTodayEmotion",daily);
+	}
+
+	@Override
+	public int isExist(Daily daily) throws Exception {
+		return sqlSession.selectOne("daily-mapper.getDailyInfo",daily);
 	}
 
 }

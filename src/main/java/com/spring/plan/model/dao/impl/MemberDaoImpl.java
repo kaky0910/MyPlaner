@@ -1,5 +1,7 @@
 package com.spring.plan.model.dao.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -48,6 +50,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public Member kakaoLogin(Member mvo) throws Exception {
 		return sqlSession.selectOne("member-mapper.kakaoLogin",mvo);
+	}
+
+	@Override
+	public List<Integer> getBlockList(int memberNo) throws Exception {
+		return sqlSession.selectList("member-mapper.getBlockList",memberNo);
 	}
 
 }

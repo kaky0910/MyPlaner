@@ -38,7 +38,7 @@ function calendarInit(y,m){
 	var dayOfWeekCount=0;
 	var arrCursor = 0;
 	for(i=0;i<day1OfWeek;i++){
-		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" style="background-color:white;"></div>');
+		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" style="background-color:white; "></div>');
 		dayOfWeekCount++;
 	}
 	for(dayCount;dayCount<=endOfMonth;dayCount++){
@@ -46,12 +46,12 @@ function calendarInit(y,m){
 			arrCursor+=1;
 			dayOfWeekCount=0;
 		}
-		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" style="background-color:white;" id="day'+dayCount+'"><span>'+dayCount+'</span></div>');
+		$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" style="background-color:white; " id="day'+dayCount+'"><span>'+dayCount+'</span></div>');
 		dayOfWeekCount++;
 	}
 	if(dayOfWeekCount<7){
 		while(dayOfWeekCount!=7){
-			$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" style="background-color:white;"></div>');
+			$('.calendar__week:eq('+arrCursor+')').append('<div class="calendar__day day" style="background-color:white; "></div>');
 			dayOfWeekCount++;
 		}
 	}
@@ -104,6 +104,7 @@ function next(){
 				}).then(function(){
 					$(function(){
 						$('.calendar__day').hover(function() {
+					   	 	var selector = $(this);
 					    	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
 								$.ajax({
 									url : "getScheduleByDay.do",
@@ -112,7 +113,50 @@ function next(){
 										d : $(this).attr('id')
 									},
 									success : function(data) {
-										if(data.json!= ""){}
+										if(data.json!= ""){
+					    					importSchedule(data.json,selector);
+					    					if(data.json[0].scheduleTag!=''){
+							    				$.ajax({
+							    			         method : 'get',
+							    			         url : 'searchResult.do',
+							    			         data : {
+							    			            "word" : data.json[0].scheduleTag
+							    			         },
+							    			         dataType : 'json',
+							    			         success : function(r) {
+							    			            var d = JSON.parse(r.result);
+							    			            $('#search h4').html('#'+data.json[0].scheduleTag);
+							    			            $('#search div').each(
+							    			                  function(index) {
+							    			                     $(this).html(
+							    			                           '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
+							    			                                 + d.items[index].description
+							    			                                 + '</p>');
+							    			                  });
+							    			         }
+							    			      });
+					    					}else{
+					    						$.ajax({
+							    			         method : 'get',
+							    			         url : 'searchResult.do',
+							    			         data : {
+							    			            "word" : data.json[0].scheduleCategory
+							    			         },
+							    			         dataType : 'json',
+							    			         success : function(r) {
+							    			            var d = JSON.parse(r.result);
+							    			            $('#search h4').html('#'+data.json[0].scheduleTag);
+							    			            $('#search div').each(
+							    			                  function(index) {
+							    			                     $(this).html(
+							    			                           '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
+							    			                                 + d.items[index].description
+							    			                                 + '</p>');
+							    			                  });
+							    			         }		///success
+							    			      });	///ajax
+					    					}//else
+					    				}
 									}
 								});
 								TweenMax.to(this, 0.5, {
@@ -121,14 +165,13 @@ function next(){
 								$(this).css('z-index', '100');
 								$(this).find('hr').css('display', 'none');
 							}
-						}, function() {
-							if ($(this).attr('id') != null) {
-								TweenMax.to(this, 0.5, {
-									scale : 1
-								});
-								$(this).css('z-index', '0');
-								$(this).find('hr').css('display', 'block');
-							}
+						}, function(){
+					    	$(this).find('h6').remove();
+					    	if($(this).attr('id')!=null){
+						    	TweenMax.to(this, 0.5, {scale:1});
+						    	$(this).css('z-index','0');
+						    	$(this).find('hr').css('display','block');
+					    	}
 						});
 					});
 				});		//then
@@ -181,6 +224,7 @@ function prev(){
 				}).then(function(){
 					$(function(){
 						$('.calendar__day').hover(function(){
+					   	 	var selector = $(this);
 					    	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
 								$.ajax({
 									url : "getScheduleByDay.do",
@@ -189,7 +233,50 @@ function prev(){
 										d : $(this).attr('id')
 									},
 									success : function(data) {
-										if(data.json!= ""){}
+										if(data.json!= ""){
+					    					importSchedule(data.json,selector);
+					    					if(data.json[0].scheduleTag!=''){
+							    				$.ajax({
+							    			         method : 'get',
+							    			         url : 'searchResult.do',
+							    			         data : {
+							    			            "word" : data.json[0].scheduleTag
+							    			         },
+							    			         dataType : 'json',
+							    			         success : function(r) {
+							    			            var d = JSON.parse(r.result);
+							    			            $('#search h4').html('#'+data.json[0].scheduleTag);
+							    			            $('#search div').each(
+							    			                  function(index) {
+							    			                     $(this).html(
+							    			                           '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
+							    			                                 + d.items[index].description
+							    			                                 + '</p>');
+							    			                  });
+							    			         }
+							    			      });
+					    					}else{
+					    						$.ajax({
+							    			         method : 'get',
+							    			         url : 'searchResult.do',
+							    			         data : {
+							    			            "word" : data.json[0].scheduleCategory
+							    			         },
+							    			         dataType : 'json',
+							    			         success : function(r) {
+							    			            var d = JSON.parse(r.result);
+							    			            $('#search h4').html('#'+data.json[0].scheduleTag);
+							    			            $('#search div').each(
+							    			                  function(index) {
+							    			                     $(this).html(
+							    			                           '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
+							    			                                 + d.items[index].description
+							    			                                 + '</p>');
+							    			                  });
+							    			         }		///success
+							    			      });	///ajax
+					    					}//else
+					    				}
 									}
 								});
 								TweenMax.to(this, 0.5, {
@@ -198,14 +285,13 @@ function prev(){
 								$(this).css('z-index', '100');
 								$(this).find('hr').css('display', 'none');
 							}
-						}, function() {
-							if ($(this).attr('id') != null) {
-								TweenMax.to(this, 0.5, {
-									scale : 1
-								});
-								$(this).css('z-index', '0');
-								$(this).find('hr').css('display', 'block');
-							}
+						}, function(){
+					    	$(this).find('h6').remove();
+					    	if($(this).attr('id')!=null){
+						    	TweenMax.to(this, 0.5, {scale:1});
+						    	$(this).css('z-index','0');
+						    	$(this).find('hr').css('display','block');
+					    	}
 						});
 					});
 				});
@@ -276,7 +362,7 @@ function setChallenge2(arr){
 						$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
 					}
 					else{
-						$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
+						$('#day'+i).append('<hr style="border:white solid 1px;background-color:white; width:95%;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c2');
 					}
 					flag2 = true;
 				}
@@ -300,9 +386,9 @@ function setChallenge3(arr){
 			if($('#day'+i).hasClass('c2')){
 				$('#day'+i).append('<hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c3');
 			} else if($('#day'+i).hasClass('c1')){
-				$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c3');
+				$('#day'+i).append('<hr style="border:white solid 1px;background-color:white; width:95%;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c3');
 			} else{
-				$('#day'+i).append('<hr style="border:white solid 1px;background-color:white;"><hr style="border:white solid 1px;background-color:white; "><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c3');
+				$('#day'+i).append('<hr style="border:white solid 1px;background-color:white; width:95%;"><hr style="border:white solid 1px;background-color:white; width:95%;"><hr style="border:'+color+' solid 1px; background-color:'+color+'">').addClass('c3');
 			}
 		}
 		colorArr.push(color);
@@ -340,8 +426,8 @@ function getScheduleInCal(data,str){
 ///////////////////hover mark schedule
 function importSchedule(arr,selector){
 	$(selector).append('<br>');
-	for(i=0 ; i<arr.length;i++){
+	for(i=arr.length-1 ; i>=0;i--){
 		$(selector).append('<h6></h6>');
-		$(selector).find('h6').eq(i).html(arr[i].scheduleTitle);
+		$(selector).find('h6').eq(arr.length-1-i).html(arr[i].scheduleTitle);
 	}
 }

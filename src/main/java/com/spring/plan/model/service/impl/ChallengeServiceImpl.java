@@ -102,8 +102,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public int checkChallengeContent(ChallengeContent challengeContent,String day) throws Exception {
 
-		Challenge challenge = challengeDao.getChallengeByNo(challengeContent.getChallengeNo());
-		int dayCount = SubLogics.getDuration(challenge.getChallengeStartDate(), day)-1;
+		String challengeStartDate = challengeDao.getChallengeStartDate(challengeContent.getChallengeNo());
+		int dayCount = SubLogics.getDuration(challengeStartDate, day)-1;
 		
 		String ccc = challengeDao.getChallengeContentCheck(challengeContent);
 		System.out.println("challengeContent :::::: "+challengeContent);

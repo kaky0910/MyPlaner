@@ -1,5 +1,7 @@
 package com.spring.plan.model.dao;
 
+import java.util.List;
+
 import com.spring.plan.model.vo.BlockMember;
 import com.spring.plan.model.vo.Member;
 
@@ -28,5 +30,8 @@ public interface MemberDao {
 	
 	// 카카오 회원 체크
 	int checkKakao(Member member) throws Exception;
+	
+	// 차단 리스트 리턴
+	List<Integer> getBlockList(int memberNo) throws Exception;
 }
 

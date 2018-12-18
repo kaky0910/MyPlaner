@@ -5,6 +5,7 @@ public class CheckHabit {
 	private String habit;
 	private String month;
 	private String checkHabit;
+	private String color;
 	public String getMonth() {
 		return month;
 	}
@@ -30,6 +31,15 @@ public class CheckHabit {
 	}
 	public void setHabit(String habit) {
 		this.habit = habit;
+	}
+	
+	public String getColor() {
+		String[] colors = {"red","yellow","green","blue","pink","orange"};
+		int r = (int)(Math.random()*6);
+		return colors[r];
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 	@Override
 	public String toString() {

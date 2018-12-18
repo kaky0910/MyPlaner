@@ -89,6 +89,9 @@ public class DailyController {
       
       daily.setDay(Daily.getDayByDate());
       daily.setMemberNo(memberNo);
+      if(dailyDao.isExist(daily)==0) {
+    	  dailyDao.insertinsertDailyInfo(daily);
+      }
       
       String emotion = dailyDao.getTodayEmotion(daily);
       if(emotion!=null) daily.setEmotion(emotion);
@@ -102,6 +105,19 @@ public class DailyController {
       System.out.println(daily);
      // System.out.println("::::"+daily.getScheduleFormattedArray());
       return new ModelAndView("index","daily",daily);
+   }
+   
+   @RequestMapping("updateEmotion.do")
+   public ModelAndView updateEmotion(String emotion,String memberNo) throws Exception{
+	   Daily daily = new Daily();
+	   daily.setDay(Daily.getDayByDate());
+	   daily.setMemberNo(Integer.parseInt(memberNo));
+	   daily.setEmotion(emotion);
+	   int result = dailyDao.updateEmotion(daily);
+	   if(result==0) {}		//실패
+	   else {}				//성공
+	   
+	   return new ModelAndView("JsonView");
    }
 
 }

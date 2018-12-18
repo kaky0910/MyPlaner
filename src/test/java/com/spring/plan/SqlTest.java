@@ -1,10 +1,19 @@
 package com.spring.plan;
 
+import java.io.Reader;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import com.spring.plan.controller.ChallengeController;
+import com.spring.plan.model.vo.Challenge;
+import com.spring.plan.model.vo.Daily;
 
 public class SqlTest {
 	/*@Test
@@ -310,4 +319,18 @@ public class SqlTest {
 		
 		System.out.println("출력 완료");
 	}*/
+	
+	@Test
+	public void getTodayEmotion() throws Exception {
+		Reader reader = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
+		SqlSession sqlSession = factory.openSession();
+		
+		Daily daily = new Daily();
+		daily.setDay("20181217");
+		daily.setMemberNo(7);
+		String result = sqlSession.selectOne("daily-mapper.getTodayEmotion", daily);
+		System.out.println(result);
+	}
 }

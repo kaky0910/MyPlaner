@@ -53,4 +53,7 @@ public interface ChallengeDao {
 	// challenge_content_check return
 	String getChallengeContentCheck(ChallengeContent challengeContent) throws Exception;
 	
+	// challenge_start_date return
+	String getChallengeStartDate(int challengeNo) throws Exception;
+	
 }

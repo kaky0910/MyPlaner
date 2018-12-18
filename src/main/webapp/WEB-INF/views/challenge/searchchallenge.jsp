@@ -94,9 +94,9 @@ h4 {
 				<option value="다이어트">다이어트</option>
 				<option value="생활습관">생활습관</option>
 			</select> <br> <br> <strong style="font-size: 23px;">작성자</strong> <input
-				type="text" name="memberNo" style="height: 25px;"> <br>
+				type="text" name="memberNo" style="height: 25px; width:100%;"> <br>
 			<br> <strong style="font-size: 23px;">제목 </strong><input
-				type="text" name="challengeTitle" value="" style="height: 25px;">
+				type="text" name="challengeTitle" value="" style="height: 25px; width:100%;">
 			<br> <br> <input type="button" name="search"
 				style="width: 100%; height: 25px;" value="검색">
 		</form>
