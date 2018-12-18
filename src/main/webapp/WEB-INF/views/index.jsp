@@ -301,15 +301,27 @@ h4 {
 	    
 	    $('input[type=checkbox]').change(function(){
 	    	if($(this).attr('id').indexOf('Challenge')!=-1){
-	    		$.ajax({
-		    		url : $(this).attr('id')+'.do',
-		    		data : {
-		    			"challengeNo" : $(this).attr('id').substring(14),
-		    			"challengeContent" : $(this).attr('value')
-		    		},
-		    		success : function(data){
-		    		}
-		    	});
+	    		if($(this).attr('id').substring(14,15)!="c"){
+		    		$.ajax({
+			    		url : $(this).attr('id')+'.do',
+			    		data : {
+			    			"challengeNo" : $(this).attr('id').substring(14),
+			    			"challengeContent" : $(this).attr('value')
+			    		},
+			    		success : function(data){
+			    		}
+			    	});
+	    		}else{
+	    			$.ajax({
+			    		url : $(this).attr('id')+'.do',
+			    		data : {
+			    			"challengeNo" : $(this).parent().attr('id'),
+			    			"challengeContent" : $(this).attr('value').substring(15)
+			    		},
+			    		success : function(data){
+			    		}
+			    	});	
+	    		}
 	    	}else{
 		    	$.ajax({
 		    		url : $(this).attr('id')+'.do',
@@ -330,6 +342,19 @@ h4 {
 	    	if($(this).attr('id')!=emotion)
 	    		$(this).addClass('clicked');
 	    });
+	    
+	    $('#paper textarea').focusout(function(){
+	    	$.ajax({
+	    		url:"updateMemo.do",
+	    		data : {
+	    			"memo" : $(this).val()
+	    		},
+	    		success : function(){
+	    			alert("success~");
+	    		}
+	    	});
+	    });
+	    
    }); //ready
 
   
@@ -460,8 +485,8 @@ h4 {
                         <hr>
                         <c:forEach items="${daily.todayChallenge}" var="item">
                         	<c:if test="${item.challengeContentSize==0}">
-	                        	<div>
-		                           <input type="checkbox" id="checkChallenge${item.challengeNo}" /> <label
+	                        	<div id="${item.challengeNo}">
+		                           <input type="checkbox" id="checkChallenge${item.challengeNo}" value="challenge${item.challengeNo}"/> <label
 		                              for="checkChallenge${item.challengeNo}">
 		                              <div>
 		                                 <i class="fa fa-check"></i>
@@ -472,9 +497,9 @@ h4 {
 	                        <c:if test="${item.challengeContentSize!=0}">
 	                        	<c:forEach items="${item.challengeContentList}" var="i">
 	                        		<c:if test="${i.check && i.challengeContent!=null}">
-	                        			<div>
-		                           		<input type="checkbox" id="checkChallenge${item.challengeNo}" value="${i.challengeContent}" checked="checked"/> <label
-			                              for="checkChallenge${item.challengeNo}">
+	                        			<div id="${item.challengeNo}">
+		                           		<input type="checkbox" id="checkChallengec${i.challengeContent}" value="checkChallengec${i.challengeContent}" checked="checked"/> <label
+			                              for="checkChallengec${i.challengeContent}">
 			                              <div>
 			                                 <i class="fa fa-check"></i>
 			                              </div> ${item.challengeTitle} : ${i.challengeContent}
@@ -482,9 +507,9 @@ h4 {
 				                        </div>
 	                        		</c:if>
 	                        		<c:if test="${!i.check && i.challengeContent!=null}">
-	                        			<div>
-		                           		<input type="checkbox" id="checkChallenge${item.challengeNo}" value="${i.challengeContent}"/> <label
-			                              for="checkChallenge${item.challengeNo}">
+	                        			<div id="${item.challengeNo}">
+		                           		<input type="checkbox" id="checkChallengec${i.challengeContent}" value="checkChallengec${i.challengeContent}"/> <label
+			                              for="checkChallengec${i.challengeContent}">
 			                              <div>
 			                                 <i class="fa fa-check"></i>
 			                              </div> ${item.challengeTitle} : ${i.challengeContent}
@@ -494,7 +519,6 @@ h4 {
 	                        	</c:forEach>
 	                        </c:if>
                         </c:forEach>
-
                      </div>
                   </div>
                </td>

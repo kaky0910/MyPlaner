@@ -14,6 +14,7 @@ import org.junit.Test;
 import com.spring.plan.controller.ChallengeController;
 import com.spring.plan.model.vo.Challenge;
 import com.spring.plan.model.vo.Daily;
+import com.spring.plan.model.vo.Statics;
 
 public class SqlTest {
 	/*@Test
@@ -320,7 +321,7 @@ public class SqlTest {
 		System.out.println("출력 완료");
 	}*/
 	
-	@Test
+	/*@Test
 	public void getTodayEmotion() throws Exception {
 		Reader reader = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 
@@ -332,5 +333,21 @@ public class SqlTest {
 		daily.setMemberNo(7);
 		String result = sqlSession.selectOne("daily-mapper.getTodayEmotion", daily);
 		System.out.println(result);
+	}*/
+	@Test
+	public void emotionStat() throws Exception{
+		Reader reader = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
+		SqlSession sqlSession = factory.openSession();
+		
+		Daily daily = new Daily();
+		daily.setMemberNo(7);
+		daily.setDay("20181218");
+		
+		Statics stat = sqlSession.selectOne("daily-mapper.emotionStat",daily);
+		System.out.println(stat);
+		
 	}
+	
 }
