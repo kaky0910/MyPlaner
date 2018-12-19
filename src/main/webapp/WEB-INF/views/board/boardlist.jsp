@@ -53,8 +53,7 @@
 				<th width="15%">작성일</th>
 				<th width="10%">조회수</th>
 			</tr>
-			<!-- @@@@@이 부분 반드시 수정 @@@@-->
-			<c:forEach items="${lb}" var="board">
+			<c:forEach items="${boardList.list}" var="board">
 				<tr>
 					<td>${board.boardNo}</td>
 					<td><a href="show_content.do?boardNo=${board.boardNo}">${board.boardTitle}</a></td>
@@ -64,6 +63,32 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<!-- 페이징! -->
+					<c:set var="pb" value="${requestScope.boardList.pb}"></c:set>
+
+					<c:if test="${pb.previousPageGroup}">
+						<a href="boardlist.do?bpageNo=${pb.startPageOfPageGroup-1}">
+							← </a>
+					</c:if>
+
+
+
+					<c:forEach var="i" begin="${pb.startPageOfPageGroup}"
+						end="${pb.endPageOfPageGroup}">
+						<c:choose>
+							<c:when test="${pb.nowPage!=i}">
+								<a href="boardlist.do?bpageNo=${i}">${i}</a>
+							</c:when>
+							<c:otherwise>${i}</c:otherwise>
+						</c:choose>&nbsp;
+					</c:forEach>
+
+					<c:if test="${requestScope.boardList.pb.nextPageGroup}">
+						<a
+							href="boardlist.do?bpageNo=${requestScope.boardList.pb.endPageOfPageGroup+1}">
+							> </a>
+					</c:if>
+					
 		<p>
 			<tr>
 

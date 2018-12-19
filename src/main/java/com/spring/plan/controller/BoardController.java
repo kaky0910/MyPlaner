@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.plan.model.dao.BoardDao;
 import com.spring.plan.model.service.BoardService;
+import com.spring.plan.model.service.paging.BoardListVO;
 import com.spring.plan.model.vo.Board;
 import com.spring.plan.model.vo.BoardComment;
 import com.spring.plan.model.vo.Member;
@@ -70,10 +72,25 @@ public class BoardController {
 			}
 	
 	@RequestMapping("boardlist.do")
-	public ModelAndView getAllBoard()throws Exception {
-		List<Board> lb = boardService.getAllBoard();
-		System.out.println("lb+"+lb);
-		return new ModelAndView("board/boardlist","lb",lb);
+	public ModelAndView getAllBoard(HttpServletRequest request)throws Exception {
+		String bpageNo = request.getParameter("bpageNo");
+		Member member = (Member) request.getSession().getAttribute("member");
+		
+		System.out.println("¿Ó³Ä?????????????????????/");
+		BoardListVO boardList = null;
+		
+	
+		if(member!=null) {
+			if(bpageNo == null || bpageNo.equals(""))
+				bpageNo = "1";
+			boardList = boardService.getAllBoard(member.getMemberNo(), Integer.parseInt(bpageNo));
+			
+			System.out.println("getPb();  +++++ " + boardList.getPb());
+			System.out.println("getStartPageOfPageGroup();  +++++ " +boardList.getPb().getStartPageOfPageGroup());
+			System.out.println("end();" + boardList.getPb().getEndPageOfPageGroup());
+		}
+		
+		return new ModelAndView("board/boardlist","boardList",boardList);
 	}
 	
 	@RequestMapping("show_content.do")

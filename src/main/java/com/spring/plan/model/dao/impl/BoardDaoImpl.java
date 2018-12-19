@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.spring.plan.model.dao.BoardDao;
+import com.spring.plan.model.service.paging.BoardListVO;
 import com.spring.plan.model.vo.Board;
 import com.spring.plan.model.vo.BoardComment;
 
@@ -23,8 +24,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Board> getAllBoard() throws Exception {
-		return sqlsession.selectList("board-mapper.getAllBoard");
+	public List<Board> getAllBoard(BoardListVO listVO) throws Exception {
+		return sqlsession.selectList("board-mapper.getAllBoard", listVO);
 	}
 
 	@Override
@@ -60,5 +61,10 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public List<Board> getBoardByMemberNo(int memberNo) throws Exception {
 		return sqlsession.selectList("board-mapper.getBoardByMemberNo" , memberNo);
+	}
+
+	@Override
+	public int totalBoardNumber(int memberNo) throws Exception {
+		return sqlsession.selectOne("board-mapper.totalBoardNumber", memberNo);
 	}
 }

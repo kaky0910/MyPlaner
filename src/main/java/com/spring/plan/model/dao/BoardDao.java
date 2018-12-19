@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.spring.plan.model.service.paging.BoardListVO;
 import com.spring.plan.model.vo.Board;
 import com.spring.plan.model.vo.BoardComment;
 
@@ -13,7 +14,7 @@ public interface BoardDao {
 	Board getBoardByNo(int boardNo) throws Exception;			//
 	
 	// 게시판 전체 글 return (paging)
-	List<Board> getAllBoard() throws Exception;					//				
+	List<Board> getAllBoard(BoardListVO listVO) throws Exception;					//				
 	
 	// 게시판 제목 검색 (paging)
 	List<Board> getBoardByTitle(String title) throws Exception;	
@@ -35,4 +36,7 @@ public interface BoardDao {
 	
 	// 댓글삭제
 	int deleteBoardComment(BoardComment boardComment) throws Exception;
+	
+	//paging
+	int totalBoardNumber(int memberNo) throws Exception;
 }

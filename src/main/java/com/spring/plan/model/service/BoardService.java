@@ -2,16 +2,17 @@ package com.spring.plan.model.service;
 
 import java.util.List;
 
+import com.spring.plan.model.service.paging.BoardListVO;
 import com.spring.plan.model.vo.Board;
 import com.spring.plan.model.vo.BoardComment;
 
 public interface BoardService {
 
+	//paging
+	BoardListVO getAllBoard(int memberNo, int bpageNo) throws Exception;
+	
 	// board return
 	Board getBoardByNo(int boardNo) throws Exception;
-
-	// 게시판 전체 글 return (paging)
-	List<Board> getAllBoard() throws Exception;
 
 	// 게시판 제목 검색 (paging)
 	List<Board> getBoardByTitle(String title) throws Exception;

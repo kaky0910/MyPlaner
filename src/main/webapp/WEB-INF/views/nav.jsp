@@ -11,7 +11,7 @@
 				href="${path}/loadingDaily.do?memberNo=${sessionScope.member.memberNo}">메인페이지</a></b></li>
 
 		<li data-value="#E884B0"><a style="color:#EEE; text-decoration: none;" href="getAllChallengeList.do"><b>챌린지게시판</b></a></li>
-		<li data-value="#B27CD9"><a style="color:#EEE; text-decoration: none;" href="boardlist.do"><b>게시판</b></a></li>
+		<li data-value="#B27CD9"><a style="color:#EEE; text-decoration: none;" href="${path}/boardlist.do?bpageNo = ${requestScope.bpageNo}"><b>게시판</b></a></li>
 		<li data-value="#112F41"><a style="color:#EEE; text-decoration: none;" href="#" ><b>마이페이지</b></a></li>
 
 		<li data-value="#77C1F2"><a style="color:#EEE; text-decoration: none;" href="getMessageList.do?rpageNo=${requestScope.rpageNo }"><b>쪽지</b></a></li>

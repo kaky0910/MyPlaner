@@ -1,7 +1,7 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+   pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -12,13 +12,13 @@
 
 <head>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
+   href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+   integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+   crossorigin="anonymous">
 <link rel="stylesheet" href="${path}/css/challengeCard.css">
 <link rel="stylesheet" href="${path}/css/calendar.css">
 <link rel="stylesheet" href="${path}/css/emoticon.css">
@@ -26,13 +26,11 @@
 <link rel="stylesheet" href="${path}/css/switch.css">
 <link rel="stylesheet" href="${path}/css/memo.css">
 <link rel="stylesheet" href="${path}/css/carousel.css">
-<link
-	href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <!-- title -->
 <link href="https://fonts.googleapis.com/css?family=Bangers"
-	rel="stylesheet">
+   rel="stylesheet">
 <link rel="stylesheet" href="${path}/css/title.css">
 <script src="${path}/js/title.js"></script>
 <!-- title -->
@@ -40,50 +38,50 @@
 <!-- nav start-->
 <link rel="stylesheet" href="${path}/css/nav.css">
 <link rel="stylesheet/less" type="text/css"
-	href="${path}/less/style.less">
+   href="${path}/less/style.less">
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 <script src="${path}/js/nav.js"></script>
 
 <!-- nav end-->
 
 <link href="https://fonts.googleapis.com/css?family=Cute+Font"
-	rel="stylesheet">
+   rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo"
-	rel="stylesheet">
+   rel="stylesheet">
 <link
-	href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
+   href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+   rel="stylesheet">
 
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-	crossorigin="anonymous"></script>
+   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+   integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+   crossorigin="anonymous"></script>
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	crossorigin="anonymous"></script>
+   src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+   integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+   crossorigin="anonymous"></script>
 <script src="${path}/js/calendar.js"></script>
 <script src="${path}/js/moment.js"></script>
 <script src="${path}/js/glider.js"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+   src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 
 <style type="text/css">
 hr {
-	width: 100%;
+   width: 100%;
 }
 
 body {
-	background-color: #ECECEC;
-	font-family: 'Cute Font', cursive;
+   background-color: #ECECEC;
+   font-family: 'Cute Font', cursive;
 }
 
 a, h1, h2, label {
-	color: #001E36;
+   color: #001E36;
 }
 
 h4 {
-	color: #0F3347;
+   color: #0F3347;
 }
 </style>
 <script type="text/javascript">
@@ -109,26 +107,18 @@ h4 {
       //3. emotion 가져오기, 보내기
       $('#emotion_tbl td').click(function() {
          var emotion = $(this).children().attr('id');
-         
-        /*  $('#emotion_tbl td').addClass('clicked');
-         $('#'+emotion).parent().removeClass('clicked'); */
-         
-         //이거 위에꺼 기능 되니까 ajax랑 합쳐보세요%^^%
-         //밑에 넣어보시지!
-          alert(emotion);
          $.ajax({
             type : "get",
             url : "updateEmotion.do",
             data : {
-            	"emotion" : emotion,
-            	"memberNo" : ${sessionScope.member.memberNo}
+               "emotion" : emotion,
+               "memberNo" : ${sessionScope.member.memberNo}
             },
             success : function(data) {
                $('#emotion_tbl td').addClass('clicked');
                $('#' + emotion).parent().removeClass('clicked');
             }//callback
-         });//ajax  
-         
+         });//ajax 
       });//click
       //3
 
@@ -232,7 +222,7 @@ h4 {
             }
          });
             });
-   
+
 	   	 $('#weeklyHabit').click(function(){
 	  	  	alert($(this).position().left+"       "+$(this).position().top);
 			  	 window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
@@ -364,7 +354,6 @@ h4 {
 	    		}
 	    	});
 	    });
-	    
    }); //ready
 
   
@@ -372,14 +361,14 @@ h4 {
 
 </head>
 <body>
-	<div id="titleArea"
-		style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
-		<h1 class="titleRow skew-title">
-			<span>M</span><span class="last">Y</span> <span class="alt">P</span><span
-				class="alt">L</span><span class="alt">A</span><span class="alt last">N</span><span
-				class="alt">N</span><span class="alt">E</span><span class="alt">R</span>
-		</h1>
-	</div>
+   <div id="titleArea"
+      style="height: 70px; margin-top: 0px; margin-bottom: 0px;">
+      <h1 class="titleRow skew-title">
+         <span>M</span><span class="last">Y</span> <span class="alt">P</span><span
+            class="alt">L</span><span class="alt">A</span><span class="alt last">N</span><span
+            class="alt">N</span><span class="alt">E</span><span class="alt">R</span>
+      </h1>
+   </div>
 
    <div id="contents"
       style="float: left; width: 73%; margin-left: 10%; padding-right: 2%; margin-top: 25px; /* background-color: green;  */height: 100%">
@@ -463,24 +452,24 @@ h4 {
                         </h2>
                         <hr>
                         <c:forEach items="${daily.todaySchedule}" var="item" varStatus="i">
-                        	<div>
-                        		<c:if test="${item.check}">
-		                           <input type="checkbox" id="checkSchedule${item.scheduleNo}" checked="checked" /> 
-		                           <label for="checkSchedule${item.scheduleNo}">
-		                              <div>
-		                                 <i class="fa fa-check"></i>
-		                              </div> ${item.scheduleTitle}
-		                           </label>
-	                           </c:if>
-	                           <c:if test="${!item.check}">
-	                           		<input type="checkbox" id="checkSchedule${item.scheduleNo}"/> 
-		                           <label for="checkSchedule${item.scheduleNo}">
-		                              <div>
-		                                 <i class="fa fa-check"></i>
-		                              </div> ${item.scheduleTitle}
-		                           </label>
-	                           </c:if>
-	                        </div>
+                           <div>
+                              <c:if test="${item.check}">
+                                 <input type="checkbox" id="checkSchedule${item.scheduleNo}" checked="checked" /> 
+                                 <label for="checkSchedule${item.scheduleNo}">
+                                    <div>
+                                       <i class="fa fa-check"></i>
+                                    </div> ${item.scheduleTitle}
+                                 </label>
+                              </c:if>
+                              <c:if test="${!item.check}">
+                                    <input type="checkbox" id="checkSchedule${item.scheduleNo}"/> 
+                                 <label for="checkSchedule${item.scheduleNo}">
+                                    <div>
+                                       <i class="fa fa-check"></i>
+                                    </div> ${item.scheduleTitle}
+                                 </label>
+                              </c:if>
+                           </div>
                         </c:forEach>
                      </div>
                   </div></td>
@@ -550,237 +539,237 @@ h4 {
       </div>
       <!-- END section2 -->
 
-		<div id="section3" style="margin-top: 100px; height: 700px; width: 100%">
-			<img src="${path}/img/set.png" width="20px;"
-				style="float: right; cursor: pointer;" id="weeklyHabit">
-			<div class="row weeklyTrackerDiv" style="border: 1px solid #ECECEC">
-				<c:forEach items="${daily.weeklyCheckHabit}" var="item"
-					varStatus="h">
-					<table
-						style="border: 1px solid white; width: 300px; margin-left: 10px; margin-top: 30px; text-align: center; display: inline-block;">
-						<tr class="weeklyTracker">
-							<td style="width: 50%;" rowspan="2" style="width:50%;">
-								<div style="width: 0;heigth:0;">
-									<img alt="" src="${path}/img/trash.png" style="width: 12px;height: 12px; cursor: pointer;">
-								</div>
-								${item.habit}
-							</td>
-							<td style="width: 10px;"></td>
-							<td>일</td>
-							<td>월</td>
-							<td>화</td>
-							<td>수</td>
-							<td>목</td>
-							<td>금</td>
-							<td>토</td>
-						</tr>
-						<tr id="${item.habit}" height="25">
-							<td></td>
-							<c:forEach items="${item.habitCheck}" var="i" varStatus="d">
-								<c:choose>
-									<c:when test="${fn:contains(i, '0')}">
-										<td id="${h.index}${d.index}" class="tracker"
-											style="background: white; cursor: pointer; width: 20px;">
-									</c:when>
-									<c:otherwise>
-										<td id="${h.index}${d.index}" class="tracker"
-											style="cursor: pointer; background-color: red; width: 20px;">
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</tr>
-					</table>
-				</c:forEach>
-			</div>
-			<div class="row"
-				style=" height: 300px; margin-top: 100px">
-				<h1 id="sec3month" align="center"
-					style="margin-top: 20px; height: 50px;"></h1>
-				<table
-					style="border: 1px solid white; width: 100%;height : 200px; text-align: center; margin-top: 0;" id="monthlyTrackerTable">
-					<thead>
-						<tr>
-							<td></td>
-							<c:forEach begin="1" end="${daily.lastDate}" varStatus="s">
-								<td style="width: 2.5%"><h6>${s.count}</h6></td>
-							</c:forEach>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${daily.monthlyCheckHabit}" var="item"
-							varStatus="h">
-							<tr id="${item.habit}">
-								<td>${item.habit}</td>
-								<c:forEach items="${item.checkHabit}" var="i" varStatus="d">
-									<c:choose>
-										<c:when test="${fn:contains(i, '0')}">
-											<td id="m${h.index}${d.index}" style="background: white;">
-										</c:when>
-										<c:otherwise>
-											<td id="m${h.index}${d.index}" style="background-color:red">
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</div>
+      <div id="section3" style="margin-top: 100px; height: 700px; width: 100%">
+         <img src="${path}/img/set.png" width="20px;"
+            style="float: right; cursor: pointer;" id="weeklyHabit">
+         <div class="row weeklyTrackerDiv" style="border: 1px solid #ECECEC">
+            <c:forEach items="${daily.weeklyCheckHabit}" var="item"
+               varStatus="h">
+               <table
+                  style="border: 1px solid white; width: 300px; margin-left: 10px; margin-top: 30px; text-align: center; display: inline-block;">
+                  <tr class="weeklyTracker">
+                     <td style="width: 50%;" rowspan="2" style="width:50%;">
+                        <div style="width: 0;heigth:0;">
+                           <img alt="" src="${path}/img/trash.png" style="width: 12px;height: 12px; cursor: pointer;">
+                        </div>
+                        ${item.habit}
+                     </td>
+                     <td style="width: 10px;"></td>
+                     <td>일</td>
+                     <td>월</td>
+                     <td>화</td>
+                     <td>수</td>
+                     <td>목</td>
+                     <td>금</td>
+                     <td>토</td>
+                  </tr>
+                  <tr id="${item.habit}" height="25">
+                     <td></td>
+                     <c:forEach items="${item.habitCheck}" var="i" varStatus="d">
+                        <c:choose>
+                           <c:when test="${fn:contains(i, '0')}">
+                              <td id="${h.index}${d.index}" class="tracker"
+                                 style="background: white; cursor: pointer; width: 20px;">
+                           </c:when>
+                           <c:otherwise>
+                              <td id="${h.index}${d.index}" class="tracker"
+                                 style="cursor: pointer; background-color: red; width: 20px;">
+                           </c:otherwise>
+                        </c:choose>
+                     </c:forEach>
+                  </tr>
+               </table>
+            </c:forEach>
+         </div>
+         <div class="row"
+            style=" height: 300px; margin-top: 100px">
+            <h1 id="sec3month" align="center"
+               style="margin-top: 20px; height: 50px;"></h1>
+            <table
+               style="border: 1px solid white; width: 100%;height : 200px; text-align: center; margin-top: 0;" id="monthlyTrackerTable">
+               <thead>
+                  <tr>
+                     <td></td>
+                     <c:forEach begin="1" end="${daily.lastDate}" varStatus="s">
+                        <td style="width: 2.5%"><h6>${s.count}</h6></td>
+                     </c:forEach>
+                  </tr>
+               </thead>
+               <tbody>
+                  <c:forEach items="${daily.monthlyCheckHabit}" var="item"
+                     varStatus="h">
+                     <tr id="${item.habit}">
+                        <td>${item.habit}</td>
+                        <c:forEach items="${item.checkHabit}" var="i" varStatus="d">
+                           <c:choose>
+                              <c:when test="${fn:contains(i, '0')}">
+                                 <td id="m${h.index}${d.index}" style="background: white;">
+                              </c:when>
+                              <c:otherwise>
+                                 <td id="m${h.index}${d.index}" style="background-color:red">
+                              </c:otherwise>
+                           </c:choose>
+                        </c:forEach>
+                     </tr>
+                  </c:forEach>
+               </tbody>
+            </table>
+         </div>
+      </div>
 
 
-		<div id="section4"
-			style="height: 450px; /* background-color: blue; */ margin-top: 20px;">
+      <div id="section4"
+         style="height: 450px; /* background-color: blue; */ margin-top: 20px;">
 
-			<div class="demo">
-				<div data-name="Add/Remove Items" class="glider-contain multiple">
-					<div class="gradient-border-bottom">
-						<div class="gradient-border">
-							<div class="glider" id="glider-add"
-								style="width: 1160px; height: auto;">
-								<c:forEach var="challengeList" items="${daily.challengeList}">
-									<div class="challengeSection">
-										<div class="card">
-											<!-- Face 1 -->
-											<div class="card-face face-1">
-												<!-- Avatar -->
-												<div class="card-face__avatar">
-													<!-- User avatar -->
-													<img
-														src="https://image.flaticon.com/icons/svg/188/188241.svg"
-														width="110" height="110" draggable="false" />
-												</div>
-												<!-- Name -->
-												<h2 id="challengeTitle" class="card-face__name">
-													<a
-														href="detailChallenge.do?challengeNo=${challengeList.challengeNo}"><b>${challengeList.challengeTitle}</b></a>
-												</h2>
-												<!-- Title -->
-												<span class="card-face__title"><b>${challengeList.memberNo}</b></span>
-												<div class="challenge-content" style="font-size: 20px;">
-													<h4>
-														<b> STARTDATE : </b> <span id="startDate">${challengeList.challengeStartDate}</span>
-														<br> <b> ENDDATE : </b> <span id="endDate">${challengeList.challengeEndDate}</span>
-													</h4>
-													<b>Category : </b><label id="challengeCategory">
-														${challengeList.challengeCategory}</label><br> <b>Sharing
-														: </b><label id="challengeSharing">
-														${challengeList.challengeSharing}</label>
-													<hr>
-													<ul style="text-align: left">
-														<c:forEach var="challengeLogList"
-															items="${challengeList.challengeLogList}">
-															<li><b>Day ${challengeLogList.dayCount}</b>
-																${challengeLogList.challengeLogContent}
-														</c:forEach>
-													</ul>
-													<hr>
-													<em>${challengeList.challengeLikes}명</em>이 응원합니당.
-												</div>
-											</div>
-										</div>
-									</div>
-								</c:forEach>
-								<div id="newchallengeDiv" class="newchallengeDiv"
-									style="width: 290px; height: 500px">
-									<div class="card">
-										<img src="${path}/img/writeChallenge.png"
-											style="display: block; margin: auto; width: 50%; margin-top: 38%">
-										<br> <br>
-										<h3 align="center">새로운 도전을 해보세요!</h3>
-										<br>
-										<button id="newChallengeBtn">GO</button>
-									</div>
-								</div>
-
-
-
-							</div>
+         <div class="demo">
+            <div data-name="Add/Remove Items" class="glider-contain multiple">
+               <div class="gradient-border-bottom">
+                  <div class="gradient-border">
+                     <div class="glider" id="glider-add"
+                        style="width: 1160px; height: auto;">
+                        <c:forEach var="challengeList" items="${daily.challengeList}">
+                           <div class="challengeSection">
+                              <div class="card">
+                                 <!-- Face 1 -->
+                                 <div class="card-face face-1">
+                                    <!-- Avatar -->
+                                    <div class="card-face__avatar">
+                                       <!-- User avatar -->
+                                       <img
+                                          src="https://image.flaticon.com/icons/svg/188/188241.svg"
+                                          width="110" height="110" draggable="false" />
+                                    </div>
+                                    <!-- Name -->
+                                    <h2 id="challengeTitle" class="card-face__name">
+                                       <a
+                                          href="detailChallenge.do?challengeNo=${challengeList.challengeNo}"><b>${challengeList.challengeTitle}</b></a>
+                                    </h2>
+                                    <!-- Title -->
+                                    <span class="card-face__title"><b>${challengeList.memberNo}</b></span>
+                                    <div class="challenge-content" style="font-size: 20px;">
+                                       <h4>
+                                          <b> STARTDATE : </b> <span id="startDate">${challengeList.challengeStartDate}</span>
+                                          <br> <b> ENDDATE : </b> <span id="endDate">${challengeList.challengeEndDate}</span>
+                                       </h4>
+                                       <b>Category : </b><label id="challengeCategory">
+                                          ${challengeList.challengeCategory}</label><br> <b>Sharing
+                                          : </b><label id="challengeSharing">
+                                          ${challengeList.challengeSharing}</label>
+                                       <hr>
+                                       <ul style="text-align: left">
+                                          <c:forEach var="challengeLogList"
+                                             items="${challengeList.challengeLogList}">
+                                             <li><b>Day ${challengeLogList.dayCount}</b>
+                                                ${challengeLogList.challengeLogContent}
+                                          </c:forEach>
+                                       </ul>
+                                       <hr>
+                                       <em>${challengeList.challengeLikes}명</em>이 응원합니당.
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </c:forEach>
+                        <div id="newchallengeDiv" class="newchallengeDiv"
+                           style="width: 290px; height: 500px">
+                           <div class="card">
+                              <img src="${path}/img/writeChallenge.png"
+                                 style="display: block; margin: auto; width: 50%; margin-top: 38%">
+                              <br> <br>
+                              <h3 align="center">새로운 도전을 해보세요!</h3>
+                              <br>
+                              <button id="newChallengeBtn">GO</button>
+                           </div>
+                        </div>
 
 
 
-						</div>
-						<button role="button" aria-label="Previous" class="glider-prev"
-							id="glider-prev-add">
-							<i class="fa fa-chevron-left"></i>
-						</button>
-						<button role="button" aria-label="Next" class="glider-next"
-							id="glider-next-add">
-							<i class="fa fa-chevron-right"></i>
-						</button>
-						<div id="add-dots"></div>
-					</div>
-
-					<script>
-						window
-								.addEventListener(
-										'load',
-										function() {
-											var glider = new Glider(
-													document
-															.getElementById('glider-add'),
-													{
-														slidesToShow : 4,
-														duration : .6,
-														dots : '#add-dots',
-														arrows : {
-															prev : '#glider-prev-add',
-															next : '#glider-next-add'
-														}
-													});
-											document
-													.getElementById('addSlide')
-													.addEventListener(
-															'click',
-															function() {
-																var ele = document
-																		.getElementById(
-																				'challengeSection')
-																		.cloneNode(
-																				true);
-																ele.id = '';
-																ele
-																		.querySelector('h1').textContent = glider.slides.length + 1;
-																glider
-																		.addItem(ele);
-																try {
-																	ga(
-																			'send',
-																			'event',
-																			'Add/Remove Item',
-																			'Add')
-																} catch (ex) {
-																}
-															});
-											document
-													.getElementById(
-															'removeSlide')
-													.addEventListener(
-															'click',
-															function() {
-																glider
-																		.removeItem(glider.slides.length - 1);
-																try {
-																	ga(
-																			'send',
-																			'event',
-																			'Add/Remove Item',
-																			'Remove')
-																} catch (ex) {
-																}
-															});
-										});
-					</script>
+                     </div>
 
 
-				</div>
-			</div>
-			<!-- section4 -->
-		</div>
-		<!-- contents -->
 
-	</div>
-	<%@include file="nav.jsp"%>
+                  </div>
+                  <button role="button" aria-label="Previous" class="glider-prev"
+                     id="glider-prev-add">
+                     <i class="fa fa-chevron-left"></i>
+                  </button>
+                  <button role="button" aria-label="Next" class="glider-next"
+                     id="glider-next-add">
+                     <i class="fa fa-chevron-right"></i>
+                  </button>
+                  <div id="add-dots"></div>
+               </div>
+
+               <script>
+                  window
+                        .addEventListener(
+                              'load',
+                              function() {
+                                 var glider = new Glider(
+                                       document
+                                             .getElementById('glider-add'),
+                                       {
+                                          slidesToShow : 4,
+                                          duration : .6,
+                                          dots : '#add-dots',
+                                          arrows : {
+                                             prev : '#glider-prev-add',
+                                             next : '#glider-next-add'
+                                          }
+                                       });
+                                 document
+                                       .getElementById('addSlide')
+                                       .addEventListener(
+                                             'click',
+                                             function() {
+                                                var ele = document
+                                                      .getElementById(
+                                                            'challengeSection')
+                                                      .cloneNode(
+                                                            true);
+                                                ele.id = '';
+                                                ele
+                                                      .querySelector('h1').textContent = glider.slides.length + 1;
+                                                glider
+                                                      .addItem(ele);
+                                                try {
+                                                   ga(
+                                                         'send',
+                                                         'event',
+                                                         'Add/Remove Item',
+                                                         'Add')
+                                                } catch (ex) {
+                                                }
+                                             });
+                                 document
+                                       .getElementById(
+                                             'removeSlide')
+                                       .addEventListener(
+                                             'click',
+                                             function() {
+                                                glider
+                                                      .removeItem(glider.slides.length - 1);
+                                                try {
+                                                   ga(
+                                                         'send',
+                                                         'event',
+                                                         'Add/Remove Item',
+                                                         'Remove')
+                                                } catch (ex) {
+                                                }
+                                             });
+                              });
+               </script>
+
+
+            </div>
+         </div>
+         <!-- section4 -->
+      </div>
+      <!-- contents -->
+
+   </div>
+   <%@include file="nav.jsp"%>
 </body>
 <script type="text/javascript">
    
