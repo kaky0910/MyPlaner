@@ -3,7 +3,14 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="daily-mapper">														
-
+	<resultMap type="HashMap" id="ecmap">
+		<result javaType="java.lang.String" property="emotion" column="emotion"/>
+		<result javaType="java.lang.Integer" property="count" column="count"/>
+	</resultMap>
+	<resultMap type="Statics" id="EmotionResultMap">
+		<collection property="emotionCount" javaType="java.util.HashMap" resultMap="ecmap"/>
+	</resultMap>
+	
 	<insert id="insertDailyInfo" parameterType="Daily">
 		INSERT INTO daily_info(
 			member_no, day
@@ -49,6 +56,12 @@
 	
 	<select id="getMemo" parameterType="int" resultType="string">
 		SELECT memo FROM memo WHERE member_no = #{value}
+	</select>
+	
+	<select id="emotionStat" parameterType="Daily" resultMap="EmotionResultMap">
+		SELECT emotion,count(-1) AS count FROM daily_info
+		WHERE member_no = #{memberNo} AND TO_CHAR(day,'YYYY') = #{year}
+		GROUP BY emotion
 	</select>
 </mapper>
 

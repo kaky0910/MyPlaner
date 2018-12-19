@@ -11,7 +11,10 @@
 			<h1>내 정보</h1><br>
 			session 에서 가져와
 		</div>
-
+		
+		<div id="section2">			여기는 통계, 분석?
+			
+		</div>
 		<%@include file="nav.jsp"%>
 	
 </body>

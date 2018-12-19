@@ -81,6 +81,9 @@ public class Daily {				// 한 회원의 index page 정보들을 가지고 있음.
 	public void setHabitList(List<Habit> habitList) {
 		this.habitList = habitList;
 	}
+	public String getYear() {
+		return month.substring(0,4);
+	}
 	
 	public List<List<Integer>> getScheduleFormattedArray() {
 		List<Schedule> list = getScheduleList();

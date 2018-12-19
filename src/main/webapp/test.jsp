@@ -1,107 +1,73 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Calendar"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Planer</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/calendar.css">
 <style type="text/css">
-	
+ul, li, p { margin: 0; padding: 0; }
+.graph  { width: 90%; list-style: none; }
+.graph li   { position: relative; padding: 1px 0; white-space:nowrap; }
+.graph li span  { display: inline-block; position: relative; height: 20px; line-height: 20px; background: #eee; }
+.graph li em    { position: absolute; top: 0; right: -45px; font-family: arial; color: #000; }
 </style>
-<script src="${pageContext.request.contextPath}/js/moment.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/calendar.js"></script>
+
+ </head>
+ <body>
+
+ <h1>애니메이션 수평 막대 그래프</h1>
+ <ul id="g1" class="graph">
+  <li>0 : <span style="width: 0%"><em>0%</em></span></li>
+        <li>1 : <span style="width: 20%"><em>20%</em></span></li>
+        <li>2 : <span style="width: 40%"><em>40%</em></span></li>
+        <li>3 : <span style="width: 60%"><em>60%</em></span></li>
+        <li>4 : <span style="width: 80%"><em>80%</em></span></li>
+        <li>5 : <span style="width: 100%"><em>100%</em></span></li>
+    </ul>
+
+    <hr />
+
+    <ul id="g2" class="graph">
+        <li><span style="width: 50%"><em>50%</em></span></li>
+        <li><span style="width: 5%"><em>5%</em></span></li>
+        <li><span style="width: 60%"><em>60%</em></span></li>
+        <li><span style="width: 70%"><em>70%</em></span></li>
+        <li><span style="width: 99%"><em>99%</em></span></li>
+    </ul>
+
 <script type="text/javascript">
-var monthCount = moment().month();
-var yearCount = moment().year();
+drawGraph(document.getElementById("g1"));
+drawGraph(document.getElementById("g2"));
 
-	$(function() {
-		var arr = [ [ 1, 3 ], [ 3, 7 ], [ 3, 4 ], [ 6, 8 ], [ 10, 13 ],
-				[ 20, 28 ] ]; //challenge (시작일, 마지막일) format으로 arr로 입력
-		new Promise(function(resolve, reject) {
-			calendarInit(yearCount, monthCount);
-			resolve(arr);
-		}).then(setChallenge1(arr)).then(setChallenge2(arr)).then(
-				setChallenge3(arr));
-		//alert(moment().format());
+function drawGraph(obj) {
+    this.gages = obj.getElementsByTagName("span");
+    this.values = obj.getElementsByTagName("em");
 
-		var geo = navigator.geolocation;
-		var lon;
-		var lat;
-		geo.getCurrentPosition(function(position) {
-			lon = position.coords.longitude;
-			lat = position.coords.latitude;
-			$.ajax({
-				method : "get",
-				url : 'http://api.openweathermap.org/data/2.5/weather?lat='
-						+ lat + '&lon=' + lon
-						+ '&&appid=8bc6e9cc3e1a41d04319bd97ea0e0214',
-				success : function(data) {
-					$('#weather').append(data.weather[0].main);
-				}
-			});
-		});
-		$.ajax({
-			method : 'get',
-			url : 'searchResult.do',
-			data : {"word" : "메롱"},
-			dataType : 'json',
-			success : function(data){
-				var d = JSON.parse(data.result);
-				alert(d.items[0].title);
-				$('#search div').each(function(index){
-					$(this).html('<h4>'+d.items[index].title+'</h4><p>'+d.items[index].description+'</p>');
-				});
-			}
-		})
-	});
-</script>
+    for(var i = 0; i < this.gages.length; i ++) {
+        (function(idx) {
+            var current_value = 0;
+            var gage_object = this.gages[idx]; 
+            var gage_value = this.values[idx];
+            var gage_width = parseInt(gage_object.style.width);
+            var timer = null;
 
-</head>
-<body>
+            timer = setInterval(function() {
+                if(current_value < gage_width) {
+                    current_value += Math.ceil((gage_width - current_value) / 15);
+                    gage_object.style.width = current_value + "%";
+                    gage_value.innerHTML = current_value + "%";
+                } else {
+                    clearInterval(timer);
+                }
+            }, 100);
+        })(i);
+    }
+}
+</script> 
 
-	<h1>index</h1>
-	${data}
-	<br>
-	<div></div>
-
-	<div id="section1">
-		<div id="weather"></div>
-		<div class="calendar" id="calendar" style="width:50%; display: inline-block;">
-		<a href="javascript:prev()">이전</a>
-			<p id="title_monthdate" style="display: inline-block;"></p><a href="javascript:next()">이후</a>
-			<div class="calendar__header">
-				<div>SUN</div>
-				<div>MON</div>
-				<div>TUE</div>
-				<div>WED</div>
-				<div>THU</div>
-				<div>FRI</div>
-				<div>SAT</div>
-			</div>
-			<div class="calendar__week"></div>
-			<div class="calendar__week"></div>
-			<div class="calendar__week"></div>
-			<div class="calendar__week"></div>
-			<div class="calendar__week"></div>
-		</div>
-		<div style="width:20%; border: 1px black double; display: inline-block; margin-top:140px; margin-left: 60px;" id="search">
-			<h2>Date</h2>
-			<h4>tag</h4>
-			<div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height:100px; overflow: hidden;"></div>
-			<div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height:100px; overflow: hidden;"></div>
-			<div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height:100px; overflow: hidden;"></div>
-			<div style="border-bottom: 4px solid gray; border-top: 4px solid gray; height:100px; overflow: hidden;"></div>
-		</div>
-		<div id="search" style="float: left; width: 20%"></div>
-	</div>
-
-
-
-</body>
-</html>
+ </body>
+</html> 

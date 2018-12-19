@@ -222,126 +222,138 @@ h4 {
             }
          });
             });
-   
-          $('#weeklyHabit').click(function(){
-             alert($(this).position().left+"       "+$(this).position().top);
-               window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
-          });
-       
-        $('.calendar__day').hover(function(){
-             var selector = $(this);
-             if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
-             $.ajax({
-                url : "getScheduleByDay.do",
-                data : {
-                   month : yearCount+""+m,
-                   d : $(this).attr('id')
-                },
-                success : function(data){
-                   if(data.json!= ""){
-                      importSchedule(data.json,selector);
-                      if(data.json[0].scheduleTag!=''){
-                         $.ajax({
-                               method : 'get',
-                               url : 'searchResult.do',
-                               data : {
-                                  "word" : data.json[0].scheduleTag
-                               },
-                               dataType : 'json',
-                               success : function(r) {
-                                  var d = JSON.parse(r.result);
-                                  $('#search h4').html('#'+data.json[0].scheduleTag);
-                                  $('#search div').each(
-                                        function(index) {
-                                           $(this).html(
-                                                 '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
-                                                       + d.items[index].description
-                                                       + '</p>');
-                                        });
-                               }
-                            });
-                      }else{
-                         $.ajax({
-                               method : 'get',
-                               url : 'searchResult.do',
-                               data : {
-                                  "word" : data.json[0].scheduleCategory
-                               },
-                               dataType : 'json',
-                               success : function(r) {
-                                  var d = JSON.parse(r.result);
-                                  $('#search h4').html('#'+data.json[0].scheduleTag);
-                                  $('#search div').each(
-                                        function(index) {
-                                           $(this).html(
-                                                 '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
-                                                       + d.items[index].description
-                                                       + '</p>');
-                                        });
-                               }      ///success
-                            });   ///ajax
-                      }//else
-                   }////    if data.json!=''
-                }///success
-             });//    ajax
-             
-             TweenMax.to(this, 0.5, {scale:3});
-             $(this).css('z-index','100');
-             $(this).find('hr').css('display','none');
-          }
-       },function(){
-          $(this).find('br').remove();
-          $(this).find('h6').remove();
-          if($(this).attr('id')!=null){
-             TweenMax.to(this, 0.5, {scale:1});
-             $(this).css('z-index','0');
-             $(this).find('hr').css('display','block');
-          }
-       });
-       
-       $('input[type=checkbox]').change(function(){
-          if($(this).attr('id').indexOf('Challenge')!=-1){
-             if($(this).attr('id').substring(14,15)!="c"){
-                $.ajax({
-                   url : $(this).attr('id')+'.do',
-                   data : {
-                      "challengeNo" : $(this).attr('id').substring(14),
-                      "challengeContent" : $(this).attr('value')
-                   },
-                   success : function(data){
-                   }
-                });
-             }else{
-                $.ajax({
-                   url : $(this).attr('id')+'.do',
-                   data : {
-                      "challengeNo" : $(this).parent().attr('id'),
-                      "challengeContent" : $(this).attr('value').substring(15)
-                   },
-                   success : function(data){
-                   }
-                });   
-             }
-          }else{
-             $.ajax({
-                url : $(this).attr('id')+'.do',
-                data : {
-                   "scheduleNo" : $(this).attr('id').substring(13)
-                },
-                success : function(data){
-                }
-             });
-          }
-       });
-       $('#scheduleSetting').click(function(){
-           window.open("","SETTING","width=300,height=300,top="+($(this).position().top)+",left="+$(this).position().left);
-       });
-       
-       var emotion = '${daily.emotion}';
-       $('#emotion_tbl img').each(function(){
-          if($(this).attr('id')!=emotion)
-             $(this).addClass('clicked');
-       });
+
+	   	 $('#weeklyHabit').click(function(){
+	  	  	alert($(this).position().left+"       "+$(this).position().top);
+			  	 window.open("","SETTING","width=400,height=500,top="+($(this).position().top-500)+",left="+$(this).position().left);
+	   	 });
+	    
+	     $('.calendar__day').hover(function(){
+	   	 	var selector = $(this);
+	 	   	if($(this).attr('id')!=null && ($(this).hasClass('c1')||$(this).hasClass('c2')||$(this).hasClass('c3'))){
+	    		$.ajax({
+	    			url : "getScheduleByDay.do",
+	    			data : {
+	    				month : yearCount+""+m,
+	    				d : $(this).attr('id')
+	    			},
+	    			success : function(data){
+	    				if(data.json!= ""){
+	    					importSchedule(data.json,selector);
+	    					if(data.json[0].scheduleTag!=''){
+			    				$.ajax({
+			    			         method : 'get',
+			    			         url : 'searchResult.do',
+			    			         data : {
+			    			            "word" : data.json[0].scheduleTag
+			    			         },
+			    			         dataType : 'json',
+			    			         success : function(r) {
+			    			            var d = JSON.parse(r.result);
+			    			            $('#search h4').html('#'+data.json[0].scheduleTag);
+			    			            $('#search div').each(
+			    			                  function(index) {
+			    			                     $(this).html(
+			    			                           '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
+			    			                                 + d.items[index].description
+			    			                                 + '</p>');
+			    			                  });
+			    			         }
+			    			      });
+	    					}else{
+	    						$.ajax({
+			    			         method : 'get',
+			    			         url : 'searchResult.do',
+			    			         data : {
+			    			            "word" : data.json[0].scheduleCategory
+			    			         },
+			    			         dataType : 'json',
+			    			         success : function(r) {
+			    			            var d = JSON.parse(r.result);
+			    			            $('#search h4').html('#'+data.json[0].scheduleTag);
+			    			            $('#search div').each(
+			    			                  function(index) {
+			    			                     $(this).html(
+			    			                           '<h4><a href="'+d.items[index].link+'">' + d.items[index].title + '</a></h4><p>'
+			    			                                 + d.items[index].description
+			    			                                 + '</p>');
+			    			                  });
+			    			         }		///success
+			    			      });	///ajax
+	    					}//else
+	    				}////    if data.json!=''
+	    			}///success
+	    		});//    ajax
+	    		
+		    	TweenMax.to(this, 0.5, {scale:3});
+		    	$(this).css('z-index','100');
+		    	$(this).find('hr').css('display','none');
+	    	}
+	    },function(){
+	    	$(this).find('br').remove();
+	    	$(this).find('h6').remove();
+	    	if($(this).attr('id')!=null){
+		    	TweenMax.to(this, 0.5, {scale:1});
+		    	$(this).css('z-index','0');
+		    	$(this).find('hr').css('display','block');
+	    	}
+	    });
+	    
+	    $('input[type=checkbox]').change(function(){
+	    	if($(this).attr('id').indexOf('Challenge')!=-1){
+	    		if($(this).attr('id').substring(14,15)!="c"){
+		    		$.ajax({
+			    		url : $(this).attr('id')+'.do',
+			    		data : {
+			    			"challengeNo" : $(this).attr('id').substring(14),
+			    			"challengeContent" : $(this).attr('value')
+			    		},
+			    		success : function(data){
+			    		}
+			    	});
+	    		}else{
+	    			$.ajax({
+			    		url : $(this).attr('id')+'.do',
+			    		data : {
+			    			"challengeNo" : $(this).parent().attr('id'),
+			    			"challengeContent" : $(this).attr('value').substring(15)
+			    		},
+			    		success : function(data){
+			    		}
+			    	});	
+	    		}
+	    	}else{
+		    	$.ajax({
+		    		url : $(this).attr('id')+'.do',
+		    		data : {
+		    			"scheduleNo" : $(this).attr('id').substring(13)
+		    		},
+		    		success : function(data){
+		    		}
+		    	});
+	    	}
+	    });
+	    $('#scheduleSetting').click(function(){
+	    	 window.open("","SETTING","width=300,height=300,top="+($(this).position().top)+",left="+$(this).position().left);
+	    });
+	    
+	    var emotion = '${daily.emotion}';
+	    $('#emotion_tbl img').each(function(){
+	    	if($(this).attr('id')!=emotion)
+	    		$(this).addClass('clicked');
+	    });
+	    
+	    $('#paper textarea').focusout(function(){
+	    	$.ajax({
+	    		url:"updateMemo.do",
+	    		data : {
+	    			"memo" : $(this).val()
+	    		},
+	    		success : function(){
+	    			alert("success~");
+	    		}
+	    	});
+	    });
    }); //ready
 
   
@@ -471,40 +483,40 @@ h4 {
                         </h2>
                         <hr>
                         <c:forEach items="${daily.todayChallenge}" var="item">
-                           <c:if test="${item.challengeContentSize==0}">
-                              <div id="${item.challengeNo}">
-                                 <input type="checkbox" id="checkChallenge${item.challengeNo}" value="challenge${item.challengeNo}"/> <label
-                                    for="checkChallenge${item.challengeNo}">
-                                    <div>
-                                       <i class="fa fa-check"></i>
-                                    </div> ${item.challengeTitle}
-                                 </label>
-                              </div>
-                           </c:if>
-                           <c:if test="${item.challengeContentSize!=0}">
-                              <c:forEach items="${item.challengeContentList}" var="i">
-                                 <c:if test="${i.check && i.challengeContent!=null}">
-                                    <div id="${item.challengeNo}">
-                                       <input type="checkbox" id="checkChallengec${i.challengeContent}" value="checkChallengec${i.challengeContent}" checked="checked"/> <label
-                                       for="checkChallengec${i.challengeContent}">
-                                       <div>
-                                          <i class="fa fa-check"></i>
-                                       </div> ${item.challengeTitle} : ${i.challengeContent}
-                                       </label>
-                                    </div>
-                                 </c:if>
-                                 <c:if test="${!i.check && i.challengeContent!=null}">
-                                    <div id="${item.challengeNo}">
-                                       <input type="checkbox" id="checkChallengec${i.challengeContent}" value="checkChallengec${i.challengeContent}"/> <label
-                                       for="checkChallengec${i.challengeContent}">
-                                       <div>
-                                          <i class="fa fa-check"></i>
-                                       </div> ${item.challengeTitle} : ${i.challengeContent}
-                                       </label>
-                                    </div>
-                                 </c:if>
-                              </c:forEach>
-                           </c:if>
+                        	<c:if test="${item.challengeContentSize==0}">
+	                        	<div id="${item.challengeNo}">
+		                           <input type="checkbox" id="checkChallenge${item.challengeNo}" value="challenge${item.challengeNo}"/> <label
+		                              for="checkChallenge${item.challengeNo}">
+		                              <div>
+		                                 <i class="fa fa-check"></i>
+		                              </div> ${item.challengeTitle}
+		                           </label>
+		                        </div>
+	                        </c:if>
+	                        <c:if test="${item.challengeContentSize!=0}">
+	                        	<c:forEach items="${item.challengeContentList}" var="i">
+	                        		<c:if test="${i.check && i.challengeContent!=null}">
+	                        			<div id="${item.challengeNo}">
+		                           		<input type="checkbox" id="checkChallengec${i.challengeContent}" value="checkChallengec${i.challengeContent}" checked="checked"/> <label
+			                              for="checkChallengec${i.challengeContent}">
+			                              <div>
+			                                 <i class="fa fa-check"></i>
+			                              </div> ${item.challengeTitle} : ${i.challengeContent}
+			                              </label>
+				                        </div>
+	                        		</c:if>
+	                        		<c:if test="${!i.check && i.challengeContent!=null}">
+	                        			<div id="${item.challengeNo}">
+		                           		<input type="checkbox" id="checkChallengec${i.challengeContent}" value="checkChallengec${i.challengeContent}"/> <label
+			                              for="checkChallengec${i.challengeContent}">
+			                              <div>
+			                                 <i class="fa fa-check"></i>
+			                              </div> ${item.challengeTitle} : ${i.challengeContent}
+				                           </label>
+				                        </div>
+	                        		</c:if>
+	                        	</c:forEach>
+	                        </c:if>
                         </c:forEach>
                      </div>
                   </div>
